@@ -1,0 +1,138 @@
+/* -- ESTILOS BÁSICOS PARA LA BARRA DE NAVEGACIÓN -- */
+.barra-navegacion {
+    /* 1. Usar Flexbox para alinear elementos */
+    display: flex;
+    /* 2. Distribuir el espacio entre el logo y los links */
+    justify-content: space-between;
+    /* 3. Alinear verticalmente los elementos al centro */
+    align-items: center;
+
+    /* Estilos de fondo y padding (ejemplo) */
+    background-color: #fce4ec; /* Color rosa claro, como tu marca */
+    padding: 10px 20px;
+}
+
+/* -- ESTILOS PARA LA IMAGEN DEL LOGO -- */
+.logo {
+    /* 1. Define un tamaño fijo para que no sea muy grande */
+    height: 50px; /* Ajusta este valor según el tamaño deseado */
+    width: auto;
+    /* 2. Pequeño margen a la derecha para separar del texto (si lo hay) */
+    margin-right: 20px;
+}
+
+/* -- ESTILOS PARA LOS LINKS (Opcional, pero recomendado) -- */
+.menu-principal {
+    list-style: none; /* Quitar viñetas */
+    display: flex; /* Poner los links uno al lado del otro */
+    margin: 0;
+    padding: 0;
+}
+
+.menu-principal li a {
+    text-decoration: none;
+    color: #880e4f; /* Un color oscuro para el texto */
+    padding: 10px 15px;
+    display: block;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    background-color: #FFFDF9;
+    color: #5a3e36;
+}
+
+header {
+    background-color: #F2CAEF;
+    text-align: center;
+    padding: 20px;
+    color: #D3183D;
+}
+
+header h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+.caja {
+  width: 100%;
+  height: auto;
+  background-image: url("hola/logo_2.jpeg");
+  background-size: cover; /* ajusta la imagen al tamaño */
+  background-position: center; /* centra la imagen */
+  background-repeat: no-repeat; /* evita que se repita */
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline-block;
+    margin: 0 10px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #5a3e36;
+    font-weight: bold;
+}
+
+section {
+    padding: 50px 20px;
+    text-align: center;
+}
+
+h2 {
+    color: #C99D71;
+}
+
+.imagen-principal {
+    width: 80%;
+    max-width: 600px;
+    border-radius: 15px;
+    margin-top: 20px;
+}
+
+.galeria-sabores {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 25px;
+    margin-top: 30px;
+}
+
+.galeria-sabores article {
+    background-color: #B5EFCC;
+    border-radius: 10px;
+    width: 200px;
+    padding: 15px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+}
+
+.galeria-sabores img {
+    width: 100%;
+    border-radius: 8px;
+}
+
+button {
+    background-color: #D3183D;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #C99D71;
+}
+
+footer {
+    background-color: #FCEA85;
+    color: #5a3e36;
+    text-align: center;
+    padding: 15px;
+}

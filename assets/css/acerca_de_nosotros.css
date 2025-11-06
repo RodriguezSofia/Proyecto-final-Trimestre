@@ -1,0 +1,74 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    background-color: #FFFDF9;
+    color: #5a3e36;
+}
+
+header {
+    background-color: #F2CAEF;
+    text-align: center;
+    padding: 20px;
+    color: #D3183D;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline-block;
+    margin: 0 10px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #5a3e36;
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+nav a:hover {
+    background-color: #FCEA85;
+}
+
+nav a.activo {
+    background-color: #B5EFCC;
+    color: #D3183D;
+}
+
+/* Sección Acerca */
+#acerca {
+    text-align: center;
+    padding: 60px 20px;
+}
+
+#acerca h2 {
+    color: #C99D71;
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+#acerca p {
+    max-width: 700px;
+    margin: 15px auto;
+    font-size: 1.1em;
+    line-height: 1.6;
+}
+
+.imagen-equipo {
+    width: 80%;
+    max-width: 600px;
+    border-radius: 15px;
+    margin-top: 30px;
+}
+
+/* Pie */
+footer {
+    background-color: #FCEA85;
+    text-align: center;
+    padding: 15px;
+    color: #5a3e36;
+}
