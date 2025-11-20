@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos</title>
+    <link rel="stylesheet" href="productos.css">
+</head>
+<body>
+
+    <h1>Gestión de productos</h1>
+
+    <!-- Tarjetas superiores -->
+    <div class="cards">
+        <div class="card">
+            <h3>Productos activos</h3>
+            <p>5</p>
+        </div>
+        <div class="card">
+            <h3>Pedidos hoy</h3>
+            <p>12</p>
+        </div>
+        <div class="card">
+            <h3>Ingresos estimados</h3>
+            <p>$320.000</p>
+        </div>
+    </div>
+
+    <div class="contenedor-principal">
+
+        <!-- Tabla -->
+        <div class="tabla-contenedor">
+            <h2>Lista de sabores</h2>
+            <table>
+                <thead>
+                    <tr>
+                        
+                        <th>Nombre</th>
+                        <th>Precio</th>
+                        <th>Stock</th>
+                        <th>Categoría</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        
+                        <td>Vainilla</td>
+                        <td>$4.500</td>
+                        <td>20</td>
+                        <td>Clásico</td>
+                        <td>
+                            <button class="editar">Editar</button>
+                            <button class="eliminar">Eliminar</button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        
+                        <td>Chocolate</td>
+                        <td>$4.800</td>
+                        <td>15</td>
+                        <td>Clásico</td>
+                        <td>
+                            <button class="editar">Editar</button>
+                            <button class="eliminar">Eliminar</button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Fresa</td>
+                        <td>$4.700</td>
+                        <td>8</td>
+                        <td>Premium</td>
+                        <td>
+                            <button class="editar">Editar</button>
+                            <button class="eliminar">Eliminar</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Formulario lateral -->
+        <div class="formulario">
+            <h3>Añadir producto</h3>
+
+            <label>Nombre</label>
+            <input type="text">
+
+            <label>Precio (COP)</label>
+            <input type="number">
+
+            <label>Stock</label>
+            <input type="number">
+
+            <label>Categoría</label>
+            <select>
+                <option>Clásico</option>
+                <option>Premium</option>
+                <option>Vegano</option>
+            </select>
+
+
+
+            <button class="agregar">Agregar producto</button>
+        </div>
+
+    </div>
+<script>
+    const btnAgregar = document.querySelector(".agregar");
+
+    btnAgregar.addEventListener("click", (e) => {
+        e.preventDefault(); // evita que la página se recargue
+
+        const nombre = document.getElementById("nombre").value;
+        const precio = document.getElementById("precio").value;
+        const stock = document.getElementById("stock").value;
+        const categoria = document.getElementById("categoria").value;
+
+        if (!nombre || !precio || !stock) {
+            alert("Por favor completa todos los campos");
+            return;
+        }
+
+        const tabla = document.querySelector("tbody");
+
+        const fila = document.createElement("tr");
+        fila.innerHTML = `
+            <td><img src="${imagen}" class="img-producto"></td>
+            <td>${nombre}</td>
+            <td>$${precio}</td>
+            <td>${stock}</td>
+            <td>${categoria}</td>
+            <td>
+                <button class="editar">Editar</button>
+                <button class="eliminar">Eliminar</button>
+            </td>
+        `;
+
+        tabla.appendChild(fila);
+
+        // limpiar campos
+        document.getElementById("nombre").value = "";
+        document.getElementById("precio").value = "";
+        document.getElementById("stock").value = "";
+        document.getElementById("categoria").value = "Clásico";
+    });
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,54 @@
+/* Fondo rosado suave */
+body {
+    font-family: Arial, sans-serif;
+    background: #fde6f0;
+    padding: 20px;
+}
+
+/* Título rosado fuerte */
+h2 {
+    color: #c2185b;
+}
+
+/* Tabla rosada */
+.tabla-clientes {
+    width: 70%;
+    margin: 0 auto;
+    border-collapse: separate;
+    border-spacing: 0 15px;
+}
+
+.tabla-clientes th {
+    background: #f8bbd0;
+    color: #880e4f;
+    padding: 15px;
+    font-size: 17px;
+    border-radius: 8px 8px 0 0;
+}
+
+.tabla-clientes td {
+    background: #ffffff;
+    color: #5f0d31;
+    padding: 15px;
+    border: 2px solid #f5bfd3;
+    border-radius: 6px;
+}
+
+/* Hover rosado */
+.tabla-clientes tr:hover td {
+    background: #ffe1ee;
+}
+
+/* Botón rosado más oscuro */
+.btn-pink-dark {
+    background-color: #ad1457; /* ROSADO OSCURO */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 6px;
+}
+
+.btn-pink-dark:hover {
+    background-color: #880e4f; /* MÁS OSCURO AL PASAR */
+}
