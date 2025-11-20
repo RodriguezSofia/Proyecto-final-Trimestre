@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>contacto</title>
+</head>
+<body>
+    <div class="container">
+
+        <h1>contacto</h1>
+        <p>Por favor, complete el formulario a continuación para ponerse en contacto con nosotros.</p>
+        <!--formulario-->
+        <h2>Formulario de contactos</h2>
+        <div id="mensajeDiv" class="message"></div>
+        <form id="contactForm">
+            <label for="nombre">Nombre</label>
+            <input type="text" id="nombre" name="nombre" required>
+
+            <label for="correo">Correo</label>
+            <input type="email" id="correo" name="correo" required>
+
+            <label for="mensaje">Mensaje</label>
+            <textarea id="mensaje" name="mensaje" required></textarea>
+
+            <button type="submit">Enviar</button>
+        </form>
+    </div>
+
+    <script>
+    // Captura el envío del formulario
+    document.getElementById('contactForm').addEventListener('submit', async function (e) {
+        e.preventDefault();
+
+        // Obtiene los datos del formulario
+        const formData = {
+            nombre: document.getElementById('nombre').value,
+            correo: document.getElementById('correo').value,
+            mensaje: document.getElementById('mensaje').value
+        };
+
+        try {
+            // Envío al servidor Flask
+            const response = await fetch('/contactos', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData)
+            });
+
+            const result = await response.json();
+            const mensajeDiv = document.getElementById('mensajeDiv');
+
+            if (response.ok) {
+                mensajeDiv.className = 'message success';
+                mensajeDiv.textContent = result.mensaje;
+                mensajeDiv.style.display = 'block';
+                document.getElementById('contactForm').reset();
+            } else {
+                mensajeDiv.className = 'message error';
+                mensajeDiv.textContent = result.error;
+                mensajeDiv.style.display = 'block';
+            }
+
+            // Oculta el mensaje luego de 5 segundos
+            setTimeout(() => {
+                mensajeDiv.style.display = 'none';
+            }, 5000);
+
+        } catch (error) {
+            const mensajeDiv = document.getElementById('mensajeDiv');
+            mensajeDiv.className = 'message error';
+            mensajeDiv.textContent = '❌ Error de conexión con el servidor.';
+            mensajeDiv.style.display = 'block';
+        }
+    });
+    </script>
+</body>
+</html>

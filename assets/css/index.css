@@ -8,8 +8,45 @@
     align-items: center;
 
     /* Estilos de fondo y padding (ejemplo) */
-    background-color: #fce4ec; /* Color rosa claro, como tu marca */
+    background-color: #ffffff; /* Color rosa claro, como tu marca */
     padding: 10px 20px;
+
+}
+
+/* === Encabezado === */
+header {
+    background-color: #F2CAEF;
+    text-align: center;
+    padding: 20px;
+    color: #D3183D;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+nav ul li {
+    display: inline-block;
+    margin: 0 10px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #5a3e36;
+    font-weight: bold;
+    padding: 6px 12px;
+    border-radius: 6px;
+}
+
+nav a:hover {
+    background-color: #FCEA85;
+}
+
+nav a.activo {
+    background-color: #B5EFCC;
+    color: #D3183D;
 }
 
 /* -- ESTILOS PARA LA IMAGEN DEL LOGO -- */

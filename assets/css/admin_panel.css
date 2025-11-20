@@ -1,0 +1,87 @@
+body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: #fff3f8;
+        }
+
+        /* Encabezado pastel estilo Annia */
+        header {
+            background: linear-gradient(90deg, #f8c8e8, #f5b0d6);
+            padding: 18px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        header img {
+            height: 55px;
+        }
+
+        header h1 {
+            margin: 0;
+            color: #b51773;
+            font-weight: 700;
+            font-size: 26px;
+        }
+
+        /* Menú lateral */
+        .sidebar {
+            width: 240px;
+            background: #ffd7ef;
+            height: 100vh;
+            padding: 25px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            margin-top: 93px;
+            border-right: 2px solid #f3b2d7;
+        }
+
+        .sidebar h3 {
+            color: #b51773;
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+
+        .sidebar a {
+            display: block;
+            padding: 10px;
+            margin-bottom: 10px;
+            text-decoration: none;
+            color: #7a2c63;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: 0.2s;
+        }
+
+        .sidebar a:hover {
+            background: #f3b3db;
+        }
+
+        /* Contenido principal */
+        .main {
+            margin-left: 260px;
+            padding: 40px;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            text-align: center;
+            font-size: 18px;
+            font-weight: 600;
+            color: #7a2c63;
+            transition: 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }

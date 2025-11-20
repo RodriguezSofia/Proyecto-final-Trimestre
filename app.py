@@ -1,83 +1,88 @@
-from flask import Flask, request, jsonify, send_file
+from flask import Flask, request, jsonify, render_template, redirect, url_for, session
 import psycopg2
 from psycopg2.extras import RealDictCursor
-import os #permite que el progrma trabaje con archivos del sistema operativo
-import datetime
-
-#configuracion de la aplicacion
+import bcrypt
+import os
 
 app = Flask(__name__)
+app.secret_key = os.environ.get('SECRET_KEY', 'Dulce_manjar')
 
 DB_CONFIG = {
-    'host': 'localhost',
-    'database': 'Heladeria',
-    'user': 'postgres',
-    'password': '123456',
-    'port': 5432,
-    
+    'host': os.environ.get('DB_HOST', 'localhost'),
+    'database': os.environ.get('DB_NAME', 'heladeria'),
+    'user': os.environ.get('DB_USER', 'postgres'),
+    'password': os.environ.get('DB_PASSWORD', '123456'),
+    'port': 5432
 }
-#funcion para conectar la base de datos
+
+
+
 def conectar_bd():
     try:
-        conexion = psycopg2.connect(**DB_CONFIG)
-        return conexion
+        return psycopg2.connect(**DB_CONFIG)
     except psycopg2.Error as e:
-        print(f"Error al conectar a la base de datos a postgres: {e}")
+        print(f"Error al conectar a la base de datos: {e}")
         return None
 
-#pagina principal index.html
-@app.route('/')
-def inicio():
-    return send_file('index.html')
+@app.route('/registro', methods=['GET', 'POST'])
+def registro():
+    if request.method == 'GET':
+        return render_template('registro.html')
+    
+    datos = request.get_json()
+    nombre = datos.get('nombre_completo', '').strip()
+    correo = datos.get('correo', '').strip()
+    contrasena = datos.get('contrasena', '').strip()
+    confirmar_contrasena = datos.get('confirmar_contrasena', '').strip()
 
-#ruta para guardar los campos que se requieren en el formulario
-@app.route('/contacto', methods=['POST']) #post para que tome todos los campos del formulario
-def guardar_contactos():
+    if not nombre or not correo or not contrasena:
+        return jsonify({'error': 'Todos los campos son obligatorios'}), 400
+
+    if contrasena != confirmar_contrasena:
+        return jsonify({'error': 'Las contraseñas no coinciden'}), 400
+
+    # Hashear contraseña
+    password_hash = bcrypt.hashpw(contrasena.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
+
+    conexion = conectar_bd()
+    if not conexion:
+        return jsonify({'error': 'Error de conexión a la base de datos'}), 500
+
     try:
-        datos = request.get_json() #obtener los datos en formato json
-        nombre = datos.get('nombre', '').strip()
-        email = datos.get('email', '').strip()
-        mensaje = datos.get('mensaje', '').strip()
-        if not nombre or not email:
-            return jsonify({'error': 'Nombre y email son obligatorios.'}), 400 #codigo 400: solicitud incorrecta
-        cursor=conexion.cursor()
-        
-        sql_insertar = """
-        INSERT INTO contactos (nombre, email, mensaje)
-        VALUE (%s, %s, %s)"""
-        cursor.execute(sql_insertar, (nombre, email, mensaje))
-        
-        contacto_id=cursor.fetchone()[0] #obtener el id del contacto insertado
+        cursor = conexion.cursor()
+
+        # Comprobar si correo ya existe
+        cursor.execute('SELECT * FROM public."Usuarios" WHERE "correo_usuari" = %s;', (correo,))
+        if cursor.fetchone():
+            cursor.close()
+            conexion.close()
+            return jsonify({'error': 'El correo ya está registrado'}), 400
+
+        # Insertar usuario nuevo con Id_tipo=1 (cliente)
+        cursor.execute("""
+            INSERT INTO public."Usuarios"
+            ("Nombre_completo_usuario", "correo_usuari", "password", "Id_tipo")
+            VALUES (%s, %s, %s, %s)
+            RETURNING "Id_usuario";
+        """, (nombre, correo, password_hash, 1))
+
+        nuevo_id = cursor.fetchone()[0]
         conexion.commit()
         cursor.close()
-        return jsonify({'mensaje': 'Contacto guardado exitosamente.', 'contacto_id': contacto_id}), 201 #codigo 201: recuro se creo correctamente 
-    except Exception as e:
-        print(f"Error al guardar el contacto: {e}")
-        return jsonify({'error': 'Error al procesar la solicitud de datos.'}), 500 #codigo 500: error interno de la bd
-
-#ruta ver todos los contactos 
-@app.route('/contactos', methods=['GET'])
-def ver_contactos():
-    try: #manejo de errores en la conexion
-        conexion=conectar_bd() #cargar los datos de postgres
-        if conexion is None: #devuelve un parametro
-            return jsonify({'error': 'No se pudo conectar a la base de datos.'}), 500 
-        cursor = conexion.cursor(cursor_factory=RealDictCursor) #crea un cursor para llamar los datos de la bd y el formato RealDictCursor permite obtener los resultados como diccionarios
-        cursor.execute("SELECT * FROM contactos ORDER BY creado DESC") #valida las columnas y trae los datos de una forma descendente
-        contactos = cursor.fetchall() 
-        cursor.close()
         conexion.close()
-        
-        for contacto in contactos: #formatear la fecha de creacion
-            if contacto['creado']:
-                contacto['creado'] = contacto['creado'].strftime('%Y-%m-%d %H:%M:%S')
-        return jsonify(contactos), 200 #codigo 200: solicitud exitosa
-    except Exception as e:
-        print(f"Error al obtener los contactos: {e}")
-        return jsonify({'error': 'Error al obtener los contactos'}), 500
 
-#inicio del servidor
+        return jsonify({'mensaje': 'Usuario registrado exitosamente', 'id_usuario': nuevo_id}), 201
+
+    except Exception as e:
+        print(f"Error al registrar usuario: {e}")
+        if 'conexion' in locals():
+            conexion.rollback()
+            cursor.close()
+            conexion.close()
+        return jsonify({'error': 'Error interno del servidor'}), 500
+
+# Aquí puedes agregar el resto de rutas (login, logout, etc) siguiendo la misma lógica y nombres de columnas
+
 if __name__ == '__main__':
-    print("Iniciando el servidor...")
-    crear_tabla()
-    
+    print("Iniciando servidor...")
+    app.run(debug=True, host='0.0.0.0', port=5000)

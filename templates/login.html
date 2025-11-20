@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/inicio.css">
+
+</head>
+<body>
+    <div class="wrapper">
+        <h1>Iniciar Sesión</h1>
+        
+        <div class="input-box">
+            <input type="text" id="usuario" placeholder="Usuario" required>
+            <i class="fas fa-user"></i>
+        </div>
+        
+        <div class="input-box">
+            <input type="password" id="contrasena" placeholder="Contraseña" required>
+            <i class="fas fa-lock"></i>
+        </div>
+        
+        <div class="remember-forgot">
+            <label>
+                <input type="checkbox"> Recordarme
+            </label>
+            <a href="#">¿Olvidaste tu contraseña?</a>
+        </div>
+        
+        <button class="btn" onclick="login()">Ingresar</button>
+        
+        <div class="register-link">
+            <p>¿No tienes una cuenta? <a href="registro.html">Regístrate</a></p>
+        </div>
+    </div>
+
+    <script>
+        function login() {
+            const datos = {
+                usuario: document.getElementById('usuario').value,
+                contrasena: document.getElementById('contrasena').value
+            };
+
+            fetch('/login', {
+                method: 'POST',
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify(datos)
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.mensaje) {
+                    window.location.href = "/";
+                } else {
+                    alert(data.error);
+                }
+            });
+        }
+    </script>
+</body>
+</html>
