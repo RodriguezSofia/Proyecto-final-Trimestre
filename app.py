@@ -6,6 +6,9 @@ import os
 
 app = Flask(__name__)
 app.secret_key = os.environ.get('SECRET_KEY', 'Dulce_manjar')
+@app.route('/')
+def home():
+    return redirect(url_for('registro'))
 
 DB_CONFIG = {
     'host': os.environ.get('DB_HOST', 'localhost'),
@@ -14,8 +17,6 @@ DB_CONFIG = {
     'password': os.environ.get('DB_PASSWORD', '123456'),
     'port': 5432
 }
-
-
 
 def conectar_bd():
     try:
@@ -52,7 +53,7 @@ def registro():
         cursor = conexion.cursor()
 
         # Comprobar si correo ya existe
-        cursor.execute('SELECT * FROM public."Usuarios" WHERE "correo_usuari" = %s;', (correo,))
+        cursor.execute('SELECT * FROM public."Usuarios" WHERE "correo_usuario" = %s;', (correo,))
         if cursor.fetchone():
             cursor.close()
             conexion.close()
@@ -61,7 +62,7 @@ def registro():
         # Insertar usuario nuevo con Id_tipo=1 (cliente)
         cursor.execute("""
             INSERT INTO public."Usuarios"
-            ("Nombre_completo_usuario", "correo_usuari", "password", "Id_tipo")
+            ("Nombre_completo_usuario", "correo_usuario", "password", "Id_tipo")
             VALUES (%s, %s, %s, %s)
             RETURNING "Id_usuario";
         """, (nombre, correo, password_hash, 1))
@@ -81,7 +82,6 @@ def registro():
             conexion.close()
         return jsonify({'error': 'Error interno del servidor'}), 500
 
-# Aquí puedes agregar el resto de rutas (login, logout, etc) siguiendo la misma lógica y nombres de columnas
 
 if __name__ == '__main__':
     print("Iniciando servidor...")

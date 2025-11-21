@@ -196,34 +196,46 @@
     </div>
 
     <script>
-        // Funcionalidad para mostrar/ocultar contraseñas
-        document.querySelectorAll('.mostrar-contrasena').forEach(element => {
-            element.addEventListener('click', function() {
-                const targetId = this.getAttribute('data-target');
-                const passwordInput = document.getElementById(targetId);
-                
-                if (passwordInput.type === 'password') {
-                    passwordInput.type = 'text';
-                    this.textContent = 'Ocultar';
-                } else {
-                    passwordInput.type = 'password';
-                    this.textContent = 'Mostrar';
-                }
-            });
-        });
+function registro() {
+    const nombre = document.getElementById('nombre').value;
+    const email = document.getElementById('email').value;
+    const contrasena = document.getElementById('contrasena').value;
+    const confirmarContrasena = document.getElementById('confirmar-contrasena').value;
 
-        function registro() {
-            const contrasena = document.getElementById('contrasena').value;
-            const confirmarContrasena = document.getElementById('confirmar-contrasena').value;
-            
-            if (contrasena !== confirmarContrasena) {
-                alert('Las contraseñas no coinciden');
-                return;
-            }
-            
-            // Se envia  los datos al servidor
-            alert('Registro exitoso ');
+    if (contrasena !== confirmarContrasena) {
+        alert('Las contraseñas no coinciden');
+        return;
+    }
+
+    const datos = {
+        nombre_completo: nombre,
+        correo: email,
+        contrasena: contrasena,
+        confirmar_contrasena: confirmarContrasena
+    };
+
+    fetch('/registro', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(datos)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.error) {
+            alert('Error: ' + data.error);
+        } else {
+            alert('Usuario registrado exitosamente: ID ' + data.id_usuario);
+            window.location.href = '/login';
         }
-    </script>
+    })
+    .catch(error => {
+        console.error('Error en la petición:', error);
+        alert('Hubo un error al registrarse');
+    });
+}
+</script>
+
 </body>
 </html>
