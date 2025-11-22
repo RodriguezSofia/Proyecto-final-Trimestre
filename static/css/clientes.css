@@ -52,3 +52,11 @@ h2 {
 .btn-pink-dark:hover {
     background-color: #880e4f; /* MÁS OSCURO AL PASAR */
 }
+/* === Pie de página === */
+footer {
+    background-color: #FCEA85;
+    color: #5a3e36;
+    text-align: center;
+    padding: 15px;
+    margin-top: 50px;
+}

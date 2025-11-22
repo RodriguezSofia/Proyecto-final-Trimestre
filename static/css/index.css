@@ -173,3 +173,20 @@ footer {
     text-align: center;
     padding: 15px;
 }
+
+.card-img-top {
+    height: 250px;        /* Ajusta este valor si quieres más alto o más bajo */
+    object-fit: cover;    /* Recorta sin deformar */
+    width: 100%;
+    border-radius: 10px;
+}
+
+
+.carousel-item img {
+    width: 100%;
+    height: 400px;       /* Altura fija (ajústala: 300px, 350px, etc.) */
+    object-fit: cover;   /* Recorta sin deformar */
+    border-radius: 15px; /* Opcional, se ve más bonito */
+    margin: 0 auto;
+    max-width: 900px;    /* Para que NO ocupe toda la pantalla */
+}
