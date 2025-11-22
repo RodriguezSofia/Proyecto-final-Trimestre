@@ -1,0 +1,110 @@
+/* === Estilos generales === */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    background-color: #FFFDF9;
+    color: #5a3e36;
+}
+
+/* === Encabezado y navegación === */
+header {
+    background-color: #F2CAEF;
+    text-align: center;
+    padding: 20px;
+    color: #D3183D;
+}
+
+header h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+nav ul li {
+    display: inline-block;
+    margin: 0 10px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #5a3e36;
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+nav a:hover {
+    background-color: #FCEA85;
+}
+
+nav a.activo {
+    background-color: #B5EFCC;
+    color: #D3183D;
+}
+
+/* === Sección de sabores === */
+#sabores {
+    text-align: center;
+    padding: 50px 20px;
+}
+
+#sabores h2 {
+    color: #C99D71;
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+#sabores p {
+    font-size: 1.1em;
+    max-width: 600px;
+    margin: 0 auto 40px auto;
+}
+
+/* Galería de sabores */
+.galeria-sabores {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 25px;
+    margin-top: 30px;
+}
+
+.galeria-sabores article {
+    background-color: #B5EFCC;
+    border-radius: 12px;
+    width: 200px;
+    padding: 15px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.galeria-sabores article:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+.galeria-sabores img {
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.galeria-sabores h3 {
+    color: #D3183D;
+    margin-bottom: 5px;
+}
+
+/* === Pie de página === */
+footer {
+    background-color: #FCEA85;
+    color: #5a3e36;
+    text-align: center;
+    padding: 15px;
+    margin-top: 50px;
+}

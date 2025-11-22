@@ -4,12 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Productos</title>
-    <link rel="stylesheet" href="productos.css">
+    <link rel="stylesheet" href="../static/css/productos.css">
 </head>
 <body>
-
     <h1>Gestión de productos</h1>
-
     <!-- Tarjetas superiores -->
     <div class="cards">
         <div class="card">
@@ -25,9 +23,7 @@
             <p>$320.000</p>
         </div>
     </div>
-
     <div class="contenedor-principal">
-
         <!-- Tabla -->
         <div class="tabla-contenedor">
             <h2>Lista de sabores</h2>
@@ -80,7 +76,6 @@
                 </tbody>
             </table>
         </div>
-
         <!-- Formulario lateral -->
         <div class="formulario">
             <h3>Añadir producto</h3>
@@ -100,13 +95,10 @@
                 <option>Premium</option>
                 <option>Vegano</option>
             </select>
-
-
-
             <button class="agregar">Agregar producto</button>
         </div>
-
     </div>
+
 <script>
     const btnAgregar = document.querySelector(".agregar");
 
@@ -139,7 +131,6 @@
         `;
 
         tabla.appendChild(fila);
-
         // limpiar campos
         document.getElementById("nombre").value = "";
         document.getElementById("precio").value = "";
@@ -147,7 +138,5 @@
         document.getElementById("categoria").value = "Clásico";
     });
 </script>
-
 </body>
-
 </html>

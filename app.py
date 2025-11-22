@@ -10,6 +10,7 @@ app.secret_key = os.environ.get('SECRET_KEY', 'Dulce_manjar')
 def home():
     return redirect(url_for('registro'))
 
+
 DB_CONFIG = {
     'host': os.environ.get('DB_HOST', 'localhost'),
     'database': os.environ.get('DB_NAME', 'heladeria'),
@@ -65,7 +66,7 @@ def registro():
             ("Nombre_completo_usuario", "correo_usuario", "password", "Id_tipo")
             VALUES (%s, %s, %s, %s)
             RETURNING "Id_usuario";
-        """, (nombre, correo, password_hash, 1))
+        """, (nombre, correo, password_hash, 4))
 
         nuevo_id = cursor.fetchone()[0]
         conexion.commit()
@@ -81,6 +82,59 @@ def registro():
             cursor.close()
             conexion.close()
         return jsonify({'error': 'Error interno del servidor'}), 500
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'GET':
+        return render_template('login.html')
+
+    datos = request.get_json()
+
+    correo = datos.get("correo", "").strip()
+    password = datos.get("password", "").strip()
+
+    if not correo or not password:
+        return jsonify({"error": "Todos los campos son obligatorios"}), 400
+
+    conexion = conectar_bd()
+    if not conexion:
+        return jsonify({"error": "Error de conexión a la base de datos"}), 500
+
+    try:
+        cursor = conexion.cursor(cursor_factory=RealDictCursor)
+
+        cursor.execute('SELECT * FROM public."Usuarios" WHERE "correo_usuario" = %s;', (correo,))
+        usuario = cursor.fetchone()
+
+        if not usuario:
+            cursor.close()
+            conexion.close()
+            return jsonify({"error": "Correo no registrado"}), 404
+
+        # Asegurar compatibilidad: la contraseña guardada es string
+        password_guardada = usuario["password"]
+
+        if not bcrypt.checkpw(password.encode('utf-8'), password_guardada.encode('utf-8')):
+            cursor.close()
+            conexion.close()
+            return jsonify({"error": "Contraseña incorrecta"}), 401
+
+        # Guardar sesión
+        session["usuario_id"] = usuario["Id_usuario"]
+
+        cursor.close()
+        conexion.close()
+
+        return jsonify({"mensaje": "Inicio de sesión exitoso"}), 200
+
+    except Exception as e:
+        print(f"Error en login: {e}")
+        try:
+            cursor.close()
+            conexion.close()
+        except:
+            pass
+        return jsonify({"error": "Error interno del servidor"}), 500
 
 
 if __name__ == '__main__':
