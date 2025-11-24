@@ -6,11 +6,11 @@ import os
 
 app = Flask(__name__)
 app.secret_key = os.environ.get('SECRET_KEY', 'Dulce_manjar')
-@app.route('/')
-def home():
-    return redirect(url_for('registro'))
 
 
+# -------------------------
+# CONFIGURACIÓN DE LA BD
+# -------------------------
 DB_CONFIG = {
     'host': os.environ.get('DB_HOST', 'localhost'),
     'database': os.environ.get('DB_NAME', 'heladeria'),
@@ -26,6 +26,18 @@ def conectar_bd():
         print(f"Error al conectar a la base de datos: {e}")
         return None
 
+
+# -------------------------
+# RUTA PRINCIPAL (INDEX)
+# -------------------------
+@app.route('/')
+def home():
+    return render_template('index.html')   # AHORA INICIA EN INDEX.HTML
+
+
+# -------------------------
+# REGISTRO
+# -------------------------
 @app.route('/registro', methods=['GET', 'POST'])
 def registro():
     if request.method == 'GET':
@@ -43,7 +55,6 @@ def registro():
     if contrasena != confirmar_contrasena:
         return jsonify({'error': 'Las contraseñas no coinciden'}), 400
 
-    # Hashear contraseña
     password_hash = bcrypt.hashpw(contrasena.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
 
     conexion = conectar_bd()
@@ -53,14 +64,12 @@ def registro():
     try:
         cursor = conexion.cursor()
 
-        # Comprobar si correo ya existe
         cursor.execute('SELECT * FROM public."Usuarios" WHERE "correo_usuario" = %s;', (correo,))
         if cursor.fetchone():
             cursor.close()
             conexion.close()
             return jsonify({'error': 'El correo ya está registrado'}), 400
 
-        # Insertar usuario nuevo con Id_tipo=1 (cliente)
         cursor.execute("""
             INSERT INTO public."Usuarios"
             ("Nombre_completo_usuario", "correo_usuario", "password", "Id_tipo")
@@ -83,6 +92,10 @@ def registro():
             conexion.close()
         return jsonify({'error': 'Error interno del servidor'}), 500
 
+
+# -------------------------
+# LOGIN
+# -------------------------
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'GET':
@@ -111,7 +124,6 @@ def login():
             conexion.close()
             return jsonify({"error": "Correo no registrado"}), 404
 
-        # Asegurar compatibilidad: la contraseña guardada es string
         password_guardada = usuario["password"]
 
         if not bcrypt.checkpw(password.encode('utf-8'), password_guardada.encode('utf-8')):
@@ -119,7 +131,6 @@ def login():
             conexion.close()
             return jsonify({"error": "Contraseña incorrecta"}), 401
 
-        # Guardar sesión
         session["usuario_id"] = usuario["Id_usuario"]
 
         cursor.close()
@@ -137,6 +148,9 @@ def login():
         return jsonify({"error": "Error interno del servidor"}), 500
 
 
+# -------------------------
+# EJECUCIÓN DEL SERVIDOR
+# -------------------------
 if __name__ == '__main__':
     print("Iniciando servidor...")
     app.run(debug=True, host='0.0.0.0', port=5000)
