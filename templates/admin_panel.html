@@ -4,30 +4,26 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Panel Admin - Heladería Annia</title>
+    <link rel="stylesheet" href="../static/css/admin_panel.css">
 </head>
 <body>
 <header>
-    <img src="/static/logo.png" alt="Logo Annia" />
+    <img src="../static/img/logo.png" alt="Logo Annia" />
     <h1>Panel de Administración • Heladería Annia</h1>
 </header>
 <div class="sidebar">
     <h3>Menú</h3>
-    <a href="PEDIDOS.HTML"> Pedidos</a>
-    <a href="PRODUCTOS.HTML"> Productos</a>
-    <a href="CLIENTES.HTML"> Clientes</a>
-    <a href="REPORTES.HTML">Reportes</a>
-    <a href="#">Usuarios / Trabajadores</a>
+    <a href="{{ url_for('pedidos') }}">Pedidos</a>
+    <a href="{{ url_for('productos') }}">Productos</a>
+    <a href="{{ url_for('clientes') }}">Clientes</a>
+    <a href="{{ url_for('reportes') }}">Reportes</a>
+    <a href="{{ url_for('trabajadores') }}">Usuarios / Trabajadores</a>
 </div>
+
 <div class="main">
-    <h2 style="color:#b51773; font-size:28px;">Bienvenido, Administrador</h2>
+   
+    <h2 class="typewriter">Bienvenido Administrador</h2>
     <p style="color:#7a2c63; margin-bottom:35px;">Gestiona toda la heladería de forma rápida y visual.</p>
-    <div class="cards">
-        <div class="card"> Gestión de Pedidos</div>
-        <div class="card"> Control de Productos</div>
-        <div class="card"> Lista de Clientes</div>
-        <div class="card"> Reportes Generales</div>
-        <div class="card"> Configuración</div>
-        <div class="card"> Trabajadores / Roles</div>
     </div>
 </div>
 </body>

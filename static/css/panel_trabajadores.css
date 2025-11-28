@@ -1,0 +1,86 @@
+body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: #fff3f8;
+        }
+
+        /* Encabezado pastel estilo Annia */
+        header {
+            background: linear-gradient(90deg, #d089dd, #db83eccb);
+            padding: 18px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        header img {
+            height: 55px;
+        }
+
+        header h1 {
+            margin: 0;
+            color: rgb(248, 247, 248);
+            font-weight: 700;
+            font-size: 26px;
+        }
+
+        /* Menú lateral */
+        .sidebar {
+            width: 240px;
+            background: #d8a6ec;
+            height: 100vh;
+            padding: 25px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            margin-top: 93px;
+            border-right: 2px solid rgba(189, 125, 189, 0.877);
+        }
+
+        .sidebar h3 {
+            color: #f0ebeb;
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+
+        .sidebar a {
+            display: block;
+            padding: 10px;
+            margin-bottom: 10px;
+            text-decoration: none;
+            color: #7a2c63;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: 0.2s;
+        }
+
+        .sidebar a:hover {
+            background: rgb(234, 156, 236);
+        }
+
+        /* Contenido principal */
+        .main {
+            margin-left: 260px;
+            padding: 40px;
+        }
+
+.typewriter {
+    color: #bb65dd;
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 3px solid currentColor;
+    width: 0;
+    animation: escribir 3s steps(20) forwards,
+               cursor 0.7s step-end 3s forwards;
+}
+
+@keyframes escribir {
+    from { width: 0; }
+    to { width: 26%; }
+}
+
+@keyframes cursor {
+    from { border-color: currentColor; }
+    to { border-color: transparent; }
+}

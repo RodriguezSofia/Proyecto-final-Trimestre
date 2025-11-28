@@ -9,14 +9,27 @@
 
 <body>
     <header>
-        <h1>Heladería Annia</h1>
-        <nav>
-            <ul>
-                <li><a href="index.html">Inicio</a></li>
-                <li><a href="menu.html">Menú</a></li>
-                <li><a href="sabores.html">Sabores</a></li>
-                <li><a href="acerca_de_nosotros.html">Acerca de</a></li>
-                <li><a href="contacto.html">Contacto</a></li>
+    <!-- NAV SUPERIOR -->
+    <nav class="barra-navegacion d-flex justify-content-between align-items-center px-4 py-2">
+        <a href="{{ url_for('home') }}" class="logo-link">
+            <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo Heladería Annia" class="logo">
+        </a>
+
+        <ul class="menu-principal d-flex gap-3">
+            <li><a href="{{ url_for('registro') }}">Registrarse</a></li>
+            <li><a href="{{ url_for('login') }}">Iniciar sesión</a></li>
+        </ul>
+    </nav>
+
+    <!-- SEGUNDA BARRA DE MENÚ -->
+    <header class="py-2 shadow-sm" style="background:#ffe6f7;">
+        <nav class="container">
+            <ul class="d-flex justify-content-center gap-4 list-unstyled m-0">
+                <li><a href="{{ url_for('home') }}">Inicio</a></li>
+                <li><a href="{{ url_for('menu') }}">Menú</a></li>
+                <li><a href="{{ url_for('sabores') }}">Sabores</a></li>
+                <li><a href="{{ url_for('acerca') }}">Acerca de</a></li>
+                <li><a href="{{ url_for('contacto') }}">Contacto</a></li>
             </ul>
         </nav>
     </header>

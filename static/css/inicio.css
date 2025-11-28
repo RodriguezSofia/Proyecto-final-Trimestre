@@ -10,15 +10,23 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background: linear-gradient(135deg, #e763b0, #cb7e5e);
             padding: 20px;
+            background-image: url('../img/inicio.jpg');
+            /* 2. MUY IMPORTANTE: Asegura que la imagen cubra todo el fondo */
+            background-size: cover; 
+            /* 3. Centra la imagen horizontal y verticalmente */
+            background-position: center; 
+            /* 4. Evita que la imagen se repita si es más pequeña que la pantalla */
+            background-repeat: no-repeat; 
+            /* 5. (Opcional) Fija la imagen para que no se mueva al hacer scroll */
+            background-attachment: fixed;
+            /* Asegura que el body ocupe al menos el 100% de la altura del viewport */
+            min-height: 100vh;
         }
 
         .wrapper {
             width: 100%;
             max-width: 420px;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
             border-radius: 20px;
             padding: 40px 30px;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
@@ -26,6 +34,11 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            /* ... otras propiedades de tamaño ... */
+            background: rgba(185, 62, 120, 0.555); /* Fondo semi-transparente blanco */
+            border: 2px solid rgb(165, 71, 71);
+            backdrop-filter: blur(10px); /* Efecto de desenfoque */
+            color: #fff; /* Color del texto (blanco) */
         }
 
         .wrapper h1 {

@@ -1,3 +1,77 @@
+/* -- ESTILOS BÁSICOS PARA LA BARRA DE NAVEGACIÓN -- */
+.barra-navegacion {
+    /* 1. Usar Flexbox para alinear elementos */
+    display: flex;
+    /* 2. Distribuir el espacio entre el logo y los links */
+    justify-content: space-between;
+    /* 3. Alinear verticalmente los elementos al centro */
+    align-items: center;
+
+    /* Estilos de fondo y padding (ejemplo) */
+    background-color: #ffffff; /* Color rosa claro, como tu marca */
+    padding: 10px 20px;
+
+}
+
+/* === Encabezado === */
+header {
+    background-color: #F2CAEF;
+    text-align: center;
+    padding: 20px;
+    color: #D3183D;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+nav ul li {
+    display: inline-block;
+    margin: 0 10px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #5a3e36;
+    font-weight: bold;
+    padding: 6px 12px;
+    border-radius: 6px;
+}
+
+nav a:hover {
+    background-color: #FCEA85;
+}
+
+nav a.activo {
+    background-color: #B5EFCC;
+    color: #D3183D;
+}
+
+/* -- ESTILOS PARA LA IMAGEN DEL LOGO -- */
+.logo {
+    /* 1. Define un tamaño fijo para que no sea muy grande */
+    height: 50px; /* Ajusta este valor según el tamaño deseado */
+    width: auto;
+    /* 2. Pequeño margen a la derecha para separar del texto (si lo hay) */
+    margin-right: 20px;
+}
+
+/* -- ESTILOS PARA LOS LINKS (Opcional, pero recomendado) -- */
+.menu-principal {
+    list-style: none; /* Quitar viñetas */
+    display: flex; /* Poner los links uno al lado del otro */
+    margin: 0;
+    padding: 0;
+}
+
+.menu-principal li a {
+    text-decoration: none;
+    color: #880e4f; /* Un color oscuro para el texto */
+    padding: 10px 15px;
+    display: block;
+}
 /* === Estilos generales === */
 body {
     font-family: 'Poppins', sans-serif;
@@ -55,7 +129,7 @@ nav a.activo {
 }
 
 #sabores h2 {
-    color: #C99D71;
+    color: #d868a9;
     font-size: 2em;
     margin-bottom: 10px;
 }
@@ -76,7 +150,7 @@ nav a.activo {
 }
 
 .galeria-sabores article {
-    background-color: #B5EFCC;
+    background-color: #c2a9c296;
     border-radius: 12px;
     width: 200px;
     padding: 15px;
@@ -96,8 +170,11 @@ nav a.activo {
 }
 
 .galeria-sabores h3 {
-    color: #D3183D;
+    color: #8b238b;
     margin-bottom: 5px;
+  font-family: 'Dancing Script', cursive;
+  font-size: 2rem;       /* más grande */
+  font-weight: 600;      /* más grueso, si existe */
 }
 
 /* === Pie de página === */
@@ -107,4 +184,55 @@ footer {
     text-align: center;
     padding: 15px;
     margin-top: 50px;
+    
+}
+
+
+/* === toppings === */
+.galeria-Toppings {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 25px;
+    margin-top: 30px;
+}
+
+.galeria-Toppings article {
+    background-color: #e0719f96;
+    border-radius: 12px;
+    width: 200px;
+    padding: 15px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    border-radius: 50%;
+    width: 220px;
+    height: 220px;
+    overflow: hidden;
+}
+
+.galeria-Toppings article:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+.galeria-Toppings img {
+    margin-bottom: 5px;
+    border-radius: 50%;
+    width: 160px;
+    height: 160px;
+    object-fit: cover;
+
+}
+
+.galeria-Toppings h3 {
+    color: #8b238b;
+    margin-bottom: -5px;
+  font-family: 'Dancing Script', cursive;
+  font-size: 2rem;       /* más grande */
+  font-weight: 600;      /* más grueso, si existe */
+   position: relative;
+    top: -20px;   /* mueve el texto hacia arriba */
+    text-align: center;
+    font-size: 30px;
+
 }

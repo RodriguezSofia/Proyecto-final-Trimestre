@@ -11,23 +11,22 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- Tu CSS -->
-    <link rel="stylesheet" href="../static/css/index.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
 
     <!-- Favicon -->
-    <link rel="shortcut icon" href="../static/img/logo_01.jpeg" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='img/logo_01.jpeg') }}" type="image/x-icon">
 </head>
 
 <body>
-
     <!-- NAV SUPERIOR -->
     <nav class="barra-navegacion d-flex justify-content-between align-items-center px-4 py-2">
-        <a href="index.html" class="logo-link">
-            <img src="../static/img/logo.png" alt="Logo Heladería Annia" class="logo">
+        <a href="{{ url_for('home') }}" class="logo-link">
+            <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo Heladería Annia" class="logo">
         </a>
 
         <ul class="menu-principal d-flex gap-3">
-            <li><a href="registro.html">Registrarse</a></li>
-            <li><a href="login.html">Iniciar sesión</a></li>
+            <li><a href="{{ url_for('registro') }}">Registrarse</a></li>
+            <li><a href="{{ url_for('login') }}">Iniciar sesión</a></li>
         </ul>
     </nav>
 
@@ -35,11 +34,10 @@
     <header class="py-2 shadow-sm" style="background:#ffe6f7;">
         <nav class="container">
             <ul class="d-flex justify-content-center gap-4 list-unstyled m-0">
-                <li><a href="#inicio">Inicio</a></li>
-                <li><a href="menu.html">Menú</a></li>
-                <li><a href="sabores.html">Sabores</a></li>
-                <li><a href="acerca_de_nosotros.html">Acerca de</a></li>
-                <li><a href="contacto.html">Contacto</a></li>
+                <li><a href="{{ url_for('menu') }}">Menú</a></li>
+                <li><a href="{{ url_for('sabores') }}">Sabores</a></li>
+                <li><a href="{{ url_for('acerca') }}">Acerca de</a></li>
+                <li><a href="{{ url_for('contacto') }}">Contacto</a></li>
             </ul>
         </nav>
     </header>
@@ -58,13 +56,13 @@
 
             <div class="carousel-inner rounded-4 shadow">
                 <div class="carousel-item active">
-                    <img src="../static/img/imagen1.jpg" class="d-block w-100" alt="Imagen 1">
+                    <img src="{{ url_for('static', filename='img/imagen1.jpg') }}" class="d-block w-100" alt="Imagen 1">
                 </div>
                 <div class="carousel-item">
-                    <img src="../static/img/imagen2.jpg" class="d-block w-100" alt="Imagen 2">
+                    <img src="{{ url_for('static', filename='img/imagen2.jpg') }}" class="d-block w-100" alt="Imagen 2">
                 </div>
                 <div class="carousel-item">
-                    <img src="../static/img/imagen3.jpg" class="d-block w-100" alt="Imagen 3">
+                    <img src="{{ url_for('static', filename='img/imagen3.jpg') }}" class="d-block w-100" alt="Imagen 3">
                 </div>
             </div>
 
@@ -78,56 +76,60 @@
 
         </div>
 
+        <!-- TARJETAS -->
         <section class="my-5">
-    <h2 class="text-center mb-4" style="color:#ff4da6;">¿Sabías esto de los helados?</h2>
+            <h2 class="text-center mb-4" style="color:#ff4da6;">¿Sabías esto de los helados?</h2>
 
-    <div class="row g-4">
+            <div class="row g-4">
 
-        <!-- TARJETA 1 -->
-        <div class="col-md-3 col-sm-6">
-            <div class="card h-100 shadow-sm" style="background:#ffe6f7;">
-                <img src="../static/img/imagentarjeta1.jpg" class="card-img-top" alt="Dato 1">
-                <div class="card-body text-center">
-                    <h5 class="card-title" style="color:#ff4da6;"> Origen curioso</h5>
-                    <p class="card-text">El helado existe desde hace más de 2.000 años mezclando nieve con frutas.</p>
+                <!-- TARJETA 1 -->
+                <div class="col-md-3 col-sm-6">
+                    <div class="card h-100 shadow-sm" style="background:#ffe6f7;">
+                        <img src="{{ url_for('static', filename='img/imagentarjeta1.jpg') }}" class="card-img-top" alt="Dato 1">
+                        <div class="card-body text-center">
+                            <h5 class="card-title" style="color:#ff4da6;"> Origen curioso</h5>
+                            <p class="card-text">El helado existe desde hace más de 2.000 años mezclando nieve con frutas.</p>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
 
-        <!-- TARJETA 2 -->
-        <div class="col-md-3 col-sm-6">
-            <div class="card h-100 shadow-sm" style="background:#ffe6f7;">
-                <img src="../static/img/imagentarjeta2.jpg" class="card-img-top" alt="Dato 2">
-                <div class="card-body text-center">
-                    <h5 class="card-title" style="color:#ff4da6;"> Sabor favorito</h5>
-                    <p class="card-text">La vainilla es el sabor más pedido del mundo, incluso más que el chocolate.</p>
+                <!-- TARJETA 2 -->
+                <div class="col-md-3 col-sm-6">
+                    <div class="card h-100 shadow-sm" style="background:#ffe6f7;">
+                        <img src="{{ url_for('static', filename='img/imagentarjeta2.jpg') }}" class="card-img-top" alt="Dato 2">
+                        <div class="card-body text-center">
+                            <h5 class="card-title" style="color:#ff4da6;"> Sabor favorito</h5>
+                            <p class="card-text">La vainilla es el sabor más pedido del mundo, incluso más que el chocolate.</p>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
 
-        <!-- TARJETA 3 -->
-        <div class="col-md-3 col-sm-6">
-            <div class="card h-100 shadow-sm" style="background:#ffe6f7;">
-                <img src="../static/img/imagentarjeta3.jpg" class="card-img-top" alt="Dato 3">
-                <div class="card-body text-center">
-                    <h5 class="card-title" style="color:#ff4da6;">Efecto feliz</h5>
-                    <p class="card-text">Comer helado activa zonas del cerebro asociadas a la felicidad.</p>
+                <!-- TARJETA 3 -->
+                <div class="col-md-3 col-sm-6">
+                    <div class="card h-100 shadow-sm" style="background:#ffe6f7;">
+                        <img src="{{ url_for('static', filename='img/imagentarjeta3.jpg') }}" class="card-img-top" alt="Dato 3">
+                        <div class="card-body text-center">
+                            <h5 class="card-title" style="color:#ff4da6;">Efecto feliz</h5>
+                            <p class="card-text">Comer helado activa zonas del cerebro asociadas a la felicidad.</p>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
 
-        <!-- TARJETA 4 -->
-        <div class="col-md-3 col-sm-6">
-            <div class="card h-100 shadow-sm" style="background:#ffe6f7;">
-                <img src="../static/img/imagentarjeta4.jpg" class="card-img-top" alt="Dato 4">
-                <div class="card-body text-center">
-                    <h5 class="card-title" style="color:#ff4da6;"> Más de 1000 sabores</h5>
-                    <p class="card-text">Existen más de mil sabores diferentes de helado en todo el mundo.</p>
+                <!-- TARJETA 4 -->
+                <div class="col-md-3 col-sm-6">
+                    <div class="card h-100 shadow-sm" style="background:#ffe6f7;">
+                        <img src="{{ url_for('static', filename='img/imagentarjeta4.jpg') }}" class="card-img-top" alt="Dato 4">
+                        <div class="card-body text-center">
+                            <h5 class="card-title" style="color:#ff4da6;"> Más de 1000 sabores</h5>
+                            <p class="card-text">Existen más de mil sabores diferentes de helado en todo el mundo.</p>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
 
-    </div>
-</section>
+            </div>
+        </section>
+
+    </main>
+
 </body>
 </html>

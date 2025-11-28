@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="../static/css/inicio.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/inicio.css') }}">
 </head> 
 
 <body>
@@ -38,26 +38,35 @@
 
     <script>
         function login() {
-    const datos = {
-        correo: document.getElementById('usuario').value,
-        password: document.getElementById('contrasena').value
-    };
 
-    fetch('/login', {
-        method: 'POST',
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify(datos)
-    })
-    .then(res => res.json())
-    .then(data => {
-        if (data.mensaje) {
-            window.location.href = "/";
-        } else {
-            alert(data.error);
+            const datos = {
+                correo: document.getElementById('usuario').value,
+                password: document.getElementById('contrasena').value
+            };
+
+            fetch('/login', {
+                method: 'POST',
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify(datos)
+            })
+            .then(res => res.json())
+            .then(data => {
+
+                if (data.error) {
+                    alert(data.error);
+                    return;
+                }
+
+                if (data.redirect) {
+                    window.location.href = data.redirect;
+                }
+            })
+            .catch(err => {
+                console.error("Error:", err);
+            });
+
         }
-    });
-}
-
     </script>
+
 </body>
 </html>

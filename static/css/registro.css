@@ -12,17 +12,25 @@
             min-height: 100vh;
             background: linear-gradient(135deg, #af76ec 0%, #5025fc 100%);
             padding: 20px;
+            background-image: url('../img/registro.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    /* ... otras propiedades de display y altura ... */
         }
 
         .wrapper {
             width: 100%;
             max-width: 450px;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(196, 96, 226, 0.747);
             backdrop-filter: blur(10px);
             border-radius: 20px;
             padding: 40px 30px;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+           border: 2px solid rgb(24, 23, 23);
+           backdrop-filter: blur(10px); /* Efecto de desenfoque */
+           color: #fff; /* Color del texto (blanco) */
         }
 
         .wrapper h1 {

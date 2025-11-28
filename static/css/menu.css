@@ -1,111 +1,163 @@
-/* === Estilos generales === */
+/* Estilos generales */
 body {
-    font-family: 'Poppins', sans-serif;
+    font-family: Arial, sans-serif;
     margin: 0;
-    background-color: #FFFDF9;
-    color: #5a3e36;
+    background-color: #f8f9fa; /* Un color de fondo claro */
 }
 
-/* === Encabezado === */
+/* Header */
 header {
-    background-color: #F2CAEF;
-    text-align: center;
-    padding: 20px;
-    color: #D3183D;
+    background-color: #ffe6f7; /* Fondo rosa claro */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra sutil */
 }
 
-nav ul {
+/* Barra de navegación superior */
+.barra-navegacion {
+    background-color: #ffe6f7; /* Asegura el fondo para la barra superior */
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo-link {
+    display: flex; /* Para centrar la imagen si es necesario */
+    align-items: center;
+}
+
+.logo {
+    height: 50px; /* Ajusta el tamaño del logo */
+    width: auto;
+}
+
+.menu-principal {
     list-style: none;
-    padding: 0;
     margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 15px; /* Espacio entre los elementos del menú */
 }
 
-nav ul li {
-    display: inline-block;
-    margin: 0 10px;
-}
-
-nav a {
+.menu-principal li a {
     text-decoration: none;
-    color: #5a3e36;
+    color: #a05284; /* Color de texto para los enlaces del menú principal */
     font-weight: bold;
-    padding: 6px 12px;
-    border-radius: 6px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
 }
 
-nav a:hover {
-    background-color: #FCEA85;
+.menu-principal li a:hover {
+    background-color: #e6ccdd; /* Color de fondo al pasar el ratón */
 }
 
-nav a.activo {
-    background-color: #B5EFCC;
-    color: #D3183D;
+/* Segunda barra de menú (navegación principal) */
+.container {
+    max-width: 960px; /* Ancho máximo para el contenido */
+    margin: 0 auto;
+    padding: 0 15px;
 }
 
-/* === Sección de menú === */
-#menu {
+.py-2 {
+    padding-top: 0.5rem !important;
+    padding-bottom: 0.5rem !important;
+}
+
+.shadow-sm {
+    box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
+}
+
+.d-flex {
+    display: flex !important;
+}
+
+.justify-content-center {
+    justify-content: center !important;
+}
+
+.gap-4 {
+    gap: 1.5rem !important; /* Espacio entre los elementos del menú */
+}
+
+.list-unstyled {
+    list-style: none !important;
+}
+
+.m-0 {
+    margin: 0 !important;
+}
+
+header nav ul li a {
+    text-decoration: none;
+    color: #a05284; /* Color de texto para los enlaces */
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+header nav ul li a:hover {
+    background-color: #cf6aac;
+}
+
+/* Estilos de la sección principal (main) y el pie de página (footer) */
+main {
+    padding: 20px 0;
     text-align: center;
-    padding: 50px 20px;
 }
 
-#menu h2 {
-    color: #C99D71;
-    font-size: 2em;
+#Menu h2 {
+    color: #a05284;
     margin-bottom: 10px;
 }
 
-#menu p {
-    max-width: 600px;
-    margin: 0 auto 40px auto;
-    font-size: 1.1em;
+#Menu p {
+    color: #6c757d;
+    margin-bottom: 30px;
 }
 
-/* === Cuadrícula del menú === */
 .menu-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 25px;
-    max-width: 1000px;
+    gap: 20px;
+    padding: 0 20px;
+    max-width: 1200px;
     margin: 0 auto;
 }
 
 .menu-grid article {
-    background-color: #B5EFCC;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
-    transition: transform 0.3s, box-shadow 0.3s;
+    text-align: left;
 }
 
-.menu-grid article:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+.menu-grid article h3 {
+    color: #a05284;
+    margin-top: 0;
 }
 
-.menu-grid h3 {
-    color: #D3183D;
-    margin-bottom: 8px;
+.menu-grid article p {
+    color: #495057;
+    font-size: 0.9em;
 }
 
-.menu-grid p {
-    font-size: 0.95em;
-    margin-bottom: 10px;
-}
-
-.precio {
-    display: inline-block;
-    background-color: #FCEA85;
-    color: #5a3e36;
+.menu-grid article .precio {
     font-weight: bold;
-    padding: 6px 12px;
-    border-radius: 6px;
+    color: #28a745; /* Un color verde para el precio */
+    font-size: 1.1em;
+    display: block;
+    margin-top: 10px;
 }
 
-/* === Pie === */
 footer {
-    background-color: #FCEA85;
+    background-color: #ffda79; /* Fondo amarillo claro */
+    color: #495057;
     text-align: center;
-    padding: 15px;
-    color: #5a3e36;
-    margin-top: 40px;
+    padding: 15px 0;
+    margin-top: 30px;
+    position: relative;
+    bottom: 0;
+    width: 100%;
 }
