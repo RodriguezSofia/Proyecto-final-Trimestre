@@ -34,10 +34,10 @@ def conectar_bd():
 def home():
     return render_template('index.html')   # AHORA INICIA EN INDEX.HTML
 
+
 # -------------------------
 # RUTAS PARA NAVEGAR DESDE EL MENÚ DEL INDEX
 # -------------------------
-
 @app.route('/menu')
 def menu():
     return render_template('menu.html')
@@ -53,6 +53,8 @@ def acerca():
 @app.route('/contacto')
 def contacto():
     return render_template('contacto.html')
+
+
 # -------------------------
 # RUTAS PARA NAVEGAR EL ADMIN PANEL
 # -------------------------
@@ -75,6 +77,7 @@ def reportes():
 @app.route('/trabajadores')
 def trabajadores():
     return render_template('trabajadores.html')
+
 
 # -------------------------
 # REGISTRO
@@ -137,9 +140,6 @@ def registro():
 # -------------------------
 # LOGIN
 # -------------------------
-# -------------------------
-# LOGIN
-# -------------------------
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'GET':
@@ -184,15 +184,12 @@ def login():
         # Login exitoso → verificar tipo
         # ------------------------------------
         if usuario["Id_tipo"] == 1:
-            # Administrador
             return jsonify({"redirect": "/admin_panel"}), 200
 
         elif usuario["Id_tipo"] == 2:
-            # Trabajador
             return jsonify({"redirect": "/admin_panel"}), 200
 
         else:
-            # Cliente normal
             return jsonify({"redirect": "/"}), 200
 
     except Exception as e:
@@ -203,6 +200,7 @@ def login():
         except:
             pass
         return jsonify({"error": "Error interno del servidor"}), 500
+
 
 # -------------------------
 # PANEL DE ADMINISTRADOR Y TRABAJADORES
@@ -224,25 +222,18 @@ def admin_panel():
         cursor.close()
         conexion.close()
 
-        # Administrador
         if usuario["Id_tipo"] == 1:
             return render_template('admin_panel.html')
 
-        # Trabajador
         if usuario["Id_tipo"] == 2:
-            return render_template('panel_trabajadores.html')
+            return render_template('admin_panel.html')
 
-        # Cliente → index normal
         return redirect(url_for('home'))
 
     except Exception as e:
-        print(e)
-        return "Error interno del servidor", 500
+        print(f"Error en admin_panel: {e}")
+        return "Error interno", 500
 
 
-# -------------------------
-# EJECUCIÓN DEL SERVIDOR
-# -------------------------
 if __name__ == '__main__':
-    print("Iniciando servidor...")
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    app.run(debug=True)
