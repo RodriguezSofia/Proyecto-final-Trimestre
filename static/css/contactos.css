@@ -1,9 +1,9 @@
-/* === Estilos generales === */
-body {
-    font-family: 'Poppins', sans-serif;
-    margin: 0;
-    background-color: #FFFDF9;
-    color: #5a3e36;
+.barra-navegacion {
+    display: flex;/* 1. Usar Flexbox para alinear elementos */
+    justify-content: space-between;/* 2. Distribuir el espacio entre el logo y los links */
+    align-items: center;/* 3. Alinear verticalmente los elementos al centro */
+    background-color: #ffffff;
+    padding: 10px 20px;
 }
 
 header {
@@ -12,12 +12,10 @@ header {
     padding: 20px;
     color: #D3183D;
 }
-
 header h1 {
-    font-size: 2.3em;
+    font-size: 2.5em;
     margin-bottom: 10px;
 }
-
 nav ul {
     list-style: none;
     padding: 0;
@@ -33,9 +31,8 @@ nav a {
     text-decoration: none;
     color: #5a3e36;
     font-weight: bold;
-    padding: 5px 10px;
-    border-radius: 5px;
-    transition: background-color 0.3s;
+    padding: 6px 12px;
+    border-radius: 6px;
 }
 
 nav a:hover {
@@ -45,6 +42,37 @@ nav a:hover {
 nav a.activo {
     background-color: #B5EFCC;
     color: #D3183D;
+}
+
+/* -- ESTILOS PARA LA IMAGEN DEL LOGO -- */
+.logo {
+    /* 1. Define un tamaño fijo para que no sea muy grande */
+    height: 50px; /* Ajusta este valor según el tamaño deseado */
+    width: auto;
+    /* 2. Pequeño margen a la derecha para separar del texto (si lo hay) */
+    margin-right: 20px;
+}
+
+/* -- ESTILOS PARA LOS LINKS (Opcional, pero recomendado) -- */
+.menu-principal {
+    list-style: none; /* Quitar viñetas */
+    display: flex; /* Poner los links uno al lado del otro */
+    margin: 0;
+    padding: 0;
+}
+
+.menu-principal li a {
+    text-decoration: none;
+    color: #880e4f; /* Un color oscuro para el texto */
+    padding: 10px 15px;
+    display: block;
+}
+/* === Estilos generales === */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    background-color: #FFFDF9;
+    color: #5a3e36;
 }
 
 /* === Sección de contacto === */

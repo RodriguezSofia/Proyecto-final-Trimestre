@@ -1,26 +1,21 @@
-/* -- ESTILOS BÁSICOS PARA LA BARRA DE NAVEGACIÓN -- */
 .barra-navegacion {
-    /* 1. Usar Flexbox para alinear elementos */
-    display: flex;
-    /* 2. Distribuir el espacio entre el logo y los links */
-    justify-content: space-between;
-    /* 3. Alinear verticalmente los elementos al centro */
-    align-items: center;
-
-    /* Estilos de fondo y padding (ejemplo) */
-    background-color: #ffffff; /* Color rosa claro, como tu marca */
+    display: flex;/* 1. Usar Flexbox para alinear elementos */
+    justify-content: space-between;/* 2. Distribuir el espacio entre el logo y los links */
+    align-items: center;/* 3. Alinear verticalmente los elementos al centro */
+    background-color: #ffffff;
     padding: 10px 20px;
-
 }
 
-/* === Encabezado === */
 header {
     background-color: #F2CAEF;
     text-align: center;
     padding: 20px;
     color: #D3183D;
 }
-
+header h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
 nav ul {
     list-style: none;
     padding: 0;
@@ -71,55 +66,6 @@ nav a.activo {
     color: #880e4f; /* Un color oscuro para el texto */
     padding: 10px 15px;
     display: block;
-}
-/* === Estilos generales === */
-body {
-    font-family: 'Poppins', sans-serif;
-    margin: 0;
-    background-color: #FFFDF9;
-    color: #5a3e36;
-}
-
-/* === Encabezado y navegación === */
-header {
-    background-color: #F2CAEF;
-    text-align: center;
-    padding: 20px;
-    color: #D3183D;
-}
-
-header h1 {
-    font-size: 2.5em;
-    margin-bottom: 10px;
-}
-
-nav ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-nav ul li {
-    display: inline-block;
-    margin: 0 10px;
-}
-
-nav a {
-    text-decoration: none;
-    color: #5a3e36;
-    font-weight: bold;
-    padding: 5px 10px;
-    border-radius: 5px;
-    transition: background-color 0.3s;
-}
-
-nav a:hover {
-    background-color: #FCEA85;
-}
-
-nav a.activo {
-    background-color: #B5EFCC;
-    color: #D3183D;
 }
 
 /* === Sección de sabores === */
@@ -235,4 +181,10 @@ footer {
     text-align: center;
     font-size: 30px;
 
+}/* === Estilos generales === */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    background-color: #FFFDF9;
+    color: #5a3e36;
 }

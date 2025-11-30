@@ -1,26 +1,21 @@
-/* -- ESTILOS BÁSICOS PARA LA BARRA DE NAVEGACIÓN -- */
 .barra-navegacion {
-    /* 1. Usar Flexbox para alinear elementos */
-    display: flex;
-    /* 2. Distribuir el espacio entre el logo y los links */
-    justify-content: space-between;
-    /* 3. Alinear verticalmente los elementos al centro */
-    align-items: center;
-
-    /* Estilos de fondo y padding (ejemplo) */
-    background-color: #ffffff; /* Color rosa claro, como tu marca */
+    display: flex;/* 1. Usar Flexbox para alinear elementos */
+    justify-content: space-between;/* 2. Distribuir el espacio entre el logo y los links */
+    align-items: center;/* 3. Alinear verticalmente los elementos al centro */
+    background-color: #ffffff;
     padding: 10px 20px;
-
 }
 
-/* === Encabezado === */
 header {
     background-color: #F2CAEF;
     text-align: center;
     padding: 20px;
     color: #D3183D;
 }
-
+header h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
 nav ul {
     list-style: none;
     padding: 0;
@@ -80,18 +75,6 @@ body {
     color: #5a3e36;
 }
 
-header {
-    background-color: #F2CAEF;
-    text-align: center;
-    padding: 20px;
-    color: #D3183D;
-}
-
-header h1 {
-    font-size: 2.5em;
-    margin-bottom: 10px;
-}
-
 .caja {
   width: 100%;
   height: auto;
@@ -99,22 +82,6 @@ header h1 {
   background-size: cover; /* ajusta la imagen al tamaño */
   background-position: center; /* centra la imagen */
   background-repeat: no-repeat; /* evita que se repita */
-}
-
-nav ul {
-    list-style: none;
-    padding: 0;
-}
-
-nav ul li {
-    display: inline-block;
-    margin: 0 10px;
-}
-
-nav a {
-    text-decoration: none;
-    color: #5a3e36;
-    font-weight: bold;
 }
 
 section {
@@ -132,28 +99,14 @@ h2 {
     border-radius: 15px;
     margin-top: 20px;
 }
-
-.galeria-sabores {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 25px;
-    margin-top: 30px;
-}
-
-.galeria-sabores article {
-    background-color: #B5EFCC;
-    border-radius: 10px;
-    width: 200px;
-    padding: 15px;
-    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
-}
-
-.galeria-sabores img {
+.carousel-item img {
     width: 100%;
-    border-radius: 8px;
+    height: 400px;       /* Altura fija (ajústala: 300px, 350px, etc.) */
+    object-fit: cover;   /* Recorta sin deformar */
+    border-radius: 15px; /* Opcional, se ve más bonito */
+    margin: 0 auto;
+    max-width: 900px;    /* Para que NO ocupe toda la pantalla */
 }
-
 button {
     background-color: #D3183D;
     color: white;
@@ -166,27 +119,15 @@ button {
 button:hover {
     background-color: #C99D71;
 }
-
-footer {
-    background-color: #FCEA85;
-    color: #5a3e36;
-    text-align: center;
-    padding: 15px;
-}
-
 .card-img-top {
     height: 250px;        /* Ajusta este valor si quieres más alto o más bajo */
     object-fit: cover;    /* Recorta sin deformar */
     width: 100%;
     border-radius: 10px;
 }
-
-
-.carousel-item img {
-    width: 100%;
-    height: 400px;       /* Altura fija (ajústala: 300px, 350px, etc.) */
-    object-fit: cover;   /* Recorta sin deformar */
-    border-radius: 15px; /* Opcional, se ve más bonito */
-    margin: 0 auto;
-    max-width: 900px;    /* Para que NO ocupe toda la pantalla */
+footer {
+    background-color: #FCEA85;
+    color: #5a3e36;
+    text-align: center;
+    padding: 15px;
 }

@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
 
     <!-- Favicon -->
-    <link rel="shortcut icon" href="{{ url_for('static', filename='img/logo_01.jpeg') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='img/logo_01.png') }}" type="image/x-icon">
 </head>
 
 <body>
@@ -34,6 +34,7 @@
     <header class="py-2 shadow-sm" style="background:#ffe6f7;">
         <nav class="container">
             <ul class="d-flex justify-content-center gap-4 list-unstyled m-0">
+                <li><a href="{{ url_for('home') }}">Inicio</a></li>
                 <li><a href="{{ url_for('menu') }}">Menú</a></li>
                 <li><a href="{{ url_for('sabores') }}">Sabores</a></li>
                 <li><a href="{{ url_for('acerca') }}">Acerca de</a></li>

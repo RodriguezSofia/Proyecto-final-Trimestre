@@ -2,102 +2,77 @@
 body {
     font-family: Arial, sans-serif;
     margin: 0;
-    background-color: #f8f9fa; /* Un color de fondo claro */
+    background-color: #F2CAEF; /* Un color de fondo claro */
 }
 
-/* Header */
-header {
-    background-color: #ffe6f7; /* Fondo rosa claro */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra sutil */
-}
-
-/* Barra de navegación superior */
 .barra-navegacion {
-    background-color: #ffe6f7; /* Asegura el fondo para la barra superior */
+    display: flex;/* 1. Usar Flexbox para alinear elementos */
+    justify-content: space-between;/* 2. Distribuir el espacio entre el logo y los links */
+    align-items: center;/* 3. Alinear verticalmente los elementos al centro */
+    background-color: #ffffff;
     padding: 10px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
 }
 
-.logo-link {
-    display: flex; /* Para centrar la imagen si es necesario */
-    align-items: center;
+header {
+    background-color: #F2CAEF;
+    text-align: center;
+    padding: 20px;
+    color: #D3183D;
 }
-
-.logo {
-    height: 50px; /* Ajusta el tamaño del logo */
-    width: auto;
+header h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
 }
-
-.menu-principal {
+nav ul {
     list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+nav ul li {
+    display: inline-block;
+    margin: 0 10px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #5a3e36;
+    font-weight: bold;
+    padding: 6px 12px;
+    border-radius: 6px;
+}
+
+nav a:hover {
+    background-color: #FCEA85;
+}
+
+nav a.activo {
+    background-color: #B5EFCC;
+    color: #D3183D;
+}
+
+/* -- ESTILOS PARA LA IMAGEN DEL LOGO -- */
+.logo {
+    /* 1. Define un tamaño fijo para que no sea muy grande */
+    height: 50px; /* Ajusta este valor según el tamaño deseado */
+    width: auto;
+    /* 2. Pequeño margen a la derecha para separar del texto (si lo hay) */
+    margin-right: 20px;
+}
+
+/* -- ESTILOS PARA LOS LINKS (Opcional, pero recomendado) -- */
+.menu-principal {
+    list-style: none; /* Quitar viñetas */
+    display: flex; /* Poner los links uno al lado del otro */
     margin: 0;
     padding: 0;
-    display: flex;
-    gap: 15px; /* Espacio entre los elementos del menú */
 }
 
 .menu-principal li a {
     text-decoration: none;
-    color: #a05284; /* Color de texto para los enlaces del menú principal */
-    font-weight: bold;
-    padding: 5px 10px;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-}
-
-.menu-principal li a:hover {
-    background-color: #e6ccdd; /* Color de fondo al pasar el ratón */
-}
-
-/* Segunda barra de menú (navegación principal) */
-.container {
-    max-width: 960px; /* Ancho máximo para el contenido */
-    margin: 0 auto;
-    padding: 0 15px;
-}
-
-.py-2 {
-    padding-top: 0.5rem !important;
-    padding-bottom: 0.5rem !important;
-}
-
-.shadow-sm {
-    box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
-}
-
-.d-flex {
-    display: flex !important;
-}
-
-.justify-content-center {
-    justify-content: center !important;
-}
-
-.gap-4 {
-    gap: 1.5rem !important; /* Espacio entre los elementos del menú */
-}
-
-.list-unstyled {
-    list-style: none !important;
-}
-
-.m-0 {
-    margin: 0 !important;
-}
-
-header nav ul li a {
-    text-decoration: none;
-    color: #a05284; /* Color de texto para los enlaces */
-    font-weight: bold;
-    padding: 5px 10px;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-}
-
-header nav ul li a:hover {
-    background-color: #cf6aac;
+    color: #880e4f; /* Un color oscuro para el texto */
+    padding: 10px 15px;
+    display: block;
 }
 
 /* Estilos de la sección principal (main) y el pie de página (footer) */
@@ -126,7 +101,7 @@ main {
 }
 
 .menu-grid article {
-    background-color: #ffffff;
+    background-color: #F2CAEF;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     padding: 20px;
@@ -160,4 +135,115 @@ footer {
     position: relative;
     bottom: 0;
     width: 100%;
+}
+/* --- CARRITO FLOTANTE --- */
+#carritoFlotante {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #d3183d;
+    color: white;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 28px;
+    text-decoration: none;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+    z-index: 999;
+    transition: 0.3s;
+}
+
+#carritoFlotante:hover {
+    background: #a0112d;
+    transform: scale(1.1);
+}
+
+#carritoFlotante span {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: #ffda79;
+    color: #d3183d;
+    padding: 2px 6px;
+    font-size: 0.8em;
+    border-radius: 50%;
+    font-weight: bold;
+}
+
+/* BOTÓN AGREGAR AL CARRITO */
+.btn-agregar {
+    background: #ff72b5;        /* Rosa fuerte */
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all .3s ease;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* Icono */
+.btn-agregar i {
+    font-size: 1rem;
+}
+
+/* Hover */
+.btn-agregar:hover {
+    background: #ff4f9e;
+    transform: scale(1.05);
+}
+
+/* ==== MODAL AVISO INICIAR SESIÓN ==== */
+
+#modalLogin .modal-content {
+    background: #ffe6f7;            /* Fondo rosado claro */
+    border-radius: 15px;
+    border: 2px solid #ffb3dc;      /* Borde rosado */
+}
+
+#modalLogin .modal-header {
+    background: #ffb3dc;            /* Encabezado rosado */
+    color: white;
+    border-top-left-radius: 13px;
+    border-top-right-radius: 13px;
+}
+
+#modalLogin .modal-title {
+    font-weight: bold;
+    color: white;
+}
+
+#modalLogin .btn-close {
+    filter: brightness(0) invert(1); /* Ícono cerrar blanco */
+}
+
+#modalLogin .modal-body {
+    background: #ffe6f7;
+    color: #8a004f;                 /* Texto rosado oscuro */
+    font-size: 16px;
+}
+
+#modalLogin .modal-footer {
+    background: #ffe6f7;
+    border-bottom-left-radius: 13px;
+    border-bottom-right-radius: 13px;
+}
+
+/* Botón rosado */
+#modalLogin .btn-primary {
+    background-color: #ff4fa3 !important;
+    border-color: #ff4fa3 !important;
+    font-weight: bold;
+}
+
+#modalLogin .btn-primary:hover {
+    background-color: #e63e8e !important;
+    border-color: #e63e8e !important;
 }
