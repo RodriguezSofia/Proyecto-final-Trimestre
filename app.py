@@ -78,6 +78,9 @@ def reportes():
 def trabajadores():
     return render_template('trabajadores.html')
 
+@app.route('/panel_trabajadores')
+def panel_trabajadores():
+    return render_template('panel_trabajadores.html')
 
 # -------------------------
 # REGISTRO
@@ -226,7 +229,7 @@ def admin_panel():
             return render_template('admin_panel.html')
 
         if usuario["Id_tipo"] == 2:
-            return render_template('admin_panel.html')
+            return render_template('panel_trabajadores.html')
 
         return redirect(url_for('home'))
 
