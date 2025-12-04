@@ -32,9 +32,7 @@
         <nav class="container">
             <ul class="d-flex justify-content-center gap-4 list-unstyled m-0">
                 <li><a href="{{ url_for('home') }}" style="color: #147D7D;">Inicio</a></li>
-                <li><a href="{{ url_for('menu') }}" class="activo" style="background-color: #FCEA85; color: #147D7D; font-weight: bold; border-radius: 6px; padding: 6px 12px;">Menú</a></li>
-                <li><a href="{{ url_for('sabores') }}" style="color: #147D7D;">Sabores</a></li>
-                <li><a href="{{ url_for('acerca') }}" style="color: #147D7D;">Acerca de</a></li>
+                <li><a href="{{ url_for('menu') }}" class="activo" style="background-color: #FCEA85; color: #147D7D; font-weight: bold; border-radius: 6px; padding: 6px 12px;">Menú</a></li>                <li><a href="{{ url_for('acerca') }}" style="color: #147D7D;">Acerca de</a></li>
                 <li><a href="{{ url_for('contacto') }}" style="color: #147D7D;">Contacto</a></li>
                 <li>
                     <a href="#" id="btnCarrito" class="carrito-link" data-bs-toggle="modal" data-bs-target="#modalCarrito" style="color: #147D7D;">
@@ -157,11 +155,54 @@
             </div>
         </div>
     </div>
-
     <footer style="background-color: #FCEA85; color: #147D7D;">
         <p>&copy; 2025 Heladería Annia. Todos los derechos reservados.</p>
     </footer>
     
-    <script>...</script>
+    <script>
+    let carrito = [];
+    const carritoCount = document.getElementById("carritoCount");
+    const carritoCountFloat = document.getElementById("carritoCountFloat");
+    const listaCarrito = document.getElementById("listaCarrito");
+
+    function agregarAlCarrito(nombre, precio) {
+        carrito.push({ nombre, precio });
+        actualizarContadores();
+        renderCarrito();
+    }
+
+    function eliminarProducto(index) {
+        carrito.splice(index, 1);
+        actualizarContadores();
+        renderCarrito();
+    }
+
+    function actualizarContadores() {
+        carritoCount.textContent = carrito.length;
+        carritoCountFloat.textContent = carrito.length;
+    }
+
+    function renderCarrito() {
+        if (carrito.length === 0) {
+            listaCarrito.innerHTML = "<p>Tu carrito está vacío </p>";
+            return;
+        }
+
+        listaCarrito.innerHTML = carrito
+            .map((item, index) => `
+                <div class="d-flex justify-content-between align-items-center border-bottom py-2">
+                    <span> ${item.nombre} — $${item.precio}</span>
+                    <button class="btn btn-danger btn-sm" onclick="eliminarProducto(${index})">
+                        <i class="bi bi-trash3-fill"></i>
+                    </button>
+                </div>
+            `)
+            .join("");
+    }
+
+    function comprar() {
+        alert("Compra realizada correctamente ");
+    }
+</script>
 </body>
 </html>

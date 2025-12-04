@@ -238,5 +238,10 @@ def admin_panel():
         return "Error interno", 500
 
 
+
+@app.route('/recuperacion')
+def reestablecer():
+    return render_template('recuperacion.html')
+
 if __name__ == '__main__':
     app.run(debug=True)

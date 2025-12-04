@@ -5,55 +5,111 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contacto | Heladería Annia</title>
     <link rel="stylesheet" href="../static/css/contactos.css">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 
 <body>
-    <!-- NAV SUPERIOR -->
     <nav class="barra-navegacion d-flex justify-content-between align-items-center px-4 py-2">
         <a href="{{ url_for('home') }}" class="logo-link">
-            <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo Heladería Annia" class="logo">
+            <img src="{{ url_for('static', filename='img/logo.jpeg') }}" alt="Logo Heladería Annia" class="logo">
         </a>
 
-        <ul class="menu-principal d-flex gap-3">
-            <li><a href="{{ url_for('registro') }}">Registrarse</a></li>
-            <li><a href="{{ url_for('login') }}">Iniciar sesión</a></li>
-        </ul>
+        <div class="d-flex gap-3">
+            <a href="{{ url_for('registro') }}" class="btn" style="background-color: #F54388; color: white;">Registrarse</a>
+            <a href="{{ url_for('login') }}" class="btn" style="background-color: #147D7D; color: white;">Iniciar sesión</a>
+        </div>
     </nav>
 
-    <!-- SEGUNDA BARRA DE MENÚ -->
-    <header class="py-2 shadow-sm" style="background:#ffe6f7;">
+    <header class="py-2 shadow-sm" style="background-color: #B5EFCC;">
         <nav class="container">
             <ul class="d-flex justify-content-center gap-4 list-unstyled m-0">
-                <li><a href="{{ url_for('home') }}">Inicio</a></li>
-                <li><a href="{{ url_for('menu') }}">Menú</a></li>
-                <li><a href="{{ url_for('sabores') }}">Sabores</a></li>
-                <li><a href="{{ url_for('acerca') }}">Acerca de</a></li>
-                <li><a href="{{ url_for('contacto') }}">Contacto</a></li>
+                <li><a href="{{ url_for('home') }}" style="color: #147D7D; font-weight: bold;">Inicio</a></li>
+                <li><a href="{{ url_for('menu') }}" style="color: #147D7D; font-weight: bold;">Menú</a></li>
+                <li><a href="{{ url_for('acerca') }}" style="color: #147D7D; font-weight: bold;">Acerca de</a></li>
+                <li><a href="{{ url_for('contacto') }}" style="color: #147D7D; font-weight: bold;">Contacto</a></li>
             </ul>
         </nav>
     </header>
+    <script>
+// Captura el envío del formulario
+document.addEventListener("DOMContentLoaded", function () {
+
+    const form = document.getElementById('formContacto');
+    const mensajeDiv = document.getElementById('mensajeDiv');
+
+    form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+
+        // Obtención de datos
+        const formData = {
+            nombre: document.getElementById('nombre').value,
+            mensaje: document.getElementById('mensaje').value
+        };
+
+        try {
+            // Envío al servidor Flask
+            const response = await fetch('/contacto', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData)
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                mensajeDiv.className = 'message success';
+                mensajeDiv.textContent = result.mensaje;
+                mensajeDiv.style.display = 'block';
+
+                form.reset();
+            } else {
+                mensajeDiv.className = 'message error';
+                mensajeDiv.textContent = result.error;
+                mensajeDiv.style.display = 'block';
+            }
+
+            // Ocultar mensaje a los 5 segundos
+            setTimeout(() => {
+                mensajeDiv.style.display = 'none';
+            }, 5000);
+
+        } catch (error) {
+            mensajeDiv.className = 'message error';
+            mensajeDiv.textContent = ' Error de conexión con el servidor.';
+            mensajeDiv.style.display = 'block';
+        }
+    });
+
+});
+</script>
 
     <main>
         <section id="contacto">
-            <h2>Contáctanos</h2>
-            <form>
-                <label for="nombre">Nombre:</label>
-                <input type="text" id="nombre" name="nombre" required>
+        <h2>Contáctanos</h2>
 
-                <label for="mensaje">Mensaje:</label>
-                <textarea id="mensaje" name="mensaje" rows="4" required></textarea>
+        <div id="mensajeDiv" class="message" style="display:none;"></div>
 
-                <button type="submit">Enviar</button>
-            </form>
-            <div class="info-contacto">
-                <p> Calle 10 #5-23, Palmira, Valle del Cauca</p>
-                <p> 310 555 1234</p>
-                <p> Annia@gmail.com</p>
-            </div>
-        </section>
+        <form id="formContacto">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" required>
+
+            <label for="mensaje">Mensaje:</label>
+            <textarea id="mensaje" name="mensaje" rows="4" required></textarea>
+
+        <button type="submit">Enviar</button>
+    </form>
+
+    <div class="info-contacto">
+        <p>Calle 10 #5-23, Palmira, Valle del Cauca</p>
+        <p>310 555 1234</p>
+        <p>Annia@gmail.com</p>
+    </div>
+</section>
+
     </main>
 
     <footer>

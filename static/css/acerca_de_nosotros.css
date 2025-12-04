@@ -2,7 +2,7 @@
     display: flex;/* 1. Usar Flexbox para alinear elementos */
     justify-content: space-between;/* 2. Distribuir el espacio entre el logo y los links */
     align-items: center;/* 3. Alinear verticalmente los elementos al centro */
-    background-color: #ffffff;
+    background-color: #FFFDF2;
     padding: 10px 20px;
 }
 

@@ -205,3 +205,90 @@ footer {
     /* Opcional: Borde sutil del color de acento, aunque con la sombra puede ser suficiente */
     /* border: 2px solid #F54388; */ 
 }
+/* === SECCIÓN SABORES === */
+#sabores {
+    text-align: center;
+    padding: 50px 20px;
+}
+
+#sabores p {
+    max-width: 600px;
+    margin: 10px auto 40px auto;
+    color: #147D7D;
+    font-size: 1.1em;
+}
+
+/* === GALERIA SABORES === */
+.galeria-sabores {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 25px;
+}
+
+.galeria-sabores article {
+    background-color: #B5EFCC;
+    border-radius: 15px;
+    width: 200px;
+    padding: 15px;
+    box-shadow: 0 4px 10px rgba(20, 125, 125, 0.15);
+    transition: 0.3s;
+}
+
+.galeria-sabores article:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 20px rgba(20, 125, 125, 0.25);
+}
+
+.galeria-sabores img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.galeria-sabores h3 {
+    font-family: 'Pacifico', cursive;
+    color: #F54388;
+    font-size: 1.8em;
+    margin-bottom: 5px;
+}
+
+/* === SECCIÓN TOPPINGS === */
+#Toppings h2 {
+    color: #F54388;
+}
+
+.galeria-Toppings {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 25px;
+    margin-top: 30px;
+}
+
+.galeria-Toppings article {
+    background-color: #FCEA85;
+    border-radius: 50%;
+    width: 220px;
+    height: 220px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(20,125,125,0.2);
+    transition: 0.3s ease-in-out;
+}
+
+.galeria-Toppings article:hover {
+    transform: scale(1.05);
+}
+
+.galeria-Toppings img {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.galeria-Toppings h3 {
+    font-family: 'Pacifico', cursive;
+    color: #F54388;
+    font-size: 1.8em;
+    margin-top: -10px;
+}

@@ -5,33 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Acerca de | Heladería Annia</title>
     <link rel="stylesheet" href="../static/css/acerca_de_nosotros.css">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 
 <body>
-    <!-- NAV SUPERIOR -->
     <nav class="barra-navegacion d-flex justify-content-between align-items-center px-4 py-2">
         <a href="{{ url_for('home') }}" class="logo-link">
-            <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo Heladería Annia" class="logo">
+            <img src="{{ url_for('static', filename='img/logo.jpeg') }}" alt="Logo Heladería Annia" class="logo">
         </a>
 
-        <ul class="menu-principal d-flex gap-3">
-            <li><a href="{{ url_for('registro') }}">Registrarse</a></li>
-            <li><a href="{{ url_for('login') }}">Iniciar sesión</a></li>
-        </ul>
+        <div class="d-flex gap-3">
+            <a href="{{ url_for('registro') }}" class="btn" style="background-color: #F54388; color: white;">Registrarse</a>
+            <a href="{{ url_for('login') }}" class="btn" style="background-color: #147D7D; color: white;">Iniciar sesión</a>
+        </div>
     </nav>
 
-    <!-- SEGUNDA BARRA DE MENÚ -->
-    <header class="py-2 shadow-sm" style="background:#ffe6f7;">
+    <header class="py-2 shadow-sm" style="background-color: #B5EFCC;">
         <nav class="container">
             <ul class="d-flex justify-content-center gap-4 list-unstyled m-0">
-                <li><a href="{{ url_for('home') }}">Inicio</a></li>
-                <li><a href="{{ url_for('menu') }}">Menú</a></li>
-                <li><a href="{{ url_for('sabores') }}">Sabores</a></li>
-                <li><a href="{{ url_for('acerca') }}">Acerca de</a></li>
-                <li><a href="{{ url_for('contacto') }}">Contacto</a></li>
+                <li><a href="{{ url_for('home') }}" style="color: #147D7D; font-weight: bold;">Inicio</a></li>
+                <li><a href="{{ url_for('menu') }}" style="color: #147D7D; font-weight: bold;">Menú</a></li>
+                <li><a href="{{ url_for('acerca') }}" style="color: #147D7D; font-weight: bold;">Acerca de</a></li>
+                <li><a href="{{ url_for('contacto') }}" style="color: #147D7D; font-weight: bold;">Contacto</a></li>
             </ul>
         </nav>
     </header>

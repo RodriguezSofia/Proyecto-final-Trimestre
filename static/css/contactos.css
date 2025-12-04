@@ -1,166 +1,154 @@
-.barra-navegacion {
-    display: flex;/* 1. Usar Flexbox para alinear elementos */
-    justify-content: space-between;/* 2. Distribuir el espacio entre el logo y los links */
-    align-items: center;/* 3. Alinear verticalmente los elementos al centro */
-    background-color: #ffffff;
-    padding: 10px 20px;
-}
+/* --- PALETA DE COLORES ANNIA ---
+#147D7D (Verde Azulado - Texto principal, íconos, hover)
+#F54388 (Rosa Chicle/Fucsia - Acento, títulos principales, botones)
+#FCEA85 (Amarillo Pastel - Fondo de footer, hover de nav)
+#B5EFCC (Menta Pastel - Fondo de header, fondo de cards)
+#FFFDF2 (Crema/Fondo del body)
+*/
 
-header {
-    background-color: #F2CAEF;
-    text-align: center;
-    padding: 20px;
-    color: #D3183D;
-}
-header h1 {
-    font-size: 2.5em;
-    margin-bottom: 10px;
-}
-nav ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-nav ul li {
-    display: inline-block;
-    margin: 0 10px;
-}
-
-nav a {
-    text-decoration: none;
-    color: #5a3e36;
-    font-weight: bold;
-    padding: 6px 12px;
-    border-radius: 6px;
-}
-
-nav a:hover {
-    background-color: #FCEA85;
-}
-
-nav a.activo {
-    background-color: #B5EFCC;
-    color: #D3183D;
-}
-
-/* -- ESTILOS PARA LA IMAGEN DEL LOGO -- */
-.logo {
-    /* 1. Define un tamaño fijo para que no sea muy grande */
-    height: 50px; /* Ajusta este valor según el tamaño deseado */
-    width: auto;
-    /* 2. Pequeño margen a la derecha para separar del texto (si lo hay) */
-    margin-right: 20px;
-}
-
-/* -- ESTILOS PARA LOS LINKS (Opcional, pero recomendado) -- */
-.menu-principal {
-    list-style: none; /* Quitar viñetas */
-    display: flex; /* Poner los links uno al lado del otro */
-    margin: 0;
-    padding: 0;
-}
-
-.menu-principal li a {
-    text-decoration: none;
-    color: #880e4f; /* Un color oscuro para el texto */
-    padding: 10px 15px;
-    display: block;
-}
-/* === Estilos generales === */
+/* GENERAL */
 body {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Quicksand', sans-serif;
     margin: 0;
-    background-color: #FFFDF9;
-    color: #5a3e36;
+    background-color: #FFFDF2;
+    color: #147D7D;
 }
 
-/* === Sección de contacto === */
-#contacto {
+/* TITULOS PRINCIPALES */
+h2 {
+    font-family: 'Pacifico', cursive;
+    font-size: 3em;
+    color: #F54388;
     text-align: center;
-    padding: 50px 20px;
+    margin-top: 30px;
 }
 
-#contacto h2 {
-    color: #C99D71;
-    font-size: 2em;
-    margin-bottom: 30px;
+/* BARRA SUPERIOR */
+.barra-navegacion {
+    background-color: #f3ecdc; 
+    /* border-bottom ELIMINADO */
 }
 
-/* Formulario */
-form {
-    background-color: #F2CAEF;
-    padding: 25px;
-    border-radius: 15px;
-    max-width: 500px;
-    margin: 0 auto 30px auto;
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+.logo {
+    height: 60px;
 }
 
-label {
-    display: block;
-    text-align: left;
+.menu-principal a {
+    text-decoration: none;
+    font-weight: 600;
+    color: #147D7D;
+}
+
+.menu-principal a:hover {
+    color: #F54388;
+    transition: .3s;
+}
+
+/* SEGUNDA BARRA */
+header {
+    background-color: #B5EFCC !important;
+}
+
+header nav ul li a {
+    text-decoration: none;
+    color: #147D7D;
+    font-weight: 600;
+}
+
+header nav ul li a:hover {
+    color: #F54388;
+}
+
+/* SECCIÓN CONTACTO */
+#contacto {
+    max-width: 700px;
+    margin: auto;
+    background: #B5EFCC;
+    padding: 40px;
+    border-radius: 25px;
+    margin-top: 40px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+#contacto label {
     font-weight: bold;
-    color: #5a3e36;
-    margin: 10px 0 5px 0;
+    color: #147D7D;
 }
 
-input[type="text"],
-textarea {
+#contacto input,
+#contacto textarea {
     width: 100%;
-    padding: 10px;
-    border: 2px solid #C8BAEB;
-    border-radius: 8px;
-    font-size: 1em;
+    padding: 12px;
+    border: 2px solid #F54388;
+    border-radius: 12px;
+    margin-bottom: 18px;
+    background-color: #FFFDF2;
+}
+
+#contacto input:focus,
+#contacto textarea:focus {
     outline: none;
-    background-color: #FFFDF9;
-    color: #5a3e36;
+    border-color: #147D7D;
 }
 
-input[type="text"]:focus,
-textarea:focus {
-    border-color: #D3183D;
-    box-shadow: 0 0 5px rgba(211, 24, 61, 0.3);
-}
-
-/* Botón */
-button {
-    background-color: #D3183D;
+/* BOTÓN */
+#contacto button {
+    background-color: #F54388;
     color: white;
-    padding: 10px 25px;
+    padding: 12px 25px;
     border: none;
-    border-radius: 8px;
+    border-radius: 15px;
+    font-size: 1.1em;
+    font-weight: bold;
     cursor: pointer;
-    font-size: 1em;
-    margin-top: 15px;
-    transition: background-color 0.3s, transform 0.2s;
+    display: block;
+    margin: auto;
+    transition: .3s;
 }
 
-button:hover {
-    background-color: #C99D71;
-    transform: scale(1.05);
+#contacto button:hover {
+    background-color: #147D7D;
 }
 
-/* Información de contacto */
-.info-contacto {
-    background-color: #B5EFCC;
-    padding: 20px;
+/* MENSAJES */
+.message {
+    padding: 12px;
     border-radius: 10px;
-    max-width: 450px;
-    margin: 0 auto;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    font-weight: bold;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.message.success {
+    background-color: #B5EFCC;
+    color: #147D7D;
+    border: 2px solid #147D7D;
+}
+
+.message.error {
+    background-color: #F54388;
+    color: white;
+    border: 2px solid #C42B67;
+}
+
+/* INFORMACIÓN CONTACTO */
+.info-contacto {
+    margin-top: 25px;
+    text-align: center;
+    font-size: 1.1em;
 }
 
 .info-contacto p {
-    margin: 8px 0;
-    font-weight: 500;
+    margin: 5px 0;
 }
 
-/* === Pie de página === */
+/* FOOTER */
 footer {
     background-color: #FCEA85;
-    color: #5a3e36;
     text-align: center;
-    padding: 15px;
-    margin-top: 50px;
+    padding: 18px;
+    margin-top: 40px;
+    color: #147D7D;
+    font-weight: bold;
 }
+
