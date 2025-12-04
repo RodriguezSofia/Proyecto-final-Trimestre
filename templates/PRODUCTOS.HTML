@@ -3,12 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Productos</title>
+    <title>Gestión de Productos</title>
+    
     <link rel="stylesheet" href="../static/css/productos.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
-<body>
-    <h1>Gestión de productos</h1>
-    <!-- Tarjetas superiores -->
+<body> 
+    <div class="header-section">
+        <h1>Gestión de productos</h1>
+        <a href="#" class="nav-link">Volver al inicio</a>
+    </div>
+
     <div class="cards">
         <div class="card">
             <h3>Productos activos</h3>
@@ -23,14 +28,13 @@
             <p>$320.000</p>
         </div>
     </div>
+    
     <div class="contenedor-principal">
-        <!-- Tabla -->
         <div class="tabla-contenedor">
             <h2>Lista de sabores</h2>
-            <table>
+            <table border="1">
                 <thead>
                     <tr>
-                        
                         <th>Nombre</th>
                         <th>Precio</th>
                         <th>Stock</th>
@@ -38,109 +42,339 @@
                         <th>Acciones</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="productos-tbody">
                     <tr>
-                        
                         <td>Vainilla</td>
                         <td>$4.500</td>
                         <td>20</td>
                         <td>Clásico</td>
                         <td>
-                            <button class="editar">Editar</button>
-                            <button class="eliminar">Eliminar</button>
+                            <button class="action-btn editar" data-id="1">Editar</button>
+                            <button class="action-btn eliminar" data-id="1">Eliminar</button>
                         </td>
                     </tr>
-
                     <tr>
-                        
                         <td>Chocolate</td>
                         <td>$4.800</td>
                         <td>15</td>
                         <td>Clásico</td>
                         <td>
-                            <button class="editar">Editar</button>
-                            <button class="eliminar">Eliminar</button>
+                            <button class="action-btn editar" data-id="2">Editar</button>
+                            <button class="action-btn eliminar" data-id="2">Eliminar</button>
                         </td>
                     </tr>
-
                     <tr>
                         <td>Fresa</td>
                         <td>$4.700</td>
                         <td>8</td>
                         <td>Premium</td>
                         <td>
-                            <button class="editar">Editar</button>
-                            <button class="eliminar">Eliminar</button>
+                            <button class="action-btn editar" data-id="3">Editar</button>
+                            <button class="action-btn eliminar" data-id="3">Eliminar</button>
                         </td>
                     </tr>
                 </tbody>
             </table>
         </div>
-        <!-- Formulario lateral -->
-        <div class="formulario">
+        
+        <div class="formulario-contenedor">
             <h3>Añadir producto</h3>
+            <form id="form-agregar-producto">
+                <label for="nombre">Nombre</label>
+                <input type="text" id="nombre" name="nombre" required><br><br>
 
-            <label>Nombre</label>
-            <input type="text">
+                <label for="precio">Precio (COP)</label>
+                <input type="number" id="precio" name="precio" required min="0"><br><br>
 
-            <label>Precio (COP)</label>
-            <input type="number">
+                <label for="stock">Stock</label>
+                <input type="number" id="stock" name="stock" required min="0"><br><br>
 
-            <label>Stock</label>
-            <input type="number">
-
-            <label>Categoría</label>
-            <select>
-                <option>Clásico</option>
-                <option>Premium</option>
-                <option>Vegano</option>
-            </select>
-            <button class="agregar">Agregar producto</button>
+                <label for="categoria">Categoría</label>
+                <select id="categoria" name="categoria">
+                    <option value="Clásico">Clásico</option>
+                    <option value="Premium">Premium</option>
+                    <option value="Vegano">Vegano</option>
+                </select><br><br>
+                <button type="submit" class="agregar">Agregar producto</button>
+            </form>
         </div>
-        <div class="text-center mt-4">
-        <a href="admin_panel.html" class="btn btn-pink-dark">Volver al inicio</a>
+    </div>
+    
+    <div id="custom-modal">
+        <div class="modal-content">
+            <p id="modal-message"></p>
+            <button id="modal-accept-btn" class="modal-primary-btn">Aceptar</button> 
         </div>
     </div>
 
-<script>
-    const btnAgregar = document.querySelector(".agregar");
+    <script>
+        // Función para mostrar el modal personalizado (Maneja avisos y confirmaciones)
+        function showCustomModal(message, isConfirmation = false, onConfirm = null) {
+            const modal = document.getElementById('custom-modal');
+            const modalMessage = document.getElementById('modal-message');
+            const modalBtn = document.getElementById('modal-accept-btn');
+            
+            // Oculta el modal antes de configurarlo, asegurando que inicie invisible
+            modal.style.display = 'none'; 
 
-    btnAgregar.addEventListener("click", (e) => {
-        e.preventDefault(); // evita que la página se recargue
+            modalMessage.textContent = message;
+            
+            // Clonar el botón para limpiar listeners anteriores
+            const oldModalBtn = modalBtn.cloneNode(true);
+            modalBtn.parentNode.replaceChild(oldModalBtn, modalBtn);
+            const newModalBtn = modal.querySelector('#modal-accept-btn');
+            newModalBtn.className = 'modal-primary-btn'; // Asegura la clase CSS principal
 
-        const nombre = document.getElementById("nombre").value;
-        const precio = document.getElementById("precio").value;
-        const stock = document.getElementById("stock").value;
-        const categoria = document.getElementById("categoria").value;
+            let cancelButton = null;
+            // Asegurarse de que no haya botón de cancelar sobrante del ciclo anterior
+            if (modal.querySelector('.modal-content .modal-cancel-btn')) {
+                modal.querySelector('.modal-content .modal-cancel-btn').remove();
+            }
 
-        if (!nombre || !precio || !stock) {
-            alert("Por favor completa todos los campos");
-            return;
+
+            if (isConfirmation) {
+                // Configuración para confirmación (Eliminar)
+                newModalBtn.textContent = "Aceptar";
+                
+                cancelButton = document.createElement('button');
+                cancelButton.textContent = "Cancelar";
+                cancelButton.className = 'modal-cancel-btn'; // Clase CSS para el botón Cancelar
+                
+                // Añadir el botón de cancelar después del botón principal
+                newModalBtn.parentNode.appendChild(cancelButton);
+
+                // Manejar la confirmación
+                newModalBtn.addEventListener('click', function handler() {
+                    if (onConfirm) onConfirm(true);
+                    hideModal();
+                    if (cancelButton) cancelButton.removeEventListener('click', hideModal);
+                }, { once: true });
+                
+                cancelButton.addEventListener('click', hideModal, { once: true });
+                
+            } else {
+                // Configuración para aviso simple (Agregar, Validar)
+                newModalBtn.textContent = "Aceptar";
+                newModalBtn.addEventListener('click', hideModal, { once: true });
+            }
+
+
+            // Función para ocultar el modal
+            function hideModal() {
+                modal.style.display = 'none';
+                
+                if (cancelButton && cancelButton.parentNode) {
+                    cancelButton.parentNode.removeChild(cancelButton);
+                }
+            }
+
+            modal.style.display = 'flex'; // Muestra el modal
         }
 
-        const tabla = document.querySelector("tbody");
+        document.addEventListener("DOMContentLoaded", () => {
+            // 1. Obtener elementos clave
+            const formAgregarProducto = document.getElementById("form-agregar-producto");
+            const tablaBody = document.getElementById("productos-tbody");
 
-        const fila = document.createElement("tr");
-        fila.innerHTML = `
-            <td><img src="${imagen}" class="img-producto"></td>
-            <td>${nombre}</td>
-            <td>$${precio}</td>
-            <td>${stock}</td>
-            <td>${categoria}</td>
-            <td>
-                <button class="editar">Editar</button>
-                <button class="eliminar">Eliminar</button>
-            </td>
-        `;
+            let nextId = 4; 
+            
+            const getInputValue = (id) => document.getElementById(id).value;
+            
+            const formatPrice = (price) => {
+                return price.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+            };
 
-        tabla.appendChild(fila);
-        // limpiar campos
-        document.getElementById("nombre").value = "";
-        document.getElementById("precio").value = "";
-        document.getElementById("stock").value = "";
-        document.getElementById("categoria").value = "Clásico";
-    });
-</script>
+            // ------------------------------------
+            // 2. Lógica para AGREGAR producto (Evento 'submit')
+            // ------------------------------------
+            if (formAgregarProducto) {
+                formAgregarProducto.addEventListener("submit", (e) => {
+                    e.preventDefault(); 
 
-</body>
+                    const nombre = getInputValue("nombre").trim();
+                    const precio = parseFloat(getInputValue("precio"));
+                    const stock = parseInt(getInputValue("stock"));
+                    const categoria = getInputValue("categoria");
+
+                    if (!nombre || isNaN(precio) || isNaN(stock) || precio <= 0 || stock < 0) {
+                        showCustomModal("Por favor, completa todos los campos con valores válidos.");
+                        return;
+                    }
+
+                    const fila = document.createElement("tr");
+                    fila.innerHTML = `
+                        <td>${nombre}</td>
+                        <td>$${formatPrice(precio)}</td>
+                        <td>${stock}</td>
+                        <td>${categoria}</td>
+                        <td>
+                            <button class="action-btn editar" data-id="${nextId}">Editar</button>
+                            <button class="action-btn eliminar" data-id="${nextId}">Eliminar</button>
+                        </td>
+                    `;
+
+                    tablaBody.appendChild(fila);
+                    nextId++; 
+                    formAgregarProducto.reset();
+                    attachActionListeners(fila);
+
+                    showCustomModal(`Producto "${nombre}" agregado correctamente.`);
+                });
+            }
+
+            // ------------------------------------
+            // 3. Lógica para EDITAR / ELIMINAR
+            // ------------------------------------
+
+            function startEditing(row) {
+                const cells = Array.from(row.querySelectorAll("td:not(:last-child)"));
+                const originalValues = cells.map(cell => cell.textContent.trim());
+                row.dataset.originalValues = JSON.stringify(originalValues);
+
+                const fieldNames = ["nombre", "precio", "stock", "categoria"];
+
+                cells.forEach((cell, index) => {
+                    const currentValue = originalValues[index];
+                    let inputElement;
+                    let displayValue = currentValue;
+
+                    if (fieldNames[index] === "precio") {
+                        displayValue = currentValue.replace('$', '').replace(/\./g, ''); 
+                    }
+
+                    if (fieldNames[index] === "categoria") {
+                        inputElement = document.createElement("select");
+                        inputElement.innerHTML = `
+                            <option value="Clásico" ${currentValue === 'Clásico' ? 'selected' : ''}>Clásico</option>
+                            <option value="Premium" ${currentValue === 'Premium' ? 'selected' : ''}>Premium</option>
+                            <option value="Vegano" ${currentValue === 'Vegano' ? 'selected' : ''}>Vegano</option>
+                        `;
+                    } else {
+                        inputElement = document.createElement("input");
+                        inputElement.value = displayValue; 
+                        inputElement.type = (fieldNames[index] === "stock" || fieldNames[index] === "precio") ? "number" : "text";
+                    }
+                    
+                    // Añadimos la clase CSS para los inputs de edición
+                    inputElement.className = 'edit-input'; 
+
+                    cell.innerHTML = ''; 
+                    cell.appendChild(inputElement);
+                });
+
+                const editButton = row.querySelector(".editar");
+                const deleteButton = row.querySelector(".eliminar");
+                
+                editButton.textContent = "Guardar";
+                deleteButton.textContent = "Cancelar";
+                deleteButton.classList.remove('eliminar');
+                deleteButton.classList.add('cancelar'); 
+
+                attachActionListeners(row);
+            }
+
+            function saveEditing(row) {
+                const cells = Array.from(row.querySelectorAll("td:not(:last-child)"));
+                let isValid = true;
+                
+                cells.forEach((cell, index) => {
+                    const input = cell.querySelector('input, select');
+                    let newValue = input.value.trim();
+                    
+                    if (index === 1 || index === 2) { 
+                        if (isNaN(parseFloat(newValue)) || parseFloat(newValue) < 0) {
+                            showCustomModal('El precio y el stock deben ser números válidos y positivos.');
+                            isValid = false;
+                            return;
+                        }
+                    }
+                    
+                    if (isValid) {
+                        if (index === 1) { 
+                            newValue = `$${formatPrice(parseFloat(newValue))}`;
+                        }
+                        
+                        cell.innerHTML = newValue;
+                    }
+                });
+
+                if (isValid) {
+                    const editButton = row.querySelector(".editar");
+                    const cancelButton = row.querySelector(".cancelar");
+                    
+                    editButton.textContent = "Editar";
+                    
+                    cancelButton.textContent = "Eliminar";
+                    cancelButton.classList.remove('cancelar');
+                    cancelButton.classList.add('eliminar');
+                    
+                    attachActionListeners(row);
+                    showCustomModal(`Producto con ID ${editButton.dataset.id} actualizado.`);
+                }
+            }
+
+            function cancelEditing(row, cancelButton) {
+                const originalValues = JSON.parse(row.dataset.originalValues);
+                const cells = Array.from(row.querySelectorAll("td:not(:last-child)"));
+                const editButton = row.querySelector(".editar");
+
+                cells.forEach((cell, index) => {
+                    cell.innerHTML = originalValues[index]; 
+                });
+
+                editButton.textContent = "Editar";
+                
+                cancelButton.textContent = "Eliminar";
+                cancelButton.classList.remove('cancelar');
+                cancelButton.classList.add('eliminar');
+
+                attachActionListeners(row);
+            }
+
+            function attachActionListeners(row) {
+                const actionsCell = row.querySelector('td:last-child');
+                const existingEdit = actionsCell.querySelector('.editar');
+                const existingDelete = actionsCell.querySelector('.eliminar, .cancelar');
+                
+                if (existingEdit) {
+                    const newEdit = existingEdit.cloneNode(true);
+                    existingEdit.parentNode.replaceChild(newEdit, existingEdit);
+                    
+                    newEdit.addEventListener("click", function() {
+                        if (this.textContent === "Editar") {
+                            startEditing(row);
+                        } else if (this.textContent === "Guardar") {
+                            saveEditing(row);
+                        }
+                    });
+                }
+
+                if (existingDelete) {
+                    const newDelete = existingDelete.cloneNode(true);
+                    existingDelete.parentNode.replaceChild(newDelete, existingDelete);
+                    
+                    newDelete.addEventListener("click", function() {
+                        if (this.textContent === "Eliminar") {
+                            const productId = this.dataset.id;
+                            showCustomModal(`¿Estás seguro de que deseas eliminar el producto con ID ${productId}?`, true, (confirmed) => {
+                                if (confirmed) {
+                                    row.remove();
+                                    showCustomModal(`Producto con ID ${productId} eliminado.`);
+                                }
+                            });
+                        } else if (this.textContent === "Cancelar") {
+                             cancelEditing(row, this);
+                        }
+                    });
+                }
+            }
+
+            if (tablaBody) {
+                tablaBody.querySelectorAll("tr").forEach(row => {
+                    attachActionListeners(row);
+                });
+            }
+        });
+    </script>
+    </body>
 </html>

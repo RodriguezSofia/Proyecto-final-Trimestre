@@ -1,0 +1,105 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #FFF9EF; /* color crema de tu página */
+    margin: 0;
+    padding: 0;
+}
+
+/* Línea pastel superior */
+.color-line {
+    width: 100%;
+    height: 40px;
+    background: #C7F2D0; /* verde pastel */
+}
+
+/* Caja principal */
+.container {
+    width: 90%;
+    max-width: 900px;
+    background: white;
+    margin: 30px auto;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+h1 {
+    text-align: center;
+    color: #004f4f;
+    margin-bottom: 20px;
+}
+
+/* Tabla */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+thead {
+    background: #8ED7C6; /* verde menta */
+    color: white;
+}
+
+th, td {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid #ccc;
+}
+
+/* Botón Cambiar Rol */
+.btn-rol {
+    background: #8ED7C6; /* verde menta */
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Botón Eliminar */
+.btn-eliminar {
+    background: #F06292; /* rosado */
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 5px;
+}
+
+/* Botón Agregar nuevo trabajador (abajo) */
+.btn-agregar {
+    display: block;
+    margin: 25px auto 0;
+    background: #8ED7C6; /* verde menta */
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.btn-agregar:hover {
+    opacity: 0.9;
+}
+
+/* Estilos CSS simples para que el enlace se vea como un botón */
+        .boton-principal {
+            display: inline-block; /* Permite aplicar padding y dimensiones */
+            padding: 10px 20px;
+            background-color: #007BFF; /* Color de fondo azul */
+            color: white; /* Color del texto blanco */
+            text-align: center;
+            text-decoration: none; /* Quita el subrayado del enlace */
+            border-radius: 5px; /* Bordes redondeados */
+            font-family: Arial, sans-serif;
+            font-weight: bold;
+            cursor: pointer; /* Indica que es clickeable */
+            transition: background-color 0.3s; /* Animación suave al pasar el mouse */
+        }
+
+        .boton-principal:hover {
+            background-color: #0056b3; /* Color más oscuro al pasar el mouse */
+        }
