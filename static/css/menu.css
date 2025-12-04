@@ -1,147 +1,213 @@
-/* Estilos generales */
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    background-color: #F2CAEF; /* Un color de fondo claro */
-}
+/* --- PALETA DE COLORES ANNIA ---
+#147D7D (Verde Azulado - Texto principal, íconos, hover)
+#F54388 (Rosa Chicle/Fucsia - Acento, títulos principales, botones)
+#FCEA85 (Amarillo Pastel - Fondo de footer, hover de nav)
+#B5EFCC (Menta Pastel - Fondo de header, fondo de cards)
+#FFFDF2 (Crema/Fondo del body)
+*/
 
+/* --- ESTILOS GENERALES Y TIPOGRAFÍA UNIFICADA --- */
+body {
+    /* Fuente dulce y moderna unificada del index */
+    font-family: 'Quicksand', sans-serif; 
+    margin: 0;
+    /* Fondo Crema unificado del index */
+    background-color: #FFFDF2; 
+    /* Color de texto principal unificado */
+    color: #147D7D; 
+}
+h2 {
+    /* 1. Aplicar la fuente cursiva y dulce */
+    font-family: 'Pacifico', cursive; 
+    
+    /* 2. Color Principal de la marca */
+    color: #147D7D; /* Verde Azulado Oscuro */
+    
+    /* 3. Tamaño más grande para impacto */
+    font-size: 3em; 
+    /* 5. Espaciado superior para centrarlo visualmente */
+    padding-top: 20px; 
+}
+/* --- CABECERAS Y NAVEGACIÓN --- */
+
+/* NAV SUPERIOR */
 .barra-navegacion {
-    display: flex;/* 1. Usar Flexbox para alinear elementos */
-    justify-content: space-between;/* 2. Distribuir el espacio entre el logo y los links */
-    align-items: center;/* 3. Alinear verticalmente los elementos al centro */
-    background-color: #ffffff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* Fondo Blanco o Crema muy claro */
+    background-color: #f3ecdc; 
     padding: 10px 20px;
 }
-
-header {
-    background-color: #F2CAEF;
-    text-align: center;
-    padding: 20px;
-    color: #D3183D;
+.logo {
+    height: 50px; 
+    width: auto;
+    margin-right: 20px;
 }
+.menu-principal {
+    list-style: none; 
+    display: flex; 
+    margin: 0;
+    padding: 0;
+}
+.menu-principal li a {
+    text-decoration: none;
+    color: #147D7D; /* Verde Azulado */
+    padding: 10px 15px;
+    display: block;
+    transition: background-color 0.3s;
+}
+.menu-principal li a:hover {
+    background-color: #B5EFCC; /* Menta Pastel en hover */
+}
+
+
+/* SEGUNDA BARRA (HEADER) */
+header {
+    /* Fondo Menta Pastel unificado */
+    background-color: #B5EFCC; 
+    text-align: center;
+    padding: 20px 0;
+    color: #147D7D; /* Verde Azulado */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
 header h1 {
     font-size: 2.5em;
     margin-bottom: 10px;
 }
+
 nav ul {
     list-style: none;
     padding: 0;
     margin: 0;
 }
-
 nav ul li {
     display: inline-block;
     margin: 0 10px;
 }
-
 nav a {
     text-decoration: none;
-    color: #5a3e36;
-    font-weight: bold;
+    color: #147D7D; /* Verde Azulado Oscuro */
+    font-weight: 600;
     padding: 6px 12px;
     border-radius: 6px;
+    transition: background-color 0.3s;
 }
 
 nav a:hover {
-    background-color: #FCEA85;
+    background-color: #FCEA85; /* Amarillo Pastel en hover */
+    color: #147D7D; 
 }
 
+/* Enlace activo (Menú) */
 nav a.activo {
-    background-color: #B5EFCC;
-    color: #D3183D;
+    background-color: #F54388; /* Rosa Chicle para el activo */
+    color: white; /* Texto blanco para resaltar */
 }
 
-/* -- ESTILOS PARA LA IMAGEN DEL LOGO -- */
-.logo {
-    /* 1. Define un tamaño fijo para que no sea muy grande */
-    height: 50px; /* Ajusta este valor según el tamaño deseado */
-    width: auto;
-    /* 2. Pequeño margen a la derecha para separar del texto (si lo hay) */
-    margin-right: 20px;
-}
-
-/* -- ESTILOS PARA LOS LINKS (Opcional, pero recomendado) -- */
-.menu-principal {
-    list-style: none; /* Quitar viñetas */
-    display: flex; /* Poner los links uno al lado del otro */
-    margin: 0;
-    padding: 0;
-}
-
-.menu-principal li a {
-    text-decoration: none;
-    color: #880e4f; /* Un color oscuro para el texto */
-    padding: 10px 15px;
-    display: block;
-}
-
-/* Estilos de la sección principal (main) y el pie de página (footer) */
+/* --- SECCIÓN DE MENÚ (MAIN) --- */
 main {
     padding: 20px 0;
     text-align: center;
+    background-color: #FFFDF2;
 }
 
+#Menu {
+    padding: 40px 20px;
+}
+
+/* Título principal de la sección unificado con Pacifico */
 #Menu h2 {
-    color: #a05284;
+    font-family: 'Pacifico', cursive;
+    color: #F54388; /* Rosa Chicle */
+    font-size: 2.5em; 
     margin-bottom: 10px;
 }
 
 #Menu p {
-    color: #6c757d;
-    margin-bottom: 30px;
+    color: #147D7D; /* Verde Azulado */
+    font-size: 1.1em;
+    font-style: italic;
+    margin-bottom: 40px;
 }
 
+/* --- CUADRÍCULA DE PRODUCTOS (GRID) --- */
 .menu-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
     padding: 0 20px;
     max-width: 1200px;
     margin: 0 auto;
 }
 
 .menu-grid article {
-    background-color: #F2CAEF;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    padding: 20px;
+    /* Fondo Menta Pastel para las tarjetas de producto */
+    background-color: #B5EFCC; 
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 25px;
     text-align: left;
+    
+    /* ANIMACIÓN HOVER DE ELEVACIÓN (unificado) */
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.menu-grid article:hover {
+    transform: translateY(-7px); /* Elevación */
+    /* Sombra Verde Azulado, igual que en el index */
+    box-shadow: 0 15px 25px rgba(20, 125, 125, 0.3); 
 }
 
 .menu-grid article h3 {
-    color: #a05284;
+    color: #147D7D; /* Verde Azulado Oscuro */
     margin-top: 0;
+    font-size: 1.5em;
 }
 
 .menu-grid article p {
-    color: #495057;
-    font-size: 0.9em;
+    color: #5a3e36; /* Marrón para la descripción */
+    font-size: 0.95em;
+    height: 40px; /* Altura fija para alineación */
+    font-style: normal; /* Quitar cursiva en el producto */
 }
 
 .menu-grid article .precio {
-    font-weight: bold;
-    color: #28a745; /* Un color verde para el precio */
-    font-size: 1.1em;
+    font-weight: 700;
+    color: #F54388; /* Rosa Chicle para el precio */
+    font-size: 1.4em;
     display: block;
-    margin-top: 10px;
+    margin: 15px 0;
 }
 
-footer {
-    background-color: #ffda79; /* Fondo amarillo claro */
-    color: #495057;
-    text-align: center;
-    padding: 15px 0;
-    margin-top: 30px;
-    position: relative;
-    bottom: 0;
-    width: 100%;
+/* --- BOTÓN AGREGAR AL CARRITO (UNIFICADO) --- */
+.btn-agregar {
+    background-color: #F54388; /* Fondo Rosa Chicle */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 50px; /* Botón redondeado */
+    cursor: pointer;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, transform 0.3s;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
 }
-/* --- CARRITO FLOTANTE --- */
+
+.btn-agregar:hover {
+    background-color: #147D7D; /* Hover en Verde Azulado */
+    transform: scale(1.05);
+}
+
+/* --- CARRITO FLOTANTE (UNIFICADO) --- */
 #carritoFlotante {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    background: #d3183d;
+    background-color: #147D7D; /* Verde Azulado */
     color: white;
     width: 60px;
     height: 60px;
@@ -157,7 +223,6 @@ footer {
 }
 
 #carritoFlotante:hover {
-    background: #a0112d;
     transform: scale(1.1);
 }
 
@@ -165,85 +230,69 @@ footer {
     position: absolute;
     top: -5px;
     right: -5px;
-    background: #ffda79;
-    color: #d3183d;
-    padding: 2px 6px;
+    background-color: #F54388; /* Contador en Rosa Chicle */
+    color: white;
+    padding: 2px 7px;
     font-size: 0.8em;
     border-radius: 50%;
     font-weight: bold;
 }
 
-/* BOTÓN AGREGAR AL CARRITO */
-.btn-agregar {
-    background: #ff72b5;        /* Rosa fuerte */
-    color: white;
-    border: none;
-    padding: 8px 14px;
-    border-radius: 10px;
-    font-size: 0.9rem;
-    cursor: pointer;
-    transition: all .3s ease;
-    font-weight: 600;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
+/* --- FOOTER (UNIFICADO) --- */
+footer {
+    /* Fondo del Footer (Amarillo Pastel) */
+    background-color: #FCEA85; 
+    /* Color de texto (Verde Azulado Oscuro) */
+    color: #147D7D; 
+    text-align: center;
+    padding: 15px;
+    margin-top: 30px;
+    width: 100%;
 }
 
-/* Icono */
-.btn-agregar i {
-    font-size: 1rem;
-}
+/* --- MODALES (Usando estilos limpios de Annia) --- */
 
-/* Hover */
-.btn-agregar:hover {
-    background: #ff4f9e;
-    transform: scale(1.05);
-}
-
-/* ==== MODAL AVISO INICIAR SESIÓN ==== */
-
+/* Modal Login */
 #modalLogin .modal-content {
-    background: #ffe6f7;            /* Fondo rosado claro */
+    background: #FFFDF2; /* Fondo Crema */
     border-radius: 15px;
-    border: 2px solid #ffb3dc;      /* Borde rosado */
+    border: 2px solid #F54388; /* Borde Rosa Chicle */
 }
-
 #modalLogin .modal-header {
-    background: #ffb3dc;            /* Encabezado rosado */
-    color: white;
+    background: #FCEA85; /* Encabezado Amarillo Pastel */
+    color: #147D7D; 
     border-top-left-radius: 13px;
     border-top-right-radius: 13px;
 }
-
 #modalLogin .modal-title {
     font-weight: bold;
-    color: white;
+    color: #147D7D;
 }
-
-#modalLogin .btn-close {
-    filter: brightness(0) invert(1); /* Ícono cerrar blanco */
-}
-
 #modalLogin .modal-body {
-    background: #ffe6f7;
-    color: #8a004f;                 /* Texto rosado oscuro */
+    color: #147D7D; 
     font-size: 16px;
 }
-
-#modalLogin .modal-footer {
-    background: #ffe6f7;
-    border-bottom-left-radius: 13px;
-    border-bottom-right-radius: 13px;
-}
-
-/* Botón rosado */
 #modalLogin .btn-primary {
-    background-color: #ff4fa3 !important;
-    border-color: #ff4fa3 !important;
-    font-weight: bold;
+    background-color: #147D7D !important; /* Botón Verde Azulado */
+    border-color: #147D7D !important;
+}
+#modalLogin .btn-primary:hover {
+    background-color: #F54388 !important; /* Hover Rosa Chicle */
+    border-color: #F54388 !important;
 }
 
-#modalLogin .btn-primary:hover {
-    background-color: #e63e8e !important;
-    border-color: #e63e8e !important;
+/* Modal Carrito (Se hereda gran parte del estilo de Bootstrap, pero ajustamos color de encabezado si es necesario) */
+#modalCarrito .modal-header {
+    background-color: #B5EFCC; /* Menta Pastel */
+    color: #147D7D;
+}
+#modalCarrito .modal-footer .btn-success {
+    /* Botón Comprar en Rosa Chicle (si usas la clase 'btn-success' en el HTML) */
+    background-color: #F54388 !important;
+    border-color: #F54388 !important;
+    color: white !important;
+}
+#modalCarrito .modal-footer .btn-success:hover {
+    background-color: #147D7D !important;
+    border-color: #147D7D !important;
 }
