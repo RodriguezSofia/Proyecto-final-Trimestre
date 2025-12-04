@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Factura • Heladería Annia</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/factura.css') }}"></head>
+<body>
+
+<div class="invoice-wrap" role="document">
+  <header class="invoice-header">
+    <div class="brand">
+      <div class="logo">AN</div>
+      <div>
+        <h1>Heladería Annia</h1>
+        <p class="muted">Dulces momentos • Sabores artesanales</p>
+      </div>
+    </div>
+
+    <div class="hdr-right">
+      <div class="invoice-title">FACTURA / TICKET</div>
+      <div class="small monos">Nº: <strong>000123</strong></div>
+      <div class="small muted">Fecha: <strong>2025-12-04</strong></div>
+    </div>
+  </header>
+
+  <main class="invoice-body">
+    <div class="meta">
+      <div>
+        <h4>Heladería</h4>
+        <p>Avenida Principal 123<br/>Ciudad • NIT 900123456-7</p>
+      </div>
+      <div>
+        <h4>Cliente</h4>
+        <p>Juan Pérez<br/>C.C. 1.234.567</p>
+      </div>
+      <div>
+        <h4>Vendedor</h4>
+        <p>Andrea / Caja 2</p>
+      </div>
+    </div>
+
+    <section class="items">
+      <table>
+        <thead>
+          <tr>
+            <th>Producto</th>
+            <th>Descripción</th>
+            <th class="qty">Cant.</th>
+            <th class="price">Precio</th>
+            <th class="total">Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Cono vainilla</strong></td>
+            <td class="muted">Cono crujiente + bola grande</td>
+            <td class="qty">2</td>
+            <td class="price monos">$4.500</td>
+            <td class="total monos">$9.000</td>
+          </tr>
+          <tr>
+            <td><strong>Balde 1L — Fresa</strong></td>
+            <td class="muted">Helado artesanal</td>
+            <td class="qty">1</td>
+            <td class="price monos">$18.000</td>
+            <td class="total monos">$18.000</td>
+          </tr>
+          <tr>
+            <td><strong>Malteada chocolate</strong></td>
+            <td class="muted">Grande</td>
+            <td class="qty">1</td>
+            <td class="price monos">$8.500</td>
+            <td class="total monos">$8.500</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <div class="summary">
+      <div class="row">
+        <span class="muted">Subtotal</span>
+        <span class="monos">$35.500</span>
+      </div>
+      <div class="row">
+        <span class="muted">Descuento</span>
+        <span class="monos">$0</span>
+      </div>
+      <div class="row">
+        <span class="muted">IVA (0%)</span>
+        <span class="monos">$0</span>
+      </div>
+      <div class="row total">
+        <span>Total a pagar</span>
+        <span class="monos">$35.500</span>
+      </div>
+    </div>
+  </main>
+
+  <footer class="invoice-footer">
+    <div class="payment-methods">
+      <div class="chip">Efectivo</div>
+      <div class="chip">Tarjeta</div>
+      <div class="chip">QR • PSE</div>
+    </div>
+
+    <div class="notes">
+      <div class="muted">Observaciones:</div>
+      <p>Gracias por preferir Heladería Annia. Conservar en congelador si aplica.</p>
+    </div>
+  </footer>
+</div>
+
+</body>
+</html
