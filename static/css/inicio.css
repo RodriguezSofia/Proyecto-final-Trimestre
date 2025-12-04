@@ -1,9 +1,9 @@
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: "Poppins", sans-serif;
-        }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Quicksand", sans-serif;
+}
 
         body {
             display: flex;
@@ -11,7 +11,7 @@
             align-items: center;
             min-height: 100vh;
             padding: 20px;
-            background-image: url('../img/inicio.jpg');
+            background-image: url('../img/registro.jpg');
             /* 2. MUY IMPORTANTE: Asegura que la imagen cubra todo el fondo */
             background-size: cover; 
             /* 3. Centra la imagen horizontal y verticalmente */
@@ -40,14 +40,14 @@
             backdrop-filter: blur(10px); /* Efecto de desenfoque */
             color: #fff; /* Color del texto (blanco) */
         }
-
-        .wrapper h1 {
-            font-size: 36px;
-            text-align: center;
-            margin-bottom: 30px;
-            color: white;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-        }
+/* ---------- TÍTULO ----------- */
+.wrapper h1 {
+    font-family: 'Pacifico', cursive;
+    font-size: 42px;
+    margin-bottom: 20px;
+    color: white;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
 
         .wrapper .input-box {
             position: relative;
