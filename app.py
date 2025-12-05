@@ -1,11 +1,11 @@
-from flask import Flask, request, jsonify, render_template, redirect, url_for, session
-from flask_mail import Mail, Message
+from flask import Flask, request, jsonify, render_template, redirect, url_for, session 
+from flask_mail import Mail, Message #Se importa para el envio de correos
 import psycopg2
 from psycopg2.extras import RealDictCursor
-import bcrypt
-import os
-import random
-import string
+import bcrypt #Se importa bcrypt para el hash o no visualizacion de las contraseñas del usuario
+import os  #Se importa os para mejor manejo de las variables del entorno
+import random # Se importa random para la generacion de  contraseñas temporales.         
+import string #En conjunto con random, se usa para la generación de contraseñas temporales
 
 # ======================================================
 # CONFIGURACIÓN GENERAL
@@ -21,9 +21,9 @@ app.secret_key = os.environ.get('SECRET_KEY', 'Dulce_manjar')
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 587
 app.config['MAIL_USE_TLS'] = True
-app.config['MAIL_USERNAME'] = 'maironsalazar16@gmail.com'  #CORREO DE DONDE SE VAN A ENVIAR LA CONTRASEÑAS TEMPORALES 
-app.config['MAIL_PASSWORD'] = 'tazd mdkm wbjl nfwo'       # contraseña de aplicación
-app.config['MAIL_DEFAULT_SENDER'] = 'maironsalazar16@gmail.com'  #CORREO DE DONDE SE VAN A ENVIAR LA CONTRASEÑAS TEMPORALES
+app.config['MAIL_USERNAME'] = 'diaznicolk@gmail.com'  #CORREO DE DONDE SE VAN A ENVIAR LA CONTRASEÑAS TEMPORALES 
+app.config['MAIL_PASSWORD'] = 'jpzv vwrw xeit bcva'       # contraseña de aplicación
+app.config['MAIL_DEFAULT_SENDER'] = 'diaznicolk@gmail.com'  #CORREO DE DONDE SE VAN A ENVIAR LA CONTRASEÑAS TEMPORALES
 
 mail = Mail(app)
 
@@ -33,9 +33,9 @@ mail = Mail(app)
 
 DB_CONFIG = {
     'host': os.environ.get('DB_HOST', 'localhost'),
-    'database': os.environ.get('DB_NAME', 'bd_heladeria'),
+    'database': os.environ.get('DB_NAME', 'heladeria'),
     'user': os.environ.get('DB_USER', 'postgres'),
-    'password': os.environ.get('DB_PASSWORD', 'S0lut3c2012*'),
+    'password': os.environ.get('DB_PASSWORD', '123456'),
     'port': 5432
 }
 
@@ -235,7 +235,7 @@ def cambiar_password():
     cursor = conexion.cursor(cursor_factory=RealDictCursor)
 
     cursor.execute('SELECT "password" FROM public."Usuarios" WHERE "Id_usuario" = %s;',
-                   (session["usuario_id"],))
+                (session["usuario_id"],))
     usuario = cursor.fetchone()
 
     if not bcrypt.checkpw(actual.encode('utf-8'), usuario["password"].encode('utf-8')):
@@ -244,7 +244,7 @@ def cambiar_password():
     nueva_hash = bcrypt.hashpw(nueva.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
 
     cursor.execute('UPDATE public."Usuarios" SET "password"=%s WHERE "Id_usuario"=%s;',
-                   (nueva_hash, session["usuario_id"]))
+                (nueva_hash, session["usuario_id"]))
 
     conexion.commit()
     cursor.close()
@@ -268,7 +268,7 @@ def admin_panel():
     try:
         cursor = conexion.cursor(cursor_factory=RealDictCursor)
         cursor.execute('SELECT "Id_tipo" FROM public."Usuarios" WHERE "Id_usuario" = %s;',
-                       (session["usuario_id"],))
+                    (session["usuario_id"],))
         usuario = cursor.fetchone()
 
         cursor.close()
@@ -325,7 +325,7 @@ def recuperacion():
         contrasena_temporal = generar_contrasena_temporal()
 
         password_hash = bcrypt.hashpw(contrasena_temporal.encode('utf-8'),
-                                      bcrypt.gensalt()).decode('utf-8')
+                                    bcrypt.gensalt()).decode('utf-8')
 
         cursor.execute("""
             UPDATE public."Usuarios"
