@@ -1,60 +1,24 @@
-/* Esto aplica al <p> debajo del H2 */
-#inicio p {
-    /* Color de la marca (Verde Azulado) */
-    color: #147D7D;
-    /* Aumentar ligeramente el grosor para que no sea tan fino */
-    font-weight: 500; 
-    /* Aumentar un poco el tamaño para mejor legibilidad */
-    font-size: 1.1em; 
-    /* Estilo cursivo para un toque más artesanal/personal */
-    font-style: italic;
-    /* Un pequeño margen inferior para separarlo del contenido siguiente */
-    margin-bottom: 30px; 
-}
-body {
-    /* Tipografía Moderno y Dulce */
-    font-family: 'Quicksand', sans-serif; 
-    margin: 0;
-    background-color: #FFFDF2; 
-    color: #147D7D; 
-}
-
-/* Opcional: Usar una fuente más audaz para los títulos si la Quicksand se ve muy ligera */
-h2 {
-    /* 1. Aplicar la fuente cursiva y dulce */
-    font-family: 'Pacifico', cursive; 
-    
-    /* 2. Color Principal de la marca */
-    color: #147D7D; /* Verde Azulado Oscuro */
-    
-    /* 3. Tamaño más grande para impacto */
-    font-size: 3em; 
-    /* 5. Espaciado superior para centrarlo visualmente */
-    padding-top: 20px; 
-}
-/* --- CABECERA Y NAVEGACIÓN --- */
-
+/* -- ESTILOS BÁSICOS PARA LA BARRA DE NAVEGACIÓN -- */
 .barra-navegacion {
+    /* 1. Usar Flexbox para alinear elementos */
     display: flex;
+    /* 2. Distribuir el espacio entre el logo y los links */
     justify-content: space-between;
+    /* 3. Alinear verticalmente los elementos al centro */
     align-items: center;
-    /* Dejamos el fondo blanco para contrastar con el fondo crema del body */
-    background-color: #FFF8E3; 
+
+    /* Estilos de fondo y padding (ejemplo) */
+    background-color: #ffdfef; /* Color rosa claro, como tu marca */
     padding: 10px 20px;
+
 }
 
+/* === Encabezado === */
 header {
-    /* Fondo de la Cabecera (Rosa Chicle muy claro o Menta Pastel) */
-    background-color: #F2CAEF; /* Dejado como un rosa claro para la barra de navegación */
+    background-color: #F2CAEF;
     text-align: center;
     padding: 20px;
-    /* Título (Verde Azulado Oscuro) */
-    color: #147D7D; 
-}
-
-header h1 {
-    font-size: 2.5em;
-    margin-bottom: 10px;
+    color: #D3183D;
 }
 
 nav ul {
@@ -70,98 +34,107 @@ nav ul li {
 
 nav a {
     text-decoration: none;
-    /* Color de los links (Verde Azulado Oscuro, para mejor legibilidad) */
-    color: #147D7D; 
+    color: #5a3e36;
     font-weight: bold;
     padding: 6px 12px;
     border-radius: 6px;
 }
 
 nav a:hover {
-    /* Fondo al pasar el ratón (Amarillo Pastel) */
-    background-color: #FCEA85; 
-    /* El texto sigue siendo el Verde Azulado para mantener el contraste */
-    color: #147D7D; 
+    background-color: #FCEA85;
 }
 
 nav a.activo {
-    /* Fondo del link activo (Menta Pastel) */
-    background-color: #B5EFCC; 
-    /* Texto del link activo (Rosa Chicle/Fucsia para resaltar) */
-    color: #F54388; 
+    background-color: #B5EFCC;
+    color: #D3183D;
 }
 
-/* --- ESTILOS VARIOS --- */
-
-h2 {
-    /* Títulos secundarios (Rosa Chicle/Fucsia para acento) */
-    color: #F54388; 
-}
-
-section {
-    padding: 50px 20px;
-    text-align: center;
-}
-
-/* --- BOTONES --- */
-
-button {
-    /* Fondo del Botón Principal (Rosa Chicle/Fucsia, el color de acción más fuerte) */
-    background-color: #F54388; 
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    /* Sombra sutil para darle un look más dinámico */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
-    transition: background-color 0.3s ease;
-}
-
-button:hover {
-    /* Hover del Botón (Verde Azulado Oscuro, da un contraste genial) */
-    background-color: #147D7D; 
-}
-
-/* --- FOOTER --- */
-
-footer {
-    /* Fondo del Footer (Amarillo Pastel, muy alegre) */
-    background-color: #FCEA85; 
-    /* Color de texto (Verde Azulado Oscuro) */
-    color: #147D7D; 
-    text-align: center;
-    padding: 15px;
-}
-
-/* (Otros estilos sin cambios) */
+/* -- ESTILOS PARA LA IMAGEN DEL LOGO -- */
 .logo {
-    height: 50px; 
+    /* 1. Define un tamaño fijo para que no sea muy grande */
+    height: 60px; /* Ajusta este valor según el tamaño deseado */
     width: auto;
+    /* 2. Pequeño margen a la derecha para separar del texto (si lo hay) */
     margin-right: 20px;
 }
 
+/* -- ESTILOS PARA LOS LINKS (Opcional, pero recomendado) -- */
 .menu-principal {
-    list-style: none; 
-    display: flex; 
+    list-style: none; /* Quitar viñetas */
+    display: flex; /* Poner los links uno al lado del otro */
     margin: 0;
     padding: 0;
 }
 
 .menu-principal li a {
     text-decoration: none;
-    color: #147D7D; 
+    color: #880e4f; /* Un color oscuro para el texto */
     padding: 10px 15px;
     display: block;
 }
 
+body {
+    /* Fuente dulce y moderna unificada del index */
+    font-family: 'Quicksand', sans-serif; 
+    margin: 0;
+    /* Fondo Crema unificado del index */
+    background-color: #FFFDF2; 
+    /* Color de texto principal unificado */
+    color: #147D7D; 
+}
+h2 {
+    /* 1. Aplicar la fuente cursiva y dulce */
+    font-family: 'Pacifico', cursive; 
+    
+    /* 2. Color Principal de la marca */
+    color: #147D7D; /* Verde Azulado Oscuro */
+    
+    /* 3. Tamaño más grande para impacto */
+    font-size: 3em; 
+    /* 5. Espaciado superior para centrarlo visualmente */
+    padding-top: 20px; 
+}
+
+header {
+    background-color: #F2CAEF;
+    text-align: center;
+    padding: 20px;
+    color: #D3183D;
+}
+
+header h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
 .caja {
-    width: 100%;
-    height: auto;
-    background-image: url("hola/logo_2.jpeg");
-    background-size: cover; 
-    background-position: center; 
-    background-repeat: no-repeat; 
+  width: 100%;
+  height: auto;
+  background-image: url("hola/logo_2.jpeg");
+  background-size: cover; /* ajusta la imagen al tamaño */
+  background-position: center; /* centra la imagen */
+  background-repeat: no-repeat; /* evita que se repita */
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline-block;
+    margin: 0 10px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #5a3e36;
+    font-weight: bold;
+}
+
+section {
+    padding: 50px 20px;
+    text-align: center;
 }
 
 .imagen-principal {
@@ -170,41 +143,65 @@ footer {
     border-radius: 15px;
     margin-top: 20px;
 }
-.carousel-item img {
-    width: 100%;
-    height: 400px;
-    object-fit: cover;
-    border-radius: 15px; 
-    margin: 0 auto;
-    max-width: 900px;
+
+.galeria-sabores {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 25px;
+    margin-top: 30px;
 }
+
+.galeria-sabores article {
+    background-color: #B5EFCC;
+    border-radius: 10px;
+    width: 200px;
+    padding: 15px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+}
+
+.galeria-sabores img {
+    width: 100%;
+    border-radius: 8px;
+}
+
+button {
+    background-color: #D3183D;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #C99D71;
+}
+
+footer {
+    background-color: #FCEA85;
+    color: #5a3e36;
+    text-align: center;
+    padding: 15px;
+}
+
 .card-img-top {
-    height: 250px;
-    object-fit: cover;
+    height: 250px;        /* Ajusta este valor si quieres más alto o más bajo */
+    object-fit: cover;    /* Recorta sin deformar */
     width: 100%;
     border-radius: 10px;
 }
-/* --- ESTILOS BASE PARA LAS TARJETAS --- */
 
-/* Aplicamos transición a todas las propiedades que queremos animar (sombra y transformación) */
-.card {
-    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-    border: none; /* Quitamos el borde por defecto de Bootstrap para un look más limpio */
+
+.carousel-item img {
+    width: 100%;
+    height: 400px;       /* Altura fija (ajústala: 300px, 350px, etc.) */
+    object-fit: cover;   /* Recorta sin deformar */
+    border-radius: 15px; /* Opcional, se ve más bonito */
+    margin: 0 auto;
+    max-width: 900px;    /* Para que NO ocupe toda la pantalla */
 }
 
-/* --- ANIMACIÓN AL PASAR EL MOUSE (HOVER) --- */
-
-.card:hover {
-    /* 1. Elevación: mueve la tarjeta ligeramente hacia arriba (-5px en el eje Y) */
-    transform: translateY(-5px);
-    
-    /* 2. Sombra más dramática: hace que parezca que la tarjeta se ha levantado */
-    /* Usamos el color de acento Verde Azulado (#147D7D) para la sombra */
-    box-shadow: 0 10px 20px rgba(20, 125, 125, 0.4); 
-    
-    /* Opcional: Borde sutil del color de acento, aunque con la sombra puede ser suficiente */
-    /* border: 2px solid #F54388; */ 
-}
 /* === SECCIÓN SABORES === */
 #sabores {
     text-align: center;
