@@ -17,29 +17,25 @@
 </head>
 
 <body>
-    <nav class="barra-navegacion d-flex justify-content-between align-items-center px-4 py-2" style="background-color: #f3ecdc;">
+    <!-- NAV SUPERIOR -->
+    <nav class="barra-navegacion d-flex justify-content-between align-items-center px-4 py-2">
         <a href="{{ url_for('home') }}" class="logo-link">
-            <img src="{{ url_for('static', filename='img/logo.jpeg') }}" alt="Logo Heladería Annia" class="logo">
+            <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo Heladería Annia" class="logo">
         </a>
-
-        <div class="d-flex gap-3">
-            <a href="{{ url_for('registro') }}" class="btn" style="background-color: #F54388; color: white;">Registrarse</a>
-            <a href="{{ url_for('login') }}" class="btn" style="background-color: #147D7D; color: white;">Iniciar sesión</a>
-        </div>
+        <ul class="menu-principal d-flex gap-3">
+            <li><a href="{{ url_for('registro') }}">Registrarse</a></li>
+            <li><a href="{{ url_for('login') }}">Iniciar sesión</a></li>
+        </ul>
     </nav>
 
-    <header class="py-2 shadow-sm" style="background-color: #B5EFCC;">
+    <!-- SEGUNDA BARRA DE MENÚ -->
+    <header class="py-2 shadow-sm" style="background:#ffe6f7;">
         <nav class="container">
             <ul class="d-flex justify-content-center gap-4 list-unstyled m-0">
-                <li><a href="{{ url_for('home') }}" style="color: #147D7D;">Inicio</a></li>
-                <li><a href="{{ url_for('menu') }}" class="activo" style="background-color: #FCEA85; color: #147D7D; font-weight: bold; border-radius: 6px; padding: 6px 12px;">Menú</a></li>                <li><a href="{{ url_for('acerca') }}" style="color: #147D7D;">Acerca de</a></li>
-                <li><a href="{{ url_for('contacto') }}" style="color: #147D7D;">Contacto</a></li>
-                <li>
-                    <a href="#" id="btnCarrito" class="carrito-link" data-bs-toggle="modal" data-bs-target="#modalCarrito" style="color: #147D7D;">
-                        <i class="bi bi-basket2-fill"></i> 
-                        <span id="carritoCount" style="background-color: #F54388; color: white; border-radius: 50%; padding: 0 5px;">0</span>
-                    </a>
-                </li>
+                <li><a href="{{ url_for('home') }}">Inicio</a></li>
+                <li><a href="{{ url_for('menu') }}">Menú</a></li>
+                <li><a href="{{ url_for('acerca') }}">Acerca de</a></li>
+                <li><a href="{{ url_for('contacto') }}">Contacto</a></li>
             </ul>
         </nav>
     </header>

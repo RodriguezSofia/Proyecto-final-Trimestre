@@ -1,12 +1,78 @@
-/* --- PALETA DE COLORES ANNIA ---
-#147D7D (Verde Azulado - Texto principal, íconos, hover)
-#F54388 (Rosa Chicle/Fucsia - Acento, títulos principales, botones)
-#FCEA85 (Amarillo Pastel - Fondo de footer, hover de nav)
-#B5EFCC (Menta Pastel - Fondo de header, fondo de cards)
-#FFFDF2 (Crema/Fondo del body)
-*/
+/* -- ESTILOS BÁSICOS PARA LA BARRA DE NAVEGACIÓN -- */
+.barra-navegacion {
+    /* 1. Usar Flexbox para alinear elementos */
+    display: flex;
+    /* 2. Distribuir el espacio entre el logo y los links */
+    justify-content: space-between;
+    /* 3. Alinear verticalmente los elementos al centro */
+    align-items: center;
 
-/* --- ESTILOS GENERALES Y TIPOGRAFÍA UNIFICADA --- */
+    /* Estilos de fondo y padding (ejemplo) */
+    background-color: #ffffff; /* Color rosa claro, como tu marca */
+    padding: 10px 20px;
+
+}
+
+/* === Encabezado === */
+header {
+    background-color: #F2CAEF;
+    text-align: center;
+    padding: 20px;
+    color: #D3183D;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+nav ul li {
+    display: inline-block;
+    margin: 0 10px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #5a3e36;
+    font-weight: bold;
+    padding: 6px 12px;
+    border-radius: 6px;
+}
+
+nav a:hover {
+    background-color: #FCEA85;
+}
+
+nav a.activo {
+    background-color: #B5EFCC;
+    color: #D3183D;
+}
+
+/* -- ESTILOS PARA LA IMAGEN DEL LOGO -- */
+.logo {
+    /* 1. Define un tamaño fijo para que no sea muy grande */
+    height: 60px; /* Ajusta este valor según el tamaño deseado */
+    width: auto;
+    /* 2. Pequeño margen a la derecha para separar del texto (si lo hay) */
+    margin-right: 20px;
+}
+
+/* -- ESTILOS PARA LOS LINKS (Opcional, pero recomendado) -- */
+.menu-principal {
+    list-style: none; /* Quitar viñetas */
+    display: flex; /* Poner los links uno al lado del otro */
+    margin: 0;
+    padding: 0;
+}
+
+.menu-principal li a {
+    text-decoration: none;
+    color: #880e4f; /* Un color oscuro para el texto */
+    padding: 10px 15px;
+    display: block;
+}
+
 body {
     /* Fuente dulce y moderna unificada del index */
     font-family: 'Quicksand', sans-serif; 
@@ -28,48 +94,12 @@ h2 {
     /* 5. Espaciado superior para centrarlo visualmente */
     padding-top: 20px; 
 }
-/* --- CABECERAS Y NAVEGACIÓN --- */
 
-/* NAV SUPERIOR */
-.barra-navegacion {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    /* Fondo Blanco o Crema muy claro */
-    background-color: #f3ecdc; 
-    padding: 10px 20px;
-}
-.logo {
-    height: 50px; 
-    width: auto;
-    margin-right: 20px;
-}
-.menu-principal {
-    list-style: none; 
-    display: flex; 
-    margin: 0;
-    padding: 0;
-}
-.menu-principal li a {
-    text-decoration: none;
-    color: #147D7D; /* Verde Azulado */
-    padding: 10px 15px;
-    display: block;
-    transition: background-color 0.3s;
-}
-.menu-principal li a:hover {
-    background-color: #B5EFCC; /* Menta Pastel en hover */
-}
-
-
-/* SEGUNDA BARRA (HEADER) */
 header {
-    /* Fondo Menta Pastel unificado */
-    background-color: #B5EFCC; 
+    background-color: #F2CAEF;
     text-align: center;
-    padding: 20px 0;
-    color: #147D7D; /* Verde Azulado */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    color: #D3183D;
 }
 
 header h1 {
@@ -77,33 +107,29 @@ header h1 {
     margin-bottom: 10px;
 }
 
+.caja {
+  width: 100%;
+  height: auto;
+  background-image: url("hola/logo_2.jpeg");
+  background-size: cover; /* ajusta la imagen al tamaño */
+  background-position: center; /* centra la imagen */
+  background-repeat: no-repeat; /* evita que se repita */
+}
+
 nav ul {
     list-style: none;
     padding: 0;
-    margin: 0;
 }
+
 nav ul li {
     display: inline-block;
     margin: 0 10px;
 }
+
 nav a {
     text-decoration: none;
-    color: #147D7D; /* Verde Azulado Oscuro */
-    font-weight: 600;
-    padding: 6px 12px;
-    border-radius: 6px;
-    transition: background-color 0.3s;
-}
-
-nav a:hover {
-    background-color: #FCEA85; /* Amarillo Pastel en hover */
-    color: #147D7D; 
-}
-
-/* Enlace activo (Menú) */
-nav a.activo {
-    background-color: #F54388; /* Rosa Chicle para el activo */
-    color: white; /* Texto blanco para resaltar */
+    color: #5a3e36;
+    font-weight: bold;
 }
 
 /* --- SECCIÓN DE MENÚ (MAIN) --- */
