@@ -4,29 +4,131 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recuperar contraseña - Heladería Annia</title>
-    <link rel="stylesheet" href="../static/css/recuperacion.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/recuperacion.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <style>
+        .mensaje {
+            padding: 12px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            display: none;
+        }
+        .mensaje.exito {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .mensaje.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .mensaje.mostrar {
+            display: block;
+        }
+        .btn-enviar:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+    </style>
 </head>
 <body>
-
     <div class="color-line"></div>
-
     <div class="container">
         <h2>Recuperar contraseña</h2>
         <p class="subtexto">
-            Ingresa tu correo y te enviaremos un enlace para restablecer tu contraseña.
+            Ingresa tu correo y te enviaremos una contraseña temporal.
         </p>
-
-        <form>
+        
+        <div id="mensaje" class="mensaje"></div>
+        
+        <form id="formularioRecuperacion">
             <label for="correo">Correo electrónico</label>
-            <input type="email" id="correo" placeholder="ejemplo@correo.com" required>
-
-            <button type="submit" class="btn-enviar">Enviar enlace</button>
-
+            <input type="email" id="correo" name="correo" placeholder="ejemplo@correo.com" required>
+            
+            <button type="submit" class="btn-enviar" id="btnEnviar">Enviar enlace</button>
             <a href="/login" class="volver">Volver al inicio de sesión</a>
         </form>
     </div>
 
+    <script>
+        console.log('JavaScript cargado correctamente');
+        
+        const formulario = document.getElementById('formularioRecuperacion');
+        const btnEnviar = document.getElementById('btnEnviar');
+        const mensajeDiv = document.getElementById('mensaje');
+        const correoInput = document.getElementById('correo');
+
+        if (!formulario) {
+            console.error('Error: No se encontró el formulario');
+        }
+
+        formulario.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            console.log('Formulario enviado');
+            
+            const correo = correoInput.value.trim();
+            console.log('Correo ingresado:', correo);
+            
+            if (!correo) {
+                mostrarMensaje('Por favor ingresa tu correo electrónico', 'error');
+                return;
+            }
+
+            const regexCorreo = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!regexCorreo.test(correo)) {
+                mostrarMensaje('Por favor ingresa un correo válido', 'error');
+                return;
+            }
+
+            btnEnviar.disabled = true;
+            btnEnviar.textContent = 'Enviando...';
+            console.log('Enviando petición al servidor...');
+
+            try {
+                const response = await fetch('/recuperacion', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ correo: correo })
+                });
+
+                console.log('Respuesta del servidor:', response.status);
+                const data = await response.json();
+                console.log('Datos recibidos:', data);
+
+                if (response.ok) {
+                    mostrarMensaje(data.mensaje || 'Contraseña temporal enviada', 'exito');
+                    correoInput.value = '';
+                    
+                    setTimeout(() => {
+                        window.location.href = '/login';
+                    }, 3000);
+                } else {
+                    mostrarMensaje(data.error || 'Error al procesar la solicitud', 'error');
+                }
+            } catch (error) {
+                console.error('Error de conexión:', error);
+                mostrarMensaje('Error de conexión. Por favor intenta de nuevo.', 'error');
+            } finally {
+                btnEnviar.disabled = false;
+                btnEnviar.textContent = 'Enviar enlace';
+            }
+        });
+
+        function mostrarMensaje(texto, tipo) {
+            console.log('Mostrando mensaje:', texto, tipo);
+            mensajeDiv.textContent = texto;
+            mensajeDiv.className = `mensaje ${tipo} mostrar`;
+            
+            if (tipo === 'error') {
+                setTimeout(() => {
+                    mensajeDiv.classList.remove('mostrar');
+                }, 6000);
+            }
+        }
+    </script>
 </body>
 </html>

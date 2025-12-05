@@ -1,21 +1,41 @@
 from flask import Flask, request, jsonify, render_template, redirect, url_for, session
+from flask_mail import Mail, Message
 import psycopg2
 from psycopg2.extras import RealDictCursor
 import bcrypt
 import os
+import random
+import string
+
+# ======================================================
+# CONFIGURACIÓN GENERAL
+# ======================================================
 
 app = Flask(__name__)
 app.secret_key = os.environ.get('SECRET_KEY', 'Dulce_manjar')
 
+# ======================================================
+# CONFIGURACIÓN EMAIL
+# ======================================================
 
-# -------------------------
-# CONFIGURACIÓN DE LA BD
-# -------------------------
+app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+app.config['MAIL_PORT'] = 587
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USERNAME'] = 'maironsalazar16@gmail.com'  #CORREO DE DONDE SE VAN A ENVIAR LA CONTRASEÑAS TEMPORALES 
+app.config['MAIL_PASSWORD'] = 'tazd mdkm wbjl nfwo'       # contraseña de aplicación
+app.config['MAIL_DEFAULT_SENDER'] = 'maironsalazar16@gmail.com'  #CORREO DE DONDE SE VAN A ENVIAR LA CONTRASEÑAS TEMPORALES
+
+mail = Mail(app)
+
+# ======================================================
+# CONFIGURACIÓN BASE DE DATOS
+# ======================================================
+
 DB_CONFIG = {
     'host': os.environ.get('DB_HOST', 'localhost'),
-    'database': os.environ.get('DB_NAME', 'heladeria'),
+    'database': os.environ.get('DB_NAME', 'bd_heladeria'),
     'user': os.environ.get('DB_USER', 'postgres'),
-    'password': os.environ.get('DB_PASSWORD', '123456'),
+    'password': os.environ.get('DB_PASSWORD', 'S0lut3c2012*'),
     'port': 5432
 }
 
@@ -26,18 +46,22 @@ def conectar_bd():
         print(f"Error al conectar a la base de datos: {e}")
         return None
 
+# ======================================================
+# FUNCIÓN: GENERAR CONTRASEÑA TEMPORAL
+# ======================================================
 
-# -------------------------
-# RUTA PRINCIPAL (INDEX)
-# -------------------------
+def generar_contrasena_temporal():
+    caracteres = string.ascii_letters + string.digits + "!@#$%"
+    return ''.join(random.choice(caracteres) for _ in range(8))
+
+# ======================================================
+# RUTAS PRINCIPALES
+# ======================================================
+
 @app.route('/')
 def home():
-    return render_template('index.html')   # AHORA INICIA EN INDEX.HTML
+    return render_template('index.html')
 
-
-# -------------------------
-# RUTAS PARA NAVEGAR DESDE EL MENÚ DEL INDEX
-# -------------------------
 @app.route('/menu')
 def menu():
     return render_template('menu.html')
@@ -54,10 +78,10 @@ def acerca():
 def contacto():
     return render_template('contacto.html')
 
+# ======================================================
+# ADMIN PANEL
+# ======================================================
 
-# -------------------------
-# RUTAS PARA NAVEGAR EL ADMIN PANEL
-# -------------------------
 @app.route('/pedidos')
 def pedidos():
     return render_template('pedidos.html')
@@ -82,14 +106,15 @@ def trabajadores():
 def panel_trabajadores():
     return render_template('panel_trabajadores.html')
 
-# -------------------------
-# REGISTRO
-# -------------------------
+# ======================================================
+# REGISTRO DE USUARIO
+# ======================================================
+
 @app.route('/registro', methods=['GET', 'POST'])
 def registro():
     if request.method == 'GET':
         return render_template('registro.html')
-    
+
     datos = request.get_json()
     nombre = datos.get('nombre_completo', '').strip()
     correo = datos.get('correo', '').strip()
@@ -126,6 +151,7 @@ def registro():
 
         nuevo_id = cursor.fetchone()[0]
         conexion.commit()
+
         cursor.close()
         conexion.close()
 
@@ -133,23 +159,21 @@ def registro():
 
     except Exception as e:
         print(f"Error al registrar usuario: {e}")
-        if 'conexion' in locals():
-            conexion.rollback()
-            cursor.close()
-            conexion.close()
+        conexion.rollback()
+        cursor.close()
+        conexion.close()
         return jsonify({'error': 'Error interno del servidor'}), 500
 
-
-# -------------------------
+# ======================================================
 # LOGIN
-# -------------------------
+# ======================================================
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'GET':
         return render_template('login.html')
 
     datos = request.get_json()
-
     correo = datos.get("correo", "").strip()
     password = datos.get("password", "").strip()
 
@@ -162,7 +186,6 @@ def login():
 
     try:
         cursor = conexion.cursor(cursor_factory=RealDictCursor)
-
         cursor.execute('SELECT * FROM public."Usuarios" WHERE "correo_usuario" = %s;', (correo,))
         usuario = cursor.fetchone()
 
@@ -183,31 +206,56 @@ def login():
         cursor.close()
         conexion.close()
 
-        # ------------------------------------
-        # Login exitoso → verificar tipo
-        # ------------------------------------
-        if usuario["Id_tipo"] == 1:
+        if usuario["Id_tipo"] in (1, 2):
             return jsonify({"redirect": "/admin_panel"}), 200
 
-        elif usuario["Id_tipo"] == 2:
-            return jsonify({"redirect": "/admin_panel"}), 200
-
-        else:
-            return jsonify({"redirect": "/"}), 200
+        return jsonify({"redirect": "/"}), 200
 
     except Exception as e:
         print(f"Error en login: {e}")
-        try:
-            cursor.close()
-            conexion.close()
-        except:
-            pass
         return jsonify({"error": "Error interno del servidor"}), 500
 
+# ======================================================
+# CAMBIO DE CONTRASEÑA (USUARIO LOGUEADO)
+# ======================================================
 
-# -------------------------
-# PANEL DE ADMINISTRADOR Y TRABAJADORES
-# -------------------------
+@app.route('/cambiar_password', methods=['POST'])
+def cambiar_password():
+    if "usuario_id" not in session:
+        return jsonify({'error': 'Debes iniciar sesión'}), 401
+
+    datos = request.get_json()
+    actual = datos.get("actual", "").strip()
+    nueva = datos.get("nueva", "").strip()
+
+    if not actual or not nueva:
+        return jsonify({'error': 'Todos los campos son obligatorios'}), 400
+
+    conexion = conectar_bd()
+    cursor = conexion.cursor(cursor_factory=RealDictCursor)
+
+    cursor.execute('SELECT "password" FROM public."Usuarios" WHERE "Id_usuario" = %s;',
+                   (session["usuario_id"],))
+    usuario = cursor.fetchone()
+
+    if not bcrypt.checkpw(actual.encode('utf-8'), usuario["password"].encode('utf-8')):
+        return jsonify({'error': 'La contraseña actual es incorrecta'}), 400
+
+    nueva_hash = bcrypt.hashpw(nueva.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
+
+    cursor.execute('UPDATE public."Usuarios" SET "password"=%s WHERE "Id_usuario"=%s;',
+                   (nueva_hash, session["usuario_id"]))
+
+    conexion.commit()
+    cursor.close()
+    conexion.close()
+
+    return jsonify({'mensaje': 'Contraseña actualizada correctamente'})
+
+# ======================================================
+# ADMIN PANEL (VALIDACIÓN DE ROL)
+# ======================================================
+
 @app.route('/admin_panel')
 def admin_panel():
     if "usuario_id" not in session:
@@ -219,7 +267,8 @@ def admin_panel():
 
     try:
         cursor = conexion.cursor(cursor_factory=RealDictCursor)
-        cursor.execute('SELECT "Id_tipo" FROM public."Usuarios" WHERE "Id_usuario" = %s;', (session["usuario_id"],))
+        cursor.execute('SELECT "Id_tipo" FROM public."Usuarios" WHERE "Id_usuario" = %s;',
+                       (session["usuario_id"],))
         usuario = cursor.fetchone()
 
         cursor.close()
@@ -237,11 +286,97 @@ def admin_panel():
         print(f"Error en admin_panel: {e}")
         return "Error interno", 500
 
+# ======================================================
+# RECUPERACIÓN DE CONTRASEÑA
+# ======================================================
 
+@app.route('/recuperacion', methods=['GET', 'POST'])
+def recuperacion():
+    if request.method == 'GET':
+        return render_template('recuperacion.html')
 
-@app.route('/recuperacion')
-def reestablecer():
-    return render_template('recuperacion.html')
+    datos = request.get_json()
+    correo = datos.get('correo', '').strip()
+
+    if not correo:
+        return jsonify({'error': 'El correo es obligatorio'}), 400
+
+    conexion = conectar_bd()
+    if not conexion:
+        return jsonify({'error': 'Error de conexión a la base de datos'}), 500
+
+    try:
+        cursor = conexion.cursor(cursor_factory=RealDictCursor)
+
+        cursor.execute("""
+            SELECT "Id_usuario", "Nombre_completo_usuario", "correo_usuario"
+            FROM public."Usuarios"
+            WHERE "correo_usuario" = %s;
+        """, (correo,))
+
+        usuario = cursor.fetchone()
+
+        if not usuario:
+            cursor.close()
+            conexion.close()
+            return jsonify({'error': 'El correo no está registrado'}), 404
+
+        # generar contraseña temporal
+        contrasena_temporal = generar_contrasena_temporal()
+
+        password_hash = bcrypt.hashpw(contrasena_temporal.encode('utf-8'),
+                                      bcrypt.gensalt()).decode('utf-8')
+
+        cursor.execute("""
+            UPDATE public."Usuarios"
+            SET "password" = %s
+            WHERE "correo_usuario" = %s;
+        """, (password_hash, correo))
+
+        conexion.commit()
+
+        # enviar correo
+        msg = Message('Contraseña temporal - Heladería Annia', recipients=[correo])
+        msg.html = f"""
+        <html>
+            <body style="font-family: Arial; padding: 20px; background-color: #f5f5f5;">
+                <div style="max-width: 600px; background:white; padding:30px; border-radius:10px;">
+                    <h2 style="color:#FF69B4; text-align:center;">🍦 Heladería Annia</h2>
+                    <p>Hola {usuario['Nombre_completo_usuario']},</p>
+                    <p>Tu contraseña temporal es:</p>
+
+                    <div style="background:#fff3cd; padding:18px; border-radius:5px; text-align:center;">
+                        <strong style="font-size:22px;">{contrasena_temporal}</strong>
+                    </div>
+
+                    <br>
+                    <a href="http://localhost:5000/login"
+                       style="background:#FF69B4; padding:12px 35px; color:white; 
+                              text-decoration:none; border-radius:20px; font-weight:bold;">
+                       Iniciar Sesión
+                    </a>
+                </div>
+            </body>
+        </html>
+        """
+
+        mail.send(msg)
+
+        cursor.close()
+        conexion.close()
+
+        return jsonify({'mensaje': 'Contraseña temporal enviada a tu correo'}), 200
+
+    except Exception as e:
+        print(f"Error en recuperación: {e}")
+        conexion.rollback()
+        cursor.close()
+        conexion.close()
+        return jsonify({'error': 'Error interno del servidor'}), 500
+
+# ======================================================
+# EJECUCIÓN
+# ======================================================
 
 if __name__ == '__main__':
     app.run(debug=True)
