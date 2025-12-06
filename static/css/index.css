@@ -1,86 +1,92 @@
-/* -- ESTILOS BÁSICOS PARA LA BARRA DE NAVEGACIÓN -- */
 .barra-navegacion {
-    /* 1. Usar Flexbox para alinear elementos */
-    display: flex;
-    /* 2. Distribuir el espacio entre el logo y los links */
-    justify-content: space-between;
-    /* 3. Alinear verticalmente los elementos al centro */
-    align-items: center;
-
-    /* Estilos de fondo y padding (ejemplo) */
-    background-color: #ffdfef; /* Color rosa claro, como tu marca */
-    padding: 10px 20px;
-
+display: flex; /* Usar Flexbox para alinear elementos */
+justify-content: space-between;/* Distribuir el espacio entre el logo y los links */
+align-items: center; /*Alinear verticalmente los elementos al centro */
+background-color: #ffffff;
+padding: 10px 20px;
 }
-
 /* === Encabezado === */
+
 header {
-    background-color: #F2CAEF;
-    text-align: center;
-    padding: 20px;
-    color: #D3183D;
+background-color: #F2CAEF;
+text-align: center;
+padding: 20px;
+color: #D3183D;
 }
 
 nav ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+list-style: none;
+padding: 0;
+margin: 0;
 }
 
 nav ul li {
-    display: inline-block;
-    margin: 0 10px;
+display: inline-block;
+margin: 0 10px;
 }
-
 nav a {
-    text-decoration: none;
-    color: #5a3e36;
-    font-weight: bold;
-    padding: 6px 12px;
-    border-radius: 6px;
+font-family: 'Quicksand', sans-serif;
+text-decoration: none;
+color: #880e4f;
+font-weight: bold;
+padding: 6px 12px;
+border-radius: 6px;
 }
 
 nav a:hover {
-    background-color: #FCEA85;
+background-color: #fdfcee;
 }
+
+
 
 nav a.activo {
-    background-color: #B5EFCC;
-    color: #D3183D;
+background-color:#B5EFCC;
+color: #D3183D;
 }
 
-/* -- ESTILOS PARA LA IMAGEN DEL LOGO -- */
+.btn-menu-principal{
+padding: 8px 15px;
+text-decoration: none;
+color: #888e4f;
+border-radius: 5px; font-weight: bold; display: inline-block; transition: all 0.3s ease-in-out;
+background-size: 200% 100%;
+box-shadow: 9 4px 6px rgba(0,0,0,0.1);
+}
 .logo {
-    /* 1. Define un tamaño fijo para que no sea muy grande */
-    height: 60px; /* Ajusta este valor según el tamaño deseado */
-    width: auto;
-    /* 2. Pequeño margen a la derecha para separar del texto (si lo hay) */
-    margin-right: 20px;
+height: 60px;
+width: auto;
+margin-right: 20px;
 }
+/* -ESTILOS PARA LOS LINKS -- */
 
-/* -- ESTILOS PARA LOS LINKS (Opcional, pero recomendado) -- */
 .menu-principal {
-    list-style: none; /* Quitar viñetas */
-    display: flex; /* Poner los links uno al lado del otro */
-    margin: 0;
-    padding: 0;
+list-style: none; /* Quitar viñetas */
+display: flex; /* Poner los links uno al lado del otro */
+margin: 0;
+padding: 0;
 }
 
 .menu-principal li a {
-    text-decoration: none;
-    color: #880e4f; /* Un color oscuro para el texto */
-    padding: 10px 15px;
-    display: block;
+text-decoration: none;
+color: #880e4f;
+padding: 10px 15px;
+display: block;
 }
 
 body {
-    /* Fuente dulce y moderna unificada del index */
-    font-family: 'Quicksand', sans-serif; 
-    margin: 0;
-    /* Fondo Crema unificado del index */
-    background-color: #FFFDF2; 
-    /* Color de texto principal unificado */
-    color: #147D7D; 
+font-family: 'Quicksand', sans-serif;
+margin: 0;
+background-color: #ffffff;
+color: #147070;
+/*Color de texto principal */
+}
+
+
+h2 {
+font-family: 'Pacifico', cursive;
+color: #14a5a5;
+font-size: 3em; /* Tamaño más grande */
+padding-top: 20px; /* Espaciado superior para centrarlo visualmente */
 }
 h2 {
     /* 1. Aplicar la fuente cursiva y dulce */
@@ -119,11 +125,6 @@ header h1 {
 nav ul {
     list-style: none;
     padding: 0;
-}
-
-nav ul li {
-    display: inline-block;
-    margin: 0 10px;
 }
 
 nav a {

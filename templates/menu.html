@@ -28,8 +28,8 @@
 
             {% if not session.get('usuario_nombre') %}
                 <!-- SI NO HAY SESIÓN -->
-                <a href="{{ url_for('registro') }}" class="btn" style="background-color:#F54388;color:white;">Registrarse</a>
-                <a href="{{ url_for('login') }}" class="btn" style="background-color:#147D7D;color:white;">Iniciar sesión</a>
+                <a href="{{ url_for('registro') }}" class="btn" style="background-color:#947bf6ff;color:white;">Registrarse</a>
+                <a href="{{ url_for('login') }}" class="btn" style="background-color:#f64d8eff;color:white;">Iniciar sesión</a>
 
             {% else %}
                 <!-- SI HAY SESIÓN -->
@@ -52,7 +52,7 @@
     </nav>
 
     <!-- SEGUNDA BARRA DE MENÚ -->
-    <header class="py-2 shadow-sm" style="background:#ffe6f7;">
+    <header class="py-2 shadow-sm" style="background:#9a6759;">
         <nav class="container">
             <ul class="d-flex justify-content-center gap-4 list-unstyled m-0">
                 <li><a href="{{ url_for('home') }}">Inicio</a></li>

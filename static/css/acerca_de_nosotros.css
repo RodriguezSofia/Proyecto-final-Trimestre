@@ -1,9 +1,104 @@
 .barra-navegacion {
-    display: flex;/* 1. Usar Flexbox para alinear elementos */
-    justify-content: space-between;/* 2. Distribuir el espacio entre el logo y los links */
-    align-items: center;/* 3. Alinear verticalmente los elementos al centro */
-    background-color: #FFFDF2;
-    padding: 10px 20px;
+display: flex; /* Usar Flexbox para alinear elementos */
+justify-content: space-between;/* Distribuir el espacio entre el logo y los links */
+align-items: center; /*Alinear verticalmente los elementos al centro */
+background-color: #ffffff;
+padding: 10px 20px;
+}
+/* === Encabezado === */
+
+header {
+background-color: #F2CAEF;
+text-align: center;
+padding: 20px;
+color: #D3183D;
+}
+
+nav ul {
+list-style: none;
+padding: 0;
+margin: 0;
+}
+
+nav ul li {
+display: inline-block;
+margin: 0 10px;
+}
+nav a {
+font-family: 'Quicksand', sans-serif;
+text-decoration: none;
+color: #880e4f;
+font-weight: bold;
+padding: 6px 12px;
+border-radius: 6px;
+}
+
+nav a:hover {
+background-color: #fdfcee;
+}
+
+
+
+nav a.activo {
+background-color:#B5EFCC;
+color: #D3183D;
+}
+
+.btn-menu-principal{
+padding: 8px 15px;
+text-decoration: none;
+color: #888e4f;
+border-radius: 5px; font-weight: bold; display: inline-block; transition: all 0.3s ease-in-out;
+background-size: 200% 100%;
+box-shadow: 9 4px 6px rgba(0,0,0,0.1);
+}
+.logo {
+height: 60px;
+width: auto;
+margin-right: 20px;
+}
+/* -ESTILOS PARA LOS LINKS -- */
+
+.menu-principal {
+list-style: none; /* Quitar viñetas */
+display: flex; /* Poner los links uno al lado del otro */
+margin: 0;
+padding: 0;
+}
+
+.menu-principal li a {
+text-decoration: none;
+color: #880e4f;
+padding: 10px 15px;
+display: block;
+}
+
+body {
+font-family: 'Quicksand', sans-serif;
+margin: 0;
+background-color: #ffffff;
+color: #147070;
+/*Color de texto principal */
+}
+
+
+h2 {
+font-family: 'Pacifico', cursive;
+color: #14a5a5;
+font-size: 3em; /* Tamaño más grande */
+padding-top: 20px; /* Espaciado superior para centrarlo visualmente */
+}
+h2 {
+    /* 1. Aplicar la fuente cursiva y dulce */
+    font-family: 'Pacifico', cursive; 
+    
+    /* 2. Color Principal de la marca */
+    color: #147D7D; /* Verde Azulado Oscuro */
+    
+    /* 3. Tamaño más grande para impacto */
+    font-size: 3em; 
+    /* 5. Espaciado superior para centrarlo visualmente */
+    padding-top: 20px; 
 }
 
 header {
@@ -12,66 +107,35 @@ header {
     padding: 20px;
     color: #D3183D;
 }
+
 header h1 {
     font-size: 2.5em;
     margin-bottom: 10px;
 }
+
+.caja {
+  width: 100%;
+  height: auto;
+  background-image: url("hola/logo_2.jpeg");
+  background-size: cover; /* ajusta la imagen al tamaño */
+  background-position: center; /* centra la imagen */
+  background-repeat: no-repeat; /* evita que se repita */
+}
+
 nav ul {
     list-style: none;
     padding: 0;
-    margin: 0;
-}
-
-nav ul li {
-    display: inline-block;
-    margin: 0 10px;
 }
 
 nav a {
     text-decoration: none;
     color: #5a3e36;
     font-weight: bold;
-    padding: 6px 12px;
-    border-radius: 6px;
 }
 
-nav a:hover {
-    background-color: #FCEA85;
-}
-
-nav a.activo {
-    background-color: #B5EFCC;
-    color: #D3183D;
-}
-
-/* -- ESTILOS PARA LA IMAGEN DEL LOGO -- */
-.logo {
-    /* 1. Define un tamaño fijo para que no sea muy grande */
-    height: 50px; /* Ajusta este valor según el tamaño deseado */
-    width: auto;
-    /* 2. Pequeño margen a la derecha para separar del texto (si lo hay) */
-    margin-right: 20px;
-}
-
-/* -- ESTILOS PARA LOS LINKS (Opcional, pero recomendado) -- */
-.menu-principal {
-    list-style: none; /* Quitar viñetas */
-    display: flex; /* Poner los links uno al lado del otro */
-    margin: 0;
-    padding: 0;
-}
-
-.menu-principal li a {
-    text-decoration: none;
-    color: #880e4f; /* Un color oscuro para el texto */
-    padding: 10px 15px;
-    display: block;
-}
-body {
-    font-family: 'Poppins', sans-serif;
-    margin: 0;
-    background-color: #FFFDF9;
-    color: #5a3e36;
+section {
+    padding: 50px 20px;
+    text-align: center;
 }
 /* Sección Acerca */
 #acerca {

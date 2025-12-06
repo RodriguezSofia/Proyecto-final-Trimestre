@@ -1,64 +1,142 @@
-/* --- PALETA DE COLORES ANNIA ---
-#147D7D (Verde Azulado - Texto principal, íconos, hover)
-#F54388 (Rosa Chicle/Fucsia - Acento, títulos principales, botones)
-#FCEA85 (Amarillo Pastel - Fondo de footer, hover de nav)
-#B5EFCC (Menta Pastel - Fondo de header, fondo de cards)
-#FFFDF2 (Crema/Fondo del body)
-*/
-
-/* GENERAL */
-body {
-    font-family: 'Quicksand', sans-serif;
-    margin: 0;
-    background-color: #FFFDF2;
-    color: #147D7D;
-}
-
-/* TITULOS PRINCIPALES */
-h2 {
-    font-family: 'Pacifico', cursive;
-    font-size: 3em;
-    color: #F54388;
-    text-align: center;
-    margin-top: 30px;
-}
-
-/* BARRA SUPERIOR */
 .barra-navegacion {
-    background-color: #f3ecdc; 
-    /* border-bottom ELIMINADO */
+display: flex; /* Usar Flexbox para alinear elementos */
+justify-content: space-between;/* Distribuir el espacio entre el logo y los links */
+align-items: center; /*Alinear verticalmente los elementos al centro */
+background-color: #ffffff;
+padding: 10px 20px;
 }
+/* === Encabezado === */
 
-.logo {
-    height: 60px;
-}
-
-.menu-principal a {
-    text-decoration: none;
-    font-weight: 600;
-    color: #147D7D;
-}
-
-.menu-principal a:hover {
-    color: #F54388;
-    transition: .3s;
-}
-
-/* SEGUNDA BARRA */
 header {
-    background-color: #B5EFCC !important;
+background-color: #F2CAEF;
+text-align: center;
+padding: 20px;
+color: #D3183D;
 }
 
-header nav ul li a {
+nav ul {
+list-style: none;
+padding: 0;
+margin: 0;
+}
+
+nav ul li {
+display: inline-block;
+margin: 0 10px;
+}
+nav a {
+font-family: 'Quicksand', sans-serif;
+text-decoration: none;
+color: #880e4f;
+font-weight: bold;
+padding: 6px 12px;
+border-radius: 6px;
+}
+
+nav a:hover {
+background-color: #fdfcee;
+}
+
+
+
+nav a.activo {
+background-color:#B5EFCC;
+color: #D3183D;
+}
+
+.btn-menu-principal{
+padding: 8px 15px;
+text-decoration: none;
+color: #888e4f;
+border-radius: 5px; font-weight: bold; display: inline-block; transition: all 0.3s ease-in-out;
+background-size: 200% 100%;
+box-shadow: 9 4px 6px rgba(0,0,0,0.1);
+}
+.logo {
+height: 60px;
+width: auto;
+margin-right: 20px;
+}
+/* -ESTILOS PARA LOS LINKS -- */
+
+.menu-principal {
+list-style: none; /* Quitar viñetas */
+display: flex; /* Poner los links uno al lado del otro */
+margin: 0;
+padding: 0;
+}
+
+.menu-principal li a {
+text-decoration: none;
+color: #880e4f;
+padding: 10px 15px;
+display: block;
+}
+
+body {
+font-family: 'Quicksand', sans-serif;
+margin: 0;
+background-color: #ffffff;
+color: #147070;
+/*Color de texto principal */
+}
+
+
+h2 {
+font-family: 'Pacifico', cursive;
+color: #14a5a5;
+font-size: 3em; /* Tamaño más grande */
+padding-top: 20px; /* Espaciado superior para centrarlo visualmente */
+}
+h2 {
+    /* 1. Aplicar la fuente cursiva y dulce */
+    font-family: 'Pacifico', cursive; 
+    
+    /* 2. Color Principal de la marca */
+    color: #147D7D; /* Verde Azulado Oscuro */
+    
+    /* 3. Tamaño más grande para impacto */
+    font-size: 3em; 
+    /* 5. Espaciado superior para centrarlo visualmente */
+    padding-top: 20px; 
+}
+
+header {
+    background-color: #F2CAEF;
+    text-align: center;
+    padding: 20px;
+    color: #D3183D;
+}
+
+header h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+.caja {
+  width: 100%;
+  height: auto;
+  background-image: url("hola/logo_2.jpeg");
+  background-size: cover; /* ajusta la imagen al tamaño */
+  background-position: center; /* centra la imagen */
+  background-repeat: no-repeat; /* evita que se repita */
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+nav a {
     text-decoration: none;
-    color: #147D7D;
-    font-weight: 600;
+    color: #5a3e36;
+    font-weight: bold;
 }
 
-header nav ul li a:hover {
-    color: #F54388;
+section {
+    padding: 50px 20px;
+    text-align: center;
 }
-
 /* SECCIÓN CONTACTO */
 #contacto {
     max-width: 700px;
@@ -152,3 +230,15 @@ footer {
     font-weight: bold;
 }
 
+button {
+    background-color: #D3183D;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #C99D71;
+}
