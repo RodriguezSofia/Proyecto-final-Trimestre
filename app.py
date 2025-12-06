@@ -78,9 +78,6 @@ def acerca():
 # RUTA PARA GUARDAR CONTACTOS
 # ======================================================
 
-# ======================================================
-# RUTA ÚNICA: /contacto (GET → muestra el formulario, POST → guarda)
-# ======================================================
 @app.route('/contacto', methods=['GET', 'POST'])
 def contacto():
     # GET: mostrar la plantilla
@@ -145,13 +142,17 @@ def reportes():
 def trabajadores():
     return render_template('trabajadores.html')
 
+@app.route('/factura')
+def factura():
+    return render_template('factura.html')
+# ======================================================
+# PANEL TRABAJADORES
+# ======================================================
+
 @app.route('/panel_trabajadores')
 def panel_trabajadores():
     return render_template('panel_trabajadores.html')
 
-@app.route('/factura')
-def factura():
-    return render_template('factura.html')
 
 
 # ======================================================
