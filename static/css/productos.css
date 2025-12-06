@@ -31,7 +31,8 @@ h1 {
     font-size: 15px;
     padding: 8px 15px;
     border-radius: 8px;
-}
+    
+} 
 .nav-link:hover {
     color: #5b4568; 
 }

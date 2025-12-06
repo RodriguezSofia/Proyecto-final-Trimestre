@@ -68,59 +68,89 @@
             <h2 style="color: #F54388; font-size: 2.5em; margin-bottom: 10px;">Nuestro Menú</h2>
             <p style="color: #147D7D; font-style: italic; font-size: 1.1em; margin-bottom: 40px;">Disfruta nuestras delicias frías: helados, copas, malteadas y más. ¡Hechos con amor y sabor artesanal!</p>
 
-            <div class="menu-grid">
-                <article>
-                    <h3>Cono Clásico</h3>
-                    <p>1 bola de tu sabor favorito en un crujiente cono.</p>
-                    <span class="precio">$4.000</span>
-                    <button class="btn-agregar" onclick="agregarAlCarrito('Cono Clásico', 4000)">
-                        <i class="bi bi-basket2-fill"></i> Agregar
-                    </button>
+           <div class="menu-grid">
+                <article class="card">
+                   <div class="card-image-container">
+                       <img src="{{ url_for('static', filename='img/hsimple.jpg') }}" alt="Cono Clásico" class="card-image"> 
+                    </div>
+                    <div class="card-content">
+                        <h3>Cono Clásico</h3>
+                        <p>1 bola de tu sabor favorito en un crujiente cono.</p>
+                        <span class="precio">$4.000</span>
+                        <button class="btn-agregar" onclick="agregarAlCarrito('Cono Clásico', 4000)">
+                            <i class="bi bi-basket2-fill"></i> Agregar
+                        </button>
+                    </div>
                 </article>
 
-                <article>
+                <article class="card">
+                   <div class="card-image-container">
+                       <img src="{{ url_for('static', filename='img/doble.jpeg') }}" alt="Cono Clásico" class="card-image"> 
+                    </div>
+                    <div class="card-content">
                     <h3>Cono Doble</h3>
-                    <p>Dos bolas de sabor combinadas con cobertura de chocolate.</p>
+                    <p>Dos bolas de sabor combinadas con cobertura de la salsa de tu preferencia.</p>
                     <span class="precio">$6.000</span>
                     <button class="btn-agregar" onclick="agregarAlCarrito('Cono Doble', 6000)">
                         <i class="bi bi-basket2-fill"></i> Agregar
                     </button>
+                    </div>
                 </article>
 
-                <article>
+                  <article class="card">
+                   <div class="card-image-container">
+                       <img src="{{ url_for('static', filename='img/copa.jpg') }}" alt="Cono Clásico" class="card-image"> 
+                    </div>
+                    <div class="card-content">
                     <h3>Copa Tropical</h3>
-                    <p>Helado con frutas frescas y salsa de mango.</p>
+                    <p>Helado con frutas frescas .</p>
                     <span class="precio">$8.500</span>
                     <button class="btn-agregar" onclick="agregarAlCarrito('Copa Tropical', 8500)">
                         <i class="bi bi-basket2-fill"></i> Agregar
                     </button>
+                    </div>
                 </article>
 
-                <article>
+                <article class="card">
+                   <div class="card-image-container">
+                       <img src="{{ url_for('static', filename='img/banana.jpeg') }}" alt="Cono Clásico" class="card-image"> 
+                    </div>
+                    <div class="card-content">
                     <h3>Banana Split</h3>
                     <p>Banano, tres bolas de helado, crema batida y cereza.</p>
                     <span class="precio">$9.000</span>
                     <button class="btn-agregar" onclick="agregarAlCarrito('Banana Split', 9000)">
                         <i class="bi bi-basket2-fill"></i> Agregar
                     </button>
+                    </div>
                 </article>
 
-                <article>
-                    <h3>Malteada de Fresa</h3>
-                    <p>Batido cremoso con helado natural de fresa.</p>
+                <article class="card">
+                   <div class="card-image-container">
+                       <img src="{{ url_for('static', filename='img/malteada.jpeg') }}" alt="Cono Clásico" class="card-image"> 
+                    </div>
+                    <h3>Malteadas</h3>
+                    <div class="card-content">
+                    <p> Cuatro maldeadas deliciosas con el sabor de tu preferencia.</p>
                     <span class="precio">$7.000</span>
                     <button class="btn-agregar" onclick="agregarAlCarrito('Malteada Fresa', 7000)">
                         <i class="bi bi-basket2-fill"></i> Agregar
                     </button>
+                    </div>
                 </article>
 
-                <article>
-                    <h3>Malteada Oreo</h3>
-                    <p>Helado de vainilla con galletas Oreo trituradas.</p>
+                <article class="card">
+                   <div class="card-image-container">
+                       <img src="{{ url_for('static', filename='img/tresbolitas.jpeg') }}" alt="Cono Clásico" class="card-image"> 
+                    </div>
+                    <h3>Copa de tres</h3>
+                    <div class="card-content">
+                    <p>copa de tres bolas de helado .</p>
                     <span class="precio">$7.500</span>
                     <button class="btn-agregar" onclick="agregarAlCarrito('Malteada Oreo', 7500)">
                         <i class="bi bi-basket2-fill"></i> Agregar
                     </button>
+                    </div>
                 </article>
 
             </div>

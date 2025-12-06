@@ -159,44 +159,96 @@ main {
 }
 
 /* --- CUADRÍCULA DE PRODUCTOS (GRID) --- */
+/* ========================================= */
+/* 1. ESTILOS DE LA LISTA VERTICAL (MENU-GRID)*/
+/* ========================================= */
 .menu-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 30px;
-    padding: 0 20px;
-    max-width: 1200px;
-    margin: 0 auto;
+    /* Configura el contenedor para lista vertical */
+    display: flex;
+    flex-direction: column; 
+    
+    /* Centra las tarjetas y establece un ancho máximo */
+    max-width: 700px; 
+    width: 100%; 
+    margin: 0 auto; 
+    
+    gap: 20px; /* Espacio vertical entre las tarjetas */
+    padding: 0;
 }
 
+/* ------------------------------------------- */
+/* 2. ESTILOS BASE DE LA TARJETA (<article>)   */
+/* ------------------------------------------- */
 .menu-grid article {
-    /* Fondo Menta Pastel para las tarjetas de producto */
+    /* Disposición Vertical: Imagen arriba, texto abajo */
+    display: flex;
+    flex-direction: column; 
+    overflow: hidden; 
+
+    /* Estilos de color y borde (Originales: Menta Pastel) */
     background-color: #B5EFCC; 
     border-radius: 15px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 25px;
+    
+    /* El padding se aplica a .card-content */
     text-align: left;
     
-    /* ANIMACIÓN HOVER DE ELEVACIÓN (unificado) */
+    /* Animación Hover */
     transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    width: 100%; /* Ocupa el ancho máximo del contenedor .menu-grid */
 }
 
+/* Efecto al pasar el ratón */
 .menu-grid article:hover {
     transform: translateY(-7px); /* Elevación */
-    /* Sombra Verde Azulado, igual que en el index */
+    /* Sombra Verde Azulado */
     box-shadow: 0 15px 25px rgba(20, 125, 125, 0.3); 
 }
 
+/* ------------------------------------------- */
+/* 3. ESTILOS DE LA IMAGEN Y CONTENEDORES      */
+/* ------------------------------------------- */
+
+/* Contenedor de la Imagen */
+.card-image-container {
+    width: 100%; 
+    height: 250px; /* Altura fija para uniformidad */
+    overflow: hidden; 
+    /* Bordes superiores redondeados */
+    border-radius: 15px 15px 0 0; 
+}
+
+/* La Imagen */
+.card-image {
+    width: 100%; /* Ancho fijo para uniformidad */
+    height: 100%; /* Alto fijo para uniformidad */
+    /* Asegura que la imagen se vea bien proporcionada */
+    object-fit: cover; 
+    display: block;
+}
+
+/* Contenedor del contenido (Texto y Botón) */
+.card-content {
+    /* Aplica el espaciado interno al texto */
+    padding: 25px; 
+}
+
+/* ------------------------------------------- */
+/* 4. ESTILOS DE TEXTO Y BOTÓN (Originales)    */
+/* ------------------------------------------- */
 .menu-grid article h3 {
     color: #147D7D; /* Verde Azulado Oscuro */
     margin-top: 0;
     font-size: 1.5em;
+    margin-bottom: 5px; 
 }
 
 .menu-grid article p {
     color: #5a3e36; /* Marrón para la descripción */
     font-size: 0.95em;
     height: 40px; /* Altura fija para alineación */
-    font-style: normal; /* Quitar cursiva en el producto */
+    font-style: normal;
+    margin-bottom: 10px;
 }
 
 .menu-grid article .precio {
@@ -204,7 +256,22 @@ main {
     color: #F54388; /* Rosa Chicle para el precio */
     font-size: 1.4em;
     display: block;
-    margin: 15px 0;
+    margin: 10px 0;
+}
+
+.btn-agregar {
+    background-color: #F54388; 
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+.btn-agregar:hover {
+    background-color: #e03f7e;
 }
 
 /* --- BOTÓN AGREGAR AL CARRITO (UNIFICADO) --- */
