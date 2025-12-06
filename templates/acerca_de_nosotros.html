@@ -22,9 +22,8 @@
         <div>
             {% if not session.get('usuario_nombre') %}
                 <!-- SI NO HAY SESIÓN -->
-                <a href="{{ url_for('registro') }}" class="btn" style="background-color:#F54388;color:white;">Registrarse</a>
-                <a href="{{ url_for('login') }}" class="btn" style="background-color:#147D7D;color:white;">Iniciar sesión</a>
-
+                <a href="{{ url_for('registro') }}" class="btn" style="background-color: #947bf6ff; color: white;">Registrarse</a>
+                <a href="{{ url_for('login') }}" class="btn" style="background-color: #f64d8eff; color: white;">Iniciar sesión</a>
             {% else %}
                 <!-- SI HAY SESIÓN -->
                 <span style="font-weight:bold; color:#147D7D; font-size:1.1em;">
@@ -36,15 +35,18 @@
         </div>
     </nav>
 
-    <header class="py-2 shadow-sm" style="background-color: #B5EFCC;">
-        <nav class="container">
-            <ul class="d-flex justify-content-center gap-4 list-unstyled m-0">
-                <li><a href="{{ url_for('home') }}" style="color: #147D7D; font-weight: bold;">Inicio</a></li>
-                <li><a href="{{ url_for('menu') }}" style="color: #147D7D; font-weight: bold;">Menú</a></li>
-                <li><a href="{{ url_for('acerca') }}" style="color: #147D7D; font-weight: bold;">Acerca de</a></li>
-                <li><a href="{{ url_for('contacto') }}" style="color: #147D7D; font-weight: bold;">Contacto</a></li>
-            </ul>
-        </nav>
+    <!-- SEGUNDA BARRA DE MENÚ -->
+
+    <header class="py-2 shadow-sm" style="background: #9a6759;">
+
+<nav class="container">
+    <ul class="d-flex justify-content-center gap-4 list-unstyled m-8">
+        <li><a href="{{ url_for('home') }}">Inicio</a></li>
+        <li><a href="{{ url_for('menu') }}">Menú</a></li>
+        <li><a href="{{ url_for('acerca')}}">Acerca de</a></li>
+        <li><a href="{{ url_for('contacto') }}">Contacto</a></li>
+    </ul>
+</nav>
     </header>
 
     <main>

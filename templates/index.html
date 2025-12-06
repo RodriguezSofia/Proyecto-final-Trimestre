@@ -19,28 +19,50 @@
 </head>
 
 <body>
-    <!-- NAV SUPERIOR -->
-    <nav class="barra-navegacion d-flex justify-content-between align-items-center px-4 py-2">
-        <a href="{{ url_for('home') }}" class="logo-link">
-            <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo Heladería Annia" class="logo">
-        </a>
+<!-- NAV SUPERIOR -->
+<nav class="barra-navegacion d-flex justify-content-between align-items-center px-4 py-2">
 
-        <ul class="menu-principal d-flex gap-3">
-            <li><a href="{{ url_for('registro') }}">Registrarse</a></li>
-            <li><a href="{{ url_for('login') }}">Iniciar sesión</a></li>
-        </ul>
-    </nav>
+<a href="{{ url_for('home') }}" class="logo-link">
 
-    <!-- SEGUNDA BARRA DE MENÚ -->
-    <header class="py-2 shadow-sm" style="background:#d185b1;">
-        <nav class="container">
-            <ul class="d-flex justify-content-center gap-4 list-unstyled m-0">
-                <li><a href="{{ url_for('home') }}">Inicio</a></li>
-                <li><a href="{{ url_for('menu') }}">Menú</a></li>
-                <li><a href="{{ url_for('acerca') }}">Acerca de</a></li>
-                <li><a href="{{ url_for('contacto') }}">Contacto</a></li>
-            </ul>
-        </nav>
+<img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo Heladería Annia" class="logo">
+
+</a>
+
+<div class="d-flex gap-3">
+    {% if not session.get('usuario_nombre') %}
+    <!-- SI NO HAY SESIÓN -->
+        <a href="{{ url_for('registro') }}" class="btn" style="background-color: #947bf6ff; color: white;">Registrarse</a>
+        <a href="{{ url_for('login') }}" class="btn" style="background-color: #f64d8eff; color: white;">Iniciar sesión</a>
+
+    {% else %}
+                <!-- SI HAY SESIÓN -->
+        <span style="font-weight:bold; color:#147D7D; font-size:1.1em;">
+            Hola, {{ session['usuario_nombre'] }}
+        </span>
+
+        <a href="{{ url_for('logout') }}" class="btn btn-danger">Cerrar sesión</a>
+    {% endif %}
+</div>
+
+</nav>
+
+<!-- SEGUNDA BARRA DE MENÚ -->
+
+<header class="py-2 shadow-sm" style="background: #9a6759;">
+
+<nav class="container">
+
+<ul class="d-flex justify-content-center gap-4 list-unstyled m-8">
+
+<li><a href="{{ url_for('home') }}">Inicio</a></li>
+
+<li><a href="{{ url_for('menu') }}">Menú</a></li>
+
+<li><a href="{{ url_for('acerca')}}">Acerca de</a></li>
+
+<li><a href="{{ url_for('contacto') }}">Contacto</a></li>
+</ul>
+</nav>
     </header>
 
     <!-- CONTENIDO PRINCIPAL -->
@@ -215,6 +237,11 @@
 
         </section>
     </main>
+
+<script>
+        const usuarioLogueado = "{{ 'true' if session.get('usuario_nombre') else 'false' }}" === "true"
+</script>
+
     <footer class="py-3" style="background-color: #FCEA85; color: #147D7D; text-align: center;">
         <p class="m-0">&copy; 2025 Heladería Annia. Todos los derechos reservados.</p>
     </footer>
