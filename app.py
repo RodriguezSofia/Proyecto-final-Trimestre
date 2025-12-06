@@ -74,9 +74,52 @@ def sabores():
 def acerca():
     return render_template('acerca_de_nosotros.html')
 
-@app.route('/contacto')
+# ======================================================
+# RUTA PARA GUARDAR CONTACTOS
+# ======================================================
+
+# ======================================================
+# RUTA ÚNICA: /contacto (GET → muestra el formulario, POST → guarda)
+# ======================================================
+@app.route('/contacto', methods=['GET', 'POST'])
 def contacto():
-    return render_template('contacto.html')
+    # GET: mostrar la plantilla
+    if request.method == 'GET':
+        return render_template('contacto.html')
+
+    # POST: recibir datos y guardar en la BD
+    try:
+        datos = request.get_json(silent=True) or request.form
+        correo = datos.get('correo', '').strip()
+        mensaje = datos.get('mensaje', '').strip()
+
+        if not correo or not mensaje:
+            return jsonify({'error': 'correo y mensaje son obligatorios'}), 400
+
+        conexion = conectar_bd()
+        if not conexion:
+            return jsonify({'error': 'Error al conectar a la base de datos'}), 500
+
+        cursor = conexion.cursor()
+
+        
+        sql = """
+            INSERT INTO "Contacto" (correo, mensaje, creado)
+            VALUES (%s, %s, NOW())
+            RETURNING id;
+        """
+        cursor.execute(sql, (correo, mensaje))
+        contacto_id = cursor.fetchone()[0]
+
+        conexion.commit()
+        cursor.close()
+        conexion.close()
+
+        return jsonify({'mensaje': 'Contacto guardado exitosamente', 'id': contacto_id}), 201
+
+    except Exception as e:
+        print(f"Error al guardar el contacto: {e}")
+        return jsonify({'error': 'Error interno al guardar el contacto'}), 500
 
 # ======================================================
 # ADMIN PANEL
@@ -105,6 +148,39 @@ def trabajadores():
 @app.route('/panel_trabajadores')
 def panel_trabajadores():
     return render_template('panel_trabajadores.html')
+
+@app.route('/factura')
+def factura():
+    return render_template('factura.html')
+
+
+# ======================================================
+# RUTA PARA LISTAR CONTACTOS (ADMIN / API)
+# ======================================================
+@app.route('/ver_contactos', methods=['GET'])
+def ver_contactos():
+    try:
+        conexion = conectar_bd()
+        if not conexion:
+            return jsonify({'error': 'Error al conectar a la base de datos'}), 500
+
+        cursor = conexion.cursor(cursor_factory=RealDictCursor)
+        cursor.execute('SELECT * FROM Contacto ORDER BY creado DESC;')
+        contactos = cursor.fetchall()
+        cursor.close()
+        conexion.close()
+
+        # Formatear fecha
+        for c in contactos:
+            if c.get('creado'):
+                c['creado'] = c['creado'].strftime('%Y-%m-%d %H:%M:%S')
+
+        return jsonify(contactos), 200
+
+    except Exception as e:
+        print(f"Error al obtener contactos: {e}")
+        return jsonify({'error': 'Error interno al obtener contactos'}), 500
+
 
 # ======================================================
 # REGISTRO DE USUARIO
@@ -202,6 +278,10 @@ def login():
             return jsonify({"error": "Contraseña incorrecta"}), 401
 
         session["usuario_id"] = usuario["Id_usuario"]
+        session["usuario_nombre"] = usuario["Nombre_completo_usuario"]
+        session["usuario_tipo"] = usuario["Id_tipo"]
+
+        
 
         cursor.close()
         conexion.close()
@@ -373,6 +453,14 @@ def recuperacion():
         cursor.close()
         conexion.close()
         return jsonify({'error': 'Error interno del servidor'}), 500
+    
+#------------CERRAR SESION--------------------
+# ======================================================
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect(url_for('home'))
+
 
 # ======================================================
 # EJECUCIÓN

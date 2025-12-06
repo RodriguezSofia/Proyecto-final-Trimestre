@@ -13,14 +13,26 @@
 </head>
 
 <body>
+
     <nav class="barra-navegacion d-flex justify-content-between align-items-center px-4 py-2">
         <a href="{{ url_for('home') }}" class="logo-link">
-            <img src="{{ url_for('static', filename='img/logo.jpeg') }}" alt="Logo Heladería Annia" class="logo">
+            <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo Heladería Annia" class="logo">
         </a>
 
-        <div class="d-flex gap-3">
-            <a href="{{ url_for('registro') }}" class="btn" style="background-color: #F54388; color: white;">Registrarse</a>
-            <a href="{{ url_for('login') }}" class="btn" style="background-color: #147D7D; color: white;">Iniciar sesión</a>
+        <div>
+            {% if not session.get('usuario_nombre') %}
+                <!-- SI NO HAY SESIÓN -->
+                <a href="{{ url_for('registro') }}" class="btn" style="background-color:#F54388;color:white;">Registrarse</a>
+                <a href="{{ url_for('login') }}" class="btn" style="background-color:#147D7D;color:white;">Iniciar sesión</a>
+
+            {% else %}
+                <!-- SI HAY SESIÓN -->
+                <span style="font-weight:bold; color:#147D7D; font-size:1.1em;">
+                    Hola, {{ session['usuario_nombre'] }}
+                </span>
+                <a href="{{ url_for('logout') }}" class="btn btn-danger">Cerrar sesión</a>
+            {% endif %}
+
         </div>
     </nav>
 
@@ -45,8 +57,12 @@
             <img src="../assets/img/equipo.jpg" alt="Equipo de la heladería Annia" class="imagen-equipo">
         </section>
     </main>
-<br>
-<br>
+
+    <br><br>
+    <script>
+        const usuarioLogueado = "{{ 'true' if session.get('usuario_nombre') else 'false' }}" === "true"
+    </script>
+
     <footer>
         <p>&copy; 2025 Heladería Annia. Todos los derechos reservados.</p>
     </footer>

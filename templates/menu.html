@@ -22,10 +22,33 @@
         <a href="{{ url_for('home') }}" class="logo-link">
             <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo Heladería Annia" class="logo">
         </a>
-        <ul class="menu-principal d-flex gap-3">
-            <li><a href="{{ url_for('registro') }}">Registrarse</a></li>
-            <li><a href="{{ url_for('login') }}">Iniciar sesión</a></li>
-        </ul>
+
+        <!-- *** MENÚ DEPENDIENDO DE LA SESIÓN *** -->
+        <div class="d-flex align-items-center gap-3">
+
+            {% if not session.get('usuario_nombre') %}
+                <!-- SI NO HAY SESIÓN -->
+                <a href="{{ url_for('registro') }}" class="btn" style="background-color:#F54388;color:white;">Registrarse</a>
+                <a href="{{ url_for('login') }}" class="btn" style="background-color:#147D7D;color:white;">Iniciar sesión</a>
+
+            {% else %}
+                <!-- SI HAY SESIÓN -->
+                <span style="font-weight:bold; color:#147D7D; font-size:1.1em;">
+                    Hola, {{ session['usuario_nombre'] }}
+                </span>
+                <a href="{{ url_for('logout') }}" class="btn btn-danger">Cerrar sesión</a>
+            {% endif %}
+
+            <!-- 🔥 CONTADOR -->
+            <span id="carritoCount" style="
+                background:#F54388;
+                color:white;
+                padding:3px 8px;
+                border-radius:12px;
+                font-weight:bold;
+            ">0</span>
+
+        </div>
     </nav>
 
     <!-- SEGUNDA BARRA DE MENÚ -->
@@ -104,11 +127,13 @@
         </section>
     </main>
 
+    <!-- CARRITO FLOTANTE -->
     <a href="#" id="carritoFlotante" data-bs-toggle="modal" data-bs-target="#modalCarrito" style="background-color: #147D7D;">
         <i class="bi bi-basket2-fill"></i>
         <span id="carritoCountFloat" style="background-color: #F54388;">0</span>
     </a>
 
+    <!-- MODAL DEL CARRITO -->
     <div class="modal fade" id="modalCarrito" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -122,19 +147,18 @@
                     <p>Tu carrito está vacío 🍦</p>
                 </div>
 
+                <!-- ✔ BOTÓN CORREGIDO -->
                 <div class="modal-footer">
-                    {% if 'usuario' in session %}
-                    <button class="btn" style="background-color: #F54388; color: white;" onclick="comprar()">Comprar</button>
-                    {% else %}
-                    <button class="btn" style="background-color: #F54388; color: white;" data-bs-toggle="modal" data-bs-target="#modalLogin">
+                    <button class="btn" style="background-color: #F54388; color: white;" onclick="validarCompra()">
                         Comprar
                     </button>
-                    {% endif %}
                 </div>
+
             </div>
         </div>
     </div>
 
+    <!-- MODAL LOGIN -->
     <div class="modal fade" id="modalLogin" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -151,54 +175,91 @@
             </div>
         </div>
     </div>
+
     <footer style="background-color: #FCEA85; color: #147D7D;">
         <p>&copy; 2025 Heladería Annia. Todos los derechos reservados.</p>
     </footer>
-    
-    <script>
-    let carrito = [];
-    const carritoCount = document.getElementById("carritoCount");
-    const carritoCountFloat = document.getElementById("carritoCountFloat");
-    const listaCarrito = document.getElementById("listaCarrito");
 
-    function agregarAlCarrito(nombre, precio) {
-        carrito.push({ nombre, precio });
-        actualizarContadores();
-        renderCarrito();
+    <!-- ✔ VARIABLE DE SESIÓN CORREGIDA -->
+<script>
+const usuarioLogueado = "{{ 'true' if session.get('usuario_nombre') else 'false' }}" === "true";
+let carrito = [];
+
+const carritoCount = document.getElementById("carritoCount");
+const carritoCountFloat = document.getElementById("carritoCountFloat");
+const listaCarrito = document.getElementById("listaCarrito");
+
+// ─────────── AGREGAR PRODUCTO ───────────
+function agregarAlCarrito(nombre, precio) {
+    carrito.push({ nombre, precio });
+    actualizarContadores();
+    renderCarrito();
+}
+
+// ─────────── ELIMINAR PRODUCTO ───────────
+function eliminarProducto(index) {
+    carrito.splice(index, 1);
+    actualizarContadores();
+    renderCarrito();
+}
+
+// ─────────── CONTADORES ───────────
+function actualizarContadores() {
+    carritoCount.textContent = carrito.length;
+    carritoCountFloat.textContent = carrito.length;
+}
+
+// ─────────── RENDER MODAL ───────────
+function renderCarrito() {
+    if (carrito.length === 0) {
+        listaCarrito.innerHTML = "<p>Tu carrito está vacío 🍦</p>";
+        return;
     }
 
-    function eliminarProducto(index) {
-        carrito.splice(index, 1);
-        actualizarContadores();
-        renderCarrito();
+    listaCarrito.innerHTML = carrito.map((item, index) => `
+        <div class="d-flex justify-content-between align-items-center border-bottom py-2">
+            <span>${item.nombre} — $${item.precio}</span>
+            <button class="btn btn-danger btn-sm" onclick="eliminarProducto(${index})">
+                <i class="bi bi-trash3-fill"></i>
+            </button>
+        </div>
+    `).join("");
+}
+
+// ─────────── VALIDAR SI ESTÁ LOGUEADO ───────────
+function validarCompra() {
+    if (!usuarioLogueado) {
+        const loginModal = new bootstrap.Modal(document.getElementById("modalLogin"));
+        loginModal.show();
+        return;
     }
 
-    function actualizarContadores() {
-        carritoCount.textContent = carrito.length;
-        carritoCountFloat.textContent = carrito.length;
+    comprar();
+}
+
+// ─────────── COMPRAR ───────────
+function comprar() {
+
+    if (carrito.length === 0) {
+        alert("Tu carrito está vacío");
+        return;
     }
 
-    function renderCarrito() {
-        if (carrito.length === 0) {
-            listaCarrito.innerHTML = "<p>Tu carrito está vacío </p>";
-            return;
-        }
+    // Calcular total
+    const total = carrito.reduce((suma, p) => suma + p.precio, 0);
 
-        listaCarrito.innerHTML = carrito
-            .map((item, index) => `
-                <div class="d-flex justify-content-between align-items-center border-bottom py-2">
-                    <span> ${item.nombre} — $${item.precio}</span>
-                    <button class="btn btn-danger btn-sm" onclick="eliminarProducto(${index})">
-                        <i class="bi bi-trash3-fill"></i>
-                    </button>
-                </div>
-            `)
-            .join("");
-    }
+    // Guardar en localStorage para factura.html
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+    localStorage.setItem("total", total);
+    localStorage.setItem("usuario", "{{ session.get('usuario_nombre') }}");
 
-    function comprar() {
-        alert("Compra realizada correctamente ");
-    }
+    alert("Compra realizada correctamente");
+
+    // Redirigir a factura
+    window.location.href = "/factura";
+}
 </script>
+
+
 </body>
 </html>

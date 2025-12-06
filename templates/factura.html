@@ -4,7 +4,9 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Factura • Heladería Annia</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/factura.css') }}"></head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/factura.css') }}">
+</head>
+
 <body>
 
 <div class="invoice-wrap" role="document">
@@ -19,8 +21,8 @@
 
     <div class="hdr-right">
       <div class="invoice-title">FACTURA / TICKET</div>
-      <div class="small monos">Nº: <strong>000123</strong></div>
-      <div class="small muted">Fecha: <strong>2025-12-04</strong></div>
+      <div class="small monos">Nº: <strong id="numFactura"></strong></div>
+      <div class="small muted">Fecha: <strong id="fechaFactura"></strong></div>
     </div>
   </header>
 
@@ -32,7 +34,7 @@
       </div>
       <div>
         <h4>Cliente</h4>
-        <p>Juan Pérez<br/>C.C. 1.234.567</p>
+        <p id="nombreCliente">Invitado<br/>C.C. —</p>
       </div>
       <div>
         <h4>Vendedor</h4>
@@ -51,48 +53,31 @@
             <th class="total">Total</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td><strong>Cono vainilla</strong></td>
-            <td class="muted">Cono crujiente + bola grande</td>
-            <td class="qty">2</td>
-            <td class="price monos">$4.500</td>
-            <td class="total monos">$9.000</td>
-          </tr>
-          <tr>
-            <td><strong>Balde 1L — Fresa</strong></td>
-            <td class="muted">Helado artesanal</td>
-            <td class="qty">1</td>
-            <td class="price monos">$18.000</td>
-            <td class="total monos">$18.000</td>
-          </tr>
-          <tr>
-            <td><strong>Malteada chocolate</strong></td>
-            <td class="muted">Grande</td>
-            <td class="qty">1</td>
-            <td class="price monos">$8.500</td>
-            <td class="total monos">$8.500</td>
-          </tr>
-        </tbody>
+
+        <tbody id="facturaItems"></tbody>
+
       </table>
     </section>
 
     <div class="summary">
       <div class="row">
         <span class="muted">Subtotal</span>
-        <span class="monos">$35.500</span>
+        <span class="monos" id="subtotalFactura"></span>
       </div>
+
       <div class="row">
         <span class="muted">Descuento</span>
         <span class="monos">$0</span>
       </div>
+
       <div class="row">
         <span class="muted">IVA (0%)</span>
         <span class="monos">$0</span>
       </div>
+
       <div class="row total">
         <span>Total a pagar</span>
-        <span class="monos">$35.500</span>
+        <span class="monos" id="totalFactura"></span>
       </div>
     </div>
   </main>
@@ -111,5 +96,41 @@
   </footer>
 </div>
 
+<script>
+// ────────── OBTENER DATOS DEL LOCALSTORAGE ──────────
+const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+const total = parseFloat(localStorage.getItem("total")) || 0;
+const usuario = localStorage.getItem("usuario") || "Invitado";
+
+// ────────── LLENAR DATOS DE CABECERA ──────────
+document.getElementById("nombreCliente").innerHTML = usuario;
+document.getElementById("numFactura").innerHTML = Math.floor(Math.random()*90000 + 10000);
+document.getElementById("fechaFactura").innerHTML = new Date().toISOString().split("T")[0];
+
+// ────────── LLENAR PRODUCTOS DE LA FACTURA ──────────
+const tbody = document.getElementById("facturaItems");
+
+if (carrito.length === 0) {
+    tbody.innerHTML = `
+        <tr>
+            <td colspan="5" class="muted" style="text-align:center;">No hay productos en la factura</td>
+        </tr>`;
+} else {
+    tbody.innerHTML = carrito.map(prod => `
+        <tr>
+            <td><strong>${prod.nombre}</strong></td>
+            <td class="muted">Producto comprado</td>
+            <td class="qty">1</td>
+            <td class="price monos">$${prod.precio}</td>
+            <td class="total monos">$${prod.precio}</td>
+        </tr>
+    `).join("");
+}
+
+// ────────── TOTALES ──────────
+document.getElementById("subtotalFactura").textContent = "$" + total;
+document.getElementById("totalFactura").textContent = "$" + total;
+</script>
+
 </body>
-</html
+</html>
