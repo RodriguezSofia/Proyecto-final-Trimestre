@@ -55,6 +55,66 @@ def generar_contrasena_temporal():
     return ''.join(random.choice(caracteres) for _ in range(8)) # Genera una cadena de 8 caracteres elegidos al azar.
 
 # ======================================================
+# RUTA PARA GENERAR FACTURA DESDE EL CARRITO (POST)
+# ======================================================
+
+@app.route('/generar_factura', methods=['POST'])
+def generar_factura():
+    if "usuario_id" not in session:
+        return jsonify({"ok": False, "error": "Debes iniciar sesión"}), 401
+
+    try:
+        datos = request.get_json()
+
+        carrito = datos.get("carrito", [])
+        total = datos.get("total", 0)
+        id_metodo = datos.get("id_metodo", 1)
+        id_usuario = session["usuario_id"]
+
+        if not carrito or total <= 0:
+            return jsonify({"ok": False, "error": "Carrito vacío"}), 400
+
+        conexion = conectar_bd()
+        if not conexion:
+            return jsonify({"ok": False, "error": "No hay conexión con la BD"}), 500
+
+        cursor = conexion.cursor()
+
+        # Insertar la factura
+        cursor.execute("""
+            INSERT INTO public."Factura"
+            ("Id_usuario", "total", "Id_metodo", "fecha")
+            VALUES (%s, %s, %s, NOW())
+            RETURNING "Id_factura";
+        """, (id_usuario, total, id_metodo))
+
+        id_factura = cursor.fetchone()[0]
+
+        # Insertar los productos del carrito
+        for item in carrito:
+            cursor.execute("""
+                INSERT INTO public."DetalleFactura"
+                ("Id_factura", "nombre_producto", "precio")
+                VALUES (%s, %s, %s);
+            """, (id_factura, item["nombre"], item["precio"]))
+
+        conexion.commit()
+        cursor.close()
+        conexion.close()
+
+        return jsonify({
+            "ok": True,
+            "id_factura": id_factura,
+            "total": total,
+            "carrito": carrito
+        }), 200
+
+    except Exception as e:
+        print("Error en generar_factura:", e)
+        return jsonify({"ok": False, "error": "Error interno"}), 500
+
+
+# ======================================================
 # RUTAS PRINCIPALES
 # ======================================================
 
