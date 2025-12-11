@@ -280,31 +280,18 @@ function comprar() {
         return;
     }
 
+    // Calcular total
     const total = carrito.reduce((suma, p) => suma + p.precio, 0);
 
-    fetch("/generar_factura", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-            carrito: carrito,
-            total: total,
-            id_metodo: 1, // efectivo o lo que uses
-            id_usuario: "{{ session.get('usuario_id') }}" // depende de tu sesión
-        })
-    })
-    .then(res => res.json())
-    .then(data => {
-        if (!data.ok) {
-            alert("Error al generar la factura");
-            return;
-        }
+    // Guardar en localStorage para factura.html
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+    localStorage.setItem("total", total);
+    localStorage.setItem("usuario", "{{ session.get('usuario_nombre') }}");
 
-        // Guardar para factura.html
-        localStorage.setItem("facturaActual", JSON.stringify(data));
+    alert("Compra realizada correctamente");
 
-        // Ir a factura
-        window.location.href = "/factura";
-    });
+    // Redirigir a factura
+    window.location.href = "/factura";
 }
 </script>
 

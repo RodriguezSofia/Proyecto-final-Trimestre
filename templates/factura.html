@@ -97,42 +97,39 @@
 </div>
 
 <script>
-// ─────────── LEER LA FACTURA GUARDADA ───────────
-const facturaData = JSON.parse(localStorage.getItem("facturaActual"));
+// ────────── OBTENER DATOS DEL LOCALSTORAGE ──────────
+const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+const total = parseFloat(localStorage.getItem("total")) || 0;
+const usuario = localStorage.getItem("usuario") || "Invitado";
 
-if (!facturaData || !facturaData.ok) {
-    alert("No hay factura disponible");
-    window.location.href = "/menu";
-}
+// ────────── LLENAR DATOS DE CABECERA ──────────
+document.getElementById("nombreCliente").innerHTML = usuario;
+document.getElementById("numFactura").innerHTML = Math.floor(Math.random()*90000 + 10000);
+document.getElementById("fechaFactura").innerHTML = new Date().toISOString().split("T")[0];
 
-const idFactura = facturaData.id_factura;
-const carrito = facturaData.carrito;
-const total = facturaData.total;
-
-// ─────────── DATOS DE CABECERA ───────────
-document.getElementById("numFactura").textContent = idFactura;
-document.getElementById("fechaFactura").textContent = new Date().toISOString().split("T")[0];
-document.getElementById("nombreCliente").innerHTML = `
-    {{ session.get('usuario_nombre', 'Invitado') }}<br>C.C —
-`;
-
-// ─────────── PRODUCTOS ───────────
+// ────────── LLENAR PRODUCTOS DE LA FACTURA ──────────
 const tbody = document.getElementById("facturaItems");
 
-tbody.innerHTML = carrito.map(item => `
-    <tr>
-        <td><strong>${item.nombre}</strong></td>
-        <td class="muted">Producto comprado</td>
-        <td class="qty">1</td>
-        <td class="price monos">$${item.precio}</td>
-        <td class="total monos">$${item.precio}</td>
-    </tr>
-`).join("");
+if (carrito.length === 0) {
+    tbody.innerHTML = `
+        <tr>
+            <td colspan="5" class="muted" style="text-align:center;">No hay productos en la factura</td>
+        </tr>`;
+} else {
+    tbody.innerHTML = carrito.map(prod => `
+        <tr>
+            <td><strong>${prod.nombre}</strong></td>
+            <td class="muted">Producto comprado</td>
+            <td class="qty">1</td>
+            <td class="price monos">$${prod.precio}</td>
+            <td class="total monos">$${prod.precio}</td>
+        </tr>
+    `).join("");
+}
 
-// ─────────── TOTALES ───────────
+// ────────── TOTALES ──────────
 document.getElementById("subtotalFactura").textContent = "$" + total;
 document.getElementById("totalFactura").textContent = "$" + total;
-
 </script>
 
 </body>
