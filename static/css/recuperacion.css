@@ -1,85 +1,108 @@
+/* ---------------------------
+   ESTILOS GENERALES DEL BODY
+----------------------------*/
 body {
-    font-family: Arial, sans-serif;
-    background: #FFF9EF; /* crema */
-    margin: 0;
-    padding: 0;
+    font-family: Arial, sans-serif; /* Fuente principal */
+    background: #FFF9EF; /* Fondo color crema suave */
+    margin: 0; /* Sin margen por defecto */
+    padding: 0; /* Sin padding por defecto */
 }
 
-/* Línea pastel superior */
+/* ---------------------------
+   LÍNEA DECORATIVA SUPERIOR
+----------------------------*/
 .color-line {
-    width: 100%;
-    height: 40px;
-    background: #C7F2D0; /* verde pastel */
+    width: 100%; /* Ocupa todo el ancho */
+    height: 40px; /* Altura de la línea */
+    background: #C7F2D0; /* Verde pastel */
 }
 
+/* ---------------------------
+   CONTENEDOR PRINCIPAL
+----------------------------*/
 .container {
-    width: 90%;
-    max-width: 400px;
-    background: #ffffff;
-    padding: 30px;
-    margin: 50px auto;
-    border-radius: 12px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    text-align: center;
+    width: 90%; /* Ancho del 90% del viewport */
+    max-width: 400px; /* Ancho máximo de 400px */
+    background: #ffffff; /* Fondo blanco */
+    padding: 30px; /* Espaciado interno */
+    margin: 50px auto; /* Centrado vertical y horizontal */
+    border-radius: 12px; /* Bordes redondeados */
+    box-shadow: 0 0 10px rgba(0,0,0,0.1); /* Sombra ligera */
+    text-align: center; /* Texto centrado */
 }
 
+/* ---------------------------
+   TITULOS
+----------------------------*/
 h2 {
-    margin-bottom: 10px;
-    color: #004f4f;
+    margin-bottom: 10px; /* Espacio debajo del título */
+    color: #004f4f; /* Verde oscuro */
 }
 
+/* ---------------------------
+   SUBTEXTO
+----------------------------*/
 .subtexto {
-    font-size: 14px;
-    color: #555;
-    margin-bottom: 25px;
+    font-size: 14px; /* Tamaño de letra más pequeño */
+    color: #555; /* Gris medio */
+    margin-bottom: 25px; /* Espacio inferior */
 }
 
+/* ---------------------------
+   FORMULARIO
+----------------------------*/
 form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+    display: flex; /* Usar flexbox */
+    flex-direction: column; /* Columnas verticales */
+    gap: 15px; /* Espacio entre inputs */
 }
 
 label {
-    text-align: left;
-    font-weight: bold;
-    color: #444;
+    text-align: left; /* Alineado a la izquierda */
+    font-weight: bold; /* Negrita */
+    color: #444; /* Gris oscuro */
 }
 
 input {
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    outline: none;
-    font-size: 16px;
+    padding: 12px; /* Espaciado interno */
+    border: 1px solid #ccc; /* Borde gris claro */
+    border-radius: 8px; /* Bordes redondeados */
+    outline: none; /* Sin outline por defecto */
+    font-size: 16px; /* Tamaño de texto */
 }
 
 input:focus {
-    border-color: #8ED7C6; /* verde menta */
+    border-color: #8ED7C6; /* Borde verde menta al enfocar */
 }
 
+/* ---------------------------
+   BOTÓN ENVIAR
+----------------------------*/
 .btn-enviar {
-    background: #8ED7C6; /* verde menta */
-    color: white;
-    padding: 12px;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    cursor: pointer;
+    background: #8ED7C6; /* Verde menta */
+    color: white; /* Texto blanco */
+    padding: 12px; /* Espaciado interno */
+    border: none; /* Sin borde */
+    border-radius: 8px; /* Bordes redondeados */
+    font-size: 16px; /* Tamaño de texto */
+    cursor: pointer; /* Cursor tipo puntero */
 }
 
 .btn-enviar:hover {
-    opacity: 0.9;
+    opacity: 0.9; /* Efecto hover */
 }
 
+/* ---------------------------
+   ENLACE VOLVER
+----------------------------*/
 .volver {
-    display: block;
-    margin-top: 10px;
-    color: #F06292; /* rosado */
-    text-decoration: none;
-    font-size: 14px;
+    display: block; /* Ocupa toda la línea */
+    margin-top: 10px; /* Espacio superior */
+    color: #F06292; /* Rosa */
+    text-decoration: none; /* Sin subrayado */
+    font-size: 14px; /* Tamaño de texto */
 }
 
 .volver:hover {
-    text-decoration: underline;
+    text-decoration: underline; /* Subrayado al pasar el cursor */
 }

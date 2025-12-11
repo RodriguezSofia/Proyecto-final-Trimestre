@@ -1,92 +1,90 @@
 .barra-navegacion {
-display: flex; /* Usar Flexbox para alinear elementos */
-justify-content: space-between;/* Distribuir el espacio entre el logo y los links */
-align-items: center; /*Alinear verticalmente los elementos al centro */
-background-color: #ffffff;
-padding: 10px 20px;
+display: flex; /* Activo Flexbox para alinear los elementos en fila */
+justify-content: space-between;/* Separa el logo y los links, uno a cada lado */
+align-items: center; /* Centra verticalmente los elementos dentro de la barra */
+background-color: #ffffff; /* Fondo blanco de la barra */
+padding: 10px 20px; /* Espacio interno de la barra */
 }
 /* === Encabezado === */
 
 header {
-background-color: #F2CAEF;
-text-align: center;
-padding: 20px;
-color: #D3183D;
+background-color: #F2CAEF; /* Fondo rosado suave del header */
+text-align: center; /* Centra el contenido del header */
+padding: 20px; /* Espacio interno */
+color: #D3183D; /* Color del texto */
 }
 
 nav ul {
-list-style: none;
-padding: 0;
-margin: 0;
+list-style: none; /* Quito viñetas de la lista */
+padding: 0; /* Quito padding por defecto */
+margin: 0; /* Quito margen por defecto */
 }
 
 nav ul li {
-display: inline-block;
-margin: 0 10px;
+display: inline-block; /* Pongo los items uno al lado del otro */
+margin: 0 10px; /* Separación horizontal entre items */
 }
 nav a {
-font-family: 'Quicksand', sans-serif;
-text-decoration: none;
-color: #880e4f;
-font-weight: bold;
-padding: 6px 12px;
-border-radius: 6px;
+font-family: 'Quicksand', sans-serif; /* Fuente de los links */
+text-decoration: none; /* Quita subrayado */
+color: #880e4f; /* Color del texto */
+font-weight: bold; /* Letras en negrita */
+padding: 6px 12px; /* Espacio interno del link */
+border-radius: 6px; /* Bordes redondeados */
 }
 
 nav a:hover {
-background-color: #fdfcee;
+background-color: #fdfcee; /* Cambio de color al pasar el mouse */
 }
 
-
-
 nav a.activo {
-background-color:#B5EFCC;
-color: #D3183D;
+background-color:#B5EFCC; /* Fondo verde para link activo */
+color: #D3183D; /* Color del texto del link activo */
 }
 
 .btn-menu-principal{
-padding: 8px 15px;
-text-decoration: none;
-color: #888e4f;
-border-radius: 5px; font-weight: bold; display: inline-block; transition: all 0.3s ease-in-out;
-background-size: 200% 100%;
-box-shadow: 9 4px 6px rgba(0,0,0,0.1);
+padding: 8px 15px; /* Espacio interno del botón */
+text-decoration: none; /* Sin subrayado */
+color: #888e4f; /* Color del texto */
+border-radius: 5px; font-weight: bold; display: inline-block; transition: all 0.3s ease-in-out; /* Bordes redondeados, negrita, animación suave */
+background-size: 200% 100%; /* Tamaño del fondo para efecto */
+box-shadow: 9 4px 6px rgba(0,0,0,0.1); /* Sombra suave */
 }
 .logo {
-height: 60px;
-width: auto;
-margin-right: 20px;
+height: 60px; /* Altura del logo */
+width: auto; /* Mantiene proporción */
+margin-right: 20px; /* Espacio a la derecha */
 }
 /* -ESTILOS PARA LOS LINKS -- */
 
 .menu-principal {
 list-style: none; /* Quitar viñetas */
-display: flex; /* Poner los links uno al lado del otro */
-margin: 0;
-padding: 0;
+display: flex; /* Poner los links en fila */
+margin: 0; /* Quitar margen */
+padding: 0; /* Quitar padding */
 }
 
 .menu-principal li a {
-text-decoration: none;
-color: #880e4f;
-padding: 10px 15px;
-display: block;
+text-decoration: none; /* Sin subrayado */
+color: #880e4f; /* Color del texto */
+padding: 10px 15px; /* Espacio interno del link */
+display: block; /* Ocupa todo el ancho del li */
 }
 
 body {
-font-family: 'Quicksand', sans-serif;
-margin: 0;
-background-color: #ffffff;
-color: #147070;
+font-family: 'Quicksand', sans-serif; /* Fuente principal de la página */
+margin: 0; /* Sin margen del body */
+background-color: #ffffff; /* Fondo blanco */
+color: #147070; /* Color principal del texto */
 /*Color de texto principal */
 }
 
 
 h2 {
-font-family: 'Pacifico', cursive;
-color: #14a5a5;
-font-size: 3em; /* Tamaño más grande */
-padding-top: 20px; /* Espaciado superior para centrarlo visualmente */
+font-family: 'Pacifico', cursive; /* Fuente decorativa para títulos */
+color: #14a5a5; /* Color del título */
+font-size: 3em; /* Tamaño grande */
+padding-top: 20px; /* Espacio arriba para centrar visualmente */
 }
 h2 {
     /* 1. Aplicar la fuente cursiva y dulce */
@@ -102,143 +100,143 @@ h2 {
 }
 
 header {
-    background-color: #F2CAEF;
-    text-align: center;
-    padding: 20px;
-    color: #D3183D;
+    background-color: #F2CAEF; /* Fondo rosado */
+    text-align: center; /* Centra el contenido */
+    padding: 20px; /* Espacio interno */
+    color: #D3183D; /* Texto rojo oscuro */
 }
 
 header h1 {
-    font-size: 2.5em;
-    margin-bottom: 10px;
+    font-size: 2.5em; /* Tamaño del título principal */
+    margin-bottom: 10px; /* Espacio debajo del h1 */
 }
 
 .caja {
-  width: 100%;
-  height: auto;
-  background-image: url("hola/logo_2.jpeg");
-  background-size: cover; /* ajusta la imagen al tamaño */
-  background-position: center; /* centra la imagen */
-  background-repeat: no-repeat; /* evita que se repita */
+  width: 100%; /* Ancho total */
+  height: auto; /* Altura automática según contenido */
+  background-image: url("hola/logo_2.jpeg"); /* Imagen de fondo */
+  background-size: cover; /* Ajusta imagen al tamaño del contenedor */
+  background-position: center; /* Centra la imagen */
+  background-repeat: no-repeat; /* No repetir imagen */
 }
 
 nav ul {
-    list-style: none;
-    padding: 0;
+    list-style: none; /* Sin viñetas */
+    padding: 0; /* Sin padding */
 }
 
 nav a {
-    text-decoration: none;
-    color: #5a3e36;
-    font-weight: bold;
+    text-decoration: none; /* Sin subrayado */
+    color: #5a3e36; /* Color de los links */
+    font-weight: bold; /* Negrita */
 }
 
 section {
-    padding: 50px 20px;
-    text-align: center;
+    padding: 50px 20px; /* Espacio interno de las secciones */
+    text-align: center; /* Centrado del contenido */
 }
 /* SECCIÓN CONTACTO */
 #contacto {
-    max-width: 700px;
-    margin: auto;
-    background: #B5EFCC;
-    padding: 40px;
-    border-radius: 25px;
-    margin-top: 40px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    max-width: 700px; /* Ancho máximo */
+    margin: auto; /* Centrado horizontal */
+    background: #B5EFCC; /* Fondo verde suave */
+    padding: 40px; /* Espacio interno */
+    border-radius: 25px; /* Bordes redondeados */
+    margin-top: 40px; /* Separación superior */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1); /* Sombra suave */
 }
 
 #contacto label {
-    font-weight: bold;
-    color: #147D7D;
+    font-weight: bold; /* Negrita */
+    color: #147D7D; /* Color de los labels */
 }
 
 #contacto input,
 #contacto textarea {
-    width: 100%;
-    padding: 12px;
-    border: 2px solid #F54388;
-    border-radius: 12px;
-    margin-bottom: 18px;
-    background-color: #FFFDF2;
+    width: 100%; /* Ocupa todo el ancho */
+    padding: 12px; /* Espacio interno */
+    border: 2px solid #F54388; /* Borde rosado fuerte */
+    border-radius: 12px; /* Bordes redondeados */
+    margin-bottom: 18px; /* Separación inferior */
+    background-color: #FFFDF2; /* Fondo claro de los inputs */
 }
 
 #contacto input:focus,
 #contacto textarea:focus {
-    outline: none;
-    border-color: #147D7D;
+    outline: none; /* Quita borde azul al enfocar */
+    border-color: #147D7D; /* Cambio de color al enfocar */
 }
 
 /* BOTÓN */
 #contacto button {
-    background-color: #F54388;
-    color: white;
-    padding: 12px 25px;
-    border: none;
-    border-radius: 15px;
-    font-size: 1.1em;
-    font-weight: bold;
-    cursor: pointer;
-    display: block;
-    margin: auto;
-    transition: .3s;
+    background-color: #F54388; /* Fondo rosado */
+    color: white; /* Texto blanco */
+    padding: 12px 25px; /* Espacio interno */
+    border: none; /* Sin borde */
+    border-radius: 15px; /* Bordes redondeados */
+    font-size: 1.1em; /* Tamaño del texto */
+    font-weight: bold; /* Negrita */
+    cursor: pointer; /* Mano al pasar el mouse */
+    display: block; /* Centrado como bloque */
+    margin: auto; /* Centrado horizontal */
+    transition: .3s; /* Transición suave */
 }
 
 #contacto button:hover {
-    background-color: #147D7D;
+    background-color: #147D7D; /* Cambio de color al pasar el mouse */
 }
 
 /* MENSAJES */
 .message {
-    padding: 12px;
-    border-radius: 10px;
-    font-weight: bold;
-    margin-bottom: 15px;
-    text-align: center;
+    padding: 12px; /* Espacio interno */
+    border-radius: 10px; /* Bordes redondeados */
+    font-weight: bold; /* Texto en negrita */
+    margin-bottom: 15px; /* Separación inferior */
+    text-align: center; /* Centrado del texto */
 }
 
 .message.success {
-    background-color: #B5EFCC;
-    color: #147D7D;
-    border: 2px solid #147D7D;
+    background-color: #B5EFCC; /* Fondo verde suave */
+    color: #147D7D; /* Texto verde oscuro */
+    border: 2px solid #147D7D; /* Borde verde */
 }
 
 .message.error {
-    background-color: #F54388;
-    color: white;
-    border: 2px solid #C42B67;
+    background-color: #F54388; /* Fondo rosado fuerte */
+    color: white; /* Texto blanco */
+    border: 2px solid #C42B67; /* Borde rosa oscuro */
 }
 
 /* INFORMACIÓN CONTACTO */
 .info-contacto {
-    margin-top: 25px;
-    text-align: center;
-    font-size: 1.1em;
+    margin-top: 25px; /* Espacio superior */
+    text-align: center; /* Centrado del contenido */
+    font-size: 1.1em; /* Tamaño del texto */
 }
 
 .info-contacto p {
-    margin: 5px 0;
+    margin: 5px 0; /* Separación entre párrafos */
 }
 
 /* FOOTER */
 footer {
-    background-color: #FCEA85;
-    text-align: center;
-    padding: 18px;
-    margin-top: 40px;
-    color: #147D7D;
-    font-weight: bold;
+    background-color: #FCEA85; /* Fondo amarillo pastel */
+    text-align: center; /* Centrado del texto */
+    padding: 18px; /* Espacio interno */
+    margin-top: 40px; /* Separación superior */
+    color: #147D7D; /* Color del texto */
+    font-weight: bold; /* Negrita */
 }
 
 button {
-    background-color: #D3183D;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
+    background-color: #D3183D; /* Fondo rojo fuerte */
+    color: white; /* Texto blanco */
+    padding: 10px 20px; /* Espacio interno */
+    border: none; /* Sin borde */
+    border-radius: 8px; /* Bordes redondeados */
+    cursor: pointer; /* Mano al pasar el mouse */
 }
 
 button:hover {
-    background-color: #C99D71;
+    background-color: #C99D71; /* Cambio de color al pasar el mouse */
 }

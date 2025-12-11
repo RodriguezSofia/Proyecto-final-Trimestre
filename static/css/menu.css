@@ -1,287 +1,226 @@
+/* ============================
+   BARRA DE NAVEGACIÓN
+============================ */
 .barra-navegacion {
-display: flex; /* Usar Flexbox para alinear elementos */
-justify-content: space-between;/* Distribuir el espacio entre el logo y los links */
-align-items: center; /*Alinear verticalmente los elementos al centro */
-background-color: #ffffff;
-padding: 10px 20px;
+    display: flex; /* Usar Flexbox para alinear elementos horizontalmente */
+    justify-content: space-between; /* Distribuir espacio entre logo y enlaces */
+    align-items: center; /* Centrar verticalmente los elementos */
+    background-color: #ffffff; /* Fondo blanco */
+    padding: 10px 20px; /* Espaciado interno arriba/abajo y a los lados */
 }
+
 /* === Encabezado === */
-
 header {
-background-color: #F2CAEF;
-text-align: center;
-padding: 20px;
-color: #D3183D;
+    background-color: #F2CAEF; /* Fondo rosa suave */
+    text-align: center; /* Centrar texto */
+    padding: 20px; /* Espaciado interno */
+    color: #D3183D; /* Color de texto rojo oscuro */
 }
 
+/* === LISTA DE NAVEGACIÓN === */
 nav ul {
-list-style: none;
-padding: 0;
-margin: 0;
+    list-style: none; /* Quitar viñetas */
+    padding: 0; /* Quitar padding */
+    margin: 0; /* Quitar margen */
 }
 
 nav ul li {
-display: inline-block;
-margin: 0 10px;
+    display: inline-block; /* Mostrar elementos en línea */
+    margin: 0 10px; /* Separación horizontal entre enlaces */
 }
+
 nav a {
-font-family: 'Quicksand', sans-serif;
-text-decoration: none;
-color: #880e4f;
-font-weight: bold;
-padding: 6px 12px;
-border-radius: 6px;
+    font-family: 'Quicksand', sans-serif; /* Fuente para los enlaces */
+    text-decoration: none; /* Quitar subrayado */
+    color: #880e4f; /* Color texto rosa oscuro */
+    font-weight: bold; /* Texto en negrita */
+    padding: 6px 12px; /* Espaciado interno de cada enlace */
+    border-radius: 6px; /* Bordes redondeados */
 }
 
 nav a:hover {
-background-color: #fdfcee;
+    background-color: #fdfcee; /* Fondo al pasar el cursor */
 }
-
-
 
 nav a.activo {
-background-color:#B5EFCC;
-color: #D3183D;
+    background-color:#B5EFCC; /* Fondo activo menta pastel */
+    color: #D3183D; /* Texto rojo oscuro */
 }
 
+/* BOTÓN MENÚ PRINCIPAL */
 .btn-menu-principal{
-padding: 8px 15px;
-text-decoration: none;
-color: #888e4f;
-border-radius: 5px; font-weight: bold; display: inline-block; transition: all 0.3s ease-in-out;
-background-size: 200% 100%;
-box-shadow: 9 4px 6px rgba(0,0,0,0.1);
+    padding: 8px 15px; /* Espaciado interno */
+    text-decoration: none; /* Quitar subrayado */
+    color: #888e4f; /* Color texto verde apagado */
+    border-radius: 5px; 
+    font-weight: bold; 
+    display: inline-block; 
+    transition: all 0.3s ease-in-out; /* Animación suave al pasar el cursor */
+    background-size: 200% 100%; 
+    box-shadow: 9 4px 6px rgba(0,0,0,0.1); /* Sombra sutil */
 }
-.logo {
-height: 60px;
-width: auto;
-margin-right: 20px;
-}
-/* -ESTILOS PARA LOS LINKS -- */
 
+/* LOGO */
+.logo {
+    height: 60px; /* Altura del logo */
+    width: auto; /* Mantener proporción */
+    margin-right: 20px; /* Separación del contenido adyacente */
+}
+
+/* === ESTILOS LINKS DEL MENÚ === */
 .menu-principal {
-list-style: none; /* Quitar viñetas */
-display: flex; /* Poner los links uno al lado del otro */
-margin: 0;
-padding: 0;
+    list-style: none; /* Quitar viñetas */
+    display: flex; /* Mostrar en fila */
+    margin: 0;
+    padding: 0;
 }
 
 .menu-principal li a {
-text-decoration: none;
-color: #880e4f;
-padding: 10px 15px;
-display: block;
+    text-decoration: none; /* Quitar subrayado */
+    color: #880e4f; /* Color rosa oscuro */
+    padding: 10px 15px; /* Espaciado interno */
+    display: block; /* Bloque para que todo el área sea clickeable */
 }
 
+/* === ESTILOS GENERALES BODY === */
 body {
-font-family: 'Quicksand', sans-serif;
-margin: 0;
-background-color: #ffffff;
-color: #147070;
-/*Color de texto principal */
+    font-family: 'Quicksand', sans-serif; /* Fuente general */
+    margin: 0; /* Quitar margen predeterminado */
+    background-color: #ffffff; /* Fondo blanco */
+    color: #147070; /* Color principal del texto */
 }
 
-
+/* === ENCABEZADOS H2 === */
 h2 {
-font-family: 'Pacifico', cursive;
-color: #14a5a5;
-font-size: 3em; /* Tamaño más grande */
-padding-top: 20px; /* Espaciado superior para centrarlo visualmente */
-}
-h2 {
-    /* 1. Aplicar la fuente cursiva y dulce */
-    font-family: 'Pacifico', cursive; 
-    
-    /* 2. Color Principal de la marca */
-    color: #147D7D; /* Verde Azulado Oscuro */
-    
-    /* 3. Tamaño más grande para impacto */
-    font-size: 3em; 
-    /* 5. Espaciado superior para centrarlo visualmente */
-    padding-top: 20px; 
+    font-family: 'Pacifico', cursive; /* Fuente cursiva estilo Pacifico */
+    color: #147D7D; /* Verde azulado oscuro */
+    font-size: 3em; /* Tamaño grande */
+    padding-top: 20px; /* Espacio superior */
 }
 
-header {
-    background-color: #F2CAEF;
-    text-align: center;
-    padding: 20px;
-    color: #D3183D;
-}
-
+/* === ENCABEZADO PRINCIPAL === */
 header h1 {
-    font-size: 2.5em;
-    margin-bottom: 10px;
+    font-size: 2.5em; /* Tamaño del H1 */
+    margin-bottom: 10px; /* Separación inferior */
 }
 
+/* === CAJA DE IMAGEN PRINCIPAL === */
 .caja {
-  width: 100%;
-  height: auto;
-  background-image: url("hola/logo_2.jpeg");
-  background-size: cover; /* ajusta la imagen al tamaño */
-  background-position: center; /* centra la imagen */
-  background-repeat: no-repeat; /* evita que se repita */
+    width: 100%; /* Ancho completo */
+    height: auto; /* Altura automática */
+    background-image: url("hola/logo_2.jpeg"); /* Imagen de fondo */
+    background-size: cover; /* Ajusta imagen al contenedor */
+    background-position: center; /* Centrar imagen */
+    background-repeat: no-repeat; /* No repetir imagen */
 }
 
-nav ul {
-    list-style: none;
-    padding: 0;
-}
-
-nav a {
-    text-decoration: none;
-    color: #5a3e36;
-    font-weight: bold;
-}
-
+/* === SECCIONES === */
 section {
-    padding: 50px 20px;
-    text-align: center;
-}
-#Menu {
-    padding: 40px 20px;
+    padding: 50px 20px; /* Espaciado interno */
+    text-align: center; /* Centrar contenido */
 }
 
-/* Título principal de la sección unificado con Pacifico */
+#Menu {
+    padding: 40px 20px; /* Espaciado interno específico de la sección */
+}
+
+/* === TÍTULO Y TEXTO SECCIÓN === */
 #Menu h2 {
-    font-family: 'Pacifico', cursive;
-    color: #F54388; /* Rosa Chicle */
+    font-family: 'Pacifico', cursive; /* Fuente cursiva */
+    color: #F54388; /* Rosa chicle */
     font-size: 2.5em; 
-    margin-bottom: 10px;
+    margin-bottom: 10px; 
 }
 
 #Menu p {
-    color: #147D7D; /* Verde Azulado */
-    font-size: 1.1em;
-    font-style: italic;
-    margin-bottom: 40px;
+    color: #147D7D; /* Verde azulado */
+    font-size: 1.1em; 
+    font-style: italic; /* Texto en cursiva */
+    margin-bottom: 40px; 
 }
 
-/* --- CUADRÍCULA DE PRODUCTOS (GRID) --- */
-/* ========================================= */
-/* 1. ESTILOS DE LA LISTA VERTICAL (MENU-GRID)*/
-/* ========================================= */
+/* === GRID DE PRODUCTOS === */
 .menu-grid {
-    /* Configura el contenedor para lista vertical */
-    display: flex;
-    flex-direction: column; 
-    
-    /* Centra las tarjetas y establece un ancho máximo */
-    max-width: 700px; 
+    display: flex; /* Contenedor flex */
+    flex-direction: column; /* Vertical */
+    max-width: 700px; /* Ancho máximo */
     width: 100%; 
-    margin: 0 auto; 
-    
-    gap: 20px; /* Espacio vertical entre las tarjetas */
+    margin: 0 auto; /* Centrar contenedor */
+    gap: 20px; /* Espacio vertical entre tarjetas */
     padding: 0;
 }
 
-/* ------------------------------------------- */
-/* 2. ESTILOS BASE DE LA TARJETA (<article>)   */
-/* ------------------------------------------- */
+/* === TARJETAS INDIVIDUALES === */
 .menu-grid article {
-    /* Disposición Vertical: Imagen arriba, texto abajo */
-    display: flex;
-    flex-direction: column; 
+    display: flex; /* Contenedor flex */
+    flex-direction: column; /* Imagen arriba, texto abajo */
     overflow: hidden; 
-
-    /* Estilos de color y borde (Originales: Menta Pastel) */
-    background-color: #B5EFCC; 
-    border-radius: 15px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    
-    /* El padding se aplica a .card-content */
+    background-color: #B5EFCC; /* Fondo menta pastel */
+    border-radius: 15px; /* Bordes redondeados */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
     text-align: left;
-    
-    /* Animación Hover */
-    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-    width: 100%; /* Ocupa el ancho máximo del contenedor .menu-grid */
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Animación hover */
+    width: 100%; 
 }
 
-/* Efecto al pasar el ratón */
 .menu-grid article:hover {
-    transform: translateY(-7px); /* Elevación */
-    /* Sombra Verde Azulado */
-    box-shadow: 0 15px 25px rgba(20, 125, 125, 0.3); 
+    transform: translateY(-7px); /* Elevar tarjeta */
+    box-shadow: 0 15px 25px rgba(20, 125, 125, 0.3); /* Sombra más intensa */
 }
 
-/* ------------------------------------------- */
-/* 3. ESTILOS DE LA IMAGEN Y CONTENEDORES      */
-/* ------------------------------------------- */
-
-/* Contenedor de la Imagen */
+/* === IMAGEN TARJETA === */
 .card-image-container {
     width: 100%; 
-    height: 250px; /* Altura fija para uniformidad */
+    height: 250px; /* Altura fija */
     overflow: hidden; 
-    /* Bordes superiores redondeados */
-    border-radius: 15px 15px 0 0; 
+    border-radius: 15px 15px 0 0; /* Bordes superiores redondeados */
 }
 
-/* La Imagen */
 .card-image {
-    width: 100%; /* Ancho fijo para uniformidad */
-    height: 100%; /* Alto fijo para uniformidad */
-    /* Asegura que la imagen se vea bien proporcionada */
-    object-fit: cover; 
-    display: block;
+    width: 100%; /* Ancho completo */
+    height: 100%; /* Alto completo */
+    object-fit: cover; /* Ajuste de imagen */
+    display: block; 
 }
 
-/* Contenedor del contenido (Texto y Botón) */
+/* === CONTENIDO TARJETA === */
 .card-content {
-    /* Aplica el espaciado interno al texto */
-    padding: 25px; 
+    padding: 25px; /* Espaciado interno */
 }
 
-/* ------------------------------------------- */
-/* 4. ESTILOS DE TEXTO Y BOTÓN (Originales)    */
-/* ------------------------------------------- */
 .menu-grid article h3 {
-    color: #147D7D; /* Verde Azulado Oscuro */
+    color: #147D7D; /* Verde azulado oscuro */
     margin-top: 0;
     font-size: 1.5em;
     margin-bottom: 5px; 
 }
 
 .menu-grid article p {
-    color: #5a3e36; /* Marrón para la descripción */
+    color: #5a3e36; /* Marrón */
     font-size: 0.95em;
-    height: 40px; /* Altura fija para alineación */
+    height: 40px; 
     font-style: normal;
     margin-bottom: 10px;
 }
 
 .menu-grid article .precio {
     font-weight: 700;
-    color: #F54388; /* Rosa Chicle para el precio */
+    color: #F54388; /* Rosa chicle */
     font-size: 1.4em;
     display: block;
     margin: 10px 0;
 }
 
+/* === BOTÓN AGREGAR === */
 .btn-agregar {
-    background-color: #F54388; 
-    color: white;
+    background-color: #F54388; /* Fondo rosa chicle */
+    color: white; 
     border: none;
-    padding: 10px 15px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: 600;
-    transition: background-color 0.3s ease;
-}
-
-.btn-agregar:hover {
-    background-color: #e03f7e;
-}
-
-/* --- BOTÓN AGREGAR AL CARRITO (UNIFICADO) --- */
-.btn-agregar {
-    background-color: #F54388; /* Fondo Rosa Chicle */
-    color: white;
-    padding: 10px 20px;
-    border: none;
+    padding: 10px 20px; 
     border-radius: 50px; /* Botón redondeado */
     cursor: pointer;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
-    transition: background-color 0.3s ease, transform 0.3s;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.2); 
+    transition: background-color 0.3s ease, transform 0.3s; 
     font-weight: 600;
     display: inline-flex;
     align-items: center;
@@ -289,68 +228,65 @@ section {
 }
 
 .btn-agregar:hover {
-    background-color: #147D7D; /* Hover en Verde Azulado */
-    transform: scale(1.05);
+    background-color: #147D7D; /* Hover verde azulado */
+    transform: scale(1.05); /* Pequeña ampliación */
 }
 
-/* --- CARRITO FLOTANTE (UNIFICADO) --- */
+/* === CARRITO FLOTANTE === */
 #carritoFlotante {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background-color: #147D7D; /* Verde Azulado */
+    position: fixed; /* Fijo en pantalla */
+    bottom: 20px; /* Separación inferior */
+    right: 20px; /* Separación derecha */
+    background-color: #147D7D; /* Verde azulado */
     color: white;
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    display: flex;
+    width: 60px; 
+    height: 60px; 
+    border-radius: 50%; /* Redondo */
+    display: flex; 
     justify-content: center;
     align-items: center;
-    font-size: 28px;
+    font-size: 28px; 
     text-decoration: none;
     box-shadow: 0 4px 10px rgba(0,0,0,0.25);
-    z-index: 999;
+    z-index: 999; /* Siempre visible encima de otros elementos */
     transition: 0.3s;
 }
 
 #carritoFlotante:hover {
-    transform: scale(1.1);
+    transform: scale(1.1); /* Pequeño efecto al pasar el cursor */
 }
 
 #carritoFlotante span {
     position: absolute;
-    top: -5px;
-    right: -5px;
-    background-color: #F54388; /* Contador en Rosa Chicle */
+    top: -5px; 
+    right: -5px; 
+    background-color: #F54388; /* Contador rosa chicle */
     color: white;
     padding: 2px 7px;
     font-size: 0.8em;
-    border-radius: 50%;
+    border-radius: 50%; 
     font-weight: bold;
 }
 
-/* --- FOOTER (UNIFICADO) --- */
+/* === FOOTER === */
 footer {
-    /* Fondo del Footer (Amarillo Pastel) */
-    background-color: #FCEA85; 
-    /* Color de texto (Verde Azulado Oscuro) */
-    color: #147D7D; 
+    background-color: #FCEA85; /* Amarillo pastel */
+    color: #147D7D; /* Verde azulado oscuro */
     text-align: center;
     padding: 15px;
     margin-top: 30px;
     width: 100%;
 }
 
-/* --- MODALES (Usando estilos limpios de Annia) --- */
-
+/* === MODALES === */
 /* Modal Login */
 #modalLogin .modal-content {
-    background: #FFFDF2; /* Fondo Crema */
+    background: #FFFDF2; /* Fondo crema */
     border-radius: 15px;
-    border: 2px solid #F54388; /* Borde Rosa Chicle */
+    border: 2px solid #F54388; /* Borde rosa chicle */
 }
 #modalLogin .modal-header {
-    background: #FCEA85; /* Encabezado Amarillo Pastel */
+    background: #FCEA85; /* Amarillo pastel */
     color: #147D7D; 
     border-top-left-radius: 13px;
     border-top-right-radius: 13px;
@@ -364,26 +300,25 @@ footer {
     font-size: 16px;
 }
 #modalLogin .btn-primary {
-    background-color: #147D7D !important; /* Botón Verde Azulado */
+    background-color: #147D7D !important; /* Botón verde azulado */
     border-color: #147D7D !important;
 }
 #modalLogin .btn-primary:hover {
-    background-color: #F54388 !important; /* Hover Rosa Chicle */
+    background-color: #F54388 !important; /* Hover rosa chicle */
     border-color: #F54388 !important;
 }
 
-/* Modal Carrito (Se hereda gran parte del estilo de Bootstrap, pero ajustamos color de encabezado si es necesario) */
+/* Modal Carrito */
 #modalCarrito .modal-header {
-    background-color: #B5EFCC; /* Menta Pastel */
+    background-color: #B5EFCC; /* Menta pastel */
     color: #147D7D;
 }
 #modalCarrito .modal-footer .btn-success {
-    /* Botón Comprar en Rosa Chicle (si usas la clase 'btn-success' en el HTML) */
-    background-color: #F54388 !important;
+    background-color: #F54388 !important; /* Botón comprar rosa chicle */
     border-color: #F54388 !important;
     color: white !important;
 }
 #modalCarrito .modal-footer .btn-success:hover {
-    background-color: #147D7D !important;
+    background-color: #147D7D !important; /* Hover verde azulado */
     border-color: #147D7D !important;
 }

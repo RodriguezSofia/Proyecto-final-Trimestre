@@ -1,199 +1,193 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Quicksand", sans-serif;
+    margin: 0; /* Quita márgenes por defecto de todos los elementos */
+    padding: 0; /* Quita padding por defecto de todos los elementos */
+    box-sizing: border-box; /* Incluye padding y borde en el ancho y alto */
+    font-family: "Quicksand", sans-serif; /* Fuente global */
 }
 
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
-            background-image: url('../img/registro.jpg');
-            /* 2. MUY IMPORTANTE: Asegura que la imagen cubra todo el fondo */
-            background-size: cover; 
-            /* 3. Centra la imagen horizontal y verticalmente */
-            background-position: center; 
-            /* 4. Evita que la imagen se repita si es más pequeña que la pantalla */
-            background-repeat: no-repeat; 
-            /* 5. (Opcional) Fija la imagen para que no se mueva al hacer scroll */
-            background-attachment: fixed;
-            /* Asegura que el body ocupe al menos el 100% de la altura del viewport */
-            min-height: 100vh;
-        }
+body {
+    display: flex; /* Activa Flexbox para centrar contenido */
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center; /* Centra verticalmente */
+    min-height: 100vh; /* Ocupa toda la altura de la ventana */
+    padding: 20px; /* Espacio interno */
+    background-image: url('../img/registro.jpg'); /* Imagen de fondo */
+    background-size: cover; /* Imagen cubre todo el fondo */
+    background-position: center; /* Centrado de la imagen */
+    background-repeat: no-repeat; /* Evita que se repita */
+    background-attachment: fixed; /* Imagen fija al hacer scroll */
+}
 
-        .wrapper {
-            width: 100%;
-            max-width: 420px;
-            border-radius: 20px;
-            padding: 40px 30px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            /* ... otras propiedades de tamaño ... */
-            background: rgba(185, 62, 120, 0.555); /* Fondo semi-transparente blanco */
-            border: 2px solid rgb(165, 71, 71);
-            backdrop-filter: blur(10px); /* Efecto de desenfoque */
-            color: #fff; /* Color del texto (blanco) */
-        }
+.wrapper {
+    width: 100%; /* Ancho completo */
+    max-width: 420px; /* Ancho máximo del contenedor */
+    border-radius: 20px; /* Bordes redondeados */
+    padding: 40px 30px; /* Espacio interno */
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2); /* Sombra */
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Borde semitransparente */
+    display: flex; /* Flexbox para alinear verticalmente */
+    flex-direction: column; /* Elementos en columna */
+    align-items: center; /* Centrado horizontal */
+    background: rgba(185, 62, 120, 0.555); /* Fondo semi-transparente */
+    border: 2px solid rgb(165, 71, 71); /* Borde rosa oscuro */
+    backdrop-filter: blur(10px); /* Efecto desenfoque */
+    color: #fff; /* Color de texto blanco */
+}
+
 /* ---------- TÍTULO ----------- */
 .wrapper h1 {
-    font-family: 'Pacifico', cursive;
-    font-size: 42px;
-    margin-bottom: 20px;
-    color: white;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    font-family: 'Pacifico', cursive; /* Fuente cursiva */
+    font-size: 42px; /* Tamaño grande del título */
+    margin-bottom: 20px; /* Espacio debajo */
+    color: white; /* Color blanco */
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* Sombra de texto */
 }
 
-        .wrapper .input-box {
-            position: relative;
-            width: 100%;
-            height: 50px;
-            margin: 20px 0;
-        }
+.wrapper .input-box {
+    position: relative; /* Para posicionar íconos dentro */
+    width: 100%; /* Ocupa todo el ancho del contenedor */
+    height: 50px; /* Altura del input */
+    margin: 20px 0; /* Separación superior e inferior */
+}
 
-        .input-box input {
-            width: 100%;
-            height: 100%;
-            background: rgba(255, 255, 255, 0.2);
-            border: none;
-            outline: none;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-radius: 40px;
-            font-size: 16px;
-            color: white;
-            padding: 20px 45px 20px 20px;
-            transition: all 0.3s ease;
-        }
+.input-box input {
+    width: 100%; /* Ancho total */
+    height: 100%; /* Altura igual a contenedor */
+    background: rgba(255, 255, 255, 0.2); /* Fondo semi-transparente */
+    border: none; /* Sin borde */
+    outline: none; /* Sin borde al enfocar */
+    border: 2px solid rgba(255, 255, 255, 0.3); /* Borde semi-transparente */
+    border-radius: 40px; /* Bordes redondeados */
+    font-size: 16px; /* Tamaño de texto */
+    color: white; /* Color de texto blanco */
+    padding: 20px 45px 20px 20px; /* Espaciado interno con margen para icono */
+    transition: all 0.3s ease; /* Animación suave al enfocar */
+}
 
-        .input-box input:focus {
-            border-color: rgba(255, 255, 255, 0.7);
-            background: rgba(255, 255, 255, 0.25);
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
-        }
+.input-box input:focus {
+    border-color: rgba(255, 255, 255, 0.7); /* Borde más claro al enfocar */
+    background: rgba(255, 255, 255, 0.25); /* Fondo más claro */
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2); /* Sombra al enfocar */
+}
 
-        .input-box input::placeholder {
-            color: rgba(255, 255, 255, 0.8);
-        }
+.input-box input::placeholder {
+    color: rgba(255, 255, 255, 0.8); /* Color del placeholder */
+}
 
-        .input-box i {
-            position: absolute;
-            right: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 20px;
-            color: white;
-        }
+.input-box i {
+    position: absolute; /* Posición dentro del input */
+    right: 20px; /* Separación derecha */
+    top: 50%; /* Centrado vertical */
+    transform: translateY(-50%); /* Ajuste vertical */
+    font-size: 20px; /* Tamaño del ícono */
+    color: white; /* Color blanco */
+}
 
-        /* Estilos para checkbox y términos */
-        .wrapper .remember-forgot,
-        .wrapper .terms {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 14.5px;
-            margin: 15px 0;
-            color: white;
-            width: 100%;
-        }
+/* Estilos para checkbox y términos */
+.wrapper .remember-forgot,
+.wrapper .terms {
+    display: flex; /* Flex para alinear elementos */
+    justify-content: space-between; /* Separación entre elementos */
+    align-items: center; /* Centrado vertical */
+    font-size: 14.5px; /* Tamaño de texto */
+    margin: 15px 0; /* Espaciado superior e inferior */
+    color: white; /* Color blanco */
+    width: 100%; /* Ancho completo */
+}
 
-        .remember-forgot label,
-        .terms label {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
+.remember-forgot label,
+.terms label {
+    display: flex; /* Flex para alinear texto y checkbox */
+    align-items: center; /* Centrado vertical */
+    gap: 8px; /* Separación entre checkbox y texto */
+}
 
-        .remember-forgot label input,
-        .terms label input {
-            accent-color: white;
-            width: 16px;
-            height: 16px;
-        }
+.remember-forgot label input,
+.terms label input {
+    accent-color: white; /* Color del checkbox */
+    width: 16px; /* Tamaño del checkbox */
+    height: 16px; /* Tamaño del checkbox */
+}
 
-        .remember-forgot a,
-        .terms a {
-            color: white;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
+.remember-forgot a,
+.terms a {
+    color: white; /* Color del enlace */
+    text-decoration: none; /* Sin subrayado */
+    transition: all 0.3s ease; /* Animación suave */
+}
 
-        .remember-forgot a:hover,
-        .terms a:hover {
-            text-decoration: underline;
-            text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
-        }
+.remember-forgot a:hover,
+.terms a:hover {
+    text-decoration: underline; /* Subrayado al pasar el mouse */
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.5); /* Sombra suave */
+}
 
-        /* Botón mejorado */
-        .wrapper .btn {
-            width: 100%;
-            height: 50px;
-            background: white;
-            border: none;
-            outline: none;
-            border-radius: 40px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: 600;
-            color: #e763b0;
-            transition: all 0.3s ease;
-            margin-top: 10px;
-        }
+/* Botón mejorado */
+.wrapper .btn {
+    width: 100%; /* Ancho completo */
+    height: 50px; /* Altura del botón */
+    background: white; /* Fondo blanco */
+    border: none; /* Sin borde */
+    outline: none; /* Sin borde al enfocar */
+    border-radius: 40px; /* Bordes redondeados */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Sombra */
+    cursor: pointer; /* Cursor mano */
+    font-size: 16px; /* Tamaño del texto */
+    font-weight: 600; /* Negrita */
+    color: #e763b0; /* Color texto rosa */
+    transition: all 0.3s ease; /* Animación suave */
+    margin-top: 10px; /* Separación superior */
+}
 
-        .wrapper .btn:hover {
-            background: rgba(255, 255, 255, 0.9);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-        }
+.wrapper .btn:hover {
+    background: rgba(255, 255, 255, 0.9); /* Fondo ligeramente transparente */
+    transform: translateY(-2px); /* Efecto subir */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3); /* Sombra más intensa */
+}
 
-        .wrapper .btn:active {
-            transform: translateY(0);
-        }
+.wrapper .btn:active {
+    transform: translateY(0); /* Volver a posición normal al hacer click */
+}
 
-        /* Enlaces de registro/login */
-        .wrapper .register-link,
-        .wrapper .login-link {
-            font-size: 14.5px;
-            text-align: center;
-            margin-top: 25px;
-            color: white;
-            width: 100%;
-        }
+/* Enlaces de registro/login */
+.wrapper .register-link,
+.wrapper .login-link {
+    font-size: 14.5px; /* Tamaño del texto */
+    text-align: center; /* Centrado */
+    margin-top: 25px; /* Separación superior */
+    color: white; /* Color blanco */
+    width: 100%; /* Ancho completo */
+}
 
-        .register-link p a,
-        .login-link p a {
-            color: white;
-            text-decoration: none;
-            font-weight: 600;
-            margin-left: 5px;
-            transition: all 0.3s ease;
-        }
+.register-link p a,
+.login-link p a {
+    color: white; /* Color de enlace */
+    text-decoration: none; /* Sin subrayado */
+    font-weight: 600; /* Negrita */
+    margin-left: 5px; /* Separación izquierda */
+    transition: all 0.3s ease; /* Animación suave */
+}
 
-        .register-link p a:hover,
-        .login-link p a:hover {
-            text-decoration: underline;
-            text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
-        }
+.register-link p a:hover,
+.login-link p a:hover {
+    text-decoration: underline; /* Subrayado al pasar mouse */
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.5); /* Sombra suave */
+}
 
-        /* Responsive */
-        @media (max-width: 480px) {
-            .wrapper {
-                padding: 30px 20px;
-                margin: 10px;
-            }
-            
-            .wrapper h1 {
-                font-size: 28px;
-            }
-            
-            .remember-forgot {
-                flex-direction: column;
-                gap: 10px;
-                text-align: center;
-            }
-        }
+/* Responsive */
+@media (max-width: 480px) {
+    .wrapper {
+        padding: 30px 20px; /* Reducir padding */
+        margin: 10px; /* Margen alrededor */
+    }
+    
+    .wrapper h1 {
+        font-size: 28px; /* Reducir tamaño del título */
+    }
+    
+    .remember-forgot {
+        flex-direction: column; /* Checkbox y enlaces en columna */
+        gap: 10px; /* Espacio entre elementos */
+        text-align: center; /* Centrar */
+    }
+}

@@ -1,205 +1,205 @@
 :root{
-  --bg: #fffaf6;
-  --primary: #FFB6C1;
-  --secondary: #A7F3D0;
-  --accent: #FFDDA1;
-  --text: #333;
-  --muted: #6b6b6b;
-  --card-shadow: 0 6px 20px rgba(34,34,34,0.06);
-  --radius: 12px;
-  --mono: "Courier New", monospace;
+  --bg: #fffaf6; /* Fondo principal */
+  --primary: #FFB6C1; /* Color primario de acento */
+  --secondary: #A7F3D0; /* Color secundario */
+  --accent: #FFDDA1; /* Color de resaltado */
+  --text: #333; /* Color del texto principal */
+  --muted: #6b6b6b; /* Texto secundario/muted */
+  --card-shadow: 0 6px 20px rgba(34,34,34,0.06); /* Sombra de las tarjetas */
+  --radius: 12px; /* Radio de bordes redondeados */
+  --mono: "Courier New", monospace; /* Fuente monoespaciada */
 }
 
 *{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
+  margin:0; /* Quitar margen por defecto de todos los elementos */
+  padding:0; /* Quitar padding por defecto */
+  box-sizing:border-box; /* Box-sizing para que padding y border se sumen al ancho */
 }
 
 body{
-  font-family: Inter, Arial, sans-serif;
-  background: var(--bg);
-  padding:24px;
-  color:var(--text);
+  font-family: Inter, Arial, sans-serif; /* Fuente principal */
+  background: var(--bg); /* Fondo general */
+  padding:24px; /* Espacio interno de la página */
+  color:var(--text); /* Color de texto principal */
 }
 
 /* WRAPPER */
 .invoice-wrap{
-  max-width:900px;
-  margin:0 auto;
-  background:#fff;
-  border-radius:16px;
-  box-shadow:var(--card-shadow);
-  overflow:hidden;
+  max-width:900px; /* Ancho máximo del contenedor */
+  margin:0 auto; /* Centrado horizontal */
+  background:#fff; /* Fondo blanco para la factura */
+  border-radius:16px; /* Bordes redondeados */
+  box-shadow:var(--card-shadow); /* Sombra de la tarjeta */
+  overflow:hidden; /* Evita que el contenido se salga de los bordes */
 }
 
 /* HEADER */
 .invoice-header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:22px;
-  background:linear-gradient(90deg,var(--primary),var(--secondary));
-  color:#fff;
+  display:flex; /* Flexbox para alinear elementos en fila */
+  justify-content:space-between; /* Separar elementos a los extremos */
+  align-items:center; /* Centrar verticalmente */
+  padding:22px; /* Espaciado interno */
+  background:linear-gradient(90deg,var(--primary),var(--secondary)); /* Degradado del header */
+  color:#fff; /* Texto blanco */
 }
 
 .brand{
-  display:flex;
-  align-items:center;
-  gap:14px;
+  display:flex; /* Flex para alinear logo y texto */
+  align-items:center; /* Centrar verticalmente */
+  gap:14px; /* Separación entre logo y nombre */
 }
 
 .logo{
-  width:72px;
-  height:72px;
-  border-radius:14px;
-  background:rgba(255,255,255,0.18);
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  font-weight:700;
-  font-size:20px;
+  width:72px; /* Ancho del logo */
+  height:72px; /* Alto del logo */
+  border-radius:14px; /* Bordes redondeados */
+  background:rgba(255,255,255,0.18); /* Fondo semi-transparente */
+  display:flex; /* Flex para centrar contenido interno */
+  justify-content:center; /* Centrado horizontal */
+  align-items:center; /* Centrado vertical */
+  font-weight:700; /* Negrita */
+  font-size:20px; /* Tamaño del texto del logo */
 }
 
 .brand h1{
-  font-size:20px;
+  font-size:20px; /* Tamaño del título de la marca */
 }
 
 .hdr-right{
-  text-align:right;
+  text-align:right; /* Alinea a la derecha los elementos de la derecha */
 }
 
 .small{
-  font-size:12px;
+  font-size:12px; /* Texto pequeño */
 }
 
 .muted{
-  color:var(--muted);
-  font-size:13px;
+  color:var(--muted); /* Texto secundario */
+  font-size:13px; /* Tamaño un poco más pequeño */
 }
 
 .monos{
-  font-family:var(--mono);
+  font-family:var(--mono); /* Fuente monoespaciada */
 }
 
 /* BODY */
 
 .invoice-body{
-  padding:26px;
+  padding:26px; /* Espacio interno del cuerpo de la factura */
 }
 
 .meta{
-  display:flex;
-  gap:20px;
-  flex-wrap:wrap;
-  margin-bottom:20px;
+  display:flex; /* Flexbox para alinear los elementos de metadatos */
+  gap:20px; /* Separación entre elementos */
+  flex-wrap:wrap; /* Permite que los elementos bajen a otra fila si no caben */
+  margin-bottom:20px; /* Espacio debajo de los metadatos */
 }
 
 .meta > div{
-  background:#fff;
-  border-radius:10px;
-  padding:12px 14px;
-  box-shadow:var(--card-shadow);
+  background:#fff; /* Fondo blanco para cada bloque de meta */
+  border-radius:10px; /* Bordes redondeados */
+  padding:12px 14px; /* Espaciado interno */
+  box-shadow:var(--card-shadow); /* Sombra suave */
 }
 
 /* TABLE */
 .items table{
-  width:100%;
-  border-collapse:collapse;
-  background:#fff;
+  width:100%; /* Tabla ocupa todo el ancho */
+  border-collapse:collapse; /* Quita espacios entre celdas */
+  background:#fff; /* Fondo blanco de la tabla */
 }
 
 thead{
-  background:linear-gradient(90deg, #ffe7efbd, #e0fff4c4);
+  background:linear-gradient(90deg, #ffe7efbd, #e0fff4c4); /* Degradado para encabezados de tabla */
 }
 
 th, td{
-  padding:12px 14px;
-  font-size:14px;
-  border-bottom:1px dashed rgba(0,0,0,0.06);
+  padding:12px 14px; /* Espacio interno de celdas */
+  font-size:14px; /* Tamaño del texto */
+  border-bottom:1px dashed rgba(0,0,0,0.06); /* Línea inferior tenue */
 }
 
 .qty, .price, .total{
-  text-align:right;
+  text-align:right; /* Alinear cantidades y precios a la derecha */
 }
 
 /* SUMMARY */
 .summary{
-  margin-top:20px;
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-  align-items:flex-end;
+  margin-top:20px; /* Separación superior */
+  display:flex; /* Flex para alinear los totales */
+  flex-direction:column; /* Apilar verticalmente */
+  gap:10px; /* Separación entre filas */
+  align-items:flex-end; /* Alinear al final (derecha) */
 }
 
 .summary .row{
-  width:360px;
-  display:flex;
-  justify-content:space-between;
-  padding:8px 12px;
-  background:#fff;
-  border-radius:8px;
-  box-shadow:var(--card-shadow);
+  width:360px; /* Ancho de cada fila de resumen */
+  display:flex; /* Flex para alinear contenido */
+  justify-content:space-between; /* Separar etiquetas y valores */
+  padding:8px 12px; /* Espaciado interno */
+  background:#fff; /* Fondo blanco */
+  border-radius:8px; /* Bordes redondeados */
+  box-shadow:var(--card-shadow); /* Sombra suave */
 }
 
 .summary .total{
-  background:var(--accent);
-  font-weight:700;
-  font-size:18px;
+  background:var(--accent); /* Fondo de la fila total */
+  font-weight:700; /* Negrita */
+  font-size:18px; /* Tamaño del texto más grande */
 }
 
 /* FOOTER */
 
 .invoice-footer{
-  display:flex;
-  justify-content:space-between;
-  padding:20px;
-  border-top:1px dashed rgba(0,0,0,0.06);
+  display:flex; /* Flex para alinear los elementos */
+  justify-content:space-between; /* Separar elementos a los extremos */
+  padding:20px; /* Espaciado interno */
+  border-top:1px dashed rgba(0,0,0,0.06); /* Línea superior punteada */
 }
 
 .payment-methods{
-  display:flex;
-  gap:10px;
+  display:flex; /* Flex para alinear iconos de pago */
+  gap:10px; /* Separación entre iconos */
 }
 
 .chip{
-  background:#eee;
-  padding:8px 10px;
-  border-radius:8px;
-  font-size:13px;
+  background:#eee; /* Fondo gris claro para chip */
+  padding:8px 10px; /* Espaciado interno */
+  border-radius:8px; /* Bordes redondeados */
+  font-size:13px; /* Tamaño del texto */
 }
 
 .notes{
-  max-width:500px;
-  font-size:13px;
-  color:var(--muted);
+  max-width:500px; /* Ancho máximo para las notas */
+  font-size:13px; /* Tamaño del texto */
+  color:var(--muted); /* Color de texto secundario */
 }
 
 @media (max-width:720px){
   .invoice-header{
-    flex-direction:column;
-    text-align:left;
-    gap:10px;
+    flex-direction:column; /* Apilar elementos verticalmente en pantallas pequeñas */
+    text-align:left; /* Alinear texto a la izquierda */
+    gap:10px; /* Separación entre elementos */
   }
 
   .summary .row{
-    width:100%;
+    width:100%; /* Fila de resumen ocupa todo el ancho */
   }
 
   .invoice-footer{
-    flex-direction:column;
-    gap:14px;
+    flex-direction:column; /* Apilar elementos verticalmente */
+    gap:14px; /* Separación entre elementos */
   }
 }
 
 /* PRINT */
 @media print{
   body{
-    padding:0;
-    background:white;
+    padding:0; /* Quitar padding al imprimir */
+    background:white; /* Fondo blanco al imprimir */
   }
   .invoice-wrap{
-    box-shadow:none;
-    border-radius:0;
+    box-shadow:none; /* Sin sombra en impresión */
+    border-radius:0; /* Bordes cuadrados en impresión */
   }
 }

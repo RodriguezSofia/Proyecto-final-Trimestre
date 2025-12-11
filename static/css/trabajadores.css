@@ -1,3 +1,8 @@
+/* ---------------------------
+   ESTILOS GENERALES
+----------------------------*/
+
+/* Fuente y fondo de toda la página */
 body {
     font-family: Arial, sans-serif;
     background: #FFF9EF; /* color crema de tu página */
@@ -5,14 +10,14 @@ body {
     padding: 0;
 }
 
-/* Línea pastel superior */
+/* Línea decorativa superior */
 .color-line {
     width: 100%;
     height: 40px;
     background: #C7F2D0; /* verde pastel */
 }
 
-/* Caja principal */
+/* Caja principal del contenido */
 .container {
     width: 90%;
     max-width: 900px;
@@ -23,13 +28,16 @@ body {
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
+/* Título de la página */
 h1 {
     text-align: center;
     color: #004f4f;
     margin-bottom: 20px;
 }
 
-/* Tabla */
+/* ---------------------------
+   ESTILOS DE TABLA
+----------------------------*/
 table {
     width: 100%;
     border-collapse: collapse;
@@ -47,7 +55,11 @@ th, td {
     border-bottom: 1px solid #ccc;
 }
 
-/* Botón Cambiar Rol */
+/* ---------------------------
+   BOTONES
+----------------------------*/
+
+/* Botón para cambiar rol */
 .btn-rol {
     background: #8ED7C6; /* verde menta */
     color: white;
@@ -57,7 +69,7 @@ th, td {
     cursor: pointer;
 }
 
-/* Botón Eliminar */
+/* Botón para eliminar */
 .btn-eliminar {
     background: #F06292; /* rosado */
     color: white;
@@ -68,7 +80,7 @@ th, td {
     margin-left: 5px;
 }
 
-/* Botón Agregar nuevo trabajador (abajo) */
+/* Botón para agregar nuevo trabajador */
 .btn-agregar {
     display: block;
     margin: 25px auto 0;
@@ -85,21 +97,18 @@ th, td {
     opacity: 0.9;
 }
 
-/* Botón  */
+/* Botón rosa oscuro reutilizable */
 .btn-pink-dark {
-    display: inline-block !important; /* Fuerza a que ocupe solo el espacio del contenido */
-    width: auto !important;           /* Anula cualquier regla de width: 100% que pueda existir */
+    display: inline-block !important;
+    width: auto !important;
     background-color: #b35ed4; 
     color: white;
     border: none;
     padding: 10px 20px; 
     font-size: 16px;
     border-radius: 6px;
-    
-    /* Asegura que el botón se muestre como un bloque si quieres que ocupe todo el ancho */
-    /* Si solo quieres que el botón tenga el ancho del texto, no uses width: 100%; */
-    margin-top: 25px; /* Espacio entre la tabla y el botón */
-    display: block; /* Asegura que el margen superior y el alineamiento funcionen bien */
+    margin-top: 25px;
+    display: block;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
@@ -108,6 +117,7 @@ th, td {
     background-color: #b88ed4; 
 }
 
+/* Estilo general de enlaces */
 a {
     text-decoration: none;
 }

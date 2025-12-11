@@ -1,79 +1,83 @@
+/* ===== ESTILOS GENERALES DEL BODY ===== */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f8e9f4; /* rosa pastel muy suave */
-    margin: 0;
-    padding: 20px;
-    color: #4a3b47;
+    font-family: Arial, sans-serif; /* Fuente principal de la página */
+    background-color: #f8e9f4; /* Color de fondo rosa pastel muy suave */
+    margin: 0; /* Quita el margen por defecto del navegador */
+    padding: 20px; /* Espaciado interno alrededor del contenido */
+    color: #4a3b47; /* Color principal del texto (morado grisáceo) */
 }
 
+/* ===== ESTILO DEL TÍTULO PRINCIPAL ===== */
 h1 {
-    font-size: 28px;
-    margin-bottom: 20px;
-    color: #5b4568; /* morado pastel */
+    font-size: 28px; /* Tamaño del texto del título */
+    margin-bottom: 20px; /* Espacio debajo del título */
+    color: #5b4568; /* Color del texto (morado pastel) */
 }
 
+/* ===== CONTENEDOR DE LA TABLA ===== */
 .tabla-contenedor {
-    background: #ffffff;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    /* Estilos para el contenedor de la tabla y el botón */
+    background: #ffffff; /* Fondo blanco para resaltar la tabla */
+    padding: 20px; /* Espacio interno dentro del contenedor */
+    border-radius: 12px; /* Bordes redondeados */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Sombra suave alrededor */
 
-    display: flex; /* Habilita Flexbox */
-    flex-direction: column; /* Apila la tabla y el botón verticalmente */
-    align-items: center; /* Centra los elementos (tabla y botón) horizontalmente */
+    display: flex; /* Usa Flexbox para organizar contenido interno */
+    flex-direction: column; /* Coloca la tabla y el botón verticalmente */
+    align-items: center; /* Centra horizontalmente tabla y botón */
     
-    /* Centra la tabla y el botón en el cuerpo de la página */
-    margin: 20px auto; 
-    max-width: 800px; /* Ajusta este ancho según el tamaño de tu tabla */
+    margin: 20px auto; /* Centra el contenedor horizontalmente y agrega margen superior e inferior */
+    max-width: 800px; /* Limita el ancho máximo del contenedor */
 }
 
-
+/* ===== ESTILOS DE LA TABLA ===== */
 table {
-    width: 100%;
-    border-collapse: collapse;
+    width: 100%; /* La tabla ocupa todo el ancho del contenedor */
+    border-collapse: collapse; /* Elimina espacios entre celdas */
 }
 
+/* ===== ESTILOS DEL ENCABEZADO DE LA TABLA ===== */
 thead {
-    background-color: #f4d6f3; /* rosado-morado pastel */
+    background-color: #f4d6f3; /* Fondo rosado-morado pastel para el encabezado */
 }
 
 th {
-    padding: 12px;
-    text-align: left;
-    color: #5b4568;
-    font-size: 16px;
+    padding: 12px; /* Espaciado interno de las celdas del encabezado */
+    text-align: left; /* Alinea el texto a la izquierda */
+    color: #5b4568; /* Color del texto del encabezado */
+    font-size: 16px; /* Tamaño del texto */
 }
 
+/* ===== ESTILOS DE CELDAS ===== */
 td {
-    padding: 12px;
-    border-bottom: 1px solid #f3c6e8;
+    padding: 12px; /* Espaciado interno de las celdas */
+    border-bottom: 1px solid #f3c6e8; /* Línea inferior separadora */
 }
 
+/* ===== EFECTO HOVER EN FILAS ===== */
 tbody tr:hover {
-    background-color: #f9d7ee; /* rosado más fuerte al pasar el cursor */
-    transition: 0.3s;
+    background-color: #f9d7ee; /* Cambia el fondo a un rosa más fuerte al pasar el cursor */
+    transition: 0.3s; /* Suaviza la transición de color */
 }
- 
-/* Botón rosado más oscuro */ 
 
+/* ===== BOTÓN ROSADO ===== */
 .btn-pink-dark {
-    background-color: #b35ed4; 
-    color: white;
-    border: none;
-    padding: 5px 15px; 
-    font-size: 16px;
-    border-radius: 6px;
+    background-color: #b35ed4; /* Fondo rosado oscuro */
+    color: white; /* Texto en blanco */
+    border: none; /* Sin borde */
+    padding: 5px 15px; /* Espaciado interno del botón */
+    font-size: 16px; /* Tamaño del texto */
+    border-radius: 6px; /* Bordes redondeados */
     
-    /* Asegura que el botón se muestre como un bloque si quieres que ocupe todo el ancho */
-    /* Si solo quieres que el botón tenga el ancho del texto, no uses width: 100%; */
     margin-top: 20px; /* Espacio entre la tabla y el botón */
-    display: block; /* Asegura que el margen superior y el alineamiento funcionen bien */
+    display: block; /* Hace que el botón se comporte como bloque para aplicar margen */
 }
 
+/* ===== EFECTO HOVER BOTÓN ===== */
 .btn-pink-dark:hover {
-    background-color: #b88ed4; 
+    background-color: #b88ed4; /* Cambia a un rosa más claro al pasar el cursor */
 }
+
+/* ===== ESTILO DE ENLACES ===== */
 a {
-    text-decoration: none;
+    text-decoration: none; /* Quita el subrayado de los enlaces */
 }

@@ -1,57 +1,71 @@
+/* =========================================
+   RESET GENERAL
+   ========================================= */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "Quicksand", sans-serif;
+    font-family: "Quicksand", sans-serif; /* Fuente principal para todo */
 }
 
+/* =========================================
+   BODY
+   ========================================= */
 body {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center;     /* Centra verticalmente */
+    min-height: 100vh;       /* Ocupa toda la altura de la ventana */
     padding: 20px;
 
-    /* Fondo con imagen */
+    /* Fondo con imagen fija */
     background-image: url('../img/inicio.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
 
-    /* Degradado morado */
+    /* Degradado morado sobre la imagen */
     background-color: #af76ec;
     background-blend-mode: multiply;
 }
 
-/* ---------- CONTENEDOR PRINCIPAL ---------- */
+/* =========================================
+   CONTENEDOR PRINCIPAL (.wrapper)
+   ========================================= */
 .wrapper {
     width: 100%;
-    max-width: 450px;
-    background: rgba(196, 96, 226, 0.75);
+    max-width: 450px; /* Ancho máximo */
+    background: rgba(196, 96, 226, 0.75); /* Fondo semi-transparente morado */
     border-radius: 20px;
     padding: 40px 30px;
 
+    /* Sombras y borde */
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
     border: 2px solid rgba(255, 255, 255, 0.3);
 
+    /* Efecto de desenfoque */
     backdrop-filter: blur(12px);
     color: white;
     text-align: center;
 }
 
-/* ---------- TÍTULO ----------- */
+/* =========================================
+   TÍTULO PRINCIPAL
+   ========================================= */
 .wrapper h1 {
-    font-family: 'Pacifico', cursive;
+    font-family: 'Pacifico', cursive; /* Fuente cursiva estilo llamativo */
     font-size: 42px;
     margin-bottom: 20px;
     color: white;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* Sombra sutil */
 }
 
-/* ---------- INPUTS ----------- */
+/* =========================================
+   INPUTS (.input-box)
+   ========================================= */
 .input-box {
-    position: relative;
+    position: relative; /* Para posicionar el icono */
     width: 100%;
     height: 50px;
     margin: 18px 0;
@@ -60,14 +74,13 @@ body {
 .input-box input {
     width: 100%;
     height: 100%;
-    background: rgba(255, 255, 255, 0.22);
+    background: rgba(255, 255, 255, 0.22); /* Fondo semi-transparente */
     border: none;
     outline: none;
     border: 2px solid rgba(255, 255, 255, 0.35);
     border-radius: 40px;
     font-size: 16px;
     color: white;
-
     padding: 18px 45px 18px 20px;
     transition: 0.3s ease;
 }
@@ -82,7 +95,7 @@ body {
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.35);
 }
 
-/* Iconos */
+/* Icono dentro del input */
 .input-box i {
     position: absolute;
     right: 20px;
@@ -92,7 +105,9 @@ body {
     color: white;
 }
 
-/* ---------- BOTÓN ----------- */
+/* =========================================
+   BOTÓN PRINCIPAL (.btn)
+   ========================================= */
 .btn {
     width: 100%;
     height: 50px;
@@ -100,11 +115,9 @@ body {
     border: none;
     border-radius: 40px;
     cursor: pointer;
-
     font-size: 17px;
     font-weight: bold;
-    color: #6a11cb;
-
+    color: #6a11cb; /* Morado oscuro */
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
     transition: 0.3s ease;
     margin-top: 10px;
@@ -120,7 +133,9 @@ body {
     transform: translateY(0);
 }
 
-/* ---------- LINK DE LOGIN ---------- */
+/* =========================================
+   LINK DE LOGIN (.register-link)
+   ========================================= */
 .register-link {
     margin-top: 25px;
     font-size: 15px;
@@ -140,7 +155,9 @@ body {
     text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
 }
 
-/* ---------- RESPONSIVE ---------- */
+/* =========================================
+   RESPONSIVE (Pantallas pequeñas)
+   ========================================= */
 @media (max-width: 480px) {
     .wrapper {
         padding: 30px 20px;

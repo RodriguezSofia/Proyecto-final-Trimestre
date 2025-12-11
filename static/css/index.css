@@ -1,292 +1,282 @@
 .barra-navegacion {
-display: flex; /* Usar Flexbox para alinear elementos */
-justify-content: space-between;/* Distribuir el espacio entre el logo y los links */
-align-items: center; /*Alinear verticalmente los elementos al centro */
-background-color: #ffffff;
-padding: 10px 20px;
+display: flex; /* Activo Flexbox para alinear los elementos en fila */
+justify-content: space-between;/* Separa el logo y los links, uno a cada lado */
+align-items: center; /* Centra verticalmente los elementos dentro de la barra */
+background-color: #ffffff; /* Fondo blanco de la barra */
+padding: 10px 20px; /* Espacio interno de la barra */
 }
 /* === Encabezado === */
 
 header {
-background-color: #F2CAEF;
-text-align: center;
-padding: 20px;
-color: #D3183D;
+background-color: #F2CAEF; /* Fondo rosado suave */
+text-align: center; /* Centrar el contenido */
+padding: 20px; /* Espacio interno */
+color: #D3183D; /* Color del texto */
 }
 
 nav ul {
-list-style: none;
-padding: 0;
-margin: 0;
+list-style: none; /* Quitar viñetas */
+padding: 0; /* Quitar padding por defecto */
+margin: 0; /* Quitar margen por defecto */
 }
 
 nav ul li {
-display: inline-block;
-margin: 0 10px;
+display: inline-block; /* Poner los items uno al lado del otro */
+margin: 0 10px; /* Separación horizontal */
 }
 nav a {
-font-family: 'Quicksand', sans-serif;
-text-decoration: none;
-color: #880e4f;
-font-weight: bold;
-padding: 6px 12px;
-border-radius: 6px;
+font-family: 'Quicksand', sans-serif; /* Fuente de los links */
+text-decoration: none; /* Quitar subrayado */
+color: #880e4f; /* Color del texto */
+font-weight: bold; /* Negrita */
+padding: 6px 12px; /* Espacio interno */
+border-radius: 6px; /* Bordes redondeados */
 }
 
 nav a:hover {
-background-color: #fdfcee;
+background-color: #fdfcee; /* Color al pasar el mouse */
 }
 
-
-
 nav a.activo {
-background-color:#B5EFCC;
-color: #D3183D;
+background-color:#B5EFCC; /* Fondo verde para link activo */
+color: #D3183D; /* Color del texto activo */
 }
 
 .btn-menu-principal{
-padding: 8px 15px;
-text-decoration: none;
-color: #888e4f;
-border-radius: 5px; font-weight: bold; display: inline-block; transition: all 0.3s ease-in-out;
-background-size: 200% 100%;
-box-shadow: 9 4px 6px rgba(0,0,0,0.1);
+padding: 8px 15px; /* Espacio interno */
+text-decoration: none; /* Sin subrayado */
+color: #888e4f; /* Color del texto */
+border-radius: 5px; font-weight: bold; display: inline-block; transition: all 0.3s ease-in-out; /* Bordes redondeados, animación suave */
+background-size: 200% 100%; /* Tamaño del fondo */
+box-shadow: 9 4px 6px rgba(0,0,0,0.1); /* Sombra ligera */
 }
 .logo {
-height: 60px;
-width: auto;
-margin-right: 20px;
+height: 60px; /* Altura del logo */
+width: auto; /* Mantiene proporción */
+margin-right: 20px; /* Espacio a la derecha */
 }
 /* -ESTILOS PARA LOS LINKS -- */
 
 .menu-principal {
 list-style: none; /* Quitar viñetas */
-display: flex; /* Poner los links uno al lado del otro */
-margin: 0;
-padding: 0;
+display: flex; /* Poner los links en fila */
+margin: 0; /* Sin margen */
+padding: 0; /* Sin padding */
 }
 
 .menu-principal li a {
-text-decoration: none;
-color: #880e4f;
-padding: 10px 15px;
-display: block;
+text-decoration: none; /* Sin subrayado */
+color: #880e4f; /* Color del texto */
+padding: 10px 15px; /* Espacio interno */
+display: block; /* Ocupa todo el ancho */
 }
 
 body {
-font-family: 'Quicksand', sans-serif;
-margin: 0;
-background-color: #ffffff;
-color: #147070;
-/*Color de texto principal */
+font-family: 'Quicksand', sans-serif; /* Fuente principal */
+margin: 0; /* Sin margen */
+background-color: #ffffff; /* Fondo blanco */
+color: #147070; /* Color principal del texto */
 }
 
 
 h2 {
-font-family: 'Pacifico', cursive;
-color: #14a5a5;
-font-size: 3em; /* Tamaño más grande */
-padding-top: 20px; /* Espaciado superior para centrarlo visualmente */
+font-family: 'Pacifico', cursive; /* Fuente cursiva para títulos */
+color: #14a5a5; /* Color del título */
+font-size: 3em; /* Tamaño grande */
+padding-top: 20px; /* Espacio superior */
 }
 h2 {
-    /* 1. Aplicar la fuente cursiva y dulce */
-    font-family: 'Pacifico', cursive; 
-    
-    /* 2. Color Principal de la marca */
-    color: #147D7D; /* Verde Azulado Oscuro */
-    
-    /* 3. Tamaño más grande para impacto */
-    font-size: 3em; 
-    /* 5. Espaciado superior para centrarlo visualmente */
-    padding-top: 20px; 
+    font-family: 'Pacifico', cursive; /* Fuente cursiva */
+    color: #147D7D; /* Verde azulado oscuro */
+    font-size: 3em; /* Tamaño grande */
+    padding-top: 20px; /* Espacio superior */
 }
 
 header {
-    background-color: #F2CAEF;
-    text-align: center;
-    padding: 20px;
-    color: #D3183D;
+    background-color: #F2CAEF; /* Fondo rosado */
+    text-align: center; /* Centrar contenido */
+    padding: 20px; /* Espacio interno */
+    color: #D3183D; /* Color del texto */
 }
 
 header h1 {
-    font-size: 2.5em;
-    margin-bottom: 10px;
+    font-size: 2.5em; /* Tamaño del título */
+    margin-bottom: 10px; /* Espacio debajo del título */
 }
 
 .caja {
-  width: 100%;
-  height: auto;
-  background-image: url("hola/logo_2.jpeg");
-  background-size: cover; /* ajusta la imagen al tamaño */
-  background-position: center; /* centra la imagen */
-  background-repeat: no-repeat; /* evita que se repita */
+  width: 100%; /* Ancho total */
+  height: auto; /* Altura automática */
+  background-image: url("hola/logo_2.jpeg"); /* Imagen de fondo */
+  background-size: cover; /* Ajusta la imagen */
+  background-position: center; /* Centra la imagen */
+  background-repeat: no-repeat; /* No repetir */
 }
 
 nav ul {
-    list-style: none;
-    padding: 0;
+    list-style: none; /* Sin viñetas */
+    padding: 0; /* Sin padding */
 }
 
 nav a {
-    text-decoration: none;
-    color: #5a3e36;
-    font-weight: bold;
+    text-decoration: none; /* Sin subrayado */
+    color: #5a3e36; /* Color de los links */
+    font-weight: bold; /* Negrita */
 }
 
 section {
-    padding: 50px 20px;
-    text-align: center;
+    padding: 50px 20px; /* Espacio interno */
+    text-align: center; /* Centrado del contenido */
 }
 
 .imagen-principal {
-    width: 80%;
-    max-width: 600px;
-    border-radius: 15px;
-    margin-top: 20px;
+    width: 80%; /* Ancho máximo de la imagen */
+    max-width: 600px; /* No exceder 600px */
+    border-radius: 15px; /* Bordes redondeados */
+    margin-top: 20px; /* Separación superior */
 }
 
 .galeria-sabores {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 25px;
-    margin-top: 30px;
+    display: flex; /* Flex para alinear sabores */
+    flex-wrap: wrap; /* Permite que se baje a otra línea */
+    justify-content: center; /* Centrado horizontal */
+    gap: 25px; /* Separación entre items */
+    margin-top: 30px; /* Separación superior */
 }
 
 .galeria-sabores article {
-    background-color: #B5EFCC;
-    border-radius: 10px;
-    width: 200px;
-    padding: 15px;
-    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+    background-color: #B5EFCC; /* Fondo verde claro */
+    border-radius: 10px; /* Bordes redondeados */
+    width: 200px; /* Ancho fijo */
+    padding: 15px; /* Espacio interno */
+    box-shadow: 0 3px 8px rgba(0,0,0,0.1); /* Sombra ligera */
 }
 
 .galeria-sabores img {
-    width: 100%;
-    border-radius: 8px;
+    width: 100%; /* Imagen ocupa todo el ancho */
+    border-radius: 8px; /* Bordes redondeados */
 }
 
 button {
-    background-color: #D3183D;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
+    background-color: #D3183D; /* Fondo rojo */
+    color: white; /* Texto blanco */
+    padding: 10px 20px; /* Espacio interno */
+    border: none; /* Sin borde */
+    border-radius: 8px; /* Bordes redondeados */
+    cursor: pointer; /* Cursor mano */
 }
 
 button:hover {
-    background-color: #C99D71;
+    background-color: #C99D71; /* Color al pasar el mouse */
 }
 
 footer {
-    background-color: #FCEA85;
-    color: #5a3e36;
-    text-align: center;
-    padding: 15px;
+    background-color: #FCEA85; /* Fondo amarillo pastel */
+    color: #5a3e36; /* Color del texto */
+    text-align: center; /* Centrado del contenido */
+    padding: 15px; /* Espacio interno */
 }
 
 .card-img-top {
-    height: 250px;        /* Ajusta este valor si quieres más alto o más bajo */
+    height: 250px;        /* Altura fija */
     object-fit: cover;    /* Recorta sin deformar */
-    width: 100%;
-    border-radius: 10px;
+    width: 100%; /* Ancho total */
+    border-radius: 10px; /* Bordes redondeados */
 }
 
-
 .carousel-item img {
-    width: 100%;
-    height: 400px;       /* Altura fija (ajústala: 300px, 350px, etc.) */
+    width: 100%; /* Imagen ocupa todo el ancho */
+    height: 400px;       /* Altura fija */
     object-fit: cover;   /* Recorta sin deformar */
-    border-radius: 15px; /* Opcional, se ve más bonito */
-    margin: 0 auto;
-    max-width: 900px;    /* Para que NO ocupe toda la pantalla */
+    border-radius: 15px; /* Bordes redondeados */
+    margin: 0 auto; /* Centrado horizontal */
+    max-width: 900px;    /* No excede 900px */
 }
 
 /* === SECCIÓN SABORES === */
 #sabores {
-    text-align: center;
-    padding: 50px 20px;
+    text-align: center; /* Centrar contenido */
+    padding: 50px 20px; /* Espacio interno */
 }
 
 #sabores p {
-    max-width: 600px;
-    margin: 10px auto 40px auto;
-    color: #147D7D;
-    font-size: 1.1em;
+    max-width: 600px; /* Ancho máximo del párrafo */
+    margin: 10px auto 40px auto; /* Centrado y separación */
+    color: #147D7D; /* Color del texto */
+    font-size: 1.1em; /* Tamaño del texto */
 }
 
 /* === GALERIA SABORES === */
 .galeria-sabores {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 25px;
+    display: flex; /* Flex para alinear */
+    flex-wrap: wrap; /* Permite bajar a otra fila */
+    justify-content: center; /* Centrado horizontal */
+    gap: 25px; /* Separación entre items */
 }
 
 .galeria-sabores article {
-    background-color: #B5EFCC;
-    border-radius: 15px;
-    width: 200px;
-    padding: 15px;
-    box-shadow: 0 4px 10px rgba(20, 125, 125, 0.15);
-    transition: 0.3s;
+    background-color: #B5EFCC; /* Fondo verde */
+    border-radius: 15px; /* Bordes redondeados */
+    width: 200px; /* Ancho fijo */
+    padding: 15px; /* Espacio interno */
+    box-shadow: 0 4px 10px rgba(20, 125, 125, 0.15); /* Sombra suave */
+    transition: 0.3s; /* Animación suave */
 }
 
 .galeria-sabores article:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 20px rgba(20, 125, 125, 0.25);
+    transform: translateY(-5px); /* Levanta al pasar el mouse */
+    box-shadow: 0 12px 20px rgba(20, 125, 125, 0.25); /* Sombra más intensa */
 }
 
 .galeria-sabores img {
-    width: 100%;
-    border-radius: 10px;
+    width: 100%; /* Imagen ocupa todo el ancho */
+    border-radius: 10px; /* Bordes redondeados */
 }
 
 .galeria-sabores h3 {
-    font-family: 'Pacifico', cursive;
-    color: #F54388;
-    font-size: 1.8em;
-    margin-bottom: 5px;
+    font-family: 'Pacifico', cursive; /* Fuente cursiva */
+    color: #F54388; /* Color rosa fuerte */
+    font-size: 1.8em; /* Tamaño del texto */
+    margin-bottom: 5px; /* Espacio inferior */
 }
 
 /* === SECCIÓN TOPPINGS === */
 #Toppings h2 {
-    color: #F54388;
+    color: #F54388; /* Color rosa fuerte */
 }
 
 .galeria-Toppings {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 25px;
-    margin-top: 30px;
+    display: flex; /* Flex para alinear */
+    flex-wrap: wrap; /* Permite bajar a otra línea */
+    justify-content: center; /* Centrado horizontal */
+    gap: 25px; /* Separación entre items */
+    margin-top: 30px; /* Espacio superior */
 }
 
 .galeria-Toppings article {
-    background-color: #FCEA85;
-    border-radius: 50%;
-    width: 220px;
-    height: 220px;
-    padding: 20px;
-    box-shadow: 0 4px 10px rgba(20,125,125,0.2);
-    transition: 0.3s ease-in-out;
+    background-color: #FCEA85; /* Fondo amarillo pastel */
+    border-radius: 50%; /* Forma circular */
+    width: 220px; /* Ancho fijo */
+    height: 220px; /* Alto fijo */
+    padding: 20px; /* Espacio interno */
+    box-shadow: 0 4px 10px rgba(20,125,125,0.2); /* Sombra */
+    transition: 0.3s ease-in-out; /* Animación suave */
 }
 
 .galeria-Toppings article:hover {
-    transform: scale(1.05);
+    transform: scale(1.05); /* Agranda al pasar el mouse */
 }
 
 .galeria-Toppings img {
-    width: 160px;
-    height: 160px;
-    border-radius: 50%;
-    object-fit: cover;
+    width: 160px; /* Ancho de la imagen */
+    height: 160px; /* Alto de la imagen */
+    border-radius: 50%; /* Circular */
+    object-fit: cover; /* Recorta sin deformar */
 }
 
 .galeria-Toppings h3 {
-    font-family: 'Pacifico', cursive;
-    color: #F54388;
-    font-size: 1.8em;
-    margin-top: -10px;
+    font-family: 'Pacifico', cursive; /* Fuente cursiva */
+    color: #F54388; /* Color rosa fuerte */
+    font-size: 1.8em; /* Tamaño del texto */
+    margin-top: -10px; /* Ajuste superior */
 }

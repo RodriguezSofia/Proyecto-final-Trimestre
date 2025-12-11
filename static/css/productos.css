@@ -1,58 +1,61 @@
-/* ---------------------------
+/* ===========================
    ESTILOS GENERALES
-----------------------------*/
+=========================== */
 body {
     font-family: 'Poppins', sans-serif;
-    background-color: #fcf4f9; 
+    background-color: #fcf4f9; /* Rosa pastel suave */
     margin: 0;
     padding: 30px;
 }
 
+/* ===========================
+   ENCABEZADO Y NAVEGACIÓN
+=========================== */
 .header-section {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 30px;
+    display: flex; /* Usamos flexbox para alinear contenido */
+    justify-content: space-between; /* Espacio entre elementos */
+    align-items: center; /* Centrado vertical */
+    margin-bottom: 30px; /* Espacio inferior */
 }
 
 h1 {
-    color: #8c429c; 
+    color: #8c429c; /* Morado fuerte */
     font-weight: 700;
     font-size: 30px;
     margin: 0;
 }
 
-/* Enlace Volver al Inicio */
+/* Enlace de volver al inicio */
 .nav-link {
-    color: #d2a7f2; 
+    color: #d2a7f2; /* Lila pastel */
     text-decoration: none;
     font-weight: 600;
     transition: color 0.2s;
     font-size: 15px;
     padding: 8px 15px;
     border-radius: 8px;
-    
-} 
-.nav-link:hover {
-    color: #5b4568; 
 }
 
-/* ---------------------------
-   TARJETAS SUPERIORES
-----------------------------*/
+.nav-link:hover {
+    color: #5b4568; /* Cambia a morado más oscuro al pasar */
+}
+
+/* ===========================
+   TARJETAS SUPERIORES DE INFORMACIÓN
+=========================== */
 .cards {
     display: flex;
-    gap: 20px;
+    gap: 20px; /* Espacio entre tarjetas */
     margin-bottom: 35px;
 }
 
 .card {
-    background: #ffffff;
+    background: #ffffff; /* Fondo blanco */
     padding: 20px;
-    min-width: 220px; 
-    border-radius: 15px; 
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08); 
-    border: 1px solid #f4d6f3; 
+    min-width: 220px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08); /* Sombra suave */
+    border: 1px solid #f4d6f3; /* Borde lila claro */
     text-align: left;
 }
 
@@ -70,38 +73,42 @@ h1 {
     margin: 0;
 }
 
-/* ---------------------------
-   CONTENIDO PRINCIPAL (GRID)
-----------------------------*/
+/* ===========================
+   CONTENEDOR PRINCIPAL (GRID)
+=========================== */
 .contenedor-principal {
     display: grid;
-    grid-template-columns: 3fr 1fr; 
+    grid-template-columns: 3fr 1fr; /* Tabla grande + formulario lateral */
     gap: 30px;
 }
 
-/* Contenedor de Tabla */
+/* ===========================
+   CONTENEDOR DE TABLA
+=========================== */
 .tabla-contenedor {
-    background: #ffffff;
+    background: #ffffff; /* Fondo blanco */
     padding: 25px;
     border-radius: 15px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
 
 .tabla-contenedor h2 {
-    color: #8c429c;
+    color: #8c429c; /* Morado fuerte */
     font-size: 24px;
     margin-bottom: 20px;
 }
 
-/* Estilos de Tabla */
+/* ===========================
+   ESTILOS DE TABLA
+=========================== */
 table {
     width: 100%;
-    border-collapse: collapse;
+    border-collapse: collapse; /* Evita espacios entre celdas */
 }
 
 thead th {
-    background-color: #f4e9f7; 
-    color: #5b4568;
+    background-color: #f4e9f7; /* Lila pastel */
+    color: #5b4568; /* Morado oscuro */
     font-weight: 700;
     padding: 15px 12px;
     text-transform: uppercase;
@@ -111,32 +118,35 @@ thead th {
 
 th, td {
     padding: 12px;
-    border-bottom: 1px solid #f3e1f5; 
+    border-bottom: 1px solid #f3e1f5; /* Línea suave */
     text-align: left;
     color: #333;
 }
+
 td:last-child {
-    text-align: center; 
+    text-align: center; /* Última columna centrada */
 }
 
 tbody tr:hover {
-    background-color: #fcf6fd;
+    background-color: #fcf6fd; /* Rosa claro al pasar */
 }
 
-/* Estilos para Inputs en Modo Edición dentro de la tabla */
+/* Inputs de edición dentro de la tabla */
 .edit-input {
     padding: 5px;
     border: 1px solid #d2a7f2;
     border-radius: 5px;
-    width: 100%; 
+    width: 100%;
     box-sizing: border-box;
 }
 
-/* Botones de Acción */
+/* ===========================
+   BOTONES DE ACCIÓN
+=========================== */
 .action-btn {
     border: none;
     padding: 8px 14px;
-    border-radius: 20px; 
+    border-radius: 20px;
     font-weight: 600;
     cursor: pointer;
     transition: background-color 0.2s, transform 0.1s;
@@ -145,13 +155,13 @@ tbody tr:hover {
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-.editar, .cancelar { 
-    background-color: #d2a7f2; 
+.editar, .cancelar {
+    background-color: #d2a7f2; /* Botón lila */
     color: white;
 }
 
-.eliminar { 
-    background-color: #f28bb6; 
+.eliminar {
+    background-color: #f28bb6; /* Botón rosa */
     color: white;
 }
 
@@ -160,9 +170,9 @@ tbody tr:hover {
     box-shadow: 0 4px 8px rgba(0,0,0,0.15);
 }
 
-/* ---------------------------
-   FORMULARIO AÑADIR
-----------------------------*/
+/* ===========================
+   FORMULARIO AÑADIR PRODUCTO
+=========================== */
 .formulario-contenedor {
     background: #ffffff;
     padding: 25px;
@@ -171,7 +181,7 @@ tbody tr:hover {
 }
 
 .formulario-contenedor h3 {
-    color: #7a5a8d;
+    color: #7a5a8d; /* Morado */
     font-size: 22px;
     margin-bottom: 20px;
 }
@@ -189,7 +199,7 @@ input, select {
     padding: 10px;
     margin-bottom: 18px;
     border-radius: 10px;
-    border: 1px solid #e1c6e9;
+    border: 1px solid #e1c6e9; /* Borde lila claro */
     box-sizing: border-box;
     transition: border-color 0.3s;
 }
@@ -200,8 +210,9 @@ input:focus, select:focus {
     box-shadow: 0 0 0 3px rgba(210, 167, 242, 0.3); 
 }
 
+/* Botón añadir producto */
 .agregar {
-    background-color: #f28bb6;
+    background-color: #f28bb6; /* Rosa pastel */
     color: white;
     border: none;
     padding: 12px;
@@ -219,33 +230,29 @@ input:focus, select:focus {
     transform: translateY(-1px);
 }
 
-/* ---------------------------
-   ESTILOS DEL MODAL (CRÍTICO)
-----------------------------*/
-
-/* Contenedor Principal del Modal (Posicionamiento y Fondo Oscuro) */
+/* ===========================
+   MODAL PERSONALIZADO
+=========================== */
 #custom-modal {
-    position: fixed; 
-    z-index: 1000; 
+    position: fixed;
+    z-index: 1000;
     left: 0;
     top: 0;
-    width: 100%; 
+    width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgba(0,0,0,0.5); 
-    /* ¡SOLUCIÓN! Oculta el modal al cargar la página */
-    display: none; 
+    background-color: rgba(0,0,0,0.5); /* Fondo semi-transparente */
+    display: none; /* Oculto por defecto */
     justify-content: center;
     align-items: center;
 }
 
-/* Contenido del Modal (Caja Blanca) */
 .modal-content {
     background-color: #ffffff;
     padding: 30px;
     border-radius: 12px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    width: 300px; 
+    width: 300px;
     text-align: center;
     position: relative;
 }
@@ -257,9 +264,9 @@ input:focus, select:focus {
     font-weight: 600;
 }
 
-/* Botón Principal/Aceptar del Modal */
+/* Botones del modal */
 .modal-primary-btn {
-    background-color: #d2a7f2; 
+    background-color: #d2a7f2;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -269,9 +276,8 @@ input:focus, select:focus {
     transition: transform 0.1s;
 }
 
-/* Botón Secundario/Cancelar del Modal (Solo aparece en confirmaciones) */
 .modal-cancel-btn {
-    background-color: #f28bb6; 
+    background-color: #f28bb6;
     color: white;
     border: none;
     padding: 10px 20px;

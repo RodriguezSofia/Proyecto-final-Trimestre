@@ -1,62 +1,63 @@
-/* Fondo rosado suave */
+/* Fondo rosado suave */ /* Comentario general del estilo del body */
 body {
-    font-family: Arial, sans-serif;
-    background: #fde6f0;
-    padding: 20px;
+    font-family: Arial, sans-serif; /* Fuente principal de todo el texto */
+    background: #fde6f0; /* Color rosado claro de fondo */
+    padding: 20px; /* Espacio interno alrededor de todo el contenido */
 }
 
-/* Título rosado fuerte */
+/* Título rosado fuerte */ /* Describe el color del encabezado */
 h2 {
-    color: #c2185b;
+    color: #c2185b; /* Color rosado fuerte del texto del título */
 }
 
-/* Tabla rosada */
+/* Tabla rosada */ /* Sección que controla la tabla de clientes */
 .tabla-clientes {
-    width: 70%;
-    margin: 0 auto;
-    border-collapse: separate;
-    border-spacing: 0 15px;
+    width: 70%; /* Ancho del 70% del contenedor */
+    margin: 0 auto; /* Centra la tabla horizontalmente */
+    border-collapse: separate; /* Evita que las celdas se peguen completamente */
+    border-spacing: 0 15px; /* Deja espacio vertical entre filas */
 }
 
 .tabla-clientes th {
-    background: #f8bbd0;
-    color: #880e4f;
-    padding: 15px;
-    font-size: 17px;
-    border-radius: 8px 8px 0 0;
+    background: #f8bbd0; /* Fondo rosado claro para los encabezados */
+    color: #880e4f; /* Texto en rosado oscuro */
+    padding: 15px; /* Espacio interno */
+    font-size: 17px; /* Tamaño de letra del encabezado */
+    border-radius: 8px 8px 0 0; /* Bordes redondeados solo arriba */
 }
 
 .tabla-clientes td {
-    background: #ffffff;
-    color: #5f0d31;
-    padding: 15px;
-    border: 2px solid #f5bfd3;
-    border-radius: 6px;
+    background: #ffffff; /* Fondo blanco para las celdas */
+    color: #5f0d31; /* Texto rosado/morado oscuro */
+    padding: 15px; /* Espacio interno */
+    border: 2px solid #f5bfd3; /* Borde rosado suave */
+    border-radius: 6px; /* Bordes redondeados */
 }
 
-/* Hover rosado */
+/* Hover rosado */ /* Efecto al pasar el mouse sobre una fila */
 .tabla-clientes tr:hover td {
-    background: #ffe1ee;
+    background: #ffe1ee; /* Cambia a un rosado más claro al pasar el mouse */
 }
 
-/* Botón rosado más oscuro */ 
+/* Botón rosado más oscuro */  /* Estilos base del botón */
 .btn-pink-dark {
     background-color: #ad1457; /* ROSADO OSCURO */
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    font-size: 16px;
-    border-radius: 6px;
+    color: white; /* Texto blanco */
+    border: none; /* Sin bordes visibles */
+    padding: 10px 20px; /* Espaciado interno del botón */
+    font-size: 16px; /* Tamaño del texto del botón */
+    border-radius: 6px; /* Esquinas redondeadas */
 }
 
 .btn-pink-dark:hover {
-    background-color: #880e4f; /* MÁS OSCURO AL PASAR */
+    background-color: #880e4f; /* MÁS OSCURO AL PASAR el cursor */
 }
-/* === Pie de página === */
+
+/* === Pie de página === */ /* Inicio de estilos del footer */
 footer {
-    background-color: #FCEA85;
-    color: #5a3e36;
-    text-align: center;
-    padding: 15px;
-    margin-top: 50px;
+    background-color: #FCEA85; /* Fondo amarillo pastel */
+    color: #5a3e36; /* Texto marrón suave */
+    text-align: center; /* Centra el texto */
+    padding: 15px; /* Espaciado interno */
+    margin-top: 50px; /* Separación con el contenido superior */
 }

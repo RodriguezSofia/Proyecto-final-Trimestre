@@ -1,172 +1,173 @@
 .barra-navegacion {
-display: flex; /* Usar Flexbox para alinear elementos */
-justify-content: space-between;/* Distribuir el espacio entre el logo y los links */
-align-items: center; /*Alinear verticalmente los elementos al centro */
-background-color: #ffffff;
-padding: 10px 20px;
+display: flex; /* Activo Flex para poner los elementos en fila y acomodarlos fácil */
+justify-content: space-between;/* Separa el logo y los links, uno a cada lado */
+align-items: center; /* Centra los elementos verticalmente dentro de la barra */
+background-color: #ffffff; /* Fondo blanco para la barra */
+padding: 10px 20px; /* Espacio interno para que no quede todo pegado */
 }
+
 /* === Encabezado === */
 
 header {
-background-color: #F2CAEF;
-text-align: center;
-padding: 20px;
-color: #D3183D;
+background-color: #F2CAEF; /* Fondo rosado suave del encabezado */
+text-align: center; /* Centra todo el contenido del header */
+padding: 20px; /* Espacio alrededor del contenido */
+color: #D3183D; /* Color del texto dentro del header */
 }
 
 nav ul {
-list-style: none;
-padding: 0;
-margin: 0;
+list-style: none; /* Quito las viñetas de la lista del menú */
+padding: 0; /* Quito padding por defecto */
+margin: 0; /* Quito margen por defecto */
 }
 
 nav ul li {
-display: inline-block;
-margin: 0 10px;
+display: inline-block; /* Pongo los items uno al lado del otro */
+margin: 0 10px; /* Separación entre cada opción del menú */
 }
+
 nav a {
-font-family: 'Quicksand', sans-serif;
-text-decoration: none;
-color: #880e4f;
-font-weight: bold;
-padding: 6px 12px;
-border-radius: 6px;
+font-family: 'Quicksand', sans-serif; /* Fuente suave y moderna */
+text-decoration: none; /* Le quito el subrayado a los links */
+color: #880e4f; /* Color del texto del menú */
+font-weight: bold; /* Negrita para que resalte */
+padding: 6px 12px; /* Espacio para que el link sea más clickeable */
+border-radius: 6px; /* Bordes redondeados */
 }
 
 nav a:hover {
-background-color: #fdfcee;
+background-color: #fdfcee; /* Cambio de color cuando paso el mouse */
 }
-
-
 
 nav a.activo {
-background-color:#B5EFCC;
-color: #D3183D;
+background-color:#B5EFCC; /* Fondo verde para marcar el link activo */
+color: #D3183D; /* Color del texto del link activo */
 }
 
-.btn-menu-principal{
-padding: 8px 15px;
-text-decoration: none;
-color: #888e4f;
-border-radius: 5px; font-weight: bold; display: inline-block; transition: all 0.3s ease-in-out;
-background-size: 200% 100%;
-box-shadow: 9 4px 6px rgba(0,0,0,0.1);
+.btn-menu-principal {
+padding: 8px 15px; /* Espacio interno del botón */
+text-decoration: none; /* Sin subrayado */
+color: #888e4f; /* Color del texto */
+border-radius: 5px; /* Bordes redondeados */
+font-weight: bold; /* Letras en negrita */
+display: inline-block; /* Permite manejar tamaños y padding bien */
+transition: all 0.3s ease-in-out; /* Animación suave al pasar el mouse */
+background-size: 200% 100%; /* Tamaño del fondo para posibles efectos */
+box-shadow: 9 4px 6px rgba(0,0,0,0.1); /* Sombrita para levantar el botón (aunque falta unidad en el primer valor) */
 }
+
 .logo {
-height: 60px;
-width: auto;
-margin-right: 20px;
+height: 60px; /* Altura fija del logo */
+width: auto; /* Mantiene la proporción original del logo */
+margin-right: 20px; /* Espacio a la derecha del logo */
 }
+
 /* -ESTILOS PARA LOS LINKS -- */
 
 .menu-principal {
-list-style: none; /* Quitar viñetas */
-display: flex; /* Poner los links uno al lado del otro */
-margin: 0;
-padding: 0;
+list-style: none; /* Sin viñetas */
+display: flex; /* Alineo los links en fila */
+margin: 0; /* Quito el margen */
+padding: 0; /* Quito el padding */
 }
 
 .menu-principal li a {
-text-decoration: none;
-color: #880e4f;
-padding: 10px 15px;
-display: block;
+text-decoration: none; /* Sin subrayado */
+color: #880e4f; /* Color del texto */
+padding: 10px 15px; /* Espacio interno del link */
+display: block; /* Hace que el link ocupe todo el espacio del li */
 }
 
 body {
-font-family: 'Quicksand', sans-serif;
-margin: 0;
-background-color: #ffffff;
-color: #147070;
-/*Color de texto principal */
+font-family: 'Quicksand', sans-serif; /* Fuente general del sitio */
+margin: 0; /* Quito márgenes del body */
+background-color: #ffffff; /* Fondo blanco */
+color: #147070; /* Color principal del texto */
 }
 
+h2 {
+font-family: 'Pacifico', cursive; /* Fuente decorativa para títulos */
+color: #14a5a5; /* Color llamativo */
+font-size: 3em; /* Tamaño grande para destacar el título */
+padding-top: 20px; /* Espacio arriba del título */
+}
 
 h2 {
-font-family: 'Pacifico', cursive;
-color: #14a5a5;
-font-size: 3em; /* Tamaño más grande */
-padding-top: 20px; /* Espaciado superior para centrarlo visualmente */
-}
-h2 {
-    /* 1. Aplicar la fuente cursiva y dulce */
-    font-family: 'Pacifico', cursive; 
-    
-    /* 2. Color Principal de la marca */
-    color: #147D7D; /* Verde Azulado Oscuro */
-    
-    /* 3. Tamaño más grande para impacto */
-    font-size: 3em; 
-    /* 5. Espaciado superior para centrarlo visualmente */
-    padding-top: 20px; 
+font-family: 'Pacifico', cursive; /* Reafirmo fuente decorativa */
+color: #147D7D; /* Color más oscuro del título */
+font-size: 3em; /* Mantengo el tamaño grande */
+padding-top: 20px; /* Mantengo espacio superior */
 }
 
 header {
-    background-color: #F2CAEF;
-    text-align: center;
-    padding: 20px;
-    color: #D3183D;
+background-color: #F2CAEF; /* Fondo rosado */
+text-align: center; /* Centro el contenido */
+padding: 20px; /* Espacio interno */
+color: #D3183D; /* Texto rojo oscuro */
 }
 
 header h1 {
-    font-size: 2.5em;
-    margin-bottom: 10px;
+font-size: 2.5em; /* Tamaño grande para el título principal */
+margin-bottom: 10px; /* Espacio debajo del título */
 }
 
 .caja {
-  width: 100%;
-  height: auto;
-  background-image: url("hola/logo_2.jpeg");
-  background-size: cover; /* ajusta la imagen al tamaño */
-  background-position: center; /* centra la imagen */
-  background-repeat: no-repeat; /* evita que se repita */
+width: 100%; /* Ancho total del contenedor */
+height: auto; /* Altura adaptable */
+background-image: url("hola/logo_2.jpeg"); /* Imagen de fondo */
+background-size: cover; /* La imagen cubre todo el espacio */
+background-position: center; /* Centra la imagen */
+background-repeat: no-repeat; /* No repite la imagen */
 }
 
 nav ul {
-    list-style: none;
-    padding: 0;
+list-style: none; /* Sin viñetas */
+padding: 0; /* Sin padding */
 }
 
 nav a {
-    text-decoration: none;
-    color: #5a3e36;
-    font-weight: bold;
+text-decoration: none; /* Sin subrayado */
+color: #5a3e36; /* Otro color para los links */
+font-weight: bold; /* Negrita */
 }
 
 section {
-    padding: 50px 20px;
-    text-align: center;
+padding: 50px 20px; /* Espacio interior amplio */
+text-align: center; /* Centro el contenido de las secciones */
 }
+
 /* Sección Acerca */
+
 #acerca {
-    text-align: center;
-    padding: 60px 20px;
+text-align: center; /* Centro el texto */
+padding: 60px 20px; /* Espacio alrededor */
 }
 
 #acerca h2 {
-    color: #C99D71;
-    font-size: 2em;
-    margin-bottom: 20px;
+color: #C99D71; /* Color ocre para el título */
+font-size: 2em; /* Tamaño más pequeño que el h2 global */
+margin-bottom: 20px; /* Espacio inferior */
 }
 
 #acerca p {
-    max-width: 700px;
-    margin: 15px auto;
-    font-size: 1.1em;
-    line-height: 1.6;
+max-width: 700px; /* Limito el ancho del texto */
+margin: 15px auto; /* Centro el párrafo */
+font-size: 1.1em; /* Un poquito más grande para leer mejor */
+line-height: 1.6; /* Más espacio entre líneas para comodidad */
 }
 
 .imagen-equipo {
-    width: 80%;
-    max-width: 600px;
-    border-radius: 15px;
-    margin-top: 30px;
+width: 80%; /* Imagen ocupa 80% del contenedor */
+max-width: 600px; /* No crece más de 600px */
+border-radius: 15px; /* Bordes redondeados */
+margin-top: 30px; /* Espacio arriba de la imagen */
 }
 
 /* Pie */
+
 footer {
-    background-color: #FCEA85;
-    text-align: center;
-    padding: 15px;
-    color: #5a3e36;
+background-color: #FCEA85; /* Fondo amarillo suave */
+text-align: center; /* Centro el texto */
+padding: 15px; /* Espacio interno */
+color: #5a3e36; /* Color del texto del pie */
 }

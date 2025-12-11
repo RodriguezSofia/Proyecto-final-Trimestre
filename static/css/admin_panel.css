@@ -2,11 +2,11 @@
    ESTILOS GENERALES
 ----------------------------*/
 body {
-    margin: 0;
-    font-family: 'Poppins', sans-serif;
-    background: #fff3f8;
-    background-size: 300px;
-    animation: fadeIn 0.6s ease-out;
+    margin: 0; /* Quito márgenes por defecto del navegador */
+    font-family: 'Poppins', sans-serif; /* Fuente principal moderna */
+    background: #fff3f8; /* Fondo rosado muy suave */
+    background-size: 300px; /* Tamaño del patrón de fondo si se llegara a repetir */
+    animation: fadeIn 0.6s ease-out; /* Animación suave al cargar la página */
 }
 
 
@@ -14,121 +14,121 @@ body {
    ENCABEZADO
 ----------------------------*/
 header {
-    background: linear-gradient(90deg, #ffffff, #fffefe);
-    padding: 18px 40px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    background: linear-gradient(90deg, #ffffff, #fffefe); /* Degradado sutil para el header */
+    padding: 18px 40px; /* Espaciado interno del encabezado */
+    display: flex; /* Alineo el logo y el título en una fila */
+    align-items: center; /* Centro verticalmente los elementos */
+    justify-content: space-between; /* Logo a la izquierda, título a la derecha */
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1); /* Sombrita suave debajo del header */
 }
 
 header img {
-    height: 55px;
+    height: 55px; /* Tamaño del logo del panel */
 }
 
 header h1 {
-    margin: 0;
-    color: #b51773;
-    font-weight: 700;
-    font-size: 27px;
-    letter-spacing: -0.5px;
+    margin: 0; /* Quito el margen del h1 para que no se desajuste */
+    color: #b51773; /* Color principal del título, rosado fuerte */
+    font-weight: 700; /* Negrita */
+    font-size: 27px; /* Tamaño del título */
+    letter-spacing: -0.5px; /* Letras un poquito más juntas */
 }
 
 /* ---------------------------
    MENÚ LATERAL
 ----------------------------*/
 .sidebar {
-    width: 240px;
-    background: linear-gradient(180deg, #ffd7ef, #ffe7f5);
-    height: 100vh;
-    padding: 25px;
-    position: fixed;
-    top: 0;
-    left: 0;
-    margin-top: 93px;
-    border-right: 2px solid #f3b2d7;
-    box-shadow: 3px 0 10px rgba(0,0,0,0.08);
+    width: 240px; /* Ancho fijo de la barra lateral */
+    background: linear-gradient(180deg, #ffd7ef, #ffe7f5); /* Degradado vertical suave */
+    height: 100vh; /* Que ocupe toda la altura de la pantalla */
+    padding: 25px; /* Espaciado interno */
+    position: fixed; /* Fija la barra lateral mientras se hace scroll */
+    top: 0; /* Pegada arriba */
+    left: 0; /* Pegada a la izquierda */
+    margin-top: 93px; /* Se baja para no tapar el header */
+    border-right: 2px solid #f3b2d7; /* Línea decorativa a la derecha */
+    box-shadow: 3px 0 10px rgba(0,0,0,0.08); /* Sombra suave hacia la derecha */
 }
 
 .sidebar h3 {
-    color: #b51773;
-    margin-bottom: 20px;
-    font-size: 21px;
-    font-weight: 700;
+    color: #b51773; /* Color del título del menú */
+    margin-bottom: 20px; /* Espacio inferior */
+    font-size: 21px; /* Tamaño del texto */
+    font-weight: 700; /* Negrita */
 }
 
 .sidebar a {
-    display: block;
-    padding: 12px;
-    margin-bottom: 12px;
-    text-decoration: none;
-    color: #7a2c63;
-    font-weight: 600;
-    border-radius: 10px;
-    transition: 0.25s ease;
-    position: relative;
-    font-size: 15px;
+    display: block; /* El link ocupa toda la fila del menú */
+    padding: 12px; /* Espacio alrededor del texto */
+    margin-bottom: 12px; /* Espacio entre cada opción del menú */
+    text-decoration: none; /* Sin subrayado */
+    color: #7a2c63; /* Color del texto */
+    font-weight: 600; /* Un poco en negrita */
+    border-radius: 10px; /* Bordes redondeados */
+    transition: 0.25s ease; /* Transición suave para hover */
+    position: relative; /* Necesario para la barrita del ::before */
+    font-size: 15px; /* Tamaño del texto del menú */
 }
 
 /* Efecto bonito en hover con movimiento */
 .sidebar a:hover {
-    background: #f7c9e6;
-    padding-left: 18px;
-    box-shadow: 2px 3px 8px rgba(0,0,0,0.08);
+    background: #f7c9e6; /* Fondo más rosado para resaltar */
+    padding-left: 18px; /* Se mueve un poquito a la derecha */
+    box-shadow: 2px 3px 8px rgba(0,0,0,0.08); /* Sombra para levantarlo */
 }
 
 .sidebar a::before {
-    content: "";
-    position: absolute;
-    left: 6px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 0;
-    height: 6px;
-    background: #b51773;
-    border-radius: 3px;
-    transition: 0.3s ease;
+    content: ""; /* La barrita decorativa */
+    position: absolute; /* Para ubicarla a la izquierda del link */
+    left: 6px; /* Alineada al borde izquierdo */
+    top: 50%; /* Centrada verticalmente */
+    transform: translateY(-50%); /* Ajuste perfecto al centro */
+    width: 0; /* Inicialmente la barra no se ve */
+    height: 6px; /* Altura de la barrita */
+    background: #b51773; /* Color rosa fuerte */
+    border-radius: 3px; /* Bordes redondos */
+    transition: 0.3s ease; /* Transición suave del ancho */
 }
 
 .sidebar a:hover::before {
-    width: 10px;
+    width: 10px; /* Crece la barrita en hover */
 }
 
 /* ---------------------------
    CONTENIDO PRINCIPAL
 ----------------------------*/
 .main {
-    margin-left: 260px;
-    padding: 40px 60px;
-    max-width: 1400px;
+    margin-left: 260px; /* Dejo espacio a la izquierda para la sidebar */
+    padding: 40px 60px; /* Espacio interno del contenido */
+    max-width: 1400px; /* Limito el ancho máximo para buena lectura */
 }
-
 
 
 /* Hover profesional con glow pastel */
 .card:hover {
-    transform: translateY(-6px);
+    transform: translateY(-6px); /* La tarjeta sube un poquito */
     box-shadow:
-        0 6px 14px rgba(0, 0, 0, 0.1),
-        0 0 15px rgba(240, 180, 220, 0.5);
+        0 6px 14px rgba(0, 0, 0, 0.1), /* Sombra general */
+        0 0 15px rgba(240, 180, 220, 0.5); /* Efecto glow rosado */
 }
+
 .typewriter {
-    color: #da28bc;
-    display: inline-block;
-    overflow: hidden;
-    white-space: nowrap;
-    border-right: 3px solid currentColor;
-    width: 0;
+    color: #da28bc; /* Color del texto animado */
+    display: inline-block; /* Para poder ocultar el texto con width */
+    overflow: hidden; /* Oculta las letras mientras se "escribe" */
+    white-space: nowrap; /* Mantiene el texto en una sola línea */
+    border-right: 3px solid currentColor; /* Simula el cursor */
+    width: 0; /* Empieza oculto */
     animation: escribir 4s steps(22) forwards,
-               cursor 0.7s step-end 3s forwards;
+               cursor 0.7s step-end 3s forwards; /* Animaciones del tipeo y cursor */
 }
 
 @keyframes escribir {
-    from { width: 0; }
-    to { width: 73%; }
+    from { width: 0; } /* Empieza sin texto visible */
+    to { width: 73%; } /* Se revela hasta llegar al porcentaje del texto */
 }
 
 @keyframes cursor {
-    from { border-color: currentColor; }
-    to { border-color: transparent; }
+    from { border-color: currentColor; } /* Cursor visible */
+    to { border-color: transparent; } /* Cursor desaparece */
 }

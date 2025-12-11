@@ -1,46 +1,52 @@
 h1{
-    background-color: #c99d71;
-    text-align: center;
-    font-size: 28px;
-    font-family: Arial, Helvetica, sans-serif;
-    color: rgb(87, 53, 26);
-    margin-bottom: 10px;
+    background-color: #c99d71; /* Fondo color café claro */
+    text-align: center; /* Centrar el título */
+    font-size: 28px; /* Tamaño del título */
+    font-family: Arial, Helvetica, sans-serif; /* Fuente del título */
+    color: rgb(87, 53, 26); /* Color del texto del título */
+    margin-bottom: 10px; /* Separación debajo del título */
 }
+
 p{
-    font-family: 'Times New Roman', Times, serif;
-    font-size: 16px;
-    color: #333333;
-    line-height: 1.6;
-    margin-bottom: 10px;
+    font-family: 'Times New Roman', Times, serif; /* Fuente de los párrafos */
+    font-size: 16px; /* Tamaño del texto */
+    color: #333333; /* Color gris oscuro */
+    line-height: 1.6; /* Altura de línea para mejor lectura */
+    margin-bottom: 10px; /* Separación entre párrafos */
 }
+
 h3{
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    font-size: 20px;
-    text-align: center;
-    color: #555555;
+    font-family: Verdana, Geneva, Tahoma, sans-serif; /* Fuente del subtítulo */
+    font-size: 20px; /* Tamaño del subtítulo */
+    text-align: center; /* Centrar subtítulo */
+    color: #555555; /* Color gris medio */
 }
+
 .container{
-    max-width: 600px;
-    margin: auto;
-    padding: 30px;
-    background-color: #f4f4f4;
-    border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    max-width: 600px; /* Ancho máximo del contenedor */
+    margin: auto; /* Centrar horizontalmente */
+    padding: 30px; /* Espacio interno */
+    background-color: #f4f4f4; /* Fondo gris claro */
+    border-radius: 10px; /* Bordes redondeados */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
 }
+
 .error{
-    color: red;
-    font-weight: bold;
-    text-align: center;
-    margin-top: 20px;
+    color: red; /* Texto rojo para errores */
+    font-weight: bold; /* Negrita */
+    text-align: center; /* Centrado del mensaje */
+    margin-top: 20px; /* Espacio arriba */
 }
+
 .sucess{
-    color: green;
-    font-weight: bold;
-    text-align: center;
-    margin-top: 20px;
+    color: green; /* Texto verde para éxito */
+    font-weight: bold; /* Negrita */
+    text-align: center; /* Centrado del mensaje */
+    margin-top: 20px; /* Espacio arriba */
 }
+
 .message{
-    font-size: 18px;
-    text-align: center;
-    margin-top: 15px;
+    font-size: 18px; /* Tamaño del mensaje */
+    text-align: center; /* Centrado del mensaje */
+    margin-top: 15px; /* Espacio superior */
 }
