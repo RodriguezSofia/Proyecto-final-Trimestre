@@ -28,8 +28,9 @@
     </div>
 
     <script>
+        // ─────────── JavaScript para manejo del formulario de recuperación ───────────
         console.log('JavaScript cargado correctamente');
-        
+        // Referencias a elementos del DOM
         const formulario = document.getElementById('formularioRecuperacion');
         const btnEnviar = document.getElementById('btnEnviar');
         const mensajeDiv = document.getElementById('mensaje');
@@ -38,7 +39,7 @@
         if (!formulario) {
             console.error('Error: No se encontró el formulario');
         }
-
+        //  Manejo del evento submit del formulario
         formulario.addEventListener('submit', async (e) => {
             e.preventDefault();
             console.log('Formulario enviado');
@@ -50,17 +51,17 @@
                 mostrarMensaje('Por favor ingresa tu correo electrónico', 'error');
                 return;
             }
-
+            //
             const regexCorreo = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!regexCorreo.test(correo)) {
                 mostrarMensaje('Por favor ingresa un correo válido', 'error');
                 return;
             }
-
+            // Deshabilitar el botón para evitar múltiples envíos
             btnEnviar.disabled = true;
             btnEnviar.textContent = 'Enviando...';
             console.log('Enviando petición al servidor...');
-
+            // Realizar la solicitud al servidor
             try {
                 const response = await fetch('/recuperacion', {
                     method: 'POST',
@@ -92,7 +93,7 @@
                 btnEnviar.textContent = 'Enviar enlace';
             }
         });
-
+        //  Función para mostrar mensajes al usuario
         function mostrarMensaje(texto, tipo) {
             console.log('Mostrando mensaje:', texto, tipo);
             mensajeDiv.textContent = texto;

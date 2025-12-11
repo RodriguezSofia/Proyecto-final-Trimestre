@@ -39,14 +39,15 @@
         </div>
     </div>
 
-    <script>
+    <script> 
+        // Función para manejar el inicio de sesión
         function login() {
-
+            //
             const datos = {
                 correo: document.getElementById('usuario').value,
                 password: document.getElementById('contrasena').value
             };
-
+            //
             fetch('/login', {
                 method: 'POST',
                 headers: {"Content-Type": "application/json"},

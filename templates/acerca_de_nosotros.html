@@ -61,7 +61,9 @@
     </main>
 
     <br><br>
-    <script>
+    <!-- script permite  añadir y ejecutar código de programación en el HTML -->
+     
+    <script>   // ────────── Verifica si el usuario está logueado ──────────
         const usuarioLogueado = "{{ 'true' if session.get('usuario_nombre') else 'false' }}" === "true"
     </script>
 

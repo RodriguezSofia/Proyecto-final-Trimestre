@@ -43,24 +43,25 @@
     </div>
 
     <script>
+        //  Función para manejar el registro
 function registro() {
     const nombre = document.getElementById('nombre').value;
     const email = document.getElementById('email').value;
     const contrasena = document.getElementById('contrasena').value;
     const confirmarContrasena = document.getElementById('confirmar-contrasena').value;
-
+    //  Validar que las contraseñas coincidan
     if (contrasena !== confirmarContrasena) {
         alert('Las contraseñas no coinciden');
         return;
     }
-
+    //  Preparar los datos para enviar al servidor
     const datos = {
         nombre_completo: nombre,
         correo: email,
         contrasena: contrasena,
         confirmar_contrasena: confirmarContrasena
     };
-
+    //  Enviar la solicitud al servidor
     fetch('/registro', {
         method: 'POST',
         headers: {
