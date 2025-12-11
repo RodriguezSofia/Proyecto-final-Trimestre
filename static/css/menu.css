@@ -32,7 +32,7 @@ nav ul li {
 nav a {
     font-family: 'Quicksand', sans-serif; /* Fuente para los enlaces */
     text-decoration: none; /* Quitar subrayado */
-    color: #880e4f; /* Color texto rosa oscuro */
+    color: #5a3e36; /* Color texto rosa oscuro */
     font-weight: bold; /* Texto en negrita */
     padding: 6px 12px; /* Espaciado interno de cada enlace */
     border-radius: 6px; /* Bordes redondeados */
