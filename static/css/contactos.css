@@ -79,26 +79,6 @@ color: #147070; /* Color principal del texto */
 /*Color de texto principal */
 }
 
-
-h2 {
-font-family: 'Pacifico', cursive; /* Fuente decorativa para títulos */
-color: #14a5a5; /* Color del título */
-font-size: 3em; /* Tamaño grande */
-padding-top: 20px; /* Espacio arriba para centrar visualmente */
-}
-h2 {
-    /* 1. Aplicar la fuente cursiva y dulce */
-    font-family: 'Pacifico', cursive; 
-    
-    /* 2. Color Principal de la marca */
-    color: #147D7D; /* Verde Azulado Oscuro */
-    
-    /* 3. Tamaño más grande para impacto */
-    font-size: 3em; 
-    /* 5. Espaciado superior para centrarlo visualmente */
-    padding-top: 20px; 
-}
-
 header {
     background-color: #F2CAEF; /* Fondo rosado */
     text-align: center; /* Centra el contenido */
@@ -144,6 +124,12 @@ section {
     border-radius: 25px; /* Bordes redondeados */
     margin-top: 40px; /* Separación superior */
     box-shadow: 0 4px 10px rgba(0,0,0,0.1); /* Sombra suave */
+}
+#contacto h2 {
+font-family: 'Pacifico', cursive; /* Fuente decorativa para títulos */
+color: #F54388; /* Color del título */
+font-size: 3em; /* Tamaño grande */
+padding-top: 20px; /* Espacio arriba para centrar visualmente */
 }
 
 #contacto label {
