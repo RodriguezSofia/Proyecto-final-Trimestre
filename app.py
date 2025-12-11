@@ -25,7 +25,7 @@ app.config['MAIL_USERNAME'] = 'diaznicolk@gmail.com'  #CORREO DE DONDE SE VAN A 
 app.config['MAIL_PASSWORD'] = 'jpzv vwrw xeit bcva'       # contraseña de aplicación
 app.config['MAIL_DEFAULT_SENDER'] = 'diaznicolk@gmail.com'  #CORREO DE DONDE SE VAN A ENVIAR LA CONTRASEÑAS TEMPORALES
 
-mail = Mail(app)
+mail = Mail(app) # Inicializa la extensión Flask-Mail con la configuración de la aplicación.
 
 # ======================================================
 # CONFIGURACIÓN BASE DE DATOS
@@ -51,15 +51,15 @@ def conectar_bd():
 # ======================================================
 
 def generar_contrasena_temporal():
-    caracteres = string.ascii_letters + string.digits + "!@#$%"
-    return ''.join(random.choice(caracteres) for _ in range(8))
+    caracteres = string.ascii_letters + string.digits + "!@#$%" # Define un conjunto de caracteres posibles (letras, dígitos y símbolos).
+    return ''.join(random.choice(caracteres) for _ in range(8)) # Genera una cadena de 8 caracteres elegidos al azar.
 
 # ======================================================
 # RUTAS PRINCIPALES
 # ======================================================
 
 @app.route('/')
-def home():
+def home(): # Función que maneja la ruta raíz.
     return render_template('index.html')
 
 @app.route('/menu')
@@ -81,7 +81,7 @@ def acerca():
 @app.route('/contacto', methods=['GET', 'POST'])
 def contacto():
     # GET: mostrar la plantilla
-    if request.method == 'GET':
+    if request.method == 'GET': # Verifica si la solicitud es GET (para mostrar el formulario).
         return render_template('contacto.html')
 
     # POST: recibir datos y guardar en la BD
@@ -165,15 +165,15 @@ def ver_contactos():
         if not conexion:
             return jsonify({'error': 'Error al conectar a la base de datos'}), 500
 
-        cursor = conexion.cursor(cursor_factory=RealDictCursor)
-        cursor.execute('SELECT * FROM Contacto ORDER BY creado DESC;')
+        cursor = conexion.cursor(cursor_factory=RealDictCursor) # Usa RealDictCursor para obtener resultados como diccionarios.
+        cursor.execute('SELECT * FROM Contacto ORDER BY creado DESC;') # Consulta para obtener todos los contactos, ordenados por fecha de creación (más reciente primero).
         contactos = cursor.fetchall()
         cursor.close()
         conexion.close()
 
         # Formatear fecha
         for c in contactos:
-            if c.get('creado'):
+            if c.get('creado'): # Formatea el objeto datetime a una cadena con formato 'YYYY-MM-DD HH:MM:SS'.
                 c['creado'] = c['creado'].strftime('%Y-%m-%d %H:%M:%S')
 
         return jsonify(contactos), 200
@@ -302,7 +302,7 @@ def login():
 
 @app.route('/cambiar_password', methods=['POST'])
 def cambiar_password():
-    if "usuario_id" not in session:
+    if "usuario_id" not in session: # Requiere que el usuario esté logueado.
         return jsonify({'error': 'Debes iniciar sesión'}), 401
 
     datos = request.get_json()
@@ -314,16 +314,16 @@ def cambiar_password():
 
     conexion = conectar_bd()
     cursor = conexion.cursor(cursor_factory=RealDictCursor)
-
+# 1. Obtener la contraseña hasheada actual del usuario logueado.
     cursor.execute('SELECT "password" FROM public."Usuarios" WHERE "Id_usuario" = %s;',
                 (session["usuario_id"],))
     usuario = cursor.fetchone()
-
+# 2. Verificar si la contraseña actual es correcta.
     if not bcrypt.checkpw(actual.encode('utf-8'), usuario["password"].encode('utf-8')):
         return jsonify({'error': 'La contraseña actual es incorrecta'}), 400
-
+# 3. Hashear la nueva contraseña.
     nueva_hash = bcrypt.hashpw(nueva.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
-
+# 4. Actualizar la contraseña en la base de datos.
     cursor.execute('UPDATE public."Usuarios" SET "password"=%s WHERE "Id_usuario"=%s;',
                 (nueva_hash, session["usuario_id"]))
 
