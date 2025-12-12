@@ -33,7 +33,7 @@ mail = Mail(app) # Inicializa la extensión Flask-Mail con la configuración de 
 
 DB_CONFIG = {
     'host': os.environ.get('DB_HOST', 'localhost'),
-    'database': os.environ.get('DB_NAME', 'heladeria'),
+    'database': os.environ.get('DB_NAME', 'Heladeria'),
     'user': os.environ.get('DB_USER', 'postgres'),
     'password': os.environ.get('DB_PASSWORD', '123456'),
     'port': 5432
@@ -55,76 +55,175 @@ def generar_contrasena_temporal():
     return ''.join(random.choice(caracteres) for _ in range(8)) # Genera una cadena de 8 caracteres elegidos al azar.
 
 # ======================================================
-# RUTA PARA GENERAR FACTURA DESDE EL CARRITO (POST)
+# RUTA PARA GENERAR MENÚ (GET)
 # ======================================================
 
-@app.route('/generar_factura', methods=['POST'])
-def generar_factura():
-    if "usuario_id" not in session:
-        return jsonify({"ok": False, "error": "Debes iniciar sesión"}), 401
+@app.route('/menu')
+def menu():
+    conexion = conectar_bd()
+    if not conexion:
+        return "Error al conectar a la base de datos", 500
 
     try:
-        datos = request.get_json()
+        cursor = conexion.cursor(cursor_factory=RealDictCursor)
 
-        carrito = datos.get("carrito", [])
-        total = datos.get("total", 0)
-        id_metodo = datos.get("id_metodo", 1)
-        id_usuario = session["usuario_id"]
+        # Productos que se mostrarán en el menú
+        cursor.execute("""
+            SELECT "Id_producto", "Nombre_producto", "Precio_producto", "Imagen", "Descripción", "Numero_bolas"
+            FROM public."Productos";
+        """)
 
-        if not carrito or total <= 0:
-            return jsonify({"ok": False, "error": "Carrito vacío"}), 400
+        productos = cursor.fetchall()
 
+        # Sabores SOLO para el dropdown
+        cursor.execute("""
+            SELECT "Id_sabor", "Nombre_sabor"
+            FROM public."Sabor";
+        """)
+        sabores = cursor.fetchall()
+
+        cursor.close()
+        conexion.close()
+
+        return render_template(
+            'menu.html',
+            productos=productos,
+            sabores=sabores
+        )
+
+    except Exception as e:
+        print("Error cargando menú:", e)
+        return "Error interno cargando menú", 500
+
+# ======================================================
+# RUTA PARA GENERAR FACTURA 
+# ======================================================
+
+@app.route('/confirmar_pedido', methods=['POST'])
+def confirmar_pedido():
+    id_usuario = session.get("usuario_id")
+    nombre_destinatario = request.form.get("nombre_destinatario")
+    direccion = request.form.get("direccion")
+    id_metodo = request.form.get("metodo_pago")
+
+    if not id_usuario:
+        return "Usuario no autenticado", 400
+    if not nombre_destinatario or not direccion:
+        return "Datos de envío incompletos", 400
+
+    carrito = []
+    index = 0
+    while True:
+        prefix = f"carrito[{index}]"
+        id_producto = request.form.get(f"{prefix}[id_producto]")
+        if not id_producto:
+            break
+        sabores = request.form.getlist(f"{prefix}[sabores][]")
+        precio = request.form.get(f"{prefix}[precio]")
+
+        carrito.append({
+            "id_producto": id_producto,
+            "sabores": sabores,
+            "precio": precio
+        })
+        index += 1
+
+    if not carrito:
+        return "Carrito vacío", 400
+
+    try:
         conexion = conectar_bd()
-        if not conexion:
-            return jsonify({"ok": False, "error": "No hay conexión con la BD"}), 500
-
         cursor = conexion.cursor()
 
-        # Insertar la factura
+        # 🟢 INSERTAR FACTURA CON DIRECCIÓN Y DESTINATARIO
         cursor.execute("""
-            INSERT INTO public."Factura"
-            ("Id_usuario", "total", "Id_metodo", "fecha")
-            VALUES (%s, %s, %s, NOW())
+            INSERT INTO public."Factura"("Fecha", "Id_metodo", "Id_usuario",
+                                        "Nombre_destinatario", "Direccion_envio")
+            VALUES (NOW(), %s, %s, %s, %s)
             RETURNING "Id_factura";
-        """, (id_usuario, total, id_metodo))
+        """, (id_metodo, id_usuario, nombre_destinatario, direccion))
 
         id_factura = cursor.fetchone()[0]
 
-        # Insertar los productos del carrito
+        # 🟢 DETALLES
         for item in carrito:
-            cursor.execute("""
-                INSERT INTO public."DetalleFactura"
-                ("Id_factura", "nombre_producto", "precio")
-                VALUES (%s, %s, %s);
-            """, (id_factura, item["nombre"], item["precio"]))
+            for sabor in item["sabores"]:
+                cursor.execute("""
+                    SELECT "Id_product_sabor"
+                    FROM public."Producto_Sabor"
+                    WHERE "Id_producto" = %s AND "Id_sabor" = %s;
+                """, (item["id_producto"], sabor))
+
+                result = cursor.fetchone()
+                if not result:
+                    continue
+
+                id_product_sabor = result[0]
+
+                cursor.execute("""
+                    INSERT INTO public."Detalle_factura"
+                    ("Id_factura", "Id_product_sabor", "Id_toppings", "Total")
+                    VALUES (%s, %s, NULL, %s);
+                """, (id_factura, id_product_sabor, item["precio"]))
 
         conexion.commit()
         cursor.close()
         conexion.close()
 
-        return jsonify({
-            "ok": True,
-            "id_factura": id_factura,
-            "total": total,
-            "carrito": carrito
-        }), 200
+        return render_template("pedido_realizado.html", id_factura=id_factura)
 
     except Exception as e:
-        print("Error en generar_factura:", e)
-        return jsonify({"ok": False, "error": "Error interno"}), 500
+        print("Error guardando factura:", e)
+        return "Error interno", 500
 
+@app.route('/confirmar_pedido', methods=['GET', 'POST'])
+def confirmar_pedido_form():
+    if request.method == 'GET':
+        conexion = conectar_bd()
+        if not conexion:
+            return "Error al conectar a la base de datos", 500
+
+        try:
+            cursor = conexion.cursor(cursor_factory=RealDictCursor)
+            # Obtener métodos de pago desde la BD
+            cursor.execute('SELECT "Id_metodo", "Nombre_pago" FROM public."Metodos_pago";')
+            metodos_pago = cursor.fetchall()
+            cursor.close()
+            conexion.close()
+
+            return render_template("confirmar_pedido.html", metodos_pago=metodos_pago)
+
+        except Exception as e:
+            print("Error cargando métodos de pago:", e)
+            return "Error interno", 500
+
+    # POST ya lo manejas en tu ruta existente
+    # (puedes mantener tu lógica actual de inserción del pedido)
 
 # ======================================================
 # RUTAS PRINCIPALES
 # ======================================================
 
 @app.route('/')
-def home(): # Función que maneja la ruta raíz.
-    return render_template('index.html')
+def home():
+    try:
+        conexion = conectar_bd()
+        cursor = conexion.cursor(cursor_factory=RealDictCursor)
 
-@app.route('/menu')
-def menu():
-    return render_template('menu.html')
+        cursor.execute("""
+            SELECT "Id_sabor", "Nombre_sabor", "Imagen"
+            FROM public."Sabor";
+        """)
+        sabores = cursor.fetchall()
+
+        cursor.close()
+        conexion.close()
+
+        return render_template('index.html', sabores=sabores)
+
+    except Exception as e:
+        print("Error cargando sabores:", e)
+        return "Error interno cargando sabores"
 
 @app.route('/sabores')
 def sabores():

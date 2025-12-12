@@ -151,67 +151,24 @@
             </div>
         </section>
     </div>
-        <!-- Sabores -->
-        <section id="sabores">
-            <h2>Nuestros Sabores</h2>
-            <p>Descubre la variedad de sabores que tenemos para ti, elaborados artesanalmente con ingredientes naturales.</p>
+<!-- Sabores -->
+<section id="sabores">
+    <h2>Nuestros Sabores</h2>
+    <p>Descubre la variedad de sabores que tenemos para ti, elaborados artesanalmente con ingredientes naturales.</p>
 
-            <div class="galeria-sabores">
-                <article>
-                    <img src="../static/img/brownie_helado.jpeg" alt="Brownie">
-                    <h3>Brownie</h3>
-                    <p>Clásico, suave y delicioso.</p>
-                </article>
+    <div class="galeria-sabores">
+        {% for s in sabores %}
+        <article>
+            <img src="{{ url_for('static', filename='img/' + s.Imagen) }}" alt="{{ s.Nombre_sabor }}">
+            <h3>{{ s.Nombre_sabor }}</h3>
+            <p>{{ s.Descripción if s.Descripción else 'Sin descripción disponible' }}</p>
+        </article>
+        {% endfor %}
+    </div>
+</section>
 
-                <article>
-                    <img src="../static/img/chocolatemarroc_helado.jpeg" alt="Helado de chocolate">
-                    <h3>Chocolate</h3>
-                    <p>Intenso y cremoso para los amantes del cacao.</p>
-                </article>
 
-                <article>
-                    <img src="../static/img/napolitano.jpeg" alt="Napolitano">
-                    <h3>Napolitano</h3>
-                    <p>Delicioso para quienes quieren probar diferentes tipos.</p>
-                </article>
-
-                <article>
-                    <img src="../static/img/cafe_helado.jpeg" alt="Cafe">
-                    <h3>Cafe</h3>
-                    <p>Ese sabor amrgo y dulce que nos hace feliz.</p>
-                </article>
-
-                <article>
-                    <img src="../static/img/mora-helado.jpeg" alt="mora">
-                    <h3>Mora</h3>
-                    <p>Cremoso y diferente.</p>
-                </article>
-
-                <article>
-                    <img src="../static/img/vainilla.jpeg" alt="Vainilla">
-                    <h3>Vainilla</h3>
-                    <p>El clásico que nunca pasa de moda.</p>
-                </article>
-
-                <article>
-                    <img src="../static/img/fresa.jpeg" alt="Fresa">
-                    <h3>Fresa</h3>
-                    <p>Fresco y afrutado, ideal para el verano.</p>
-                </article>
-
-                <article>
-                    <img src="../static/img/menta.jpeg" alt="Menta">
-                    <h3>Menta</h3>
-                    <p>Refrescante y único.</p>
-                </article>
-
-                <article>
-                    <img src="../static/img/limon.jpeg" alt="limon">
-                    <h3>limon</h3>
-                    <p>un sabor agridulce pero delicioso.</p>
-            </div>
         <br>
-
 
     <!-- Toppings -->
         <section id="Toppings">

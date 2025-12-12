@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmar Pedido | Heladería Annia</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+</head>
+<body style="font-family: 'Quicksand', sans-serif; background-color:#fff8f0;">
+
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color:#9a6759;">
+    <div class="container">
+        <a class="navbar-brand text-white" href="{{ url_for('home') }}">🍦 Heladería Annia</a>
+        <div class="d-flex">
+            {% if session.get('usuario_nombre') %}
+                <span class="text-white me-3">Hola, {{ session['usuario_nombre'] }}</span>
+                <a href="{{ url_for('logout') }}" class="btn btn-danger btn-sm">Cerrar sesión</a>
+            {% else %}
+                <a href="{{ url_for('login') }}" class="btn btn-primary btn-sm">Iniciar sesión</a>
+            {% endif %}
+        </div>
+    </div>
+</nav>
+
+<div class="container my-5">
+    <h2 class="text-center mb-4" style="color:#F54388;">Confirmar Pedido</h2>
+
+    <form id="formPedido" method="POST" action="{{ url_for('confirmar_pedido') }}">
+        <div class="mb-3">
+            <label for="nombre_destinatario" class="form-label">Nombre del destinatario</label>
+            <input type="text" class="form-control" id="nombre_destinatario" name="nombre_destinatario" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="direccion" class="form-label">Dirección de envío</label>
+            <input type="text" class="form-control" id="direccion" name="direccion" required>
+        </div>
+
+<div class="mb-3">
+    <label for="metodo_pago" class="form-label">Método de pago</label>
+    <select id="metodo_pago" name="metodo_pago" class="form-select" required>
+        {% for metodo in metodos_pago %}
+            <option value="{{ metodo.Id_metodo }}">{{ metodo.Nombre_pago }}</option>
+        {% endfor %}
+    </select>
+</div>
+
+
+        <h4 class="mt-4 mb-3">Productos en tu carrito</h4>
+        <div id="carritoContainer" class="mb-4 border p-3 rounded" style="background-color:#fff3e0;">
+            <p>Cargando carrito...</p>
+        </div>
+
+        <div class="text-end">
+            <button type="submit" class="btn btn-success">Confirmar y Comprar</button>
+        </div>
+    </form>
+</div>
+
+<script>
+// Cargar carrito desde localStorage
+let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+const carritoContainer = document.getElementById("carritoContainer");
+const formPedido = document.getElementById("formPedido");
+
+function renderCarritoConfirm() {
+    if (carrito.length === 0) {
+        carritoContainer.innerHTML = "<p>Tu carrito está vacío.</p>";
+        return;
+    }
+
+    carritoContainer.innerHTML = "";
+    carrito.forEach((item, index) => {
+        let div = document.createElement("div");
+        div.classList.add("mb-2");
+        let saboresHTML = item.sabores.map((s, i) => `<small>Sabor ${i+1}: ${s}</small>`).join("<br>");
+        div.innerHTML = `
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <strong>${item.nombre}</strong> - $${item.precio} <br>
+                    ${saboresHTML}
+                </div>
+            </div>
+        `;
+        // Agregar inputs ocultos para enviar al backend
+        div.innerHTML += `<input type="hidden" name="carrito[${index}][id_producto]" value="${item.id_producto || ''}">`;
+        item.sabores.forEach((sabor) => {
+            div.innerHTML += `<input type="hidden" name="carrito[${index}][sabores][]" value="${sabor}">`;
+        });
+        div.innerHTML += `<input type="hidden" name="carrito[${index}][precio]" value="${item.precio}">`;
+        carritoContainer.appendChild(div);
+    });
+}
+
+// Renderizar carrito al cargar
+renderCarritoConfirm();
+
+// Opcional: limpiar localStorage después de enviar
+formPedido.addEventListener("submit", () => {
+    localStorage.removeItem("carrito");
+    localStorage.removeItem("total");
+});
+</script>
+
+</body>
+</html>
