@@ -82,13 +82,14 @@
             <span class="precio">${{ p.Precio_producto }}</span>
 <!-- Dropdown dinámicos según Numero_bolas -->
 {% for i in range(1, p.Numero_bolas + 1) %}
-    <label for="sabor-{{ p.Id_producto }}-{{ i }}">Sabor {{ i }}:</label>
-    <select id="sabor-{{ p.Id_producto }}-{{ i }}" class="select-sabor">
-        {% for s in sabores %}
-        <option value="{{ s.Nombre_sabor }}">{{ s.Nombre_sabor }}</option>
-        {% endfor %}
-    </select>
+<label for="sabor-{{ p.Id_producto }}-{{ i }}">Sabor {{ i }}:</label>
+<select id="sabor-{{ p.Id_producto }}-{{ i }}" class="select-sabor">
+    {% for s in sabores %}
+    <option value="{{ s.Id_sabor }}">{{ s.Nombre_sabor }}</option>
+    {% endfor %}
+</select>
 {% endfor %}
+
 
             <!-- BOTÓN DE AGREGAR -->
             <button class="btn-agregar"
@@ -160,25 +161,27 @@
 const usuarioLogueado = "{{ 'true' if session.get('usuario_nombre') else 'false' }}" === "true";
 let carrito = [];
 
+// Elementos DOM
 const carritoCount = document.getElementById("carritoCount");
 const carritoCountFloat = document.getElementById("carritoCountFloat");
 const listaCarrito = document.getElementById("listaCarrito");
 
 // ─────────── AGREGAR PRODUCTO ───────────
 function agregarAlCarrito(idProducto, nombre, precio, numeroBolas) {
-
     let sabores = [];
 
     // Leer cada sabor según numeroBolas
     for (let i = 1; i <= numeroBolas; i++) {
-        let selectId = `sabor-${idProducto}-${i}`;
-        let sabor = document.getElementById(selectId).value;
-        sabores.push(sabor);
+        const select = document.getElementById(`sabor-${idProducto}-${i}`);
+        const idSabor = Number(select.value); // Para enviar al backend
+        const nombreSabor = select.options[select.selectedIndex].text; // Para mostrar en pantalla
+        sabores.push({ id: idSabor, nombre: nombreSabor });
     }
 
     carrito.push({
+        id_producto: Number(idProducto),
         nombre,
-        precio,
+        precio: Number(precio.toString().replace(/\./g, "")),
         sabores
     });
 
@@ -193,26 +196,34 @@ function eliminarProducto(index) {
     renderCarrito();
 }
 
-// ─────────── CONTADORES ───────────
+// ─────────── ACTUALIZAR CONTADORES ───────────
 function actualizarContadores() {
-    carritoCount.textContent = carrito.length;
-    carritoCountFloat.textContent = carrito.length;
+    if (carritoCount) carritoCount.textContent = carrito.length;
+    if (carritoCountFloat) carritoCountFloat.textContent = carrito.length;
 }
 
-// ─────────── RENDER MODAL ───────────
+// ─────────── RENDER CARRITO ───────────
 function renderCarrito() {
+    if (!listaCarrito) return;
+
     if (carrito.length === 0) {
         listaCarrito.innerHTML = "<p>Tu carrito está vacío 🍦</p>";
         return;
     }
 
+    let total = 0;
+
     listaCarrito.innerHTML = carrito.map((item, index) => {
-        let saboresHTML = item.sabores.map((s, i) => `<br>Sabor ${i+1}: ${s}`).join("");
+        const precioFormateado = parseInt(item.precio).toLocaleString('es-CO', { minimumFractionDigits: 0 });
+        total += item.precio;
+
+        // Mostrar nombres de sabores
+        const saboresHTML = item.sabores.map(s => `<br>${s.nombre}`).join("");
 
         return `
         <div class="d-flex justify-content-between align-items-center border-bottom py-2">
             <div>
-                <strong>${item.nombre}</strong> — $${item.precio}
+                <strong>${item.nombre}</strong> — $${precioFormateado}
                 ${saboresHTML}
             </div>
             <button class="btn btn-danger btn-sm" onclick="eliminarProducto(${index})">
@@ -220,38 +231,71 @@ function renderCarrito() {
             </button>
         </div>`;
     }).join("");
+
+    // Inputs ocultos para enviar al backend
+    const carritoContainer = document.getElementById("carritoContainer");
+    carritoContainer.innerHTML = "";
+    carrito.forEach((item, index) => {
+        const div = document.createElement("div");
+        div.classList.add("mb-2");
+
+        div.innerHTML += `<input type="hidden" name="carrito[${index}][id_producto]" value="${item.id_producto}">`;
+        item.sabores.forEach((sabor, i) => {
+            div.innerHTML += `<input type="hidden" name="carrito[${index}][sabores][${i}]" value="${sabor.id}">`;
+        });
+        div.innerHTML += `<input type="hidden" name="carrito[${index}][precio]" value="${item.precio}">`;
+
+        carritoContainer.appendChild(div);
+    });
+
+    // Mostrar total
+    const totalDiv = document.createElement("div");
+    totalDiv.classList.add("mt-3", "fw-bold", "text-end");
+    totalDiv.innerHTML = `Total: $${total.toLocaleString('es-CO', { minimumFractionDigits: 0 })}`;
+    carritoContainer.appendChild(totalDiv);
 }
 
-
-// ─────────── VALIDAR SI ESTÁ LOGUEADO ───────────
+// ─────────── VALIDAR SESIÓN ANTES DE COMPRAR ───────────
 function validarCompra() {
     if (!usuarioLogueado) {
         const loginModal = new bootstrap.Modal(document.getElementById("modalLogin"));
         loginModal.show();
         return;
     }
-
     comprar();
 }
 
 // ─────────── COMPRAR ───────────
 function comprar() {
-
     if (carrito.length === 0) {
         alert("Tu carrito está vacío");
         return;
     }
 
-    // Guardar en localStorage para usarlo en confirmar_pedido.html
+    // Guardar carrito en localStorage (para mostrar en confirmar pedido)
     localStorage.setItem("carrito", JSON.stringify(carrito));
+
+    // Guardar total
     const total = carrito.reduce((suma, p) => suma + p.precio, 0);
     localStorage.setItem("total", total);
+
+    // Guardar usuario
     localStorage.setItem("usuario", "{{ session.get('usuario_nombre') }}");
 
-    // Redirigir a la página de confirmar pedido
+    // Redirigir a confirmar pedido
     window.location.href = "/confirmar_pedido";
 }
 
+// ─────────── CARGAR CARRITO AL INICIAR PÁGINA ───────────
+document.addEventListener("DOMContentLoaded", () => {
+    const carritoGuardado = JSON.parse(localStorage.getItem("carrito"));
+    if (carritoGuardado && carritoGuardado.length > 0) {
+        carrito = carritoGuardado;
+        actualizarContadores();
+        renderCarrito();
+    }
+});
 </script>
+
 </body>
 </html>

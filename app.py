@@ -98,107 +98,98 @@ def menu():
 # ======================================================
 # RUTA PARA GENERAR FACTURA 
 # ======================================================
-
-@app.route('/confirmar_pedido', methods=['POST'])
+@app.route('/confirmar_pedido', methods=['GET', 'POST'])
 def confirmar_pedido():
     id_usuario = session.get("usuario_id")
-    nombre_destinatario = request.form.get("nombre_destinatario")
-    direccion = request.form.get("direccion")
-    id_metodo = request.form.get("metodo_pago")
-
     if not id_usuario:
-        return "Usuario no autenticado", 400
-    if not nombre_destinatario or not direccion:
-        return "Datos de envío incompletos", 400
+        return redirect(url_for('login'))
 
-    carrito = []
-    index = 0
-    while True:
-        prefix = f"carrito[{index}]"
-        id_producto = request.form.get(f"{prefix}[id_producto]")
-        if not id_producto:
-            break
-        sabores = request.form.getlist(f"{prefix}[sabores][]")
-        precio = request.form.get(f"{prefix}[precio]")
+    if request.method == 'POST':
+        nombre_destinatario = request.form.get("nombre_destinatario")
+        direccion = request.form.get("direccion")
+        id_metodo = request.form.get("metodo_pago")
 
-        carrito.append({
-            "id_producto": id_producto,
-            "sabores": sabores,
-            "precio": precio
-        })
-        index += 1
+        if not nombre_destinatario or not direccion:
+            return "Datos de envío incompletos", 400
 
-    if not carrito:
-        return "Carrito vacío", 400
+        # Leer carrito del formulario
+        carrito = []
+        index = 0
+        while True:
+            prefix = f"carrito[{index}]"
+            id_producto = request.form.get(f"{prefix}[id_producto]")
+            if not id_producto:
+                break
 
-    try:
-        conexion = conectar_bd()
-        cursor = conexion.cursor()
+            # Obtener los ids de los sabores
+            sabores_ids = request.form.getlist(f"{prefix}[sabores][]")
+            if not sabores_ids:
+                return f"Producto {id_producto} sin sabores seleccionados", 400
 
-        # 🟢 INSERTAR FACTURA CON DIRECCIÓN Y DESTINATARIO
-        cursor.execute("""
-            INSERT INTO public."Factura"("Fecha", "Id_metodo", "Id_usuario",
-                                        "Nombre_destinatario", "Direccion_envio")
-            VALUES (NOW(), %s, %s, %s, %s)
-            RETURNING "Id_factura";
-        """, (id_metodo, id_usuario, nombre_destinatario, direccion))
+            # Convertir a enteros
+            sabores_ids = [int(s) for s in sabores_ids]
 
-        id_factura = cursor.fetchone()[0]
+            precio = float(request.form.get(f"{prefix}[precio]"))
+            carrito.append({
+                "id_producto": int(id_producto),
+                "sabores": sabores_ids,
+                "precio": precio
+            })
+            index += 1
 
-        # 🟢 DETALLES
-        for item in carrito:
-            for sabor in item["sabores"]:
-                cursor.execute("""
-                    SELECT "Id_product_sabor"
-                    FROM public."Producto_Sabor"
-                    WHERE "Id_producto" = %s AND "Id_sabor" = %s;
-                """, (item["id_producto"], sabor))
-
-                result = cursor.fetchone()
-                if not result:
-                    continue
-
-                id_product_sabor = result[0]
-
-                cursor.execute("""
-                    INSERT INTO public."Detalle_factura"
-                    ("Id_factura", "Id_product_sabor", "Id_toppings", "Total")
-                    VALUES (%s, %s, NULL, %s);
-                """, (id_factura, id_product_sabor, item["precio"]))
-
-        conexion.commit()
-        cursor.close()
-        conexion.close()
-
-        return render_template("pedido_realizado.html", id_factura=id_factura)
-
-    except Exception as e:
-        print("Error guardando factura:", e)
-        return "Error interno", 500
-
-@app.route('/confirmar_pedido', methods=['GET', 'POST'])
-def confirmar_pedido_form():
-    if request.method == 'GET':
-        conexion = conectar_bd()
-        if not conexion:
-            return "Error al conectar a la base de datos", 500
+        if not carrito:
+            return "Carrito vacío", 400
 
         try:
-            cursor = conexion.cursor(cursor_factory=RealDictCursor)
-            # Obtener métodos de pago desde la BD
-            cursor.execute('SELECT "Id_metodo", "Nombre_pago" FROM public."Metodos_pago";')
-            metodos_pago = cursor.fetchall()
+            conexion = conectar_bd()
+            cursor = conexion.cursor()
+
+            # Insertar factura
+            cursor.execute("""
+                INSERT INTO public."Factura"(
+                    "Fecha", "Id_metodo", "Id_usuario",
+                    "Nombre_destinatario", "Direccion_envio"
+                )
+                VALUES (NOW(), %s, %s, %s, %s)
+                RETURNING "Id_factura";
+            """, (id_metodo, id_usuario, nombre_destinatario, direccion))
+            id_factura = cursor.fetchone()[0]
+
+            # Insertar detalle por cada sabor
+            for item in carrito:
+                for id_sabor in item["sabores"]:
+                    cursor.execute("""
+                        SELECT "Id_product_sabor"
+                        FROM public."Producto_Sabor"
+                        WHERE "Id_producto" = %s AND "Id_sabor" = %s;
+                    """, (item["id_producto"], id_sabor))
+                    result = cursor.fetchone()
+                    if result:
+                        id_product_sabor = result[0]
+                        cursor.execute("""
+                            INSERT INTO public."Detalle_factura"(
+                                "Id_factura", "Id_product_sabor", "Id_toppings", "Total"
+                            ) VALUES (%s, %s, NULL, %s);
+                        """, (id_factura, id_product_sabor, item["precio"]))
+
+            conexion.commit()
             cursor.close()
             conexion.close()
 
-            return render_template("confirmar_pedido.html", metodos_pago=metodos_pago)
+            return render_template("pedido_realizado.html", id_factura=id_factura)
 
         except Exception as e:
-            print("Error cargando métodos de pago:", e)
+            print("Error guardando factura:", e)
             return "Error interno", 500
 
-    # POST ya lo manejas en tu ruta existente
-    # (puedes mantener tu lógica actual de inserción del pedido)
+    # GET → mostrar formulario
+    conexion = conectar_bd()
+    cursor = conexion.cursor(cursor_factory=RealDictCursor)
+    cursor.execute('SELECT "Id_metodo", "Nombre_pago" FROM public."Metodos_pago";')
+    metodos_pago = cursor.fetchall()
+    cursor.close()
+    conexion.close()
+    return render_template("confirmar_pedido.html", metodos_pago=metodos_pago)
 
 # ======================================================
 # RUTAS PRINCIPALES
