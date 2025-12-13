@@ -92,7 +92,6 @@
 <!-- Dropdown de Topping (opcional) -->
 <label for="topping-{{ p.Id_producto }}">Topping:</label>
 <select id="topping-{{ p.Id_producto }}" class="select-sabor">
-    <option value="">Sin topping</option>
     {% for t in toppings %}
         <option value="{{ t.Id_toppings }}">{{ t.Nombre_toppings }}</option>
     {% endfor %}
@@ -128,7 +127,7 @@
                 </div>
 
                 <div class="modal-body" id="listaCarrito">
-                    <p>Tu carrito está vacío 🍦</p>
+                    <p>Tu carrito está vacío</p>
                 </div>
 
                 <!--  BOTÓN CORREGIDO -->
@@ -226,7 +225,7 @@ function renderCarrito() {
     if (!listaCarrito) return;
 
     if (carrito.length === 0) {
-        listaCarrito.innerHTML = "<p>Tu carrito está vacío 🍦</p>";
+        listaCarrito.innerHTML = "<p>Tu carrito está vacío </p>";
         return;
     }
 
@@ -239,7 +238,7 @@ function renderCarrito() {
         // Mostrar nombres de sabores
         const saboresHTML = item.sabores.map(s => `<br>${s.nombre}`).join("");
         const toppingHTML = item.topping 
-    ? `<br><small>🍫 Topping: ${item.topping.nombre}</small>`
+    ? `<br><small>Topping: ${item.topping.nombre}</small>`
     : "";
 
 
@@ -323,6 +322,5 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 </script>
-
 </body>
 </html>
