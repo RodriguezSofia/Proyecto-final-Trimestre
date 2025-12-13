@@ -76,6 +76,7 @@ function renderCarritoConfirm() {
 
         // Mostrar nombres de sabores
         let saboresHTML = item.sabores.map(s => `<small>${s.nombre}</small>`).join("<br>");
+        let toppingsHTML = item.toppings && item.toppings.length > 0 ? item.toppings.map(t => `<small>Topping: ${t.nombre}</small>`).join("<br>"): "<small>Sin toppings</small>";
 
         div.innerHTML = `
             <div class="d-flex justify-content-between align-items-center">
@@ -86,14 +87,29 @@ function renderCarritoConfirm() {
             </div>
         `;
 
-        // Inputs ocultos para enviar al backend
-        div.innerHTML += `<input type="hidden" name="carrito[${index}][id_producto]" value="${item.id_producto}">`;
-        item.sabores.forEach((sabor, i) => {
-            div.innerHTML += `<input type="hidden" name="carrito[${index}][sabores][${i}]" value="${sabor.id}">`;
-        });
-        div.innerHTML += `<input type="hidden" name="carrito[${index}][precio]" value="${item.precio}">`;
+// Inputs ocultos para enviar al backend
+div.innerHTML += `<input type="hidden" name="carrito[${index}][id_producto]" value="${item.id_producto}">`;
 
-        carritoContainer.appendChild(div);
+item.sabores.forEach(sabor => {
+    div.innerHTML += `
+        <input type="hidden"
+        name="carrito[${index}][sabores]"
+        value="${sabor.id}">
+    `;
+});
+
+
+// Toppings ✅ (aunque no tenga, no rompe)
+if (item.toppings && item.toppings.length > 0) {
+    item.toppings.forEach((topping, i) => {
+        div.innerHTML += `<input type="hidden" name="carrito[${index}][toppings][${i}]" value="${topping.id}">`;
+    });
+}
+
+// Precio
+div.innerHTML += `<input type="hidden" name="carrito[${index}][precio]" value="${item.precio}">`;
+
+carritoContainer.appendChild(div);
     });
 
     // Mostrar total

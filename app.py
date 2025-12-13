@@ -58,6 +58,10 @@ def generar_contrasena_temporal():
 # RUTA PARA GENERAR MENÚ (GET)
 # ======================================================
 
+# ======================================================
+# RUTA PARA GENERAR MENÚ (GET)
+# ======================================================
+
 @app.route('/menu')
 def menu():
     conexion = conectar_bd()
@@ -67,20 +71,27 @@ def menu():
     try:
         cursor = conexion.cursor(cursor_factory=RealDictCursor)
 
-        # Productos que se mostrarán en el menú
+        # Productos que se mostrarán en el menú (IGUAL QUE ANTES)
         cursor.execute("""
-            SELECT "Id_producto", "Nombre_producto", "Precio_producto", "Imagen", "Descripción", "Numero_bolas"
+            SELECT "Id_producto", "Nombre_producto", "Precio_producto", 
+                   "Imagen", "Descripción", "Numero_bolas"
             FROM public."Productos";
         """)
-
         productos = cursor.fetchall()
 
-        # Sabores SOLO para el dropdown
+        # Sabores SOLO para el dropdown (IGUAL QUE ANTES)
         cursor.execute("""
             SELECT "Id_sabor", "Nombre_sabor"
             FROM public."Sabor";
         """)
         sabores = cursor.fetchall()
+
+        # 🔹 NUEVO: TOPPINGS (NO afecta lo anterior)
+        cursor.execute("""
+            SELECT "Id_toppings", "Nombre_toppings"
+            FROM public."Toppings";
+        """)
+        toppings = cursor.fetchall()
 
         cursor.close()
         conexion.close()
@@ -88,7 +99,8 @@ def menu():
         return render_template(
             'menu.html',
             productos=productos,
-            sabores=sabores
+            sabores=sabores,
+            toppings=toppings   # 👈 solo se añade esto
         )
 
     except Exception as e:
@@ -122,7 +134,7 @@ def confirmar_pedido():
                 break
 
             # Obtener los ids de los sabores
-            sabores_ids = request.form.getlist(f"{prefix}[sabores][]")
+            sabores_ids = request.form.getlist(f"{prefix}[sabores]")
             if not sabores_ids:
                 return f"Producto {id_producto} sin sabores seleccionados", 400
 
@@ -168,9 +180,10 @@ def confirmar_pedido():
                         id_product_sabor = result[0]
                         cursor.execute("""
                             INSERT INTO public."Detalle_factura"(
-                                "Id_factura", "Id_product_sabor", "Id_toppings", "Total"
-                            ) VALUES (%s, %s, NULL, %s);
-                        """, (id_factura, id_product_sabor, item["precio"]))
+                            "Id_factura", "Id_product_sabor", "Id_toppings", "Total"
+                            ) VALUES (%s, %s, %s, %s);
+                        """, (id_factura, id_product_sabor, 4, item["precio"]))
+
 
             conexion.commit()
             cursor.close()
