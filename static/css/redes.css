@@ -1,0 +1,202 @@
+.barra-navegacion {
+display: flex; /* Activo Flex para poner los elementos en fila y acomodarlos fácil */
+justify-content: space-between;/* Separa el logo y los links, uno a cada lado */
+align-items: center; /* Centra los elementos verticalmente dentro de la barra */
+background-color: #ffffff; /* Fondo blanco para la barra */
+padding: 10px 20px; /* Espacio interno para que no quede todo pegado */
+}
+
+/* === Encabezado === */
+
+header {
+background-color: #F2CAEF; /* Fondo rosado suave del encabezado */
+text-align: center; /* Centra todo el contenido del header */
+padding: 20px; /* Espacio alrededor del contenido */
+color: #D3183D; /* Color del texto dentro del header */
+}
+
+nav ul {
+list-style: none; /* Quito las viñetas de la lista del menú */
+padding: 0; /* Quito padding por defecto */
+margin: 0; /* Quito margen por defecto */
+}
+
+nav ul li {
+display: inline-block; /* Pongo los items uno al lado del otro */
+margin: 0 10px; /* Separación entre cada opción del menú */
+}
+
+nav a {
+font-family: 'Quicksand', sans-serif; /* Fuente suave y moderna */
+text-decoration: none; /* Le quito el subrayado a los links */
+color: #880e4f; /* Color del texto del menú */
+font-weight: bold; /* Negrita para que resalte */
+padding: 6px 12px; /* Espacio para que el link sea más clickeable */
+border-radius: 6px; /* Bordes redondeados */
+}
+
+nav a:hover {
+background-color: #fdfcee; /* Cambio de color cuando paso el mouse */
+}
+
+nav a.activo {
+background-color:#B5EFCC; /* Fondo verde para marcar el link activo */
+color: #D3183D; /* Color del texto del link activo */
+}
+
+.btn-menu-principal {
+padding: 8px 15px; /* Espacio interno del botón */
+text-decoration: none; /* Sin subrayado */
+color: #888e4f; /* Color del texto */
+border-radius: 5px; /* Bordes redondeados */
+font-weight: bold; /* Letras en negrita */
+display: inline-block; /* Permite manejar tamaños y padding bien */
+transition: all 0.3s ease-in-out; /* Animación suave al pasar el mouse */
+background-size: 200% 100%; /* Tamaño del fondo para posibles efectos */
+box-shadow: 9 4px 6px rgba(0,0,0,0.1); /* Sombrita para levantar el botón (aunque falta unidad en el primer valor) */
+}
+
+.logo {
+height: 60px; /* Altura fija del logo */
+width: auto; /* Mantiene la proporción original del logo */
+margin-right: 20px; /* Espacio a la derecha del logo */
+}
+
+/* -ESTILOS PARA LOS LINKS -- */
+
+.menu-principal {
+list-style: none; /* Sin viñetas */
+display: flex; /* Alineo los links en fila */
+margin: 0; /* Quito el margen */
+padding: 0; /* Quito el padding */
+}
+
+.menu-principal li a {
+text-decoration: none; /* Sin subrayado */
+color: #880e4f; /* Color del texto */
+padding: 10px 15px; /* Espacio interno del link */
+display: block; /* Hace que el link ocupe todo el espacio del li */
+}
+
+body {
+font-family: 'Quicksand', sans-serif; /* Fuente general del sitio */
+margin: 0; /* Quito márgenes del body */
+background-color: #ffffff; /* Fondo blanco */
+color: #147070; /* Color principal del texto */
+}
+
+h2 {
+font-family: 'Pacifico', cursive; /* Fuente decorativa para títulos */
+color: #14a5a5; /* Color llamativo */
+font-size: 3em; /* Tamaño grande para destacar el título */
+padding-top: 20px; /* Espacio arriba del título */
+}
+
+h2 {
+font-family: 'Pacifico', cursive; /* Reafirmo fuente decorativa */
+color: #147D7D; /* Color más oscuro del título */
+font-size: 3em; /* Mantengo el tamaño grande */
+padding-top: 20px; /* Mantengo espacio superior */
+}
+
+header {
+background-color: #F2CAEF; /* Fondo rosado */
+text-align: center; /* Centro el contenido */
+padding: 20px; /* Espacio interno */
+color: #D3183D; /* Texto rojo oscuro */
+}
+
+header h1 {
+font-size: 2.5em; /* Tamaño grande para el título principal */
+margin-bottom: 10px; /* Espacio debajo del título */
+}
+
+.caja {
+width: 100%; /* Ancho total del contenedor */
+height: auto; /* Altura adaptable */
+background-image: url("hola/logo_2.jpeg"); /* Imagen de fondo */
+background-size: cover; /* La imagen cubre todo el espacio */
+background-position: center; /* Centra la imagen */
+background-repeat: no-repeat; /* No repite la imagen */
+}
+
+nav ul {
+list-style: none; /* Sin viñetas */
+padding: 0; /* Sin padding */
+}
+
+nav a {
+text-decoration: none; /* Sin subrayado */
+color: #5a3e36; /* Otro color para los links */
+font-weight: bold; /* Negrita */
+}
+
+section {
+padding: 50px 20px; /* Espacio interior amplio */
+text-align: center; /* Centro el contenido de las secciones */
+}
+/* =========================================
+   ESTILOS PARA LA PÁGINA SÍGUENOS
+   ========================================= */
+
+/* Contenedor principal del carrusel en Síguenos */
+.carrusel-dual-altura {
+    height: 550px !important; /* Altura ideal para formato vertical 4:5 */
+    width: 100%;
+    max-width: 420px; /* Ancho ajustado para que parezca un celular/story */
+    margin: 0 auto;
+    overflow: hidden;
+    background-color: #f8f9fa; /* Fondo neutro por si la imagen tarda en cargar */
+}
+
+/* Forzar que cada diapositiva ocupe el total de la altura */
+.carrusel-dual-altura .carousel-item {
+    height: 550px;
+}
+
+/* Ajuste de las imágenes promocionales (Promocional1, 2, 3, 4) */
+.img-promo-vertical {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;    /* Corta los bordes sobrantes para llenar el espacio */
+    object-position: center; /* Centra la imagen para que no se corten las caras o logos */
+}
+
+/* Estilo para la sección de títulos */
+#siguenos .section-title {
+    font-family: 'Pacifico', cursive;
+    margin-bottom: 20px;
+}
+
+/* Estilo de los botones de redes sociales */
+.btn-lg {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border: none;
+}
+
+.btn-lg:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+/* Sombra extra para el carrusel tipo Instagram */
+#carruselPromos {
+    border-radius: 25px; /* Bordes más redondeados para estilo moderno */
+    overflow: hidden;
+}
+
+/* Ajustes para pantallas pequeñas (Celulares) */
+@media (max-width: 768px) {
+    .carrusel-dual-altura {
+        height: 480px !important; /* Un poco más pequeño en móviles */
+        max-width: 350px;
+    }
+    
+    .carrusel-dual-altura .carousel-item {
+        height: 480px;
+    }
+}

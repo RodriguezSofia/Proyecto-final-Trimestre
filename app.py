@@ -229,9 +229,9 @@ def home():
         print("Error cargando sabores:", e)
         return "Error interno cargando sabores"
 
-@app.route('/sabores')
-def sabores():
-    return render_template('sabores.html')
+@app.route('/redes')
+def redes():
+    return render_template('redes.html')
 
 @app.route('/acerca')
 def acerca():
