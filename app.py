@@ -6,6 +6,7 @@ import bcrypt #Se importa bcrypt para el hash o no visualizacion de las contrase
 import os  #Se importa os para mejor manejo de las variables del entorno
 import random # Se importa random para la generacion de  contraseñas temporales.         
 import string #En conjunto con random, se usa para la generación de contraseñas temporales
+from werkzeug.utils import secure_filename # Se importa para manejar la seguridad de los nombres de archivos subidos.
 
 # ======================================================
 # CONFIGURACIÓN GENERAL
@@ -13,6 +14,11 @@ import string #En conjunto con random, se usa para la generación de contraseña
 
 app = Flask(__name__)
 app.secret_key = os.environ.get('SECRET_KEY', 'Dulce_manjar')
+app.config['UPLOAD_FOLDER'] = os.path.join('static', 'img') # Carpeta para guardar las imágenes subidas.
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'webp'}
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 # ======================================================
 # CONFIGURACIÓN EMAIL
@@ -53,10 +59,6 @@ def conectar_bd():
 def generar_contrasena_temporal():
     caracteres = string.ascii_letters + string.digits + "!@#$%" # Define un conjunto de caracteres posibles (letras, dígitos y símbolos).
     return ''.join(random.choice(caracteres) for _ in range(8)) # Genera una cadena de 8 caracteres elegidos al azar.
-
-# ======================================================
-# RUTA PARA GENERAR MENÚ (GET)
-# ======================================================
 
 # ======================================================
 # RUTA PARA GENERAR MENÚ (GET)
@@ -204,30 +206,48 @@ def confirmar_pedido():
     conexion.close()
     return render_template("confirmar_pedido.html", metodos_pago=metodos_pago)
 
+@app.route('/factura')
+def factura():
+    return render_template('factura.html')
+
 # ======================================================
 # RUTAS PRINCIPALES
 # ======================================================
 
 @app.route('/')
-def home():
+def home(): #coneccion a la base de datos para obtener los sabores y toppings
     try:
         conexion = conectar_bd()
         cursor = conexion.cursor(cursor_factory=RealDictCursor)
 
+        #Sabores
         cursor.execute("""
-            SELECT "Id_sabor", "Nombre_sabor", "Imagen"
+            SELECT "Id_sabor", "Nombre_sabor","Descripción", "Imagen"
             FROM public."Sabor";
         """)
         sabores = cursor.fetchall()
 
+        #Toppings, se excluye "Sin topping" para mejor presentacion
+        cursor.execute("""
+            SELECT "Id_toppings", "Nombre_toppings", "Imagen"
+            FROM public."Toppings"
+            WHERE "Nombre_toppings" != 'Sin topping';
+        """)
+        toppings = cursor.fetchall()
+
         cursor.close()
         conexion.close()
 
-        return render_template('index.html', sabores=sabores)
+        return render_template(
+            'index.html',
+            sabores=sabores,
+            toppings=toppings
+        )
 
     except Exception as e:
-        print("Error cargando sabores:", e)
-        return "Error interno cargando sabores"
+        print("Error cargando datos del home:", e)
+        return "Error interno cargando la página principal"
+
 
 @app.route('/redes')
 def redes():
@@ -285,29 +305,196 @@ def contacto():
 # ADMIN PANEL
 # ======================================================
 
-@app.route('/pedidos')
-def pedidos():
-    return render_template('pedidos.html')
+@app.route('/admin/pedidos')
+def admin_pedidos():
+    conexion = conectar_bd()
+    if not conexion:
+        return "Error al conectar a la base de datos", 500
 
-@app.route('/productos')
-def productos():
-    return render_template('productos.html')
+    try:
+        cursor = conexion.cursor(cursor_factory=RealDictCursor)
 
-@app.route('/clientes')
-def clientes():
-    return render_template('clientes.html')
+        cursor.execute("""
+            SELECT 
+                f."Id_factura",
+                f."Fecha",
+                f."Nombre_destinatario",
+                SUM(d."Total") AS total
+            FROM public."Factura" f
+            JOIN public."Detalle_factura" d 
+                ON f."Id_factura" = d."Id_factura"
+            GROUP BY 
+                f."Id_factura",
+                f."Fecha",
+                f."Nombre_destinatario"
+            ORDER BY f."Id_factura" DESC;
+        """)
 
-@app.route('/reportes')
-def reportes():
-    return render_template('reportes.html')
+        pedidos = cursor.fetchall()
+        cursor.close()
+        conexion.close()
 
-@app.route('/trabajadores')
-def trabajadores():
-    return render_template('trabajadores.html')
+        return render_template('admin/pedidos.html', pedidos=pedidos)
 
-@app.route('/factura')
-def factura():
-    return render_template('factura.html')
+    except Exception as e:
+        print("Error cargando pedidos:", e)
+        return "Error interno", 500
+
+@app.route('/admin/productos')
+def admin_productos():
+    if "usuario_id" not in session or session.get("usuario_tipo") != 1:
+        return redirect(url_for('login'))
+
+    conexion = conectar_bd()
+    cursor = conexion.cursor(cursor_factory=RealDictCursor)
+
+    cursor.execute('SELECT * FROM public."Productos" ORDER BY "Id_producto";')
+    productos = cursor.fetchall()
+
+    cursor.execute('SELECT * FROM public."Sabor" ORDER BY "Id_sabor";')
+    sabores = cursor.fetchall()
+
+    cursor.execute("""
+        SELECT * FROM public."Toppings"
+        WHERE "Nombre_toppings" != 'Sin topping'
+        ORDER BY "Id_toppings";
+    """)
+    toppings = cursor.fetchall()
+
+    cursor.close()
+    conexion.close()
+
+    return render_template(
+        'admin/productos.html',
+        productos=productos,
+        sabores=sabores,
+        toppings=toppings
+    )
+
+@app.route('/crear_producto', methods=['POST'])
+def crear_producto():
+    if "usuario_id" not in session or session.get("usuario_tipo") != 1:
+        return redirect(url_for('login'))
+
+    nombre = request.form.get('nombre')
+    precio = request.form.get('precio')
+    descripcion = request.form.get('descripcion')
+    numero_bolas = request.form.get('numero_bolas')
+
+    imagen = request.files.get('imagen')
+    nombre_imagen = None
+
+    if imagen and imagen.filename != '' and allowed_file(imagen.filename):
+        nombre_imagen = secure_filename(imagen.filename)
+        ruta = os.path.join('static', 'img', nombre_imagen)
+        imagen.save(ruta)
+
+    try:
+        conexion = conectar_bd()
+        cursor = conexion.cursor()
+
+        cursor.execute("""
+            INSERT INTO public."Productos"
+            ("Nombre_producto", "Precio_producto", "Imagen", "Descripción", "Numero_bolas")
+            VALUES (%s, %s, %s, %s, %s);
+        """, (nombre, precio, nombre_imagen, descripcion, numero_bolas))
+
+        conexion.commit()
+        cursor.close()
+        conexion.close()
+
+        return redirect(url_for('admin_productos'))
+
+    except Exception as e:
+        print("Error creando producto:", e)
+        return "Error al crear producto", 500
+
+@app.route('/crear_sabor', methods=['POST'])
+def crear_sabor():
+    if "usuario_id" not in session or session.get("usuario_tipo") != 1:
+        return redirect(url_for('login'))
+
+    nombre = request.form.get('nombre')
+    descripcion = request.form.get('descripcion')
+
+    imagen = request.files.get('imagen')
+    nombre_imagen = None
+
+    if imagen and imagen.filename != '' and allowed_file(imagen.filename):
+        nombre_imagen = secure_filename(imagen.filename)
+        ruta = os.path.join('static', 'img', nombre_imagen)
+        imagen.save(ruta)
+
+    try:
+        conexion = conectar_bd()
+        cursor = conexion.cursor()
+
+        cursor.execute("""
+            INSERT INTO public."Sabor"
+            ("Nombre_sabor", "Descripción", "Imagen")
+            VALUES (%s, %s, %s);
+        """, (nombre, descripcion, nombre_imagen))
+
+        conexion.commit()
+        cursor.close()
+        conexion.close()
+
+        return redirect(url_for('admin_productos'))
+
+    except Exception as e:
+        print("Error creando sabor:", e)
+        return "Error al crear sabor", 500
+
+@app.route('/crear_topping', methods=['POST'])
+def crear_topping():
+    if "usuario_id" not in session or session.get("usuario_tipo") != 1:
+        return redirect(url_for('login'))
+
+    nombre = request.form.get('nombre')
+
+    if nombre.lower() == "sin topping":
+        return redirect(url_for('admin_productos'))
+
+    imagen = request.files.get('imagen')
+    nombre_imagen = None
+
+    if imagen and imagen.filename != '' and allowed_file(imagen.filename):
+        nombre_imagen = secure_filename(imagen.filename)
+        ruta = os.path.join('static', 'img', nombre_imagen)
+        imagen.save(ruta)
+
+    try:
+        conexion = conectar_bd()
+        cursor = conexion.cursor()
+
+        cursor.execute("""
+            INSERT INTO public."Toppings"
+            ("Nombre_toppings", "Imagen")
+            VALUES (%s, %s);
+        """, (nombre, nombre_imagen))
+
+        conexion.commit()
+        cursor.close()
+        conexion.close()
+
+        return redirect(url_for('admin_productos'))
+
+    except Exception as e:
+        print("Error creando topping:", e)
+        return "Error al crear topping", 500
+
+@app.route('/admin/clientes')
+def admin_clientes():
+    return render_template('admin/clientes.html')
+
+@app.route('/admin/reportes')
+def admin_reportes():
+    return render_template('admin/reportes.html')
+
+@app.route('/admin/trabajadores')
+def admin_trabajadores():
+    return render_template('admin/trabajadores.html')
+
 # ======================================================
 # PANEL TRABAJADORES
 # ======================================================
@@ -519,11 +706,10 @@ def admin_panel():
         conexion.close()
 
         if usuario["Id_tipo"] == 1:
-            return render_template('admin_panel.html')
+            return render_template('admin/admin_panel.html')
 
         if usuario["Id_tipo"] == 2:
-            return render_template('panel_trabajadores.html')
-
+            return render_template('trabajador/panel_trabajadores.html')
         return redirect(url_for('home'))
 
     except Exception as e:
@@ -538,13 +724,11 @@ def admin_panel():
 def recuperacion():
     if request.method == 'GET':
         return render_template('recuperacion.html')
-
     datos = request.get_json()
     correo = datos.get('correo', '').strip()
 
     if not correo:
         return jsonify({'error': 'El correo es obligatorio'}), 400
-
     conexion = conectar_bd()
     if not conexion:
         return jsonify({'error': 'Error de conexión a la base de datos'}), 500
@@ -557,7 +741,6 @@ def recuperacion():
             FROM public."Usuarios"
             WHERE "correo_usuario" = %s;
         """, (correo,))
-
         usuario = cursor.fetchone()
 
         if not usuario:
@@ -617,14 +800,12 @@ def recuperacion():
         cursor.close()
         conexion.close()
         return jsonify({'error': 'Error interno del servidor'}), 500
-    
+
 #------------CERRAR SESION--------------------
-# ======================================================
 @app.route('/logout')
 def logout():
     session.clear()
     return redirect(url_for('home'))
-
 
 # ======================================================
 # EJECUCIÓN

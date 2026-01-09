@@ -18,57 +18,42 @@
 </head>
 
 <body>
-<!-- NAV SUPERIOR -->
-<nav class="barra-navegacion d-flex justify-content-between align-items-center px-4 py-2">
+    <!-- NAV SUPERIOR -->
+    <nav class="barra-navegacion d-flex justify-content-between align-items-center px-4 py-2">
+        <a href="{{ url_for('home') }}" class="logo-link">
+            <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo Heladería Annia" class="logo">
+        </a>
 
-<a href="{{ url_for('home') }}" class="logo-link">
+        <div class="d-flex gap-3">
+            {% if not session.get('usuario_nombre') %}
+            <!-- SI NO HAY SESIÓN -->
+                <a href="{{ url_for('registro') }}" class="btn" style="background-color: #947bf6ff; color: white;">Registrarse</a>
+                <a href="{{ url_for('login') }}" class="btn" style="background-color: #f64d8eff; color: white;">Iniciar sesión</a>
 
-<img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo Heladería Annia" class="logo">
+            {% else %}
+                        <!-- SI HAY SESIÓN -->
+                <span style="font-weight:bold; color:#147D7D; font-size:1.1em;">
+                    Hola, {{ session['usuario_nombre'] }}
+                </span>
 
-</a>
-
-<div class="d-flex gap-3">
-    {% if not session.get('usuario_nombre') %}
-    <!-- SI NO HAY SESIÓN -->
-        <a href="{{ url_for('registro') }}" class="btn" style="background-color: #947bf6ff; color: white;">Registrarse</a>
-        <a href="{{ url_for('login') }}" class="btn" style="background-color: #f64d8eff; color: white;">Iniciar sesión</a>
-
-    {% else %}
-                <!-- SI HAY SESIÓN -->
-        <span style="font-weight:bold; color:#147D7D; font-size:1.1em;">
-            Hola, {{ session['usuario_nombre'] }}
-        </span>
-
-        <a href="{{ url_for('logout') }}" class="btn btn-danger">Cerrar sesión</a>
-    {% endif %}
-</div>
-
-</nav>
-
-<!-- SEGUNDA BARRA DE MENÚ -->
-
-<header class="py-2 shadow-sm" style="background: #9a6759;">
-
-<nav class="container">
-
-<ul class="d-flex justify-content-center gap-4 list-unstyled m-8">
-
-<li><a href="{{ url_for('home') }}">Inicio</a></li>
-
-<li><a href="{{ url_for('menu') }}">Menú</a></li>
-
-<li><a href="{{ url_for('acerca')}}">Acerca de</a></li>
-
-<li><a href="{{ url_for('contacto') }}">Contacto</a></li>
-<li><a href="{{ url_for('redes') }}">Redes</a></li>
-
-</ul>
-</nav>
+                <a href="{{ url_for('logout') }}" class="btn btn-danger">Cerrar sesión</a>
+            {% endif %}
+        </div>
+    </nav>
+    <!-- SEGUNDA BARRA DE MENÚ -->
+    <header class="py-2 shadow-sm" style="background: #9a6759;">
+        <nav class="container">
+            <ul class="d-flex justify-content-center gap-4 list-unstyled m-8">
+                <li><a href="{{ url_for('home') }}">Inicio</a></li>
+                <li><a href="{{ url_for('menu') }}">Menú</a></li>
+                <li><a href="{{ url_for('acerca')}}">Acerca de</a></li>
+                <li><a href="{{ url_for('contacto') }}">Contacto</a></li>
+                <li><a href="{{ url_for('redes') }}">Redes</a></li>
+            </ul>
+        </nav>
     </header>
-
     <!-- CONTENIDO PRINCIPAL -->
     <main class="container mt-4">
-
         <!-- BIENVENIDA -->
         <section id="inicio" class="text-center">
             <h2>Bienvenidos a Heladería Annia</h2>
@@ -152,57 +137,44 @@
             </div>
         </section>
     </div>
-<!-- Sabores -->
-<section id="sabores">
-    <h2>Nuestros Sabores</h2>
-    <p>Descubre la variedad de sabores que tenemos para ti, elaborados artesanalmente con ingredientes naturales.</p>
+        <!-- Sabores -->
+        <section id="sabores">
+            <h2>Nuestros Sabores</h2>
+            <p>Descubre la variedad de sabores que tenemos para ti, elaborados artesanalmente con ingredientes naturales.</p>
 
-    <div class="galeria-sabores">
-        {% for s in sabores %}
-        <article>
-            <img src="{{ url_for('static', filename='img/' + s.Imagen) }}" alt="{{ s.Nombre_sabor }}">
-            <h3>{{ s.Nombre_sabor }}</h3>
-            <p>{{ s.Descripción if s.Descripción else 'Sin descripción disponible' }}</p>
-        </article>
-        {% endfor %}
-    </div>
-</section>
-
-
-        <br>
-
-    <!-- Toppings -->
+            <div class="galeria-sabores">
+                {% for s in sabores %}
+                <article>
+                    <img src="{{ url_for('static', filename='img/' + s.Imagen) }}" alt="{{ s.Nombre_sabor }}">
+                    <h3>{{ s.Nombre_sabor }}</h3>
+                    <p>{{ s.Descripción if s.Descripción else 'Sin descripción disponible' }}</p>
+                </article>
+                {% endfor %}
+            </div>
+        </section>
+    <br>
+        <!-- Toppings -->
         <section id="Toppings">
             <h2>Nuestros Toppings</h2>
-            <p>Personaliza tu helado con nuestros deliciosos toppings.</p>
+            <p>Complementa tu helado con nuestros deliciosos toppings, frescos y llenos de sabor.</p>
+
             <div class="galeria-Toppings">
+                {% for t in toppings %}
                 <article>
-                    <img src="../static/img/barquillos.jpeg" alt="Barquillos">
-                    <h3>Barquillos</h3>
+                    <img src="{{ url_for('static', filename='img/' + t.Imagen) }}" alt="{{ t.Nombre_toppings }}">
+                    <h3>{{ t.Nombre_toppings }}</h3>
                 </article>
-
-                <article>
-                    <img src="../static/img/chispilas.jpeg" alt="Chispitas">
-                    <h3>Chispitas</h3>
-                </article>
-
-                <article>
-                    <img src="../static/img/M&M's.jpeg" alt="M&M's">
-                    <h3>M&M's</h3>
-                </article>
-
+                {% endfor %}
             </div>
-
         </section>
     </main>
 
-<script>
-        const usuarioLogueado = "{{ 'true' if session.get('usuario_nombre') else 'false' }}" === "true"
-</script>
+    <script>
+            const usuarioLogueado = "{{ 'true' if session.get('usuario_nombre') else 'false' }}" === "true"
+    </script>
 
     <footer class="py-3" style="background-color: #FCEA85; color: #147D7D; text-align: center;">
         <p class="m-0">&copy; 2025 Heladería Annia. Todos los derechos reservados.</p>
     </footer>
 </body>
 </html>
-

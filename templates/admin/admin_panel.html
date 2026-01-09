@@ -4,29 +4,28 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Panel Admin - Heladería Annia</title>
-    <link rel="stylesheet" href="../static/css/admin_panel.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin_panel.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
 </head>
 <body>
 <header>
-    <img src="../static/img/logo.png" alt="Logo Annia" />
+    <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo Annia" />
     <h1>Panel de Administración * Heladería Annia</h1> 
 </header>
 <div class="sidebar">
     <h3>Menú</h3>
-    <a href="{{ url_for('pedidos') }}">Pedidos</a>
-    <a href="{{ url_for('productos') }}">Productos</a>
-    <a href="{{ url_for('clientes') }}">Clientes</a>
-    <a href="{{ url_for('reportes') }}">Reportes</a>
-    <a href="{{ url_for('trabajadores') }}">Usuarios / Trabajadores</a>
+    <a href="{{ url_for('admin_pedidos') }}">Pedidos</a>
+    <a href="{{ url_for('admin_productos') }}">Productos</a>
+    <a href="{{ url_for('admin_clientes') }}">Clientes</a>
+    <a href="{{ url_for('admin_reportes') }}">Reportes</a>
+    <a href="{{ url_for('admin_trabajadores') }}">Usuarios / Trabajadores</a>
     
     <a href="{{ url_for('logout') }}" class="btn btn-danger">Cerrar sesión</a>
 
 </div>
 
 <div class="main">
-   
     <h2 class="typewriter">Bienvenido Administrador</h2>
     <p style="color:#7a2c63; margin-bottom:35px;">Gestiona toda la heladería de forma rápida y visual.</p>
     </div>

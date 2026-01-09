@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pedidos</title>
-    <link rel="stylesheet" href="../static/css/pedidos.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/pedidos.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
 </head>
@@ -17,29 +17,23 @@
                 <tr>
                     <th>ID</th>
                     <th>Cliente</th>
+                    <th>Fecha</th>
                     <th>Total</th>
-                    <th>Estado</th>
                 </tr>
             </thead>
             <tbody>
+                {% for p in pedidos %}
                 <tr>
-                    <td>#001</td>
-                    <td>Sofía Gómez</td>
-                    <td>$18.500</td>
-                    <td>Entregado</td>
+                    <td>#{{ p.Id_factura }}</td>
+                    <td>{{ p.Nombre_destinatario }}</td>
+                    <td>{{ p.Fecha.strftime('%Y-%m-%d') }}</td>
+                    <td>${{ "{:,.0f}".format(p.total) }}</td>
                 </tr>
+                {% else %}
                 <tr>
-                    <td>#002</td>
-                    <td>Juan López</td>
-                    <td>$12.000</td>
-                    <td>Preparando</td>
+                    <td colspan="4">No hay pedidos registrados</td>
                 </tr>
-                <tr>
-                    <td>#003</td>
-                    <td>María Ruiz</td>
-                    <td>$25.000</td>
-                    <td>En camino</td>
-                </tr>
+                {% endfor %}
             </tbody>
         </table>
         <!-- Botón ABAJO en rosado oscuro -->
