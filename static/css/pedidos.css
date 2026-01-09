@@ -1,83 +1,86 @@
-/* ===== ESTILOS GENERALES DEL BODY ===== */
+/* ===== ESTILOS GENERALES ===== */
 body {
-    font-family: Arial, sans-serif; /* Fuente principal de la página */
-    background-color: #f8e9f4; /* Color de fondo rosa pastel muy suave */
-    margin: 0; /* Quita el margen por defecto del navegador */
-    padding: 20px; /* Espaciado interno alrededor del contenido */
-    color: #4a3b47; /* Color principal del texto (morado grisáceo) */
+    font-family: 'Quicksand', sans-serif;
+    background-color: #f8e9f4;
+    margin: 0;
+    padding: 20px;
+    color: #4a3b47;
 }
 
-/* ===== ESTILO DEL TÍTULO PRINCIPAL ===== */
 h1 {
-    font-size: 28px; /* Tamaño del texto del título */
-    margin-bottom: 20px; /* Espacio debajo del título */
-    color: #5b4568; /* Color del texto (morado pastel) */
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #5b4568;
 }
 
 /* ===== CONTENEDOR DE LA TABLA ===== */
 .tabla-contenedor {
-    background: #ffffff; /* Fondo blanco para resaltar la tabla */
-    padding: 20px; /* Espacio interno dentro del contenedor */
-    border-radius: 12px; /* Bordes redondeados */
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Sombra suave alrededor */
-
-    display: flex; /* Usa Flexbox para organizar contenido interno */
-    flex-direction: column; /* Coloca la tabla y el botón verticalmente */
-    align-items: center; /* Centra horizontalmente tabla y botón */
-    
-    margin: 20px auto; /* Centra el contenedor horizontalmente y agrega margen superior e inferior */
-    max-width: 800px; /* Limita el ancho máximo del contenedor */
+    background: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    margin: 20px auto;
+    max-width: 800px;
 }
 
-/* ===== ESTILOS DE LA TABLA ===== */
+/* ===== ESTILO DE LA TABLA ===== */
 table {
-    width: 100%; /* La tabla ocupa todo el ancho del contenedor */
-    border-collapse: collapse; /* Elimina espacios entre celdas */
+    width: 100%;
+    border-collapse: collapse;
 }
 
-/* ===== ESTILOS DEL ENCABEZADO DE LA TABLA ===== */
 thead {
-    background-color: #f4d6f3; /* Fondo rosado-morado pastel para el encabezado */
+    background-color: #f4d6f3;
 }
 
-th {
-    padding: 12px; /* Espaciado interno de las celdas del encabezado */
-    text-align: left; /* Alinea el texto a la izquierda */
-    color: #5b4568; /* Color del texto del encabezado */
-    font-size: 16px; /* Tamaño del texto */
+th, td {
+    padding: 12px;
+    text-align: left;
+    font-size: 16px;
 }
 
-/* ===== ESTILOS DE CELDAS ===== */
 td {
-    padding: 12px; /* Espaciado interno de las celdas */
-    border-bottom: 1px solid #f3c6e8; /* Línea inferior separadora */
+    border-bottom: 1px solid #f3c6e8;
 }
 
-/* ===== EFECTO HOVER EN FILAS ===== */
 tbody tr:hover {
-    background-color: #f9d7ee; /* Cambia el fondo a un rosa más fuerte al pasar el cursor */
-    transition: 0.3s; /* Suaviza la transición de color */
+    background-color: #f9d7ee;
+    transition: 0.3s;
 }
 
-/* ===== BOTÓN ROSADO ===== */
-.btn-pink-dark {
-    background-color: #b35ed4; /* Fondo rosado oscuro */
-    color: white; /* Texto en blanco */
-    border: none; /* Sin borde */
-    padding: 5px 15px; /* Espaciado interno del botón */
-    font-size: 16px; /* Tamaño del texto */
-    border-radius: 6px; /* Bordes redondeados */
-    
-    margin-top: 20px; /* Espacio entre la tabla y el botón */
-    display: block; /* Hace que el botón se comporte como bloque para aplicar margen */
+/* ===== BOTÓN ===== */
+.button-volver {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #9a5cd4;
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: all 0.3s;
+    cursor: pointer;
 }
 
-/* ===== EFECTO HOVER BOTÓN ===== */
-.btn-pink-dark:hover {
-    background-color: #b88ed4; /* Cambia a un rosa más claro al pasar el cursor */
+.button-volver:hover {
+    background-color: #7a2c63;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0,0,0,0.15);
 }
 
-/* ===== ESTILO DE ENLACES ===== */
-a {
-    text-decoration: none; /* Quita el subrayado de los enlaces */
+/* ===== DETALLE PEDIDO ===== */
+.detalle-row {
+    background-color: #fdf0f9;
+}
+
+.detalle-tabla {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 5px;
+}
+
+.detalle-tabla th, .detalle-tabla td {
+    padding: 8px;
+    font-size: 15px;
+    border: 1px solid #f3c6e8;
 }

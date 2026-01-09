@@ -130,6 +130,12 @@ function mostrarNombre(input) {
     input.parentElement.nextElementSibling.textContent = texto;
 }
 </script>
+<!-- BOTÓN VOLVER AL PANEL -->
+{% if session['usuario_tipo'] == 1 %}
+    <a href="{{ url_for('admin_panel') }}" class="button-volver">← Volver al Panel</a>
+{% elif session['usuario_tipo'] == 2 %}
+    <a href="{{ url_for('panel_trabajadores') }}" class="button-volver">← Volver al Panel</a>
+{% endif %}
 
 </body>
 </html>

@@ -305,11 +305,13 @@ def contacto():
 # ADMIN PANEL
 # ======================================================
 
-@app.route('/admin/pedidos')
+@app.route('/admin/pedidos', methods=['GET', 'POST'])
 def admin_pedidos():
     conexion = conectar_bd()
     if not conexion:
         return "Error al conectar a la base de datos", 500
+
+    detalle_pedido = []  # 👈 inicializar vacío
 
     try:
         cursor = conexion.cursor(cursor_factory=RealDictCursor)
@@ -331,10 +333,24 @@ def admin_pedidos():
         """)
 
         pedidos = cursor.fetchall()
+
+        # Manejar POST para mostrar detalle
+        if request.method == "POST":
+            id_factura = request.form.get("id_factura")
+            cursor.execute("""
+                SELECT p."Nombre_producto", s."Nombre_sabor", df."Total", df."Id_factura"
+                FROM public."Detalle_factura" df
+                JOIN public."Producto_Sabor" ps ON df."Id_product_sabor" = ps."Id_product_sabor"
+                JOIN public."Productos" p ON ps."Id_producto" = p."Id_producto"
+                JOIN public."Sabor" s ON ps."Id_sabor" = s."Id_sabor"
+                WHERE df."Id_factura" = %s;
+            """, (id_factura,))
+            detalle_pedido = cursor.fetchall()  # 👈 aquí ya es lista
+
         cursor.close()
         conexion.close()
 
-        return render_template('admin/pedidos.html', pedidos=pedidos)
+        return render_template('admin/pedidos.html', pedidos=pedidos, detalle_pedido=detalle_pedido)
 
     except Exception as e:
         print("Error cargando pedidos:", e)
