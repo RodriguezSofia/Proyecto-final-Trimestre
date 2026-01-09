@@ -13,33 +13,40 @@
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container mt-4">
-        <h2 id="inicio" class="text-center">Clientes</h2>
-        <table class="tabla-clientes">
-            <tr>
-                <th>Nombre</th>
-                <th>Correo</th>
-            </tr>
+<header>
+    <h1>Clientes</h1>
+    <a href="{{ url_for('admin_panel') }}">Volver</a>
+</header>
 
-            <tr>
-                <td>Juan Pérez</td>
-                <td>juan@example.com</td>
-            </tr>
+<div class="contenedor">
+    <div class="card">
+        <h2>Lista de clientes registrados</h2>
 
-            <tr>
-                <td>María Gómez</td>
-                <td>maria@gmail.com</td>
-            </tr>
-
-            <tr>
-                <td>Carlos Ríos</td>
-                <td>carlos@hotmail.com</td>
-            </tr>
-        </table>
-        <!-- Botón para volver al panel de administración -->
-        <div class="text-center mt-4">
-            <a href="{{ url_for('admin_panel') }}" class="btn btn-pink-dark">Volver al inicio</a>
+        {% if clientes %}
+        <div class="tabla-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre completo</th>
+                        <th>Correo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for c in clientes %}
+                    <tr>
+                        <td>{{ c.Id_usuario }}</td>
+                        <td>{{ c.Nombre_completo_usuario }}</td>
+                        <td>{{ c.correo_usuario }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
+        {% else %}
+            <p class="empty">No hay clientes registrados.</p>
+        {% endif %}
     </div>
+</div>
 </body>
 </html>

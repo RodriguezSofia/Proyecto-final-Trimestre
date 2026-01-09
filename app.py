@@ -485,15 +485,133 @@ def crear_topping():
 
 @app.route('/admin/clientes')
 def admin_clientes():
-    return render_template('admin/clientes.html')
+    try:
+        conexion = conectar_bd()
+        cursor = conexion.cursor(cursor_factory=RealDictCursor)
+
+        cursor.execute("""
+            SELECT 
+                "Id_usuario",
+                "Nombre_completo_usuario",
+                correo_usuario
+            FROM public."Usuarios"
+            WHERE "Id_tipo" = 3
+            ORDER BY "Id_usuario" DESC;
+        """)
+
+        clientes = cursor.fetchall()
+
+        cursor.close()
+        conexion.close()
+
+        return render_template('admin/clientes.html', clientes=clientes)
+
+    except Exception as e:
+        print("Error cargando clientes:", e)
+        return "Error cargando clientes"
 
 @app.route('/admin/reportes')
 def admin_reportes():
-    return render_template('admin/reportes.html')
+    conexion = conectar_bd()
+    cursor = conexion.cursor(cursor_factory=RealDictCursor)
 
-@app.route('/admin/trabajadores')
+    # ----------------------
+    # Producto más vendido (según veces que aparece en Detalle_factura)
+    # ----------------------
+    cursor.execute("""
+        SELECT p."Nombre_producto", COUNT(df."Id_product_sabor") AS unidades_vendidas
+        FROM public."Detalle_factura" df
+        JOIN public."Producto_Sabor" ps ON df."Id_product_sabor" = ps."Id_product_sabor"
+        JOIN public."Productos" p ON ps."Id_producto" = p."Id_producto"
+        GROUP BY p."Nombre_producto"
+        ORDER BY unidades_vendidas DESC
+        LIMIT 1
+    """)
+    producto_mas_vendido = cursor.fetchone()
+
+    # ----------------------
+    # Sabor más vendido (según veces que aparece en Detalle_factura)
+    # ----------------------
+    cursor.execute("""
+        SELECT s."Nombre_sabor", COUNT(df."Id_product_sabor") AS unidades_vendidas
+        FROM public."Detalle_factura" df
+        JOIN public."Producto_Sabor" ps ON df."Id_product_sabor" = ps."Id_product_sabor"
+        JOIN public."Sabor" s ON ps."Id_sabor" = s."Id_sabor"
+        GROUP BY s."Nombre_sabor"
+        ORDER BY unidades_vendidas DESC
+        LIMIT 1
+    """)
+    sabor_mas_vendido = cursor.fetchone()
+
+    # ----------------------
+    # Todos los productos
+    # ----------------------
+    cursor.execute("""
+        SELECT p."Nombre_producto", COUNT(df."Id_product_sabor") AS unidades_vendidas
+        FROM public."Detalle_factura" df
+        JOIN public."Producto_Sabor" ps ON df."Id_product_sabor" = ps."Id_product_sabor"
+        JOIN public."Productos" p ON ps."Id_producto" = p."Id_producto"
+        GROUP BY p."Nombre_producto"
+        ORDER BY unidades_vendidas DESC
+    """)
+    productos_totales = cursor.fetchall()
+
+    # ----------------------
+    # Todos los sabores
+    # ----------------------
+    cursor.execute("""
+        SELECT s."Nombre_sabor", COUNT(df."Id_product_sabor") AS unidades_vendidas
+        FROM public."Detalle_factura" df
+        JOIN public."Producto_Sabor" ps ON df."Id_product_sabor" = ps."Id_product_sabor"
+        JOIN public."Sabor" s ON ps."Id_sabor" = s."Id_sabor"
+        GROUP BY s."Nombre_sabor"
+        ORDER BY unidades_vendidas DESC
+    """)
+    sabores_totales = cursor.fetchall()
+
+    cursor.close()
+    conexion.close()
+
+    return render_template(
+        'admin/reportes.html',
+        producto_mas_vendido=producto_mas_vendido,
+        sabor_mas_vendido=sabor_mas_vendido,
+        productos_totales=productos_totales,
+        sabores_totales=sabores_totales
+    )
+
+
+@app.route('/admin/trabajadores', methods=['GET', 'POST'])
 def admin_trabajadores():
-    return render_template('admin/trabajadores.html')
+    conexion = conectar_bd()
+    cursor = conexion.cursor(cursor_factory=RealDictCursor)
+
+    if request.method == 'POST':
+        id_usuario = request.form.get('Id_usuario')
+        nuevo_tipo = request.form.get('Id_tipo')  # 2 = Trabajador, 3 = Cliente
+
+        try:
+            cursor.execute("""
+                UPDATE public."Usuarios"
+                SET "Id_tipo" = %s
+                WHERE "Id_usuario" = %s
+            """, (nuevo_tipo, id_usuario))
+            conexion.commit()
+        except Exception as e:
+            conexion.rollback()
+            return f"Error actualizando tipo de usuario: {e}"
+
+    cursor.execute("""
+        SELECT "Id_usuario", "Nombre_completo_usuario", "correo_usuario", "Id_tipo"
+        FROM public."Usuarios"
+        ORDER BY "Id_usuario"
+    """)
+    usuarios = cursor.fetchall()
+
+    cursor.close()
+    conexion.close()
+
+    return render_template('admin/trabajadores.html', usuarios=usuarios)
 
 # ======================================================
 # PANEL TRABAJADORES

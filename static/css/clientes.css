@@ -1,63 +1,116 @@
-/* Fondo rosado suave */ /* Comentario general del estilo del body */
+/* ================= RESET ================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
 body {
-    font-family: Arial, sans-serif; /* Fuente principal de todo el texto */
-    background: #fde6f0; /* Color rosado claro de fondo */
-    padding: 20px; /* Espacio interno alrededor de todo el contenido */
+    background-color: #faf0f7;
+    color: #333;
 }
 
-/* Título rosado fuerte */ /* Describe el color del encabezado */
-h2 {
-    color: #c2185b; /* Color rosado fuerte del texto del título */
+/* ================= HEADER ================= */
+header {
+    background-color: #d4558e;
+    color: white;
+    padding: 22px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-/* Tabla rosada */ /* Sección que controla la tabla de clientes */
-.tabla-clientes {
-    width: 70%; /* Ancho del 70% del contenedor */
-    margin: 0 auto; /* Centra la tabla horizontalmente */
-    border-collapse: separate; /* Evita que las celdas se peguen completamente */
-    border-spacing: 0 15px; /* Deja espacio vertical entre filas */
+header h1 {
+    font-size: 1.7em;
 }
 
-.tabla-clientes th {
-    background: #f8bbd0; /* Fondo rosado claro para los encabezados */
-    color: #880e4f; /* Texto en rosado oscuro */
-    padding: 15px; /* Espacio interno */
-    font-size: 17px; /* Tamaño de letra del encabezado */
-    border-radius: 8px 8px 0 0; /* Bordes redondeados solo arriba */
+header a {
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    padding: 8px 14px;
+    border-radius: 8px;
+    background-color: rgba(255,255,255,0.25);
 }
 
-.tabla-clientes td {
-    background: #ffffff; /* Fondo blanco para las celdas */
-    color: #5f0d31; /* Texto rosado/morado oscuro */
-    padding: 15px; /* Espacio interno */
-    border: 2px solid #f5bfd3; /* Borde rosado suave */
-    border-radius: 6px; /* Bordes redondeados */
+header a:hover {
+    background-color: rgba(255,255,255,0.4);
 }
 
-/* Hover rosado */ /* Efecto al pasar el mouse sobre una fila */
-.tabla-clientes tr:hover td {
-    background: #ffe1ee; /* Cambia a un rosado más claro al pasar el mouse */
+/* ================= CONTENEDOR ================= */
+.contenedor {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 20px;
 }
 
-/* Botón rosado más oscuro */  /* Estilos base del botón */
-.btn-pink-dark {
-    background-color: #ad1457; /* ROSADO OSCURO */
-    color: white; /* Texto blanco */
-    border: none; /* Sin bordes visibles */
-    padding: 10px 20px; /* Espaciado interno del botón */
-    font-size: 16px; /* Tamaño del texto del botón */
-    border-radius: 6px; /* Esquinas redondeadas */
+/* ================= TARJETA ================= */
+.card {
+    background-color: white;
+    border-radius: 18px;
+    padding: 28px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
 }
 
-.btn-pink-dark:hover {
-    background-color: #880e4f; /* MÁS OSCURO AL PASAR el cursor */
+.card h2 {
+    color: #a85181;
+    margin-bottom: 20px;
 }
 
-/* === Pie de página === */ /* Inicio de estilos del footer */
-footer {
-    background-color: #FCEA85; /* Fondo amarillo pastel */
-    color: #5a3e36; /* Texto marrón suave */
-    text-align: center; /* Centra el texto */
-    padding: 15px; /* Espaciado interno */
-    margin-top: 50px; /* Separación con el contenido superior */
+/* ================= TABLA ================= */
+.tabla-wrapper {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 14px;
+    overflow: hidden;
+}
+
+th, td {
+    padding: 14px 12px;
+    text-align: left;
+}
+
+th {
+    background-color: #d4558e;
+    color: white;
+    font-size: 0.95em;
+}
+
+td {
+    font-size: 0.9em;
+}
+
+tr:nth-child(even) {
+    background-color: #fba9bd;
+}
+
+tr:hover {
+    background-color: #f8c3d3;
+}
+
+/* ================= MENSAJE VACÍO ================= */
+.empty {
+    text-align: center;
+    padding: 30px;
+    color: #777;
+    font-style: italic;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 600px) {
+    header {
+        flex-direction: column;
+        gap: 12px;
+        text-align: center;
+    }
+
+    th, td {
+        padding: 10px;
+        font-size: 0.85em;
+    }
 }

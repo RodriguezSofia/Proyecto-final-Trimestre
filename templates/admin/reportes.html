@@ -8,29 +8,70 @@
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="contenedor">
-        <h2>Reportes</h2>
-        <div class="card">
-            <h3>Ventas por sabor </h3>
-            <!-- Vainilla -->
-            <p>Vainilla — 70%</p>
-            <div class="barra">
-                <div class="progreso p70"></div>
-            </div>
-            <!-- Chocolate -->
-            <p>Chocolate — 55%</p>
-            <div class="barra">
-                <div class="progreso p55"></div>
-            </div>
-            <!-- Fresa -->
-            <p>Fresa — 40%</p>
-            <div class="barra">
-                <div class="progreso p40"></div>
-            </div>
-        </div>
-        <div class="text-center mt-4">
-            <a href="{{ url_for('admin_panel') }}" class="btn btn-pink-dark">Volver al inicio</a>
-        </div>
-    </div>
+    <header>
+        <h1>Reportes de Ventas • Heladería Annia</h1>
+    </header>
+
+    <main>
+        <!-- Producto más vendido -->
+        <section class="reporte">
+            <h2>Producto Más Vendido</h2>
+            {% if producto_mas_vendido %}
+                <div class="card">
+                    <p><strong>Producto:</strong> {{ producto_mas_vendido.Nombre_producto }}</p>
+                    <p><strong>Total Vendidas:</strong> {{ producto_mas_vendido.unidades_vendidas }} Unidades</p>
+                </div>
+            {% else %}
+                <p>No hay datos de ventas.</p>
+            {% endif %}
+        </section>
+
+        <!-- Sabor más vendido -->
+        <section class="reporte">
+            <h2>Sabor Más Vendido</h2>
+            {% if sabor_mas_vendido %}
+                <div class="card">
+                    <p><strong>Sabor:</strong> {{ sabor_mas_vendido.Nombre_sabor }}</p>
+                    <p><strong>Total Vendidas:</strong> {{ sabor_mas_vendido.unidades_vendidas }} Unidades</p>
+                </div>
+            {% else %}
+                <p>No hay datos de ventas.</p>
+            {% endif %}
+        </section>
+
+        <!-- Estadísticas por Producto -->
+        <section class="reporte">
+            <h2>Ventas por Producto</h2>
+            {% set max_total = productos_totales[0].unidades_vendidas if productos_totales else 1 %}
+            {% for producto in productos_totales %}
+                {% set porcentaje = (producto.unidades_vendidas / max_total) * 100 %}
+                {% set color = loop.index0 % 6 %}
+                <div class="barra-estadistica color{{ color }}">
+                    <span class="nombre">{{ producto.Nombre_producto }}</span>
+                    <div class="barra-fondo">
+                        <div class="barra-llenada" style="width: {{ porcentaje }}%"></div>
+                    </div>
+                    <span class="valor">{{ producto.unidades_vendidas }} U.</span>
+                </div>
+            {% endfor %}
+        </section>
+
+        <!-- Estadísticas por Sabor -->
+        <section class="reporte">
+            <h2>Ventas por Sabor</h2>
+            {% set max_total_sabor = sabores_totales[0].unidades_vendidas if sabores_totales else 1 %}
+            {% for sabor in sabores_totales %}
+                {% set porcentaje = (sabor.unidades_vendidas / max_total_sabor) * 100 %}
+                {% set color = loop.index0 % 6 %}
+                <div class="barra-estadistica color{{ color }}">
+                    <span class="nombre">{{ sabor.Nombre_sabor }}</span>
+                    <div class="barra-fondo">
+                        <div class="barra-llenada" style="width: {{ porcentaje }}%"></div>
+                    </div>
+                    <span class="valor">{{ sabor.unidades_vendidas }} U.</span>
+                </div>
+            {% endfor %}
+        </section>
+    </main>
 </body>
 </html>

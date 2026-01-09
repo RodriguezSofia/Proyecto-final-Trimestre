@@ -1,98 +1,108 @@
-/* ---------------------------
-   ESTILOS GENERALES
-----------------------------*/
-
-/* Fuente y fondo de toda la página */
 body {
     font-family: Arial, sans-serif;
-    background: #faf0f7; /* rosado MUY suave */
+    background-color: #fdf5f2;
+    color: #333;
     margin: 0;
-    padding: 30px;
+    padding: 0;
 }
 
-/* Contenedor principal centrado y con ancho máximo */
-.contenedor {
-    max-width: 800px;
-    margin: 20px auto;        /* Centrado horizontal y margen superior/inferior */
-    display: flex;           
-    flex-direction: column;   /* Apila la Tabla y el Botón verticalmente */
+header {
+    background-color: #ff6b81;
+    color: white;
+    padding: 20px;
+    text-align: center;
 }
 
-/* Título principal de la página */
-h2 {
-    color: #7a3e65; /* morado pastel oscuro */
+main {
+    padding: 20px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.reporte {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    padding: 15px 20px;
     margin-bottom: 20px;
 }
 
-/* Tarjetas individuales de información */
+.reporte h2 {
+    color: #ff6b81;
+    margin-bottom: 10px;
+}
+
 .card {
-    background: white; /* Fondo blanco */
-    padding: 25px;     /* Espaciado interno */
-    border-radius: 12px; /* Bordes redondeados */
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08); /* Sombra ligera */
+    background-color: #ffe6e6;
+    padding: 10px 15px;
+    border-radius: 8px;
+    margin-bottom: 10px;
 }
 
-/* Subtítulo de la tarjeta */
-.card h3 {
-    color: #b84fa3; /* morado rosa pastel */
+/* Barras de estadísticas */
+.barra-estadistica {
+    display: flex;
+    align-items: center;
+    margin: 8px 0;
 }
 
-/* Texto dentro de la tarjeta */
-p {
-    margin: 10px 0 5px;
-    color: #5c3a55;
+.nombre {
+    width: 150px;
+}
+
+.barra-fondo {
+    background-color: #ffd6d6;
+    width: 100%;
+    height: 24px;
+    border-radius: 12px;
+    margin: 0 10px;
+    overflow: hidden;
+}
+
+.barra-llenada {
+    background-color: #ff6b81;
+    height: 100%;
+    border-radius: 12px 0 0 12px;
+}
+
+.valor {
+    width: 80px;
+    text-align: right;
+}
+.barra-estadistica {
+    display: flex;
+    align-items: center;
+    margin: 8px 0;
+}
+
+.nombre {
+    width: 150px;
+}
+
+.barra-fondo {
+    background-color: #eee;
+    width: 100%;
+    height: 24px;
+    border-radius: 12px;
+    margin: 0 10px;
+    overflow: hidden;
+}
+
+.barra-llenada {
+    height: 100%;
+    border-radius: 12px 0 0 12px;
+}
+
+/* Colores distintos usando clases color0-color5 */
+.color0 .barra-llenada { background-color: #ff6b81; }
+.color1 .barra-llenada { background-color: #ff9f80; }
+.color2 .barra-llenada { background-color: #ffd480; }
+.color3 .barra-llenada { background-color: #8cd790; }
+.color4 .barra-llenada { background-color: #80d4ff; }
+.color5 .barra-llenada { background-color: #b280ff; }
+
+.valor {
+    width: 80px;
+    text-align: right;
     font-weight: bold;
-}
-
-/* ---------------------------
-   BARRAS DE PROGRESO
-----------------------------*/
-
-/* Barra base (fondo) */
-.barra {
-    width: 100%;              /* Ocupa todo el contenedor */
-    height: 16px;             /* Altura de la barra */
-    background: #f8d8e9;      /* rosado pastel */
-    border-radius: 10px;      /* Bordes redondeados */
-    margin-bottom: 15px;      /* Separación inferior */
-}
-
-/* Barra de progreso (relleno) */
-.progreso {
-    height: 100%;             /* Ocupa toda la altura de la barra base */
-    border-radius: 10px;      /* Bordes redondeados */
-    background: linear-gradient(90deg, #e38ecf, #c06aca); /* gradiente rosado a morado pastel */
-}
-
-/* Porcentajes específicos */
-.p70 { width: 70%; }
-.p55 { width: 55%; }
-.p40 { width: 40%; }
-
-/* ---------------------------
-   BOTÓN ROSADO OSCURO
-----------------------------*/
-.btn-pink-dark {
-    display: inline-block !important; /* Fuerza a que ocupe solo el espacio del contenido */
-    width: auto !important;           /* Anula cualquier regla de width: 100% */
-    background-color: #b35ed4;        /* Fondo rosado oscuro */
-    color: white;
-    border: none;
-    padding: 10px 20px; 
-    font-size: 16px;
-    border-radius: 6px;
-    margin-top: 25px;                 /* Separación superior */
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.btn-pink-dark:hover {
-    background-color: #b88ed4;        /* Cambio de color al pasar el mouse */
-}
-
-/* ---------------------------
-   ENLACES
-----------------------------*/
-a {
-    text-decoration: none;           /* Sin subrayado */
 }

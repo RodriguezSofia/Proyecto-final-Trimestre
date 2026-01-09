@@ -1,123 +1,152 @@
-/* ---------------------------
-   ESTILOS GENERALES
-----------------------------*/
-
-/* Fuente y fondo de toda la página */
+/* ===== Body y layout ===== */
 body {
-    font-family: Arial, sans-serif;
-    background: #FFF9EF; /* color crema de tu página */
+    font-family: 'Arial', sans-serif;
+    background-color: #f5f5f5;
     margin: 0;
     padding: 0;
+    color: #333;
 }
 
-/* Línea decorativa superior */
-.color-line {
-    width: 100%;
-    height: 40px;
-    background: #C7F2D0; /* verde pastel */
-}
-
-/* Caja principal del contenido */
-.container {
-    width: 90%;
-    max-width: 900px;
-    background: white;
-    margin: 30px auto;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-}
-
-/* Título de la página */
-h1 {
+header {
+    background-color: #ff6b81;
+    color: white;
     text-align: center;
-    color: #004f4f;
-    margin-bottom: 20px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 
-/* ---------------------------
-   ESTILOS DE TABLA
-----------------------------*/
-table {
-    width: 100%;
-    border-collapse: collapse;
+h1 {
+    margin: 0;
+    font-size: 28px;
+}
+
+main {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+/* ===== Tarjetas de usuario ===== */
+.user-card {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    padding: 15px 20px;
+    flex: 1 1 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.2s;
+}
+
+.user-card:hover {
+    transform: translateY(-5px);
+}
+
+/* ===== Encabezado de la tarjeta ===== */
+.user-card h3 {
+    margin: 0 0 10px 0;
+    font-size: 20px;
+}
+
+/* ===== Tipo de usuario ===== */
+.tipo-cliente {
+    color: #ff6b6b;
+    font-weight: bold;
+}
+
+.tipo-trabajador {
+    color: #28a745;
+    font-weight: bold;
+}
+
+.tipo-admin {
+    color: #6f42c1;
+    font-weight: bold;
+}
+
+/* ===== Botones ===== */
+.button-group {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
     margin-top: 10px;
 }
 
-thead {
-    background: #8ED7C6; /* verde menta */
-    color: white;
-}
-
-th, td {
-    padding: 12px;
-    text-align: center;
-    border-bottom: 1px solid #ccc;
-}
-
-/* ---------------------------
-   BOTONES
-----------------------------*/
-
-/* Botón para cambiar rol */
-.btn-rol {
-    background: #8ED7C6; /* verde menta */
-    color: white;
-    border: none;
+button {
     padding: 6px 12px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-/* Botón para eliminar */
-.btn-eliminar {
-    background: #F06292; /* rosado */
-    color: white;
-    border: none;
-    padding: 6px 12px;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-left: 5px;
-}
-
-/* Botón para agregar nuevo trabajador */
-.btn-agregar {
-    display: block;
-    margin: 25px auto 0;
-    background: #8ED7C6; /* verde menta */
-    color: white;
-    padding: 12px 20px;
     border: none;
     border-radius: 8px;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-.btn-agregar:hover {
-    opacity: 0.9;
-}
-
-/* Botón rosa oscuro reutilizable */
-.btn-pink-dark {
-    display: inline-block !important;
-    width: auto !important;
-    background-color: #b35ed4; 
+    font-weight: bold;
     color: white;
-    border: none;
-    padding: 10px 20px; 
-    font-size: 16px;
-    border-radius: 6px;
-    margin-top: 25px;
-    display: block;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    flex: 1;
+    transition: all 0.3s;
 }
 
-.btn-pink-dark:hover {
-    background-color: #b88ed4; 
+button.hacer-cliente {
+    background-color: #ffa64d;
+}
+button.hacer-cliente:hover {
+    background-color: #ff8c1a;
 }
 
-/* Estilo general de enlaces */
-a {
+button.hacer-trabajador {
+    background-color: #80d4ff;
+}
+button.hacer-trabajador:hover {
+    background-color: #4bb3e0;
+}
+
+button.hacer-admin {
+    background-color: #a563f2;
+}
+button.hacer-admin:hover {
+    background-color: #7d3ae6;
+}
+
+/* ===== Información de usuario ===== */
+.user-info {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+    main {
+        flex-direction: column;
+        gap: 15px;
+    }
+    button {
+        flex: 100%;
+    }
+}
+
+/* Botón Volver al inicio */
+.button-volver {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #ff6b81;  /* Color principal del header */
+    color: white;
+    font-weight: bold;
     text-decoration: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: all 0.3s;
+    text-align: center;
+}
+
+.button-volver:hover {
+    background-color: #ff4f6a;  /* Más oscuro al pasar el mouse */
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0,0,0,0.15);
+}
+
+.button-volver:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }

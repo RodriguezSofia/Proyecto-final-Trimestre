@@ -9,50 +9,48 @@
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
 </head>
 <body>
+    <h1>Gestión de Usuarios / Trabajadores</h1>
 
-    <div class="color-line"></div>
+    <table>
+        <main>
+            {% for usuario in usuarios %}
+            <div class="user-card">
+                <div class="user-info">
+                    <h3>{{ usuario.Nombre_completo_usuario }}</h3>
+                    <p><strong>ID:</strong> {{ usuario.Id_usuario }}</p>
+                    <p><strong>Correo:</strong> {{ usuario.correo_usuario }}</p>
+                    <p><strong>Tipo:</strong>
+                        {% if usuario.Id_tipo == 3 %}
+                            <span class="tipo-cliente">Cliente</span>
+                        {% elif usuario.Id_tipo == 2 %}
+                            <span class="tipo-trabajador">Trabajador</span>
+                        {% elif usuario.Id_tipo == 1 %}
+                            <span class="tipo-admin">Administrador</span>
+                        {% endif %}
+                    </p>
+                </div>
+                <div class="button-group">
+                    {% if usuario.Id_tipo != 3 %}
+                        <form method="POST" style="flex:1;">
+                            <input type="hidden" name="Id_usuario" value="{{ usuario.Id_usuario }}">
+                            <input type="hidden" name="Id_tipo" value="3">
+                            <button type="submit" class="hacer-cliente">Hacer Cliente</button>
+                        </form>
+                    {% endif %}
+                    {% if usuario.Id_tipo != 2 %}
+                        <form method="POST" style="flex:1;">
+                            <input type="hidden" name="Id_usuario" value="{{ usuario.Id_usuario }}">
+                            <input type="hidden" name="Id_tipo" value="2">
+                            <button type="submit" class="hacer-trabajador">Hacer Trabajador</button>
+                        </form>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </main>
 
-    <div class="container">
-        <h1>Gestión de Trabajadores</h1>
+    </table>
 
-        <table> <!-- Tabla de trabajadores -->
-            <thead> <!--agrupar las filas que contienen los encabezados de la tabla-->
-                <tr> <!-- Encabezados de la tabla -->
-                    <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Correo</th>
-                    <th>Cargo</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-
-            <tbody>
-                <tr>
-                    <td>001</td>
-                    <td>Ana Pérez</td>
-                    <td>ana@heladeria.com</td>
-                    <td>Vendedora</td>
-                    <td>
-                        <button class="btn-rol">Cambiar rol</button>
-                        <button class="btn-eliminar">Eliminar</button>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>002</td>
-                    <td>Carlos López</td>
-                    <td>carlos@heladeria.com</td>
-                    <td>Producción</td>
-                    <td>
-                        <button class="btn-rol">Cambiar rol</button>
-                        <button class="btn-eliminar">Eliminar</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table> 
-
-        <button class="btn-agregar">Agregar nuevo trabajador</button>
-    </div>
-        <a href="{{ url_for('admin_panel') }}" class="btn btn-pink-dark">Volver al inicio</a>
+    <a href="{{ url_for('admin_panel') }}" class="button-volver">← Volver al Inicio</a>
 </body>
 </html>
