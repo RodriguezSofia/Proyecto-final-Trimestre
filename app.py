@@ -15,10 +15,10 @@ from werkzeug.utils import secure_filename # Se importa para manejar la segurida
 app = Flask(__name__)
 app.secret_key = os.environ.get('SECRET_KEY', 'Dulce_manjar')
 app.config['UPLOAD_FOLDER'] = os.path.join('static', 'img') # Carpeta para guardar las imágenes subidas.
-ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'webp'}
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'webp'} #Modolo seguro para permitir solo ciertos tipos de archivos (imágenes) al subir.
 
-def allowed_file(filename):
-    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+def allowed_file(filename): # Función para verificar si el archivo tiene una extensión permitida.
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS # Verifica que el nombre del archivo contenga un punto y que la extensión (lo que viene después del último punto) esté en el conjunto de extensiones permitidas.
 
 # ======================================================
 # CONFIGURACIÓN EMAIL
@@ -73,7 +73,7 @@ def menu():
     try:
         cursor = conexion.cursor(cursor_factory=RealDictCursor)
 
-        # Productos que se mostrarán en el menú (IGUAL QUE ANTES)
+        #Recorrer productos, sabores y toppings para mostrar en el menú
         cursor.execute("""
             SELECT "Id_producto", "Nombre_producto", "Precio_producto", 
                    "Imagen", "Descripción", "Numero_bolas"
@@ -81,30 +81,26 @@ def menu():
         """)
         productos = cursor.fetchall()
 
-        # Sabores SOLO para el dropdown (IGUAL QUE ANTES)
         cursor.execute("""
             SELECT "Id_sabor", "Nombre_sabor"
             FROM public."Sabor";
         """)
         sabores = cursor.fetchall()
 
-        # 🔹 NUEVO: TOPPINGS (NO afecta lo anterior)
         cursor.execute("""
             SELECT "Id_toppings", "Nombre_toppings"
             FROM public."Toppings";
         """)
         toppings = cursor.fetchall()
-
         cursor.close()
         conexion.close()
 
-        return render_template(
+        return render_template( # Renderiza la plantilla 'menu.html' y le pasa los datos de productos, sabores y toppings para que puedan ser mostrados en la página.
             'menu.html',
             productos=productos,
             sabores=sabores,
-            toppings=toppings   # 👈 solo se añade esto
+            toppings=toppings  
         )
-
     except Exception as e:
         print("Error cargando menú:", e)
         return "Error interno cargando menú", 500
@@ -118,18 +114,18 @@ def confirmar_pedido():
     if not id_usuario:
         return redirect(url_for('login'))
 
-    if request.method == 'POST':
+    if request.method == 'POST': # Recibe los datos del formulario para crear la factura y el detalle de la factura.
         nombre_destinatario = request.form.get("nombre_destinatario")
         direccion = request.form.get("direccion")
         id_metodo = request.form.get("metodo_pago")
 
-        if not nombre_destinatario or not direccion:
+        if not nombre_destinatario or not direccion: # Verifica que se hayan proporcionado el nombre del destinatario y la dirección de envío. Si falta alguno de estos datos, devuelve un error 400 indicando que los datos de envío son incompletos.
             return "Datos de envío incompletos", 400
 
-        # Leer carrito del formulario
+        # Construir el carrito a partir de los datos del formulario. Se espera que los datos del carrito se envíen con un formato específico, donde cada producto tiene un índice (carrito[0], carrito[1], etc.) y dentro de cada producto se incluyen los ids de los sabores seleccionados y el precio.
         carrito = []
         index = 0
-        while True:
+        while True: 
             prefix = f"carrito[{index}]"
             id_producto = request.form.get(f"{prefix}[id_producto]")
             if not id_producto:
