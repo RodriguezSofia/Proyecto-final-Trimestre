@@ -50,6 +50,23 @@ main {
     width: 150px;
 }
 
+header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.button-volver {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 2000;
+
+  color: #1a1aff;
+  font-weight: bold;
+  text-decoration: none;
+}
+
 .barra-fondo {
     background-color: #ffd6d6;
     width: 100%;

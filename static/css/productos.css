@@ -152,6 +152,13 @@ button[type="submit"] {
     transition: background 0.3s ease, transform 0.2s ease;
 }
 
+header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+
 /* HOVER VERDE */
 button[type="submit"]:hover {
     background-color: #97d5b5;
@@ -270,3 +277,5 @@ section:nth-of-type(3) button[type="submit"]:hover {
     margin-top: 4px;
     font-style: italic;
 }
+
+

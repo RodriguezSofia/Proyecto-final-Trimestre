@@ -39,7 +39,7 @@ mail = Mail(app) # Inicializa la extensión Flask-Mail con la configuración de 
 
 DB_CONFIG = {
     'host': os.environ.get('DB_HOST', 'localhost'),
-    'database': os.environ.get('DB_NAME', 'Heladeria'),
+    'database': os.environ.get('DB_NAME', 'Heladeria_annia'),
     'user': os.environ.get('DB_USER', 'postgres'),
     'password': os.environ.get('DB_PASSWORD', '123456'),
     'port': 5432
@@ -943,3 +943,4 @@ def logout():
 
 if __name__ == '__main__':
     app.run(debug=True)
+

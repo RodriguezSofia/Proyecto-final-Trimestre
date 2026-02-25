@@ -1,34 +1,104 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Panel Admin - Heladería Annia</title>
+    <meta charset="UTF-8">
+    <title>Panel Admin — Heladería Annia</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/admin_panel.css') }}">
+
+    <!-- FUENTE -->
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
 </head>
+
 <body>
+
+<!-- ================= HEADER ================= -->
 <header>
-    <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo Annia" />
-    <h1>Panel de Administración * Heladería Annia</h1> 
+    <div class="logo-box">
+        <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo Annia">
+        <h1>Panel de Administración · Heladería Annia</h1>
+    </div>
 </header>
-<div class="sidebar">
+
+<!-- ================= SIDEBAR ================= -->
+<aside class="sidebar">
     <h3>Menú</h3>
+
     <a href="{{ url_for('admin_pedidos') }}">Pedidos</a>
     <a href="{{ url_for('admin_productos') }}">Productos</a>
     <a href="{{ url_for('admin_clientes') }}">Clientes</a>
     <a href="{{ url_for('admin_reportes') }}">Reportes</a>
     <a href="{{ url_for('admin_trabajadores') }}">Usuarios / Trabajadores</a>
-    
-    <a href="{{ url_for('logout') }}" class="btn btn-danger">Cerrar sesión</a>
+    <a href="{{ url_for('logout') }}">Cerrar sesión</a>
+</aside>
 
-</div>
+<!-- ================= MAIN ================= -->
+<main class="main">
 
-<div class="main">
-    <h2 class="typewriter">Bienvenido Administrador</h2>
-    <p style="color:#7a2c63; margin-bottom:35px;">Gestiona toda la heladería de forma rápida y visual.</p>
+    <h2 class="bienvenida">Bienvenido Administrador</h2>
+    <p class="subtitle">Gestiona toda la heladería de forma rápida y visual.</p>
+
+    <!-- CARDS -->
+    <div class="cards">
+        <div class="card">
+            <h4>Ventas Hoy</h4>
+            <p class="big">${{ ventas }}</p>
+        </div>
+
+        <div class="card">
+            <h4>Pedidos Pendientes</h4>
+            <p class="big">{{ pendientes }}</p>
+        </div>
+
+        <div class="card">
+            <h4>Clientes Registrados</h4>
+            <p class="big">{{ clientes }}</p>
+        </div>
+
+        <div class="card">
+            <h4>Alertas Stock</h4>
+            <p class="big">{{ alertas }}</p>
+        </div>
     </div>
-</div>
+
+    <!-- BOTTOM -->
+    <div class="bottom">
+
+        <!-- CHART -->
+        <section class="chart-box">
+            <h3>Ventas Semanales</h3>
+            <img src="{{ url_for('static', filename='grafica.png') }}" alt="Gráfica de ventas">
+        </section>
+
+        <!-- ORDERS -->
+        <section class="orders-box">
+            <h3>Pedidos Recientes</h3>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Orden ID</th>
+                        <th>Cliente</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for p in pedidos %}
+                    <tr>
+                        <td>#{{ p[0] }}</td>
+                        <td>{{ p[1] }}</td>
+                        <td><span class="estado">{{ p[2] }}</span></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+
+    </div>
+
+</main>
+
 </body>
 </html>
