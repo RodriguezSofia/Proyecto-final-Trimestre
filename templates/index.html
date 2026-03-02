@@ -9,49 +9,62 @@
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Tu CSS -->
+    <!-- CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
-
-    <!-- Favicon -->
     <link rel="shortcut icon" href="{{ url_for('static', filename='img/logo_01.png') }}" type="image/x-icon">
 </head>
 
 <body>
-    <!-- NAV SUPERIOR -->
-    <nav class="barra-navegacion d-flex justify-content-between align-items-center px-4 py-2">
-        <a href="{{ url_for('home') }}" class="logo-link">
-            <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo Heladería Annia" class="logo">
-        </a>
+<!-- ================= BARRA SUPERIOR ================= -->
+<div class="barra-navegacion d-flex justify-content-between align-items-center px-4 py-2">
+    <a href="{{ url_for('home') }}" class="logo-link">
+        <img src="{{ url_for('static', filename='img/logo.png') }}" 
+            alt="Logo Heladería Annia" class="logo">
+    </a>
 
-        <div class="d-flex gap-3">
-            {% if not session.get('usuario_nombre') %}
-            <!-- SI NO HAY SESIÓN -->
-                <a href="{{ url_for('registro') }}" class="btn" style="background-color: #947bf6ff; color: white;">Registrarse</a>
-                <a href="{{ url_for('login') }}" class="btn" style="background-color: #f64d8eff; color: white;">Iniciar sesión</a>
+    <div class="d-flex gap-3 align-items-center">
+        {% if not session.get('usuario_nombre') %}
+            <a href="#" class="btn-registrarse">Registrarse</a>
+            <a href="#" class="btn-login">Iniciar sesión</a>
+        {% else %}
+            <span style="font-weight:bold; color:#147D7D; font-size:1.1em;">
+                Hola, {{ session['usuario_nombre'] }}
+            </span>
+            <a href="{{ url_for('logout') }}" class="btn btn-danger">Cerrar sesión</a>
+        {% endif %}
+    </div>
+</div>
 
-            {% else %}
-                        <!-- SI HAY SESIÓN -->
-                <span style="font-weight:bold; color:#147D7D; font-size:1.1em;">
-                    Hola, {{ session['usuario_nombre'] }}
-                </span>
+<!-- ================= MENÚ PRINCIPAL ================= -->
+<nav class="navbar navbar-expand-lg segunda-barra fixed-top">
+    <div class="container">
+        <button class="navbar-toggler" type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-                <a href="{{ url_for('logout') }}" class="btn btn-danger">Cerrar sesión</a>
-            {% endif %}
-        </div>
-    </nav>
-    <!-- SEGUNDA BARRA DE MENÚ -->
-    <header class="py-2 shadow-sm" style="background: #9a6759;">
-        <nav class="container">
-            <ul class="d-flex justify-content-center gap-4 list-unstyled m-8">
-                <li><a href="{{ url_for('home') }}">Inicio</a></li>
-                <li><a href="{{ url_for('menu') }}">Menú</a></li>
-                <li><a href="{{ url_for('acerca')}}">Acerca de</a></li>
-                <li><a href="{{ url_for('contacto') }}">Contacto</a></li>
-                <li><a href="{{ url_for('redes') }}">Redes</a></li>
+        <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+            <ul class="navbar-nav gap-lg-4 text-center">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('home') }}">Inicio</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('menu') }}">Menú</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('acerca')}}">Acerca de</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('contacto') }}">Contacto</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('redes') }}">Redes</a>
+                </li>
             </ul>
-        </nav>
-    </header>
+        </div>
+    </div>
+</nav>
     <!-- CONTENIDO PRINCIPAL -->
     <main class="container mt-4">
         <!-- BIENVENIDA -->

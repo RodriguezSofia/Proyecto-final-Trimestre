@@ -1,12 +1,86 @@
-.barra-navegacion {
-display: flex; /* Activo Flexbox para alinear los elementos en fila */
-justify-content: space-between;/* Separa el logo y los links, uno a cada lado */
-align-items: center; /* Centra verticalmente los elementos dentro de la barra */
-background-color: #ffffff; /* Fondo blanco de la barra */
-padding: 10px 20px; /* Espacio interno de la barra */
-}
-/* === Encabezado === */
+/* =========================
+   BOTONES HEADER
+========================= */
 
+.botones-header {
+    display: flex;
+    gap: 15px;
+}
+
+/* Botón Registrarse */
+.btn-registrarse {
+    background: linear-gradient(135deg, #5ed6c3, #4bb8c4);
+    color: white;
+    padding: 10px 22px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 600;
+    box-shadow: 0 6px 15px rgba(94, 214, 195, 0.4);
+    transition: 0.3s ease-in-out;
+}
+
+.btn-registrarse:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(94, 214, 195, 0.6);
+}
+
+/* Botón Iniciar sesión */
+.btn-login {
+    background: linear-gradient(135deg, #c084fc, #a855f7);
+    color: white;
+    padding: 10px 22px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 600;
+    box-shadow: 0 6px 15px rgba(168, 85, 247, 0.4);
+    transition: 0.3s ease-in-out;
+}
+
+.btn-login:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(168, 85, 247, 0.6);
+}
+
+/* =========================
+   PRIMERA BARRA (LOGO + LOGIN)
+========================= */
+
+.barra-navegacion {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(255,255,255,0.75);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+}
+
+/* =========================
+   SEGUNDA BARRA (MENÚ)
+========================= */
+
+.segunda-barra {
+    top: 70px; /* debajo de la barra superior */
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    z-index: 999;
+}
+
+/* Color de los links */
+.navbar-glass .nav-link {
+    color: #e85aad;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.navbar-glass .nav-link:hover {
+    color: #09e3ef;
+}
+
+/* Botón hamburguesa color */
+.navbar-toggler {
+    border: none;
+}
 header {
 background-color: #F2CAEF; /* Fondo rosado suave */
 text-align: center; /* Centrar el contenido */
@@ -42,14 +116,6 @@ background-color:#B5EFCC; /* Fondo verde para link activo */
 color: #D3183D; /* Color del texto activo */
 }
 
-.btn-menu-principal{
-padding: 8px 15px; /* Espacio interno */
-text-decoration: none; /* Sin subrayado */
-color: #888e4f; /* Color del texto */
-border-radius: 5px; font-weight: bold; display: inline-block; transition: all 0.3s ease-in-out; /* Bordes redondeados, animación suave */
-background-size: 200% 100%; /* Tamaño del fondo */
-box-shadow: 9 4px 6px rgba(0,0,0,0.1); /* Sombra ligera */
-}
 .logo {
 height: 60px; /* Altura del logo */
 width: auto; /* Mantiene proporción */
@@ -57,27 +123,37 @@ margin-right: 20px; /* Espacio a la derecha */
 }
 /* -ESTILOS PARA LOS LINKS -- */
 
-.menu-principal {
-list-style: none; /* Quitar viñetas */
-display: flex; /* Poner los links en fila */
-margin: 0; /* Sin margen */
-padding: 0; /* Sin padding */
-}
-
 .menu-principal li a {
-text-decoration: none; /* Sin subrayado */
-color: #880e4f; /* Color del texto */
-padding: 10px 15px; /* Espacio interno */
-display: block; /* Ocupa todo el ancho */
+    color: #e85aad;
+    font-weight: 600;
+    padding: 8px 15px;
+    border-radius: 20px;
+    transition: 0.3s;
 }
 
+.menu-principal li a:hover {
+    background-color: rgba(232, 90, 173, 0.1);
+    color: #1f8a8a;
+}
 body {
-font-family: 'Quicksand', sans-serif; /* Fuente principal */
-margin: 0; /* Sin margen */
-background-color: #ffffff; /* Fondo blanco */
-color: #147070; /* Color principal del texto */
+    font-family: 'Quicksand', sans-serif;
+    margin: 0;
+    color: #5a3e36;
+    padding-top: 180px; /* espacio para las dos barras */
+    background-image: url("../img/fondo-pastel.png");
+    background-size: cover;       /* Ajusta toda la pantalla */
+    background-position: center;  /* Centra la imagen */
+    background-repeat: no-repeat; /* No se repite */
+    background-attachment: fixed; /* Efecto elegante tipo premium */
 }
-
+main {
+    background-color: rgba(255, 255, 255, 0.65);
+    backdrop-filter: blur(6px);
+    border-radius: 25px;
+    margin: 40px auto;
+    padding: 30px;
+    max-width: 1200px;
+}
 
 h2 {
 font-family: 'Pacifico', cursive; /* Fuente cursiva para títulos */
@@ -93,10 +169,8 @@ h2 {
 }
 
 header {
-    background-color: #F2CAEF; /* Fondo rosado */
     text-align: center; /* Centrar contenido */
     padding: 20px; /* Espacio interno */
-    color: #D3183D; /* Color del texto */
 }
 
 header h1 {
