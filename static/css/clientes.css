@@ -1,3 +1,15 @@
+/* ================= VARIABLES (Paleta de Helados) ================= */
+:root {
+    --rosa-principal: hsl(333, 89%, 75%);
+    --rosa-claro: #F4A7BB;
+    --blanco-puro: #ffffff;
+    --crema-fondo: #F1F9F8;
+    --cian-acentos: #00D4F0;
+    --naranja-toppings: #FFCE4B;
+    --menta-sabores: #66E0A3;
+    --chocolate-texto: #6E462D;
+}
+
 /* ================= RESET ================= */
 * {
     margin: 0;
@@ -7,58 +19,72 @@
 }
 
 body {
-    background-color: #faf0f7;
-    color: #333;
+    background-color: var(--crema-fondo);
+    color: var(--chocolate-texto);
+    line-height: 1.6;
 }
 
-/* ================= HEADER ================= */
+/* ================= HEADER ESTILO HELADO ================= */
 header {
-    background-color: #d4558e;
+    background-color: var(--rosa-principal);
     color: white;
-    padding: 22px 30px;
+    padding: 22px 40px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
 header h1 {
     font-size: 1.7em;
+    font-weight: 700;
 }
 
+/* 💊 BOTÓN PÍLDORA BLANCO */
 header a {
-    color: white;
+    background-color: var(--blanco-puro);
+    color: var(--rosa-principal);
     text-decoration: none;
     font-weight: 600;
-    padding: 8px 14px;
-    border-radius: 8px;
-    background-color: rgba(255,255,255,0.25);
+    padding: 10px 25px;
+    border-radius: 50px;
+    font-size: 0.9em;
+    display: inline-flex;
+    align-items: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 
 header a:hover {
-    background-color: rgba(255,255,255,0.4);
+    background-color: var(--rosa-claro);
+    color: white;
+    transform: translateY(-2px);
 }
 
 /* ================= CONTENEDOR ================= */
 .contenedor {
     max-width: 900px;
-    margin: 40px auto;
+    margin: 50px auto;
     padding: 0 20px;
 }
 
 /* ================= TARJETA ================= */
 .card {
-    background-color: white;
-    border-radius: 18px;
-    padding: 28px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    background-color: var(--blanco-puro);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
 }
 
 .card h2 {
-    color: #a85181;
+    color: var(--rosa-principal);
     margin-bottom: 20px;
 }
 
-/* ================= TABLA ================= */
+/* ================= TABLA ESTILO CIAN ================= */
 .tabla-wrapper {
     overflow-x: auto;
 }
@@ -66,46 +92,51 @@ header a:hover {
 table {
     width: 100%;
     border-collapse: collapse;
-    border-radius: 14px;
+    border-radius: 15px;
     overflow: hidden;
 }
 
 th, td {
-    padding: 14px 12px;
+    padding: 14px 15px;
     text-align: left;
 }
 
 th {
-    background-color: #d4558e;
+    background-color: var(--cian-acentos);
     color: white;
-    font-size: 0.95em;
+    font-size: 0.9em;
+    text-transform: uppercase;
 }
 
 td {
     font-size: 0.9em;
+    border-bottom: 1px solid #f0f0f0;
 }
 
 tr:nth-child(even) {
-    background-color: #fba9bd;
+    background-color: var(--crema-fondo);
 }
 
 tr:hover {
-    background-color: #f8c3d3;
+    background-color: var(--rosa-claro);
+    color: white;
+    transition: 0.3s;
 }
 
 /* ================= MENSAJE VACÍO ================= */
 .empty {
     text-align: center;
     padding: 30px;
-    color: #777;
+    color: var(--chocolate-texto);
     font-style: italic;
+    opacity: 0.7;
 }
 
 /* ================= RESPONSIVE ================= */
 @media (max-width: 600px) {
     header {
         flex-direction: column;
-        gap: 12px;
+        gap: 15px;
         text-align: center;
     }
 

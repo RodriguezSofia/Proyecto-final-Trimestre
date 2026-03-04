@@ -1,86 +1,134 @@
+/* ================= VARIABLES (Paleta Helados) ================= */
+:root {
+    --rosa-principal: hsl(333, 89%, 75%);
+    --rosa-claro: #F4A7BB;
+    --blanco-puro: #ffffff;
+    --crema-fondo: #F1F9F8;
+    --cian-acentos: #00D4F0;
+    --naranja-toppings: #FFCE4B;
+    --menta-sabores: #66E0A3;
+    --chocolate-texto: #6E462D;
+}
+
 /* ===== ESTILOS GENERALES ===== */
 body {
-    font-family: 'Quicksand', sans-serif;
-    background-color: #f8e9f4;
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--crema-fondo);
     margin: 0;
-    padding: 20px;
-    color: #4a3b47;
+    padding: 30px 20px;
+    color: var(--chocolate-texto);
+    line-height: 1.6;
 }
 
 h1 {
     font-size: 28px;
-    margin-bottom: 20px;
-    color: #5b4568;
+    margin-bottom: 25px;
+    color: var(--rosa-principal);
+    text-align: center;
 }
 
 /* ===== CONTENEDOR DE LA TABLA ===== */
 .tabla-contenedor {
-    background: #fff;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    background: var(--blanco-puro);
+    padding: 25px;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
     margin: 20px auto;
-    max-width: 800px;
+    max-width: 900px;
 }
 
 /* ===== ESTILO DE LA TABLA ===== */
 table {
     width: 100%;
     border-collapse: collapse;
+    border-radius: 15px;
+    overflow: hidden;
 }
 
 thead {
-    background-color: #f4d6f3;
+    background-color: var(--cian-acentos);
 }
 
 th, td {
-    padding: 12px;
+    padding: 14px;
     text-align: left;
-    font-size: 16px;
+    font-size: 15px;
+}
+
+th {
+    color: white;
+    text-transform: uppercase;
+    font-size: 0.85em;
 }
 
 td {
-    border-bottom: 1px solid #f3c6e8;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+tbody tr:nth-child(even) {
+    background-color: var(--crema-fondo);
 }
 
 tbody tr:hover {
-    background-color: #f9d7ee;
+    background-color: var(--rosa-claro);
+    color: white;
     transition: 0.3s;
 }
 
-/* ===== BOTÓN ===== */
+/* ===== BOTÓN PÍLDORA ===== */
 .button-volver {
-    display: inline-block;
-    padding: 8px 16px;
-    background-color: #9a5cd4;
-    color: white;
-    font-weight: bold;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 2000;
+
+    background-color: var(--blanco-puro);
+    color: var(--rosa-principal);
+    font-weight: 600;
     text-decoration: none;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    transition: all 0.3s;
+    padding: 10px 25px;
+    border-radius: 50px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
     cursor: pointer;
 }
 
 .button-volver:hover {
-    background-color: #7a2c63;
+    background-color: var(--rosa-claro);
+    color: white;
     transform: translateY(-2px);
-    box-shadow: 0 6px 8px rgba(0,0,0,0.15);
 }
+
+
+
 
 /* ===== DETALLE PEDIDO ===== */
 .detalle-row {
-    background-color: #fdf0f9;
+    background-color: var(--crema-fondo);
 }
 
 .detalle-tabla {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 5px;
+    margin-top: 10px;
+    border-radius: 12px;
+    overflow: hidden;
 }
 
-.detalle-tabla th, .detalle-tabla td {
-    padding: 8px;
-    font-size: 15px;
-    border: 1px solid #f3c6e8;
+.detalle-tabla th {
+    background-color: var(--naranja-toppings);
+    color: var(--chocolate-texto);
+    font-size: 0.85em;
+}
+
+.detalle-tabla th,
+.detalle-tabla td {
+    padding: 10px;
+    font-size: 14px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.detalle-tabla tr:hover {
+    background-color: var(--menta-sabores);
+    color: white;
 }

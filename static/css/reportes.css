@@ -1,125 +1,146 @@
+/* ================= VARIABLES (Paleta Helados) ================= */
+:root {
+    --rosa-principal: hsl(333, 89%, 75%);
+    --rosa-claro: #F4A7BB;
+    --blanco-puro: #ffffff;
+    --crema-fondo: #F1F9F8;
+    --cian-acentos: #00D4F0;
+    --naranja-toppings: #FFCE4B;
+    --menta-sabores: #66E0A3;
+    --chocolate-texto: #6E462D;
+}
+
+/* ================= RESET BASE ================= */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #fdf5f2;
-    color: #333;
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--crema-fondo);
+    color: var(--chocolate-texto);
     margin: 0;
     padding: 0;
+    line-height: 1.6;
 }
 
+/* ================= HEADER ESTILO HELADO ================= */
 header {
-    background-color: #ff6b81;
+    background-color: var(--rosa-principal);
     color: white;
-    padding: 20px;
+    padding: 25px;
     text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
+/* ================= BOTÓN VOLVER PÍLDORA ================= */
+.button-volver {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 2000;
+
+    background-color: var(--blanco-puro);
+    color: var(--rosa-principal);
+    font-weight: 600;
+    text-decoration: none;
+    padding: 10px 22px;
+    border-radius: 50px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+.button-volver:hover {
+    background-color: var(--rosa-claro);
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* ================= MAIN ================= */
 main {
-    padding: 20px;
+    padding: 30px 20px;
     max-width: 900px;
     margin: 0 auto;
 }
 
+/* ================= REPORTE ================= */
 .reporte {
-    background-color: white;
-    border-radius: 12px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    padding: 15px 20px;
-    margin-bottom: 20px;
+    background-color: var(--blanco-puro);
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    padding: 25px 30px;
+    margin-bottom: 30px;
 }
 
 .reporte h2 {
-    color: #ff6b81;
-    margin-bottom: 10px;
+    color: var(--rosa-principal);
+    margin-bottom: 15px;
 }
 
+/* ================= CARDS ================= */
 .card {
-    background-color: #ffe6e6;
-    padding: 10px 15px;
-    border-radius: 8px;
-    margin-bottom: 10px;
+    background-color: var(--crema-fondo);
+    padding: 15px 20px;
+    border-radius: 15px;
+    margin-bottom: 12px;
 }
 
-/* Barras de estadísticas */
+/* ================= BARRAS DE ESTADÍSTICA ================= */
 .barra-estadistica {
     display: flex;
     align-items: center;
-    margin: 8px 0;
+    margin: 12px 0;
 }
 
 .nombre {
     width: 150px;
-}
-
-header {
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-}
-
-.button-volver {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  z-index: 2000;
-
-  color: #1a1aff;
-  font-weight: bold;
-  text-decoration: none;
+    font-weight: 600;
 }
 
 .barra-fondo {
-    background-color: #ffd6d6;
+    background-color: #eaeaea;
     width: 100%;
-    height: 24px;
-    border-radius: 12px;
-    margin: 0 10px;
-    overflow: hidden;
-}
-
-.barra-llenada {
-    background-color: #ff6b81;
-    height: 100%;
-    border-radius: 12px 0 0 12px;
-}
-
-.valor {
-    width: 80px;
-    text-align: right;
-}
-.barra-estadistica {
-    display: flex;
-    align-items: center;
-    margin: 8px 0;
-}
-
-.nombre {
-    width: 150px;
-}
-
-.barra-fondo {
-    background-color: #eee;
-    width: 100%;
-    height: 24px;
-    border-radius: 12px;
+    height: 26px;
+    border-radius: 15px;
     margin: 0 10px;
     overflow: hidden;
 }
 
 .barra-llenada {
     height: 100%;
-    border-radius: 12px 0 0 12px;
+    border-radius: 15px 0 0 15px;
+    transition: width 0.5s ease;
 }
 
-/* Colores distintos usando clases color0-color5 */
-.color0 .barra-llenada { background-color: #ff6b81; }
-.color1 .barra-llenada { background-color: #ff9f80; }
-.color2 .barra-llenada { background-color: #ffd480; }
-.color3 .barra-llenada { background-color: #8cd790; }
-.color4 .barra-llenada { background-color: #80d4ff; }
-.color5 .barra-llenada { background-color: #b280ff; }
+/* ================= COLORES HELADOS ================= */
+.color0 .barra-llenada { background-color: var(--rosa-principal); }
+.color1 .barra-llenada { background-color: var(--rosa-claro); }
+.color2 .barra-llenada { background-color: var(--naranja-toppings); }
+.color3 .barra-llenada { background-color: var(--menta-sabores); }
+.color4 .barra-llenada { background-color: var(--cian-acentos); }
+.color5 .barra-llenada { background-color: #c8a2ff; } /* extra suave pastel */
 
 .valor {
     width: 80px;
     text-align: right;
     font-weight: bold;
+    color: var(--chocolate-texto);
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 600px) {
+    .barra-estadistica {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .nombre {
+        width: 100%;
+        margin-bottom: 5px;
+    }
+
+    .valor {
+        width: 100%;
+        text-align: left;
+        margin-top: 5px;
+    }
 }

@@ -1,3 +1,15 @@
+/* ================= VARIABLES (Paleta de Helados) ================= */
+:root {
+    --rosa-principal: hsl(333, 89%, 75%);    /* Rosa claro del encabezado */
+    --rosa-claro: #F4A7BB;       /* Rosa de la bola superior */
+    --blanco-puro: #ffffff;
+    --crema-fondo: #F1F9F8;      /* Color nata para el fondo de página */
+    --cian-acentos: #00D4F0;     /* Color de la tabla */
+    --naranja-toppings: #FFCE4B; /* Botón de imagen */
+    --menta-sabores: #66E0A3;    /* Hover de botones */
+    --chocolate-texto: #6E462D;  /* Texto oscuro legible */
+}
+
 /* ================= RESET ================= */
 * {
     margin: 0;
@@ -7,275 +19,171 @@
 }
 
 body {
-    background-color: #faf0f7;
-    color: #333;
+    background-color: var(--crema-fondo);
+    color: var(--chocolate-texto);
+    line-height: 1.6;
 }
 
-/* ================= HEADER ================= */
+/* ================= HEADER (Sólido y Corregido) ================= */
 header {
-    background-color: #d4558e;
+    background-color: var(--rosa-principal);
     color: white;
-    padding: 22px 30px;
+    padding: 15px 40px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
 header h1 {
-    font-size: 1.8em;
+    font-size: 1.7em;
+    font-weight: 700;
 }
 
+/* EL BOTÓN ESTILO PÍLDORA BLANCA */
 header a {
-    color: white;
+    background-color: var(--blanco-puro);
+    color: var(--rosa-principal);
     text-decoration: none;
     font-weight: 600;
-    padding: 8px 14px;
-    border-radius: 8px;
-    background-color: rgba(255,255,255,0.25);
+    padding: 10px 25px;
+    border-radius: 50px; /* Forma de píldora circular */
+    font-size: 0.9em;
+    display: inline-flex;
+    align-items: center;
+    transition: all 0.3s ease;
+    border: none;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 
 header a:hover {
-    background-color: rgba(255,255,255,0.4);
+    background-color: var(--rosa-claro);
+    color: white;
+    transform: translateY(-2px);
 }
 
-/* ================= CONTENEDOR ================= */
-.contenedor {
-    max-width: 820px;
-    margin: 40px auto;
-    padding: 0 20px;
+/* ================= SECCIÓN TÍTULO (Fondo Rosa) ================= */
+.seccion-encabezado {
+    background-color: var(--rosa-principal);
+    color: white;
+    padding: 40px 0 80px 0; /* Espacio para que la tarjeta flote encima */
+    text-align: center;
+}
 
+/* ================= CONTENEDOR Y TARJETAS ================= */
+.contenedor {
+    max-width: 900px;
+    margin: -50px auto 40px; /* Sube la tarjeta para que flote sobre el rosa */
+    padding: 0 20px;
     display: flex;
     flex-direction: column;
-    gap: 32px;
+    gap: 30px;
 }
 
-/* ================= SECCIONES ================= */
-section {
+section, .card {
     background-color: white;
-    border-radius: 18px;
-    padding: 28px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
 }
 
 section h2 {
-    color: #a85181;
-    margin-bottom: 18px;
-}
-
-section h3 {
-    margin-top: 28px;
-    margin-bottom: 10px;
-    color: #d4558e;
+    color: var(--rosa-principal);
+    margin-bottom: 20px;
 }
 
 /* ================= FORMULARIOS ================= */
 form {
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 15px;
 }
 
 input[type="text"],
 input[type="number"],
 textarea {
-    padding: 12px 14px;
-    border-radius: 10px;
-    border: 1px solid #ddd;
+    padding: 12px;
+    border-radius: 12px;
+    border: 2px solid #eee;
     font-size: 0.95em;
+    background-color: #fafafa;
 }
 
-input:focus,
-textarea:focus {
+input:focus, textarea:focus {
     outline: none;
-    border-color: #d4558e;
+    border-color: var(--cian-acentos);
 }
 
-textarea {
-    resize: vertical;
-    min-height: 90px;
-}
-
-/* ================= INPUT FILE ================= */
-/* ================= SUBIR IMAGEN ================= */
+/* ================= BOTÓN SUBIR IMAGEN (Amarillo) ================= */
 .file-upload {
     display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
-    width: fit-content;
+    background-color: var(--naranja-toppings);
+    color: var(--chocolate-texto);
     padding: 12px 20px;
-
-    background-color: #fbe244;
-    color: #5a4300;
-    font-weight: 600;
-    font-size: 0.95em;
-
     border-radius: 12px;
+    font-weight: 600;
     cursor: pointer;
-
-    transition: background 0.3s ease, transform 0.2s ease;
+    transition: 0.3s;
 }
 
-/* Ocultar input real */
-.file-upload input[type="file"] {
-    display: none;
-}
-
-/* Hover bonito */
 .file-upload:hover {
     background-color: #f7d633;
-    transform: scale(1.04);
+    transform: scale(1.03);
 }
 
-/* Texto pequeño debajo (opcional) */
-.file-upload::after {
-    content: "JPG, PNG o WEBP";
-    display: block;
-    font-size: 0.75em;
-    font-weight: 400;
-    margin-top: 4px;
-    color: #7a5a00;
-}
-
-
-/* ================= BOTÓN GUARDAR ================= */
+/* ================= BOTÓN GUARDAR (Dinámico) ================= */
 button[type="submit"] {
-    background-color: #d4558e;
+    background-color: var(--rosa-principal);
     color: white;
     border: none;
-    padding: 14px;
-    border-radius: 14px;
+    padding: 15px;
+    border-radius: 15px;
     font-size: 1em;
     font-weight: 600;
     cursor: pointer;
-    margin-top: 10px;
-    transition: background 0.3s ease, transform 0.2s ease;
+    transition: all 0.3s ease;
 }
 
-header {
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-}
-
-
-/* HOVER VERDE */
 button[type="submit"]:hover {
-    background-color: #97d5b5;
-    transform: scale(1.04);
+    background-color: var(--menta-sabores);
+    transform: scale(1.02);
 }
 
-/* ================= TABLAS ================= */
+/* ================= TABLAS (Azul/Cian) ================= */
 table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 12px;
-    border-radius: 12px;
+    margin-top: 15px;
+    border-radius: 15px;
     overflow: hidden;
 }
 
-th, td {
-    padding: 12px;
+th {
+    background-color: var(--cian-acentos);
+    color: white;
+    padding: 15px;
     text-align: left;
+    text-transform: uppercase;
+    font-size: 0.85em;
 }
 
-th {
-    background-color: #d4558e;
-    color: white;
+td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #f0f0f0;
 }
 
 tr:nth-child(even) {
-    background-color: #fba9bd;
-}
-
-/* ================= LISTAS ================= */
-ul {
-    list-style: none;
-    margin-top: 10px;
-}
-
-ul li {
-    background-color: #fba9bd;
-    padding: 10px 14px;
-    border-radius: 10px;
-    margin-bottom: 8px;
-    font-weight: 500;
+    background-color: var(--crema-fondo);
 }
 
 /* ================= RESPONSIVE ================= */
 @media (max-width: 600px) {
     header {
         flex-direction: column;
-        gap: 12px;
+        gap: 15px;
         text-align: center;
     }
-
-    section {
-        padding: 22px;
-    }
 }
-
-/* ================= SECCIÓN SABORES ================= */
-section:nth-of-type(2) {
-    background-color: #eaf7f1;
-}
-
-section:nth-of-type(2) h2,
-section:nth-of-type(2) h3 {
-    color: #2f7d63;
-}
-
-section:nth-of-type(2) input,
-section:nth-of-type(2) textarea {
-    border-color: #97d5b5;
-}
-
-section:nth-of-type(2) input:focus,
-section:nth-of-type(2) textarea:focus {
-    border-color: #2f7d63;
-}
-
-section:nth-of-type(2) button[type="submit"] {
-    background-color: #97d5b5;
-}
-
-section:nth-of-type(2) button[type="submit"]:hover {
-    background-color: #6fbfa1;
-}
-
-/* ================= SECCIÓN TOPPINGS ================= */
-section:nth-of-type(3) {
-    background-color: #fff9d6;
-}
-
-section:nth-of-type(3) h2,
-section:nth-of-type(3) h3 {
-    color: #b8742f;
-}
-
-section:nth-of-type(3) input,
-section:nth-of-type(3) textarea {
-    border-color: #fbe244;
-}
-
-section:nth-of-type(3) input:focus,
-section:nth-of-type(3) textarea:focus {
-    border-color: #b8742f;
-}
-
-section:nth-of-type(3) button[type="submit"] {
-    background-color: #fbe244;
-    color: #5a4300;
-}
-
-section:nth-of-type(3) button[type="submit"]:hover {
-    background-color: #f7d633;
-}
-.nombre-imagen {
-    font-size: 0.85em;
-    color: #7a2c63;
-    margin-top: 4px;
-    font-style: italic;
-}
-
-

@@ -1,152 +1,171 @@
-/* ===== Body y layout ===== */
-body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f5f5f5;
+* {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    color: #333;
 }
+
+body {
+    font-family: 'Quicksand', sans-serif;
+    background-color: #f5f5f5;
+    color: hsl(0, 0%, 2%);
+    overflow-x: hidden; 
+}
+
 
 header {
-    background-color: #ff6b81;
-    color: white;
-    text-align: center;
-    padding: 20px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    background-color: #f7a8c6;
+    padding: 20px 5%; 
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    box-shadow: none; 
+    border-bottom: 2px solid #fcf7f7ef; 
 }
 
-h1 {
+header h1 {
     margin: 0;
-    font-size: 28px;
+    font-size: 24px;
+    color: white;
+}
+
+
+/* ===== BOTÓN VOLVER (MISMO ESTILO GLOBAL) ===== */
+.button-volver {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 2000;
+
+    background-color: var(--blanco-puro);
+    color: var(--rosa-principal);
+    font-weight: 600;
+    text-decoration: none;
+    padding: 10px 25px;
+    border-radius: 50px;
+    box-shadow: 0 4px 8px hwb(0 96% 3%);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.button-volver:hover {
+    background-color: var(--rosa-claro);
+    color: white;
+    transform: translateY(-2px);
 }
 
 main {
     max-width: 1200px;
-    margin: 20px auto;
-    padding: 10px;
+    margin: 40px auto;
+    padding: 0 20px;
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
 }
 
-/* ===== Tarjetas de usuario ===== */
 .user-card {
     background-color: white;
     border-radius: 12px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    padding: 15px 20px;
-    flex: 1 1 250px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    transition: transform 0.2s;
+    padding: 20px;
+    flex: 1 1 300px;
+    border: 1px solid #eee;
 }
 
-.user-card:hover {
-    transform: translateY(-5px);
+
+
+.hacer-cliente {
+    background-color: #E6E6FA; 
+    color: #6D5D83;           
+    padding: 12px 20px;
+    border: none;
+    border-radius: 10px;      
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;              
 }
 
-/* ===== Encabezado de la tarjeta ===== */
-.user-card h3 {
-    margin: 0 0 10px 0;
-    font-size: 20px;
+.hacer-cliente:hover {
+    background-color: #D1D1F0; 
+    color: #4A3B5D;           
+    transform: translateY(-3px); 
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
 }
 
-/* ===== Tipo de usuario ===== */
-.tipo-cliente {
-    color: #ff6b6b;
+
+.hacer-trabajador {
+    background-color: #FFF9C4; 
+    color: #857A2A;           
+    padding: 12px 20px;
+    border: none;
+    border-radius: 10px;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+.hacer-trabajador:hover {
+    background-color: #F0E68C; 
+    color: #635A1D;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+
+
+
+
+.tipo-cliente, .tipo-trabajador, .tipo-admin {
+    padding: 4px 12px;
+    border-radius: 20px; 
+    font-size: 13px;
     font-weight: bold;
+    display: inline-block;
+    margin-left: 5px;
+}
+
+
+.tipo-cliente {
+    background-color: #ffdce6; 
+    color: #d16d8a;
 }
 
 .tipo-trabajador {
-    color: #28a745;
-    font-weight: bold;
+    background-color: #e2f5e9;
+    color: #62a37b;
 }
 
 .tipo-admin {
-    color: #6f42c1;
-    font-weight: bold;
+    background-color: #fff0d4;
+    color: #c98c4d;
 }
 
-/* ===== Botones ===== */
-.button-group {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-    margin-top: 10px;
+.user-card {
+    background: linear-gradient(180deg, #ffffff, #fff7fa);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
 }
 
-button {
-    padding: 6px 12px;
-    border: none;
-    border-radius: 8px;
-    font-weight: bold;
-    color: white;
-    cursor: pointer;
-    flex: 1;
-    transition: all 0.3s;
+.user-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 6px;
+    width: 100%;
+    background: linear-gradient(
+        90deg,
+        #f7a8c6,
+        #ffdce6,
+        #f7a8c6
+    );
 }
 
-button.hacer-cliente {
-    background-color: #ffa64d;
-}
-button.hacer-cliente:hover {
-    background-color: #ff8c1a;
-}
-
-button.hacer-trabajador {
-    background-color: #80d4ff;
-}
-button.hacer-trabajador:hover {
-    background-color: #4bb3e0;
-}
-
-button.hacer-admin {
-    background-color: #a563f2;
-}
-button.hacer-admin:hover {
-    background-color: #7d3ae6;
-}
-
-/* ===== Información de usuario ===== */
-.user-info {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-}
-
-/* ===== Responsive ===== */
-@media (max-width: 768px) {
-    main {
-        flex-direction: column;
-        gap: 15px;
-    }
-    button {
-        flex: 100%;
-    }
-}
-
-/* Botón Volver al inicio */
-.button-volver {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #ff6b81;  /* Color principal del header */
-    color: white;
-    font-weight: bold;
-    text-decoration: none;
-    border-radius: 12px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    transition: all 0.3s;
-    text-align: center;
-}
-
-.button-volver:hover {
-    background-color: #ff4f6a;  /* Más oscuro al pasar el mouse */
-    transform: translateY(-2px);
-    box-shadow: 0 6px 8px rgba(0,0,0,0.15);
-}
-
-.button-volver:active {
-    transform: translateY(0);
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+.user-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 18px 40px rgba(0,0,0,0.12);
 }
