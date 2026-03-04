@@ -24,8 +24,8 @@
 
     <div class="d-flex gap-3 align-items-center">
         {% if not session.get('usuario_nombre') %}
-            <a href="#" class="btn-registrarse">Registrarse</a>
-            <a href="#" class="btn-login">Iniciar sesión</a>
+            <a href="{{ url_for('registro') }}" class="btn-registrarse">Registrarse</a>
+            <a href="{{ url_for('login') }}" class="btn-login">Iniciar sesión</a>
         {% else %}
             <span style="font-weight:bold; color:#147D7D; font-size:1.1em;">
                 Hola, {{ session['usuario_nombre'] }}

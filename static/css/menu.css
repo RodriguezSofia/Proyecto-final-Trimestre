@@ -135,7 +135,7 @@ body {
     font-family: 'Quicksand', sans-serif;
     margin: 0;
     color: #5a3e36;
-    padding-top: 180px; /* espacio para las dos barras */
+    padding-top: 130px; /* espacio para las dos barras */
     background-image: url("../img/fondo-pastel.png");
     background-size: cover;       /* Ajusta toda la pantalla */
     background-position: center;  /* Centra la imagen */
