@@ -21,19 +21,8 @@
             <img src="{{ url_for('static', filename='img/logo.png') }}" 
                 alt="Logo Heladería Annia" class="logo">
         </a>
-        <!--  CONTADOR -->
-        <span id="carritoCount" style="
-            /* Fondo de color rosa */
-            background:#F54388; 
-            /*color para el texto */
-            color:white; 
-            /* Relleno interno (padding): 3px vertical, 8px horizontal */
-            padding:3px 8px;
-            /* Redondea las esquinas del contenedor */
-            border-radius:12px;
-            /* Hace que el número (0) sea negrita */
-            font-weight:bold;
-        ">0</span>
+        
+
 
         <div class="d-flex gap-3 align-items-center">
             {% if not session.get('usuario_nombre') %}
@@ -74,6 +63,19 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('redes') }}">Redes</a>
                     </li>
+                    <!--  CONTADOR -->
+                    <li>        <span id="carritoCount" style="
+            /* Fondo de color rosa */
+            background:#F54388; 
+            /*color para el texto */
+            color:white; 
+            /* Relleno interno (padding): 3px vertical, 8px horizontal */
+            padding:3px 8px;
+            /* Redondea las esquinas del contenedor */
+            border-radius:12px;
+            /* Hace que el número (0) sea negrita */
+            font-weight:bold;
+        ">0</span></li>
                 </ul>
             </div>
         </div>

@@ -1,43 +1,100 @@
-/* ================= VARIABLES (Paleta Helados) ================= */
+/* ================= VARIABLES ================= */
 :root {
-    --rosa-principal: hsl(333, 89%, 75%);
-    --rosa-claro: #F4A7BB;
+    --rosa-principal: #f7a8c6;      /* Fondo barra superior */
+    --rosa-boton: #f9b6cf;         /* Rosa del botón */
     --blanco-puro: #ffffff;
     --crema-fondo: #F1F9F8;
     --cian-acentos: #00D4F0;
     --naranja-toppings: #FFCE4B;
     --menta-sabores: #66E0A3;
     --chocolate-texto: #6E462D;
+    --negro-boton: #000000;
 }
 
-/* ===== ESTILOS GENERALES ===== */
-body {
-    font-family: 'Poppins', sans-serif;
-    background-color: var(--crema-fondo);
+/* ===== RESET GENERAL ===== */
+* {
     margin: 0;
-    padding: 30px 20px;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Quicksand', sans-serif;
+}
+
+body {
+    background-color: var(--crema-fondo);
     color: var(--chocolate-texto);
     line-height: 1.6;
 }
 
-h1 {
-    font-size: 28px;
-    margin-bottom: 25px;
-    color: var(--rosa-principal);
-    text-align: center;
+/* ===== BARRA SUPERIOR (HEADER) ===== */
+header {
+    background-color: var(--rosa-principal);
+    padding: 15px 5%;
+    display: flex;
+    justify-content: space-between; /* Título a la izq, Botón a la der */
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
 }
 
-/* ===== CONTENEDOR DE LA TABLA ===== */
+header h1 {
+    color: white;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+/* ===== BOTÓN VOLVER (ESTILO IMAGEN) ===== */
+.button-volver {
+    background-color: var(--rosa-boton);
+    color: var(--negro-boton);
+    text-decoration: none;
+    font-weight: 500;
+    padding: 10px 25px;
+    border-radius: 50px;
+    font-size: 15px;
+    display: inline-flex;
+    align-items: center;
+    transition: all 0.3s ease;
+    /* Resplandor blanco de la imagen */
+    box-shadow: 0 0 15px 2px rgba(255, 255, 255, 0.8);
+}
+
+.button-volver:hover {
+    background-color: var(--blanco-puro);
+    color: var(--rosa-principal);
+    transform: translateY(-2px);
+    box-shadow: 0 0 20px 4px rgba(255, 255, 255, 1);
+}
+
+/* ===== BOTÓN VER DETALLE (DENTRO DE LA TABLA) ===== */
+.btn-accion {
+    background-color: var(--menta-sabores);
+    color: white;
+    border: none;
+    padding: 6px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.btn-accion:hover {
+    background-color: var(--cian-acentos);
+    transform: scale(1.05);
+}
+
+/* ===== TABLA CONTENEDOR ===== */
 .tabla-contenedor {
     background: var(--blanco-puro);
     padding: 25px;
     border-radius: 20px;
     box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-    margin: 20px auto;
-    max-width: 900px;
+    margin: 40px auto;
+    max-width: 1000px;
 }
 
-/* ===== ESTILO DE LA TABLA ===== */
 table {
     width: 100%;
     border-collapse: collapse;
@@ -49,86 +106,37 @@ thead {
     background-color: var(--cian-acentos);
 }
 
-th, td {
-    padding: 14px;
-    text-align: left;
-    font-size: 15px;
-}
-
 th {
     color: white;
     text-transform: uppercase;
-    font-size: 0.85em;
+    padding: 15px;
+    font-size: 13px;
+    text-align: left;
 }
 
 td {
+    padding: 14px;
     border-bottom: 1px solid #f0f0f0;
 }
 
 tbody tr:nth-child(even) {
-    background-color: var(--crema-fondo);
+    background-color: #fafafa;
 }
-
-tbody tr:hover {
-    background-color: var(--rosa-claro);
-    color: white;
-    transition: 0.3s;
-}
-
-/* ===== BOTÓN PÍLDORA ===== */
-.button-volver {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    z-index: 2000;
-
-    background-color: var(--blanco-puro);
-    color: var(--rosa-principal);
-    font-weight: 600;
-    text-decoration: none;
-    padding: 10px 25px;
-    border-radius: 50px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    transition: all 0.3s ease;
-    cursor: pointer;
-}
-
-.button-volver:hover {
-    background-color: var(--rosa-claro);
-    color: white;
-    transform: translateY(-2px);
-}
-
-
-
 
 /* ===== DETALLE PEDIDO ===== */
-.detalle-row {
-    background-color: var(--crema-fondo);
-}
-
 .detalle-tabla {
     width: 100%;
-    border-collapse: collapse;
-    margin-top: 10px;
-    border-radius: 12px;
-    overflow: hidden;
+    margin: 10px 0;
+    border-radius: 10px;
 }
 
 .detalle-tabla th {
     background-color: var(--naranja-toppings);
     color: var(--chocolate-texto);
-    font-size: 0.85em;
 }
 
-.detalle-tabla th,
-.detalle-tabla td {
-    padding: 10px;
-    font-size: 14px;
-    border-bottom: 1px solid #f0f0f0;
-}
-
-.detalle-tabla tr:hover {
-    background-color: var(--menta-sabores);
-    color: white;
+.empty {
+    text-align: center;
+    padding: 30px;
+    opacity: 0.6;
 }

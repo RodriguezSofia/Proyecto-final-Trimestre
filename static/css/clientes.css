@@ -1,13 +1,14 @@
-/* ================= VARIABLES (Paleta de Helados) ================= */
+/* ================= VARIABLES (Ajustadas a la Imagen) ================= */
 :root {
-    --rosa-principal: hsl(333, 89%, 75%);
-    --rosa-claro: #F4A7BB;
+    --rosa-fondo-header: #f7a8c6;   /* El rosa del fondo */
+    --rosa-boton: #f9b6cf;          /* El rosa del botón (un poco más claro/vivo) */
     --blanco-puro: #ffffff;
     --crema-fondo: #F1F9F8;
     --cian-acentos: #00D4F0;
     --naranja-toppings: #FFCE4B;
     --menta-sabores: #66E0A3;
     --chocolate-texto: #6E462D;
+    --negro-texto-boton: #1a1a1a;   /* El texto en la imagen es casi negro */
 }
 
 /* ================= RESET ================= */
@@ -15,63 +16,65 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Quicksand', sans-serif; /* Fuente redondeada como la imagen */
 }
 
 body {
     background-color: var(--crema-fondo);
     color: var(--chocolate-texto);
-    line-height: 1.6;
 }
 
-/* ================= HEADER ESTILO HELADO ================= */
+/* ================= HEADER (ESTILO IMAGEN) ================= */
 header {
-    background-color: var(--rosa-principal);
-    color: white;
-    padding: 22px 40px;
+    background-color: var(--rosa-fondo-header);
+    padding: 15px 40px;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between; 
     align-items: center;
     position: sticky;
     top: 0;
     z-index: 1000;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    border-bottom: 2px solid rgba(255, 255, 255, 0.3); /* Línea sutil blanca */
 }
 
 header h1 {
-    font-size: 1.7em;
+    color: white;
+    font-size: 24px;
     font-weight: 700;
 }
 
-/* 💊 BOTÓN PÍLDORA BLANCO */
-header a {
-    background-color: var(--blanco-puro);
-    color: var(--rosa-principal);
+/* ================= EL BOTÓN EXACTO DE LA IMAGEN ================= */
+header a, .button-volver {
+    background-color: var(--rosa-boton);
+    color: var(--negro-texto-boton);
     text-decoration: none;
-    font-weight: 600;
-    padding: 10px 25px;
-    border-radius: 50px;
-    font-size: 0.9em;
+    font-weight: 500;
+    padding: 10px 30px;
+    border-radius: 50px; /* Redondeado total */
+    font-size: 16px;
     display: inline-flex;
     align-items: center;
+    border: none;
+    
+    /* EFECTO CLAVE: Sombra blanca difuminada (Resplandor) */
+    box-shadow: 0 0 15px 2px rgba(255, 255, 255, 0.7); 
+    
     transition: all 0.3s ease;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 
 header a:hover {
-    background-color: var(--rosa-claro);
-    color: white;
-    transform: translateY(-2px);
+    background-color: var(--blanco-puro);
+    transform: scale(1.03);
+    box-shadow: 0 0 20px 4px rgba(255, 255, 255, 0.9);
 }
 
-/* ================= CONTENEDOR ================= */
+/* ================= TABLA Y CONTENIDO ================= */
 .contenedor {
-    max-width: 900px;
-    margin: 50px auto;
+    max-width: 1000px;
+    margin: 40px auto;
     padding: 0 20px;
 }
 
-/* ================= TARJETA ================= */
 .card {
     background-color: var(--blanco-puro);
     border-radius: 20px;
@@ -79,14 +82,9 @@ header a:hover {
     box-shadow: 0 10px 25px rgba(0,0,0,0.05);
 }
 
-.card h2 {
-    color: var(--rosa-principal);
-    margin-bottom: 20px;
-}
-
-/* ================= TABLA ESTILO CIAN ================= */
 .tabla-wrapper {
     overflow-x: auto;
+    margin-top: 20px;
 }
 
 table {
@@ -96,52 +94,21 @@ table {
     overflow: hidden;
 }
 
-th, td {
-    padding: 14px 15px;
-    text-align: left;
-}
-
 th {
     background-color: var(--cian-acentos);
     color: white;
-    font-size: 0.9em;
+    padding: 15px;
+    text-align: left;
     text-transform: uppercase;
+    font-size: 13px;
 }
 
 td {
-    font-size: 0.9em;
+    padding: 15px;
     border-bottom: 1px solid #f0f0f0;
-}
-
-tr:nth-child(even) {
-    background-color: var(--crema-fondo);
+    font-size: 15px;
 }
 
 tr:hover {
-    background-color: var(--rosa-claro);
-    color: white;
-    transition: 0.3s;
-}
-
-/* ================= MENSAJE VACÍO ================= */
-.empty {
-    text-align: center;
-    padding: 30px;
-    color: var(--chocolate-texto);
-    font-style: italic;
-    opacity: 0.7;
-}
-
-/* ================= RESPONSIVE ================= */
-@media (max-width: 600px) {
-    header {
-        flex-direction: column;
-        gap: 15px;
-        text-align: center;
-    }
-
-    th, td {
-        padding: 10px;
-        font-size: 0.85em;
-    }
+    background-color: #fff0f5; /* Un rosa muy sutil al pasar el mouse */
 }

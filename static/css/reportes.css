@@ -1,18 +1,20 @@
-/* ================= VARIABLES (Paleta Helados) ================= */
+/* ================= VARIABLES (Paleta Helados + Estilo Imagen) ================= */
 :root {
-    --rosa-principal: hsl(333, 89%, 75%);
+    --rosa-principal: #f7a8c6;      /* Color de fondo del header según tu imagen */
+    --rosa-boton: #f9b6cf;         /* Rosa ligeramente más intenso para el botón */
     --rosa-claro: #F4A7BB;
     --blanco-puro: #ffffff;
     --crema-fondo: #F1F9F8;
     --cian-acentos: #00D4F0;
     --naranja-toppings: #FFCE4B;
     --menta-sabores: #66E0A3;
-    --chocolate-texto: #6E462D;
+    --chocolate-texto: #6E462D;    /* Marrón para el contenido general */
+    --negro-boton: #000000;        /* Texto negro para el botón "Volver" */
 }
 
 /* ================= RESET BASE ================= */
 body {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Quicksand', 'Poppins', sans-serif;
     background-color: var(--crema-fondo);
     color: var(--chocolate-texto);
     margin: 0;
@@ -20,75 +22,80 @@ body {
     line-height: 1.6;
 }
 
-/* ================= HEADER ESTILO HELADO ================= */
+/* ================= HEADER (ESTILO EXACTO A LA IMAGEN) ================= */
 header {
     background-color: var(--rosa-principal);
     color: white;
-    padding: 25px;
-    text-align: center;
+    padding: 20px 5%; 
     position: sticky;
     top: 0;
     z-index: 1000;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    
+    /* Alineación: Título a la izquierda, Botón a la derecha */
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    
+    border-bottom: 2px solid #fcf7f7ef;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
 }
 
-/* ================= BOTÓN VOLVER PÍLDORA ================= */
-.button-volver {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    z-index: 2000;
+header h1 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 700;
+}
 
-    background-color: var(--blanco-puro);
-    color: var(--rosa-principal);
-    font-weight: 600;
+/* ================= BOTÓN VOLVER (CON RESPLANDOR BLANCO) ================= */
+.button-volver {
+    background-color: var(--rosa-boton);
+    color: var(--negro-boton);
+    font-weight: 500;
     text-decoration: none;
-    padding: 10px 22px;
-    border-radius: 50px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    padding: 10px 30px;
+    border-radius: 50px; /* Forma de píldora */
+    
+    /* Resplandor blanco difuminado como en la imagen */
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.8); 
+    
     transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    font-size: 16px;
 }
 
 .button-volver:hover {
-    background-color: var(--rosa-claro);
-    color: white;
+    background-color: var(--blanco-puro);
+    color: var(--rosa-principal);
     transform: translateY(-2px);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 1);
 }
 
-/* ================= MAIN ================= */
+/* ================= MAIN Y CONTENIDO ================= */
 main {
-    padding: 30px 20px;
+    padding: 40px 20px;
     max-width: 900px;
     margin: 0 auto;
 }
 
-/* ================= REPORTE ================= */
 .reporte {
     background-color: var(--blanco-puro);
     border-radius: 20px;
     box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-    padding: 25px 30px;
+    padding: 30px;
     margin-bottom: 30px;
 }
 
 .reporte h2 {
     color: var(--rosa-principal);
-    margin-bottom: 15px;
-}
-
-/* ================= CARDS ================= */
-.card {
-    background-color: var(--crema-fondo);
-    padding: 15px 20px;
-    border-radius: 15px;
-    margin-bottom: 12px;
+    margin-bottom: 20px;
 }
 
 /* ================= BARRAS DE ESTADÍSTICA ================= */
 .barra-estadistica {
     display: flex;
     align-items: center;
-    margin: 12px 0;
+    margin: 15px 0;
 }
 
 .nombre {
@@ -97,50 +104,48 @@ main {
 }
 
 .barra-fondo {
-    background-color: #eaeaea;
+    background-color: #f0f0f0;
     width: 100%;
     height: 26px;
     border-radius: 15px;
-    margin: 0 10px;
+    margin: 0 15px;
     overflow: hidden;
 }
 
 .barra-llenada {
     height: 100%;
-    border-radius: 15px 0 0 15px;
-    transition: width 0.5s ease;
+    border-radius: 15px;
+    transition: width 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-/* ================= COLORES HELADOS ================= */
+/* Colores Dinámicos de las Barras */
 .color0 .barra-llenada { background-color: var(--rosa-principal); }
 .color1 .barra-llenada { background-color: var(--rosa-claro); }
 .color2 .barra-llenada { background-color: var(--naranja-toppings); }
 .color3 .barra-llenada { background-color: var(--menta-sabores); }
 .color4 .barra-llenada { background-color: var(--cian-acentos); }
-.color5 .barra-llenada { background-color: #c8a2ff; } /* extra suave pastel */
+.color5 .barra-llenada { background-color: #c8a2ff; }
 
 .valor {
-    width: 80px;
+    width: 60px;
     text-align: right;
     font-weight: bold;
-    color: var(--chocolate-texto);
 }
 
 /* ================= RESPONSIVE ================= */
 @media (max-width: 600px) {
+    header {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+    
     .barra-estadistica {
         flex-direction: column;
         align-items: flex-start;
     }
-
-    .nombre {
-        width: 100%;
-        margin-bottom: 5px;
-    }
-
-    .valor {
-        width: 100%;
-        text-align: left;
-        margin-top: 5px;
+    
+    .barra-fondo {
+        margin: 10px 0;
     }
 }

@@ -1,14 +1,23 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pedidos</title>
-<link rel="stylesheet" href="{{ url_for('static', filename='css/pedidos.css') }}">
-<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pedidos</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/pedidos.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
 </head>
 <body>
-<h1>Pedidos</h1>
+
+<header>
+    <h1>Pedidos</h1>
+    
+    {% if session['usuario_tipo'] == 1 %}
+        <a href="{{ url_for('admin_panel') }}" class="button-volver">← Volver al Panel</a>
+    {% elif session['usuario_tipo'] == 2 %}
+        <a href="{{ url_for('panel_trabajadores') }}" class="button-volver">← Volver al Panel</a>
+    {% endif %}
+</header>
 
 <div class="tabla-contenedor">
     <table>
@@ -31,10 +40,11 @@
                 <td>
                     <form method="POST" style="margin:0;">
                         <input type="hidden" name="id_factura" value="{{ p.Id_factura }}">
-                        <button type="submit" class="button-volver">Ver detalle</button>
+                        <button type="submit" class="btn-accion">Ver detalle</button>
                     </form>
                 </td>
             </tr>
+            
             {% if detalle_pedido and detalle_pedido[0].Id_factura == p.Id_factura %}
             <tr class="detalle-row">
                 <td colspan="5">
@@ -59,20 +69,15 @@
                 </td>
             </tr>
             {% endif %}
+            
             {% else %}
             <tr>
-                <td colspan="5">No hay pedidos registrados</td>
+                <td colspan="5" class="empty">No hay pedidos registrados</td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
-
-    <!-- Botón volver al panel -->
-    {% if session['usuario_tipo'] == 1 %}
-        <a href="{{ url_for('admin_panel') }}" class="button-volver">← Volver al Panel</a>
-    {% elif session['usuario_tipo'] == 2 %}
-        <a href="{{ url_for('panel_trabajadores') }}" class="button-volver">← Volver al Panel</a>
-    {% endif %}
 </div>
+
 </body>
 </html>

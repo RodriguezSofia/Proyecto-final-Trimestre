@@ -593,7 +593,7 @@ def admin_reportes():
     )
 
 
-@app.route('/admin/trabajadores', methods=['GET', 'POST'])
+@app.route('/admin/admin_trabajadores', methods=['GET', 'POST'])
 def admin_trabajadores():
     conexion = conectar_bd()
     cursor = conexion.cursor(cursor_factory=RealDictCursor)
@@ -623,7 +623,7 @@ def admin_trabajadores():
     cursor.close()
     conexion.close()
 
-    return render_template('admin/trabajadores.html', usuarios=usuarios)
+    return render_template('admin/admin_trabajadores.html', usuarios=usuarios)
 
 # ======================================================
 # PANEL TRABAJADORES

@@ -1,13 +1,15 @@
-/* ================= VARIABLES (Paleta de Helados) ================= */
+/* ================= VARIABLES (Paleta de Helados + Ajuste Imagen) ================= */
 :root {
-    --rosa-principal: hsl(333, 89%, 75%);    /* Rosa claro del encabezado */
-    --rosa-claro: #F4A7BB;       /* Rosa de la bola superior */
+    --rosa-principal: #f7a8c6;      /* Rosa del fondo del header (Imagen) */
+    --rosa-boton: #f9b6cf;         /* Rosa para el botón (Imagen) */
+    --rosa-claro: #F4A7BB;
     --blanco-puro: #ffffff;
-    --crema-fondo: #F1F9F8;      /* Color nata para el fondo de página */
-    --cian-acentos: #00D4F0;     /* Color de la tabla */
-    --naranja-toppings: #FFCE4B; /* Botón de imagen */
-    --menta-sabores: #66E0A3;    /* Hover de botones */
-    --chocolate-texto: #6E462D;  /* Texto oscuro legible */
+    --crema-fondo: #F1F9F8;
+    --cian-acentos: #00D4F0;
+    --naranja-toppings: #FFCE4B;
+    --menta-sabores: #66E0A3;
+    --chocolate-texto: #6E462D;
+    --negro-texto-boton: #1a1a1a;   /* Texto oscuro para el botón */
 }
 
 /* ================= RESET ================= */
@@ -15,7 +17,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Quicksand', 'Poppins', sans-serif; /* Quicksand para el estilo redondeado */
 }
 
 body {
@@ -24,59 +26,63 @@ body {
     line-height: 1.6;
 }
 
-/* ================= HEADER (Sólido y Corregido) ================= */
+/* ================= HEADER (ESTILO EXACTO A TU IMAGEN) ================= */
 header {
     background-color: var(--rosa-principal);
     color: white;
-    padding: 15px 40px;
+    padding: 20px 40px;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between; /* Alinea título a la izquierda y botón a la derecha */
     align-items: center;
     position: sticky;
     top: 0;
     z-index: 1000;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
 }
 
 header h1 {
-    font-size: 1.7em;
+    font-size: 24px;
     font-weight: 700;
 }
 
-/* EL BOTÓN ESTILO PÍLDORA BLANCA */
+/* 💊 EL BOTÓN EXACTO DE LA IMAGEN (CON RESPLANDOR) */
 header a {
-    background-color: var(--blanco-puro);
-    color: var(--rosa-principal);
+    background-color: var(--rosa-boton);
+    color: var(--negro-texto-boton);
     text-decoration: none;
-    font-weight: 600;
-    padding: 10px 25px;
-    border-radius: 50px; /* Forma de píldora circular */
-    font-size: 0.9em;
+    font-weight: 500;
+    padding: 10px 30px;
+    border-radius: 50px; /* Píldora perfecta */
+    font-size: 16px;
     display: inline-flex;
     align-items: center;
     transition: all 0.3s ease;
     border: none;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    
+    /* EFECTO DE RESPLANDOR BLANCO (Igual a la captura) */
+    box-shadow: 0 0 15px 2px rgba(255, 255, 255, 0.8);
 }
 
 header a:hover {
-    background-color: var(--rosa-claro);
-    color: white;
+    background-color: var(--blanco-puro);
+    color: var(--rosa-principal);
     transform: translateY(-2px);
+    box-shadow: 0 0 20px 4px rgba(255, 255, 255, 1);
 }
 
 /* ================= SECCIÓN TÍTULO (Fondo Rosa) ================= */
 .seccion-encabezado {
     background-color: var(--rosa-principal);
     color: white;
-    padding: 40px 0 80px 0; /* Espacio para que la tarjeta flote encima */
+    padding: 40px 0 80px 0;
     text-align: center;
 }
 
 /* ================= CONTENEDOR Y TARJETAS ================= */
 .contenedor {
     max-width: 900px;
-    margin: -50px auto 40px; /* Sube la tarjeta para que flote sobre el rosa */
+    margin: -50px auto 40px; 
     padding: 0 20px;
     display: flex;
     flex-direction: column;
@@ -110,11 +116,13 @@ textarea {
     border: 2px solid #eee;
     font-size: 0.95em;
     background-color: #fafafa;
+    transition: 0.3s;
 }
 
 input:focus, textarea:focus {
     outline: none;
     border-color: var(--cian-acentos);
+    background-color: white;
 }
 
 /* ================= BOTÓN SUBIR IMAGEN (Amarillo) ================= */
@@ -127,11 +135,12 @@ input:focus, textarea:focus {
     font-weight: 600;
     cursor: pointer;
     transition: 0.3s;
+    border: none;
 }
 
 .file-upload:hover {
     background-color: #f7d633;
-    transform: scale(1.03);
+    transform: translateY(-2px);
 }
 
 /* ================= BOTÓN GUARDAR (Dinámico) ================= */
@@ -179,11 +188,16 @@ tr:nth-child(even) {
     background-color: var(--crema-fondo);
 }
 
+tr:hover {
+    background-color: rgba(0, 212, 240, 0.1);
+}
+
 /* ================= RESPONSIVE ================= */
-@media (max-width: 600px) {
+@media (max-width: 650px) {
     header {
         flex-direction: column;
         gap: 15px;
         text-align: center;
+        padding: 20px;
     }
 }
