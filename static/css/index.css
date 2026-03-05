@@ -150,7 +150,7 @@ main {
     background-color: rgba(255, 255, 255, 0.65);
     backdrop-filter: blur(6px);
     border-radius: 25px;
-    margin: 40px auto;
+    margin: 30px auto;
     padding: 30px;
     max-width: 1200px;
 }
@@ -209,7 +209,11 @@ section {
     border-radius: 15px; /* Bordes redondeados */
     margin-top: 20px; /* Separación superior */
 }
-
+.card-link{
+text-decoration: none;
+color: inherit;
+display: block;
+}
 .galeria-sabores {
     display: flex; /* Flex para alinear sabores */
     flex-wrap: wrap; /* Permite que se baje a otra línea */

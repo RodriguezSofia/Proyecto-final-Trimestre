@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Acerca de | Heladería Annia</title>
-    <link rel="stylesheet" href="../static/css/acerca_de_nosotros.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/acerca_de_nosotros.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
     <!-- Bootstrap -->
@@ -13,56 +13,59 @@
 </head>
 
 <body>
-<!-- ================= BARRA SUPERIOR ================= -->
-<div class="barra-navegacion d-flex justify-content-between align-items-center px-4 py-2">
-    <a href="{{ url_for('home') }}" class="logo-link">
-        <img src="{{ url_for('static', filename='img/logo.png') }}" 
-             alt="Logo Heladería Annia" class="logo">
-    </a>
+    <header class="header-fijo">
+    <!-- ================= BARRA SUPERIOR ================= -->
+    <div class="barra-navegacion d-flex justify-content-between align-items-center px-4 py-2">
+        <a href="{{ url_for('home') }}" class="logo-link">
+            <img src="{{ url_for('static', filename='img/logo.png') }}" 
+                alt="Logo Heladería Annia" class="logo">
+        </a>
 
-    <div class="d-flex gap-3 align-items-center">
-        {% if not session.get('usuario_nombre') %}
-            <a href="#" class="btn-registrarse">Registrarse</a>
-            <a href="#" class="btn-login">Iniciar sesión</a>
-        {% else %}
-            <span style="font-weight:bold; color:#147D7D; font-size:1.1em;">
-                Hola, {{ session['usuario_nombre'] }}
-            </span>
-            <a href="{{ url_for('logout') }}" class="btn btn-danger">Cerrar sesión</a>
-        {% endif %}
-    </div>
-</div>
-
-<!-- ================= MENÚ PRINCIPAL ================= -->
-<nav class="navbar navbar-expand-lg segunda-barra fixed-top">
-    <div class="container">
-        <button class="navbar-toggler" type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#navbarNav">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
-            <ul class="navbar-nav gap-lg-4 text-center">
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('home') }}">Inicio</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('menu') }}">Menú</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('acerca')}}">Acerca de</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('contacto') }}">Contacto</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('redes') }}">Redes</a>
-                </li>
-            </ul>
+        <div class="d-flex gap-3 align-items-center">
+            {% if not session.get('usuario_nombre') %}
+                <a href="{{ url_for('registro') }}" class="btn-registrarse">Registrarse</a>
+                <a href="{{ url_for('login') }}" class="btn-login">Iniciar sesión</a>
+            {% else %}
+                <span style="font-weight:bold; color:#147D7D; font-size:1.1em;">
+                    Hola, {{ session['usuario_nombre'] }}
+                </span>
+                <a href="{{ url_for('logout') }}" class="btn btn-danger">Cerrar sesión</a>
+            {% endif %}
         </div>
+
     </div>
-</nav>
+    <!-- ================= MENÚ PRINCIPAL ================= -->
+    <nav class="navbar navbar-expand-lg segunda-barra">
+        <div class="container">
+            <button class="navbar-toggler" type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+                <ul class="navbar-nav gap-lg-4 text-center">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('home') }}">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('menu') }}">Menú</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('acerca')}}">Acerca de</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('contacto') }}">Contacto</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('redes') }}">Redes</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    </header>
+
     <main>
         <section id="acerca">
             <h2>Acerca de Nosotros</h2>
@@ -70,13 +73,19 @@
 
             <p>Cada color y cada textura refleja la creatividad, el cariño y la dedicación que ponemos en cada preparación. Queremos ser parte de tus momentos felices y refrescantes.</p>
 
-            <img src="../static/img/equipo.png" alt="Equipo de la heladería Annia" class="imagen-equipo">
-        </section>
+            <img src="{{ url_for('static', filename='img/equipo.png') }}" alt="Equipo de la heladería Annia" class="imagen-equipo">
+            </section>
     </main>
-
+    <!-- BOTÓN FLOTANTE WHATSAPP -->
+    <a href="https://wa.me/573019283491?text=Hola%20quiero%20información%20sobre%20los%20helados%20"
+    class="whatsapp-float"
+    target="_blank">
+    <img src="{{ url_for('static', filename='img/whasap.jpg') }}" 
+            alt="WhatsApp" 
+            class="whatsapp-icon">
+    </a>
     <br><br>
-    <!-- script permite  añadir y ejecutar código de programación en el HTML -->
-     
+
     <script>   // ────────── Verifica si el usuario está logueado ──────────
         const usuarioLogueado = "{{ 'true' if session.get('usuario_nombre') else 'false' }}" === "true"
     </script>

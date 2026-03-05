@@ -14,6 +14,7 @@
 </head>
 
 <body>
+<header class="header-fijo">
 <!-- ================= BARRA SUPERIOR ================= -->
 <div class="barra-navegacion d-flex justify-content-between align-items-center px-4 py-2">
     <a href="{{ url_for('home') }}" class="logo-link">
@@ -23,8 +24,8 @@
 
     <div class="d-flex gap-3 align-items-center">
         {% if not session.get('usuario_nombre') %}
-            <a href="#" class="btn-registrarse">Registrarse</a>
-            <a href="#" class="btn-login">Iniciar sesión</a>
+            <a href="{{ url_for('registro') }}" class="btn-registrarse">Registrarse</a>
+            <a href="{{ url_for('login') }}" class="btn-login">Iniciar sesión</a>
         {% else %}
             <span style="font-weight:bold; color:#147D7D; font-size:1.1em;">
                 Hola, {{ session['usuario_nombre'] }}
@@ -35,7 +36,7 @@
 </div>
 
 <!-- ================= MENÚ PRINCIPAL ================= -->
-<nav class="navbar navbar-expand-lg segunda-barra fixed-top">
+<nav class="navbar navbar-expand-lg segunda-barra">
     <div class="container">
         <button class="navbar-toggler" type="button"
                 data-bs-toggle="collapse"
@@ -64,7 +65,7 @@
         </div>
     </div>
 </nav>
-
+</header>
     <script>
         const usuarioLogueado = "{{ 'true' if session.get('usuario_nombre') else 'false' }}" === "true"
     </script>
@@ -140,6 +141,14 @@
             </div>
         </section>
     </main>
+    <!-- BOTÓN FLOTANTE WHATSAPP -->
+    <a href="https://wa.me/573019283491?text=Hola%20quiero%20información%20sobre%20los%20helados%20"
+    class="whatsapp-float"
+    target="_blank">
+    <img src="{{ url_for('static', filename='img/whasap.jpg') }}" 
+            alt="WhatsApp" 
+            class="whatsapp-icon">
+    </a>
 
     <footer>
         <p>&copy; 2025 Heladería Annia. Todos los derechos reservados.</p>
