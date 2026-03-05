@@ -26,64 +26,108 @@
         <div class="input-box password-container">
             <input type="password" id="contrasena" placeholder="Contraseña" required>
             <i class="fas fa-lock"></i>
-            
         </div>
         
         <div class="input-box password-container">
             <input type="password" id="confirmar-contrasena" placeholder="Confirmar contraseña" required>
             <i class="fas fa-lock"></i>
-            
         </div>
+  
+        <!-- Dirección -->
+        <div class="input-box">
+            <input type="text" id="direccion" placeholder="Dirección * (para envío o contacto)" required>
+            <i class="fas fa-home"></i>
+        </div>
+
+        <!-- Teléfono -->
+        <div class="input-box">
+            <input type="text" id="telefono" placeholder="Teléfono * (para contactarte)" required>
+            <i class="fas fa-phone"></i>
+        </div>
+
+        <!-- Ciudad (solo Palmira) -->
+        <select id="ciudad" required>
+            <option value="" disabled selected hidden>Selecciona tu ciudad *</option>
+            <option value="76520">Palmira</option> <!-- Id_ciudad de Palmira en tu BD -->
+        </select>
         
         <button class="btn" type="submit" onclick="registro()">Registrarse</button>
         
         <div class="register-link">
-            <p>¿Ya tienes una cuenta? <a href="/login">Iniciar Sesion</p>
+            <p>¿Ya tienes una cuenta? <a href="/login">Iniciar Sesion</a></p>
         </div>
     </div>
 
     <script>
-        //  Función para manejar el registro
-function registro() {
-    const nombre = document.getElementById('nombre').value;
-    const email = document.getElementById('email').value;
-    const contrasena = document.getElementById('contrasena').value;
-    const confirmarContrasena = document.getElementById('confirmar-contrasena').value;
-    //  Validar que las contraseñas coincidan
-    if (contrasena !== confirmarContrasena) {
-        alert('Las contraseñas no coinciden');
-        return;
-    }
-    //  Preparar los datos para enviar al servidor
-    const datos = {
-        nombre_completo: nombre,
-        correo: email,
-        contrasena: contrasena,
-        confirmar_contrasena: confirmarContrasena
-    };
-    //  Enviar la solicitud al servidor
-    fetch('/registro', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(datos)
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.error) {
-            alert('Error: ' + data.error);
-        } else {
-            alert('Usuario registrado exitosamente: ID ' + data.id_usuario);
-            window.location.href = '/login';
+        function registro() {
+            const nombre = document.getElementById('nombre').value.trim();
+            const correo = document.getElementById('email').value.trim();
+            const contrasena = document.getElementById('contrasena').value.trim();
+            const confirmarContrasena = document.getElementById('confirmar-contrasena').value.trim();
+            const direccion = document.getElementById('direccion').value.trim();
+            const telefono = document.getElementById('telefono').value.trim();
+            const Id_ciudad = document.getElementById('ciudad').value.trim();
+            if (!Id_ciudad) {
+                alert('Debes seleccionar tu ciudad');
+                return;
+            }
+
+            // Validar campos vacíos
+            if (!nombre || !correo || !contrasena || !confirmarContrasena || !direccion || !telefono || !Id_ciudad) {
+                alert('Todos los campos son obligatorios');
+                return;
+            }
+
+            // Validar contraseñas
+            if (contrasena !== confirmarContrasena) {
+                alert('Las contraseñas no coinciden');
+                return;
+            }
+
+            // Debug: verificar valores antes de enviar
+            console.log("Datos que se enviarán:", {
+                nombre_completo: nombre,
+                correo: correo,
+                contrasena: contrasena,
+                direccion: direccion,
+                telefono: telefono,
+                Id_ciudad: Id_ciudad
+            });
+
+            // Preparar datos para enviar al backend
+            const datos = {
+                nombre_completo: nombre,
+                correo: correo,
+                contrasena: contrasena,
+                confirmar_contrasena: confirmarContrasena, // Si tu backend lo necesita
+                direccion: direccion,
+                telefono: telefono,
+                Id_ciudad: Id_ciudad
+            };
+
+            console.log("Datos enviados al backend:", datos);
+
+            // Enviar al backend
+            fetch('/registro', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(datos)
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.error) {
+                    alert('Error: ' + data.error);
+                } else {
+                    alert('Usuario registrado exitosamente');
+                    window.location.href = '/login';
+                }
+            })
+            .catch(err => {
+                console.error('Error en la petición:', err);
+                alert('Hubo un error al registrarse');
+            });
         }
-    })
-    .catch(error => {
-        console.error('Error en la petición:', error);
-        alert('Hubo un error al registrarse');
-    });
-}
-</script>
+    </script>
 
 </body>
 </html>

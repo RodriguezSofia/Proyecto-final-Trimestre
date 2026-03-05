@@ -677,8 +677,12 @@ def registro():
     correo = datos.get('correo', '').strip()
     contrasena = datos.get('contrasena', '').strip()
     confirmar_contrasena = datos.get('confirmar_contrasena', '').strip()
+    direccion = datos.get('direccion', '').strip()
+    telefono = datos.get('telefono', '').strip()
+    id_ciudad = datos.get('Id_ciudad', '').strip()
 
-    if not nombre or not correo or not contrasena:
+    # Validaciones
+    if not all([nombre, correo, contrasena, confirmar_contrasena, direccion, telefono, id_ciudad]):
         return jsonify({'error': 'Todos los campos son obligatorios'}), 400
 
     if contrasena != confirmar_contrasena:
@@ -693,22 +697,23 @@ def registro():
     try:
         cursor = conexion.cursor()
 
+        # Verificar si el correo ya existe
         cursor.execute('SELECT * FROM public."Usuarios" WHERE "correo_usuario" = %s;', (correo,))
         if cursor.fetchone():
             cursor.close()
             conexion.close()
             return jsonify({'error': 'El correo ya está registrado'}), 400
 
+        # Insertar el usuario con todos los datos
         cursor.execute("""
             INSERT INTO public."Usuarios"
-            ("Nombre_completo_usuario", "correo_usuario", "password", "Id_tipo")
-            VALUES (%s, %s, %s, %s)
+            ("Nombre_completo_usuario", "correo_usuario", "password", direccion, telefono, "Id_ciudad", "Id_tipo")
+            VALUES (%s, %s, %s, %s, %s, %s, %s)
             RETURNING "Id_usuario";
-        """, (nombre, correo, password_hash, 3))
+        """, (nombre, correo, password_hash, direccion, telefono, id_ciudad, 3))
 
         nuevo_id = cursor.fetchone()[0]
         conexion.commit()
-
         cursor.close()
         conexion.close()
 
