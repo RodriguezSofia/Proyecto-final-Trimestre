@@ -1,41 +1,44 @@
 /* ================= VARIABLES (Paleta Helados + Estilo Imagen) ================= */
 :root {
-    --rosa-principal: #f7a8c6;      /* Color de fondo del header según tu imagen */
-    --rosa-boton: #f9b6cf;         /* Rosa ligeramente más intenso para el botón */
+    --rosa-principal: #f7a8c6;
+    --rosa-boton: #f9b6cf;
     --rosa-claro: #F4A7BB;
     --blanco-puro: #ffffff;
     --crema-fondo: #F1F9F8;
     --cian-acentos: #00D4F0;
     --naranja-toppings: #FFCE4B;
     --menta-sabores: #66E0A3;
-    --chocolate-texto: #6E462D;    /* Marrón para el contenido general */
-    --negro-boton: #000000;        /* Texto negro para el botón "Volver" */
+    --chocolate-texto: #6E462D;
+    --negro-boton: #000000;
 }
 
 /* ================= RESET BASE ================= */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
 body {
     font-family: 'Quicksand', 'Poppins', sans-serif;
     background-color: var(--crema-fondo);
     color: var(--chocolate-texto);
-    margin: 0;
-    padding: 0;
     line-height: 1.6;
 }
 
-/* ================= HEADER (ESTILO EXACTO A LA IMAGEN) ================= */
+/* ================= HEADER ================= */
 header {
     background-color: var(--rosa-principal);
     color: white;
-    padding: 20px 5%; 
+    padding: 20px 5%;
     position: sticky;
     top: 0;
     z-index: 1000;
-    
-    /* Alineación: Título a la izquierda, Botón a la derecha */
+
     display: flex;
-    justify-content: space-between; 
+    justify-content: space-between;
     align-items: center;
-    
+
     border-bottom: 2px solid #fcf7f7ef;
     box-shadow: 0 4px 10px rgba(0,0,0,0.05);
 }
@@ -46,8 +49,7 @@ header h1 {
     font-weight: 700;
 }
 
-/* ================= BOTÓN VOLVER  ================= */
-/* Botón volver */
+/* ================= BOTÓN VOLVER ================= */
 .button-volver {
     background: linear-gradient(135deg, #5ed6c3, #4bb8c4);
     color: white;
@@ -63,18 +65,20 @@ header h1 {
     transform: translateY(-3px);
     box-shadow: 0 10px 20px rgba(94, 214, 195, 0.6);
 }
+
 /* ================= MAIN Y CONTENIDO ================= */
 main {
-    padding: 40px 20px;
-    max-width: 900px;
+    padding: 40px 15px; 
+    max-width: 1200px; 
     margin: 0 auto;
 }
 
+/* ================= TARJETA REPORTE ================= */
 .reporte {
     background-color: var(--blanco-puro);
     border-radius: 20px;
     box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-    padding: 30px;
+    padding: 25px;
     margin-bottom: 30px;
 }
 
@@ -110,7 +114,7 @@ main {
     transition: width 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-/* Colores Dinámicos de las Barras */
+/* ================= COLORES DE BARRAS ================= */
 .color0 .barra-llenada { background-color: var(--rosa-principal); }
 .color1 .barra-llenada { background-color: var(--rosa-claro); }
 .color2 .barra-llenada { background-color: var(--naranja-toppings); }
@@ -126,18 +130,29 @@ main {
 
 /* ================= RESPONSIVE ================= */
 @media (max-width: 600px) {
+
     header {
         flex-direction: column;
         gap: 15px;
         text-align: center;
     }
-    
+
+    main{
+        padding:30px 12px;
+    }
+
     .barra-estadistica {
         flex-direction: column;
         align-items: flex-start;
     }
-    
+
     .barra-fondo {
         margin: 10px 0;
+        width:100%;
     }
+
+    .nombre{
+        width:100%;
+    }
+
 }

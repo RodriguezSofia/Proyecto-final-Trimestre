@@ -1,14 +1,14 @@
 /* ================= VARIABLES (Ajustadas a la Imagen) ================= */
 :root {
-    --rosa-fondo-header: #f7a8c6;   /* El rosa del fondo */
-    --rosa-boton: #f9b6cf;          /* El rosa del botón (un poco más claro/vivo) */
+    --rosa-fondo-header: #f7a8c6;   
+    --rosa-boton: #f9b6cf;          
     --blanco-puro: #ffffff;
     --crema-fondo: #F1F9F8;
     --cian-acentos: #00D4F0;
     --naranja-toppings: #FFCE4B;
     --menta-sabores: #66E0A3;
     --chocolate-texto: #6E462D;
-    --negro-texto-boton: #1a1a1a;   /* El texto en la imagen es casi negro */
+    --negro-texto-boton: #1a1a1a;   
 }
 
 /* ================= RESET ================= */
@@ -16,7 +16,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Quicksand', sans-serif; /* Fuente redondeada como la imagen */
+    font-family: 'Quicksand', sans-serif;
 }
 
 body {
@@ -24,7 +24,7 @@ body {
     color: var(--chocolate-texto);
 }
 
-/* ================= HEADER (ESTILO IMAGEN) ================= */
+/* ================= HEADER ================= */
 header {
     background-color: var(--rosa-fondo-header);
     padding: 15px 40px;
@@ -34,7 +34,7 @@ header {
     position: sticky;
     top: 0;
     z-index: 1000;
-    border-bottom: 2px solid rgba(255, 255, 255, 0.3); /* Línea sutil blanca */
+    border-bottom: 2px solid rgba(255, 255, 255, 0.3);
 }
 
 header h1 {
@@ -43,7 +43,7 @@ header h1 {
     font-weight: 700;
 }
 
-
+/* ================= BOTON VOLVER ================= */
 .button-volver {
     background: linear-gradient(135deg, #5ed6c3, #4bb8c4);
     color: white;
@@ -60,27 +60,28 @@ header h1 {
     box-shadow: 0 10px 20px rgba(94, 214, 195, 0.6);
 }
 
-
 header a:hover {
     background-color: var(--blanco-puro);
     transform: scale(1.03);
     box-shadow: 0 0 20px 4px rgba(255, 255, 255, 0.9);
 }
 
-/* ================= TABLA Y CONTENIDO ================= */
+/* ================= CONTENEDOR ================= */
 .contenedor {
-    max-width: 1000px;
+    max-width: 1200px; 
     margin: 40px auto;
-    padding: 0 20px;
+    padding: 0 10px; 
 }
 
+/* ================= CARD ================= */
 .card {
     background-color: var(--blanco-puro);
     border-radius: 20px;
-    padding: 30px;
+    padding: 25px;
     box-shadow: 0 10px 25px rgba(0,0,0,0.05);
 }
 
+/* ================= TABLA ================= */
 .tabla-wrapper {
     overflow-x: auto;
     margin-top: 20px;
@@ -109,5 +110,5 @@ td {
 }
 
 tr:hover {
-    background-color: #fff0f5; /* Un rosa muy sutil al pasar el mouse */
+    background-color: #fff0f5;
 }
