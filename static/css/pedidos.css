@@ -1,7 +1,32 @@
+/* =========================
+   BOTONES HEADER
+========================= */
+
+.botones-header {
+    display: flex;
+    gap: 15px;
+}
+
+/* Botón volver */
+.button-volver {
+    background: linear-gradient(135deg, #5ed6c3, #4bb8c4);
+    color: white;
+    padding: 10px 22px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 600;
+    box-shadow: 0 6px 15px rgba(94, 214, 195, 0.4);
+    transition: 0.3s ease-in-out;
+}
+
+.button-volver:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(94, 214, 195, 0.6);
+}
 /* ================= VARIABLES ================= */
 :root {
-    --rosa-principal: #f7a8c6;      /* Fondo barra superior */
-    --rosa-boton: #f9b6cf;         /* Rosa del botón */
+    --rosa-principal: #f7a8c6;
+    --rosa-boton: #f9b6cf;
     --blanco-puro: #ffffff;
     --crema-fondo: #F1F9F8;
     --cian-acentos: #00D4F0;
@@ -30,7 +55,7 @@ header {
     background-color: var(--rosa-principal);
     padding: 15px 5%;
     display: flex;
-    justify-content: space-between; /* Título a la izq, Botón a la der */
+    justify-content: space-between;
     align-items: center;
     position: sticky;
     top: 0;
@@ -45,35 +70,65 @@ header h1 {
     font-weight: 700;
 }
 
-/* ===== BOTÓN VOLVER (ESTILO IMAGEN) ===== */
-.button-volver {
-    background-color: var(--rosa-boton);
-    color: var(--negro-boton);
-    text-decoration: none;
-    font-weight: 500;
-    padding: 10px 25px;
-    border-radius: 50px;
+/* ===== CONTENEDOR PRINCIPAL (ESPACIADO EXTERIOR) ===== */
+.main-content {
+    /* Esto separa la tabla de la barra superior (50px) y de los lados (5%) */
+    padding: 50px 5%; 
+    width: 100%;
+    max-width: 1300px;
+    margin: 0 auto; /* Centra el bloque en pantallas grandes */
+}
+
+/* ===== TARJETA DE LA TABLA (ESPACIADO INTERIOR) ===== */
+.tabla-contenedor {
+    background: var(--blanco-puro);
+    /* El padding interno hace que la tabla no toque los bordes blancos */
+    padding: 30px; 
+    border-radius: 25px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+/* ===== ESTILOS DE TABLA ===== */
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+thead {
+    background-color: var(--cian-acentos);
+}
+
+/* Curvas suaves para el encabezado azul */
+th:first-child { border-radius: 12px 0 0 12px; }
+th:last-child { border-radius: 0 12px 12px 0; }
+
+th {
+    color: white;
+    padding: 15px;
+    text-transform: uppercase;
+    font-size: 13px;
+    text-align: left;
+}
+
+td {
+    padding: 15px;
+    border-bottom: 1px solid #f8f8f8;
     font-size: 15px;
-    display: inline-flex;
-    align-items: center;
-    transition: all 0.3s ease;
-    /* Resplandor blanco de la imagen */
-    box-shadow: 0 0 15px 2px rgba(255, 255, 255, 0.8);
 }
 
-.button-volver:hover {
-    background-color: var(--blanco-puro);
-    color: var(--rosa-principal);
-    transform: translateY(-2px);
-    box-shadow: 0 0 20px 4px rgba(255, 255, 255, 1);
+/* Hover suave en filas */
+tbody tr:hover {
+    background-color: #f0fdfc;
 }
 
-/* ===== BOTÓN VER DETALLE (DENTRO DE LA TABLA) ===== */
+/* ===== BOTÓN VER DETALLE ===== */
 .btn-accion {
     background-color: var(--menta-sabores);
     color: white;
     border: none;
-    padding: 6px 15px;
+    padding: 8px 18px;
     border-radius: 8px;
     cursor: pointer;
     font-weight: 600;
@@ -85,58 +140,14 @@ header h1 {
     transform: scale(1.05);
 }
 
-/* ===== TABLA CONTENEDOR ===== */
-.tabla-contenedor {
-    background: var(--blanco-puro);
-    padding: 25px;
-    border-radius: 20px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-    margin: 40px auto;
-    max-width: 1000px;
-}
+/* ===== RESPONSIVE PARA CELULARES ===== */
+@media (max-width: 768px) {
+    .main-content {
+        padding: 20px 3%; /* Menos espacio en móvil para aprovechar la pantalla */
+    }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-    border-radius: 15px;
-    overflow: hidden;
-}
-
-thead {
-    background-color: var(--cian-acentos);
-}
-
-th {
-    color: white;
-    text-transform: uppercase;
-    padding: 15px;
-    font-size: 13px;
-    text-align: left;
-}
-
-td {
-    padding: 14px;
-    border-bottom: 1px solid #f0f0f0;
-}
-
-tbody tr:nth-child(even) {
-    background-color: #fafafa;
-}
-
-/* ===== DETALLE PEDIDO ===== */
-.detalle-tabla {
-    width: 100%;
-    margin: 10px 0;
-    border-radius: 10px;
-}
-
-.detalle-tabla th {
-    background-color: var(--naranja-toppings);
-    color: var(--chocolate-texto);
-}
-
-.empty {
-    text-align: center;
-    padding: 30px;
-    opacity: 0.6;
+    .tabla-contenedor {
+        padding: 15px;
+        overflow-x: auto; /* Permite scroll horizontal si la tabla es muy ancha */
+    }
 }

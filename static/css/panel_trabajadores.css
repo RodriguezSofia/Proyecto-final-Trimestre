@@ -65,17 +65,6 @@ header h1 {
     padding: 40px; /* Espaciado interno */
 }
 
-/* === EFECTO MÁQUINA DE ESCRIBIR === */
-.typewriter {
-    color: #bb65dd; /* Color del texto */
-    display: inline-block; /* Mostrar en línea como bloque */
-    overflow: hidden; /* Ocultar el texto que se desborda */
-    white-space: nowrap; /* Evita que el texto se divida en varias líneas */
-    border-right: 3px solid currentColor; /* Línea tipo cursor */
-    width: 0; /* Inicialmente ancho cero */
-    animation: escribir 3s steps(20) forwards, /* Animación para revelar texto */
-               cursor 0.7s step-end 3s forwards; /* Animación del cursor */
-}
 
 /* Animación que hace aparecer el texto letra por letra */
 @keyframes escribir {

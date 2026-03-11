@@ -43,24 +43,23 @@ header h1 {
     font-weight: 700;
 }
 
-/* ================= EL BOTÓN EXACTO DE LA IMAGEN ================= */
-header a, .button-volver {
-    background-color: var(--rosa-boton);
-    color: var(--negro-texto-boton);
+
+.button-volver {
+    background: linear-gradient(135deg, #5ed6c3, #4bb8c4);
+    color: white;
+    padding: 10px 22px;
+    border-radius: 25px;
     text-decoration: none;
-    font-weight: 500;
-    padding: 10px 30px;
-    border-radius: 50px; /* Redondeado total */
-    font-size: 16px;
-    display: inline-flex;
-    align-items: center;
-    border: none;
-    
-    /* EFECTO CLAVE: Sombra blanca difuminada (Resplandor) */
-    box-shadow: 0 0 15px 2px rgba(255, 255, 255, 0.7); 
-    
-    transition: all 0.3s ease;
+    font-weight: 600;
+    box-shadow: 0 6px 15px rgba(94, 214, 195, 0.4);
+    transition: 0.3s ease-in-out;
 }
+
+.button-volver:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(94, 214, 195, 0.6);
+}
+
 
 header a:hover {
     background-color: var(--blanco-puro);

@@ -1,15 +1,14 @@
-/* ================= VARIABLES (Paleta de Helados + Ajuste Imagen) ================= */
+/* ================= VARIABLES (Tus colores originales) ================= */
 :root {
-    --rosa-principal: #f7a8c6;      /* Rosa del fondo del header (Imagen) */
-    --rosa-boton: #f9b6cf;         /* Rosa para el botón (Imagen) */
-    --rosa-claro: #F4A7BB;
+    --rosa-principal: #f7a8c6;
+    --rosa-boton: #f9b6cf;
     --blanco-puro: #ffffff;
     --crema-fondo: #F1F9F8;
     --cian-acentos: #00D4F0;
     --naranja-toppings: #FFCE4B;
     --menta-sabores: #66E0A3;
     --chocolate-texto: #6E462D;
-    --negro-texto-boton: #1a1a1a;   /* Texto oscuro para el botón */
+    --negro-texto-boton: #1a1a1a;
 }
 
 /* ================= RESET ================= */
@@ -17,88 +16,74 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Quicksand', 'Poppins', sans-serif; /* Quicksand para el estilo redondeado */
+    font-family: 'Quicksand', 'Poppins', sans-serif;
 }
 
 body {
     background-color: var(--crema-fondo);
     color: var(--chocolate-texto);
-    line-height: 1.6;
+    min-height: 100vh;
 }
 
-/* ================= HEADER (ESTILO EXACTO A TU IMAGEN) ================= */
+/* ================= HEADER (Igual a tus fotos) ================= */
 header {
     background-color: var(--rosa-principal);
-    color: white;
-    padding: 20px 40px;
+    padding: 15px 5%;
     display: flex;
-    justify-content: space-between; /* Alinea título a la izquierda y botón a la derecha */
+    justify-content: space-between;
     align-items: center;
     position: sticky;
     top: 0;
     z-index: 1000;
-    border-bottom: 2px solid rgba(255, 255, 255, 0.3);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
 }
 
 header h1 {
+    color: white;
     font-size: 24px;
     font-weight: 700;
 }
 
-/* 💊 EL BOTÓN EXACTO DE LA IMAGEN (CON RESPLANDOR) */
-header a {
-    background-color: var(--rosa-boton);
-    color: var(--negro-texto-boton);
-    text-decoration: none;
-    font-weight: 500;
-    padding: 10px 30px;
-    border-radius: 50px; /* Píldora perfecta */
-    font-size: 16px;
-    display: inline-flex;
-    align-items: center;
-    transition: all 0.3s ease;
-    border: none;
-    
-    /* EFECTO DE RESPLANDOR BLANCO (Igual a la captura) */
-    box-shadow: 0 0 15px 2px rgba(255, 255, 255, 0.8);
-}
+/* ================= BOTÓN VOLVER ================= */
 
-header a:hover {
-    background-color: var(--blanco-puro);
-    color: var(--rosa-principal);
-    transform: translateY(-2px);
-    box-shadow: 0 0 20px 4px rgba(255, 255, 255, 1);
-}
-
-/* ================= SECCIÓN TÍTULO (Fondo Rosa) ================= */
-.seccion-encabezado {
-    background-color: var(--rosa-principal);
+/* Botón volver */
+.button-volver {
+    background: linear-gradient(135deg, #5ed6c3, #4bb8c4);
     color: white;
-    padding: 40px 0 80px 0;
-    text-align: center;
+    padding: 10px 22px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 600;
+    box-shadow: 0 6px 15px rgba(94, 214, 195, 0.4);
+    transition: 0.3s ease-in-out;
 }
 
-/* ================= CONTENEDOR Y TARJETAS ================= */
+.button-volver:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(94, 214, 195, 0.6);
+}
+/* ================= EL CONTENEDOR (LA CLAVE DEL ESPACIO) ================= */
+/* Aquí usamos la clase 'contenedor' que tienes en tu HTML */
 .contenedor {
-    max-width: 900px;
-    margin: -50px auto 40px; 
-    padding: 0 20px;
+    padding: 60px 8%; /* 60px para despegar de la barra rosa y 8% para los lados */
+    max-width: 1400px;
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    gap: 40px; /* Espacio entre las secciones de Productos, Sabores y Toppings */
 }
 
-section, .card {
-    background-color: white;
-    border-radius: 20px;
-    padding: 30px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+/* ================= TARJETAS BLANCAS ================= */
+section {
+    background-color: var(--blanco-puro);
+    padding: 40px;       /* Espacio interno para que el contenido no toque los bordes */
+    border-radius: 25px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
 }
 
 section h2 {
     color: var(--rosa-principal);
-    margin-bottom: 20px;
+    margin-bottom: 25px;
+    font-size: 22px;
 }
 
 /* ================= FORMULARIOS ================= */
@@ -106,68 +91,54 @@ form {
     display: flex;
     flex-direction: column;
     gap: 15px;
+    margin-bottom: 30px;
 }
 
-input[type="text"],
-input[type="number"],
-textarea {
-    padding: 12px;
+input, textarea {
+    padding: 14px;
+    border: 2px solid #f0f0f0;
     border-radius: 12px;
-    border: 2px solid #eee;
-    font-size: 0.95em;
     background-color: #fafafa;
-    transition: 0.3s;
+    font-size: 15px;
 }
 
-input:focus, textarea:focus {
-    outline: none;
-    border-color: var(--cian-acentos);
-    background-color: white;
-}
-
-/* ================= BOTÓN SUBIR IMAGEN (Amarillo) ================= */
+/* Tu botón amarillo de imagen */
 .file-upload {
-    display: inline-flex;
     background-color: var(--naranja-toppings);
     color: var(--chocolate-texto);
     padding: 12px 20px;
     border-radius: 12px;
-    font-weight: 600;
+    font-weight: 700;
     cursor: pointer;
-    transition: 0.3s;
-    border: none;
+    text-align: center;
+    display: inline-block;
 }
 
-.file-upload:hover {
-    background-color: #f7d633;
-    transform: translateY(-2px);
-}
+.file-upload input { display: none; }
 
-/* ================= BOTÓN GUARDAR (Dinámico) ================= */
+/* Tu botón rosa de guardar */
 button[type="submit"] {
     background-color: var(--rosa-principal);
     color: white;
-    border: none;
-    padding: 15px;
+    padding: 16px;
     border-radius: 15px;
-    font-size: 1em;
-    font-weight: 600;
+    border: none;
+    font-weight: 700;
+    font-size: 16px;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: 0.3s;
 }
 
 button[type="submit"]:hover {
     background-color: var(--menta-sabores);
-    transform: scale(1.02);
 }
 
-/* ================= TABLAS (Azul/Cian) ================= */
+/* ================= TABLA CIAN (Estilo Pedidos) ================= */
 table {
     width: 100%;
-    border-collapse: collapse;
+    border-collapse: separate;
+    border-spacing: 0;
     margin-top: 15px;
-    border-radius: 15px;
-    overflow: hidden;
 }
 
 th {
@@ -175,29 +146,28 @@ th {
     color: white;
     padding: 15px;
     text-align: left;
-    text-transform: uppercase;
-    font-size: 0.85em;
 }
+
+/* Bordes redondeados del encabezado azul como en tu foto */
+th:first-child { border-radius: 12px 0 0 12px; }
+th:last-child { border-radius: 0 12px 12px 0; }
 
 td {
-    padding: 12px 15px;
-    border-bottom: 1px solid #f0f0f0;
-}
-
-tr:nth-child(even) {
-    background-color: var(--crema-fondo);
+    padding: 15px;
+    border-bottom: 1px solid #f8f8f8;
 }
 
 tr:hover {
-    background-color: rgba(0, 212, 240, 0.1);
+    background-color: #f0fdfc;
 }
 
-/* ================= RESPONSIVE ================= */
-@media (max-width: 650px) {
-    header {
-        flex-direction: column;
-        gap: 15px;
-        text-align: center;
-        padding: 20px;
-    }
+/* Estilo para las listas de sabores/toppings */
+ul {
+    list-style: none;
+    margin-top: 15px;
+}
+
+li {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
 }

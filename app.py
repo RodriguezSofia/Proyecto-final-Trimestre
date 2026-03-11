@@ -354,8 +354,7 @@ def admin_pedidos():
 
 @app.route('/admin/productos')
 def admin_productos():
-    if "usuario_id" not in session or session.get("usuario_tipo") != 1:
-        return redirect(url_for('login'))
+   
 
     conexion = conectar_bd()
     cursor = conexion.cursor(cursor_factory=RealDictCursor)
@@ -629,9 +628,9 @@ def admin_trabajadores():
 # PANEL TRABAJADORES
 # ======================================================
 
-@app.route('/panel_trabajadores')
+@app.route('/trabajador/panel_trabajadores')
 def panel_trabajadores():
-    return render_template('panel_trabajadores.html')
+    return render_template('/trabajador/panel_trabajadores.html')
 
 
 

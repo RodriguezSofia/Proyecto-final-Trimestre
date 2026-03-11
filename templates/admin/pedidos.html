@@ -13,9 +13,9 @@
     <h1>Pedidos</h1>
     
     {% if session['usuario_tipo'] == 1 %}
-        <a href="{{ url_for('admin_panel') }}" class="button-volver">← Volver al Panel</a>
+        <a href="{{ url_for('admin_panel') }}" class="button-volver"> Volver al Panel</a>
     {% elif session['usuario_tipo'] == 2 %}
-        <a href="{{ url_for('panel_trabajadores') }}" class="button-volver">← Volver al Panel</a>
+        <a href="{{ url_for('panel_trabajadores') }}" class="button-volver"> Volver al Panel</a>
     {% endif %}
 </header>
 

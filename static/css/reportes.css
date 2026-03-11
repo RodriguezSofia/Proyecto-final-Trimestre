@@ -46,31 +46,23 @@ header h1 {
     font-weight: 700;
 }
 
-/* ================= BOTÓN VOLVER (CON RESPLANDOR BLANCO) ================= */
+/* ================= BOTÓN VOLVER  ================= */
+/* Botón volver */
 .button-volver {
-    background-color: var(--rosa-boton);
-    color: var(--negro-boton);
-    font-weight: 500;
+    background: linear-gradient(135deg, #5ed6c3, #4bb8c4);
+    color: white;
+    padding: 10px 22px;
+    border-radius: 25px;
     text-decoration: none;
-    padding: 10px 30px;
-    border-radius: 50px; /* Forma de píldora */
-    
-    /* Resplandor blanco difuminado como en la imagen */
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.8); 
-    
-    transition: all 0.3s ease;
-    display: inline-flex;
-    align-items: center;
-    font-size: 16px;
+    font-weight: 600;
+    box-shadow: 0 6px 15px rgba(94, 214, 195, 0.4);
+    transition: 0.3s ease-in-out;
 }
 
 .button-volver:hover {
-    background-color: var(--blanco-puro);
-    color: var(--rosa-principal);
-    transform: translateY(-2px);
-    box-shadow: 0 0 20px rgba(255, 255, 255, 1);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(94, 214, 195, 0.6);
 }
-
 /* ================= MAIN Y CONTENIDO ================= */
 main {
     padding: 40px 20px;
