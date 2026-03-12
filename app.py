@@ -105,56 +105,78 @@ def menu():
         print("Error cargando menú:", e)
         return "Error interno cargando menú", 500
 
-# ======================================================
-# RUTA PARA GENERAR FACTURA 
-# ======================================================
 @app.route('/confirmar_pedido', methods=['GET', 'POST'])
 def confirmar_pedido():
     id_usuario = session.get("usuario_id")
     if not id_usuario:
         return redirect(url_for('login'))
 
-    if request.method == 'POST': # Recibe los datos del formulario para crear la factura y el detalle de la factura.
+    if request.method == 'POST':
         nombre_destinatario = request.form.get("nombre_destinatario")
         direccion = request.form.get("direccion")
         id_metodo = request.form.get("metodo_pago")
 
-        if not nombre_destinatario or not direccion: # Verifica que se hayan proporcionado el nombre del destinatario y la dirección de envío. Si falta alguno de estos datos, devuelve un error 400 indicando que los datos de envío son incompletos.
+        if not nombre_destinatario or not direccion:
             return "Datos de envío incompletos", 400
 
-        # Construir el carrito a partir de los datos del formulario. Se espera que los datos del carrito se envíen con un formato específico, donde cada producto tiene un índice (carrito[0], carrito[1], etc.) y dentro de cada producto se incluyen los ids de los sabores seleccionados y el precio.
-        carrito = []
+        carrito_detalles = [] # Lista para el HTML
+        total_acumulado = 0
+        carrito_procesar = []
         index = 0
-        while True: 
-            prefix = f"carrito[{index}]"
-            id_producto = request.form.get(f"{prefix}[id_producto]")
-            if not id_producto:
-                break
-
-            # Obtener los ids de los sabores
-            sabores_ids = request.form.getlist(f"{prefix}[sabores]")
-            if not sabores_ids:
-                return f"Producto {id_producto} sin sabores seleccionados", 400
-
-            # Convertir a enteros
-            sabores_ids = [int(s) for s in sabores_ids]
-
-            precio = float(request.form.get(f"{prefix}[precio]"))
-            carrito.append({
-                "id_producto": int(id_producto),
-                "sabores": sabores_ids,
-                "precio": precio
-            })
-            index += 1
-
-        if not carrito:
-            return "Carrito vacío", 400
-
+        
         try:
             conexion = conectar_bd()
-            cursor = conexion.cursor()
+            # Usamos RealDictCursor para manejar nombres de columnas fácilmente
+            cursor = conexion.cursor(cursor_factory=RealDictCursor)
 
-            # Insertar factura
+# --- PROCESAR FORMULARIO Y OBTENER NOMBRES ---
+            while True: 
+                prefix = f"carrito[{index}]"
+                id_producto = request.form.get(f"{prefix}[id_producto]")
+                if not id_producto:
+                    break
+
+                precio = float(request.form.get(f"{prefix}[precio]"))
+                
+                # 1. Obtenemos los IDs de los sabores desde el formulario
+                sabores_ids = [int(s) for s in request.form.getlist(f"{prefix}[sabores]")]
+
+                # 2. NUEVO: Buscamos los NOMBRES de esos sabores en la BD
+                nombres_sabores = []
+                if sabores_ids:
+                    for s_id in sabores_ids:
+                        cursor.execute('SELECT "Nombre_sabor" FROM public."Sabor" WHERE "Id_sabor" = %s', (s_id,))
+                        sabor_info = cursor.fetchone()
+                        if sabor_info:
+                            nombres_sabores.append(sabor_info["Nombre_sabor"])
+                
+                # Convertimos la lista de nombres en un solo texto separado por comas
+                texto_sabores = ", ".join(nombres_sabores) if nombres_sabores else "Selección de la casa"
+
+                # 3. Buscamos el nombre del producto
+                cursor.execute('SELECT "Nombre_producto" FROM public."Productos" WHERE "Id_producto" = %s', (id_producto,))
+                producto_info = cursor.fetchone()
+                nombre_p = producto_info["Nombre_producto"] if producto_info else "Helado Personalizado"
+
+                # 4. ACTUALIZADO: Guardamos 'sabores' en el diccionario para el HTML
+                carrito_detalles.append({
+                    "nombre": nombre_p,
+                    "cantidad": 1,
+                    "precio_total": precio,
+                    "sabores": texto_sabores  # <-- Esto es lo que leerá tu factura.html
+                })
+                
+                total_acumulado += precio
+
+                # (El resto de tu código de inserción en BD permanece igual...)
+                carrito_procesar.append({
+                    "id_producto": int(id_producto),
+                    "sabores": sabores_ids,
+                    "precio": precio
+                })
+                index += 1
+
+            # --- INSERTAR FACTURA ---
             cursor.execute("""
                 INSERT INTO public."Factura"(
                     "Fecha", "Id_metodo", "Id_usuario",
@@ -163,37 +185,39 @@ def confirmar_pedido():
                 VALUES (NOW(), %s, %s, %s, %s)
                 RETURNING "Id_factura";
             """, (id_metodo, id_usuario, nombre_destinatario, direccion))
-            id_factura = cursor.fetchone()[0]
+            id_factura = cursor.fetchone()["Id_factura"]
 
-            # Insertar detalle por cada sabor
-            for item in carrito:
+            # --- INSERTAR DETALLES ---
+            for item in carrito_procesar:
                 for id_sabor in item["sabores"]:
                     cursor.execute("""
-                        SELECT "Id_product_sabor"
-                        FROM public."Producto_Sabor"
+                        SELECT "Id_product_sabor" FROM public."Producto_Sabor"
                         WHERE "Id_producto" = %s AND "Id_sabor" = %s;
                     """, (item["id_producto"], id_sabor))
-                    result = cursor.fetchone()
-                    if result:
-                        id_product_sabor = result[0]
+                    res = cursor.fetchone()
+                    if res:
                         cursor.execute("""
                             INSERT INTO public."Detalle_factura"(
-                            "Id_factura", "Id_product_sabor", "Id_toppings", "Total"
+                                "Id_factura", "Id_product_sabor", "Id_toppings", "Total"
                             ) VALUES (%s, %s, %s, %s);
-                        """, (id_factura, id_product_sabor, 4, item["precio"]))
-
+                        """, (id_factura, res["Id_product_sabor"], 4, item["precio"]))
 
             conexion.commit()
             cursor.close()
             conexion.close()
 
-            return render_template("pedido_realizado.html", id_factura=id_factura)
+            # --- RENDERIZAR CON TODA LA INFO ---
+            return render_template("factura.html", 
+                                   id_factura=id_factura, 
+                                   carrito=carrito_detalles, 
+                                   total=total_acumulado)
 
         except Exception as e:
+            if conexion: conexion.rollback()
             print("Error guardando factura:", e)
             return "Error interno", 500
 
-    # GET → mostrar formulario
+    # Lógica GET (sin cambios)
     conexion = conectar_bd()
     cursor = conexion.cursor(cursor_factory=RealDictCursor)
     cursor.execute('SELECT "Id_metodo", "Nombre_pago" FROM public."Metodos_pago";')
@@ -201,10 +225,6 @@ def confirmar_pedido():
     cursor.close()
     conexion.close()
     return render_template("confirmar_pedido.html", metodos_pago=metodos_pago)
-
-@app.route('/factura')
-def factura():
-    return render_template('factura.html')
 
 # ======================================================
 # RUTAS PRINCIPALES

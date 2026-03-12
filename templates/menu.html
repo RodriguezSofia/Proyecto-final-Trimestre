@@ -194,14 +194,8 @@
             </div>
         </div>
     </div>
-
-    <footer style="background-color: #FCEA85; color: #147D7D;">
-        <p>&copy; 2025 Heladería Annia. Todos los derechos reservados.</p>
-    </footer>
-
-    <!-- ✔ VARIABLE DE SESIÓN CORREGIDA -->
-<script>
-const usuarioLogueado = "{{ 'true' if session.get('usuario_nombre') else 'false' }}" === "true";
+    <script>
+    const usuarioLogueado = "{{ 'true' if session.get('usuario_nombre') else 'false' }}" === "true";
 let carrito = [];
 
 // Elementos DOM
@@ -357,6 +351,10 @@ document.addEventListener("DOMContentLoaded", () => {
         renderCarrito();
     }
 });
-</script>
+
+    </script>
+    <footer style="background-color: #FCEA85; color: #147D7D;">
+        <p>&copy; 2025 Heladería Annia. Todos los derechos reservados.</p>
+    </footer>
 </body>
 </html>

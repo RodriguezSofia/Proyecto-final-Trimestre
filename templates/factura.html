@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Factura | Heladería Annia</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/factura.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico:wght@300..700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
+
+<body class="factura-body">
+
+<div class="container-factura">
+
+    <div class="factura-card" id="area-factura">
+        <div class="factura-header">
+            <h3 class="factura-titulo">Heladería Annia</h3>
+            <p class="factura-subtitulo">Factura de compra</p>
+        </div>
+
+        <div class="factura-body-content">
+            <div class="factura-info">
+                <p><strong>Número de factura:</strong> #{{ id_factura }}</p>
+                <p><strong>Cliente:</strong> {{ session['usuario_nombre'] }}</p>
+                <p><strong>Fecha:</strong> <span id="fechaFactura"></span></p>
+            </div>
+
+            <div class="compra-detalles">
+                <h5 class="detalle-titulo">Resumen de tu pedido</h5>
+                <table class="tabla-ticket" style="width: 100%; margin-top: 20px;">
+                    <thead>
+                        <tr style="border-bottom: 2px solid #f0f0f0;">
+                            <th style="text-align: left; padding: 10px 0;">Descripción del Helado</th>
+                            <th style="text-align: right; padding: 10px 0;">Subtotal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in carrito %}
+                        <tr style="border-bottom: 1px dashed #eee;">
+                            <td style="padding: 15px 0;">
+                                <span style="font-weight: 600; font-size: 1.1rem; color: #333;">
+                                    {{ item.nombre }} (x{{ item.cantidad }})
+                                </span><br>
+                                <small style="color: #F54388; font-style: italic;">
+                                    Sabores: {{ item.sabores if item.sabores else 'Selección de la casa' }}
+                                </small>
+                            </td>
+                            <td style="text-align: right; font-weight: 600;">
+                                ${{ "{:,.0f}".format(item.precio_total) }}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                    <tfoot>
+                        <tr class="total-row">
+                            <td style="padding-top: 25px;">
+                                <strong style="font-size: 1.2rem;">TOTAL A PAGAR:</strong>
+                            </td>
+                            <td style="text-align: right; padding-top: 25px;">
+                                <strong style="font-size: 1.8rem; color: #F54388;">
+                                    ${{ "{:,.0f}".format(total) }}
+                                </strong>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+
+            <hr class="factura-divider" style="border-top: 2px dashed #ccc; margin: 30px 0;">
+
+            <div class="factura-detalle" style="text-align: center;">
+                <h5 class="detalle-titulo">¡Pedido Confirmado!</h5>
+                <p class="detalle-texto">Estamos preparando tu helado para que llegue perfecto.</p>
+            </div>
+
+            <div class="factura-alerta" style="background: #fff0f5; border: 1px solid #ffc1d6; padding: 15px; border-radius: 10px; text-align: center; font-weight: bold; color: #d43675; margin-bottom: 20px;">
+                ¡Gracias por preferir Annia IceCream! 
+            </div>
+        </div>
+
+        <div class="factura-footer no-pdf">
+            <div class="row gx-2">
+                <div class="col-6">
+                    <button onclick="generarPDF()" class="btn-descargar" style="width: 100%; background: #70C9C2; color: white; border: none; padding: 12px; border-radius: 25px; font-weight: bold; cursor: pointer;">
+                        Descargar PDF
+                    </button>
+                </div>
+                <div class="col-6">
+                    <a href="{{ url_for('menu') }}" class="btn-volver" style="display: block; width: 100%; text-decoration: none; text-align: center; background: #F54388; color: white; padding: 12px; border-radius: 25px; font-weight: bold;">
+                        Volver al menú
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    // Establecer fecha actual
+    const fecha = new Date();
+    document.getElementById("fechaFactura").textContent =
+        fecha.toLocaleString("es-CO", { 
+            year: 'numeric', month: 'long', day: 'numeric', 
+            hour: '2-digit', minute: '2-digit' 
+        });
+
+    // Función para descargar PDF
+    function generarPDF() {
+        const elemento = document.getElementById("area-factura");
+        const botones = document.querySelector(".no-pdf");
+        
+        // Ocultamos los botones temporalmente para que no salgan en el PDF
+        botones.style.visibility = "hidden";
+
+        const opciones = {
+            margin: 0.5,
+            filename: 'Factura_Annia_{{ id_factura }}.pdf',
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 3, useCORS: true, letterRendering: true },
+            jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+        };
+
+        html2pdf().set(opciones).from(elemento).save().then(() => {
+            // Restauramos la visibilidad de los botones
+            botones.style.visibility = "visible";
+        });
+    }
+</script>
+
+</body>
+</html>

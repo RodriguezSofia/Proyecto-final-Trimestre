@@ -4,63 +4,58 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Confirmar Pedido | Heladería Annia</title>
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&family=Pacifico&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/confirmar_pedido.css') }}">
 </head>
-<body style="font-family: 'Quicksand', sans-serif; background-color:#fff8f0;">
-
-<nav class="navbar navbar-expand-lg navbar-light" style="background-color:#9a6759;">
-    <div class="container">
-        <a class="navbar-brand text-white" href="{{ url_for('home') }}">🍦 Heladería Annia</a>
-        <div class="d-flex">
-            {% if session.get('usuario_nombre') %}
-                <span class="text-white me-3">Hola, {{ session['usuario_nombre'] }}</span>
-                <a href="{{ url_for('logout') }}" class="btn btn-danger btn-sm">Cerrar sesión</a>
-            {% else %}
-                <a href="{{ url_for('login') }}" class="btn btn-primary btn-sm">Iniciar sesión</a>
-            {% endif %}
-        </div>
-    </div>
-</nav>
+<body>
 
 <div class="container my-5">
-    <h2 class="text-center mb-4" style="color:#F54388;">Confirmar Pedido</h2>
+    <div class="row justify-content-center">
+        <div class="col-md-8 confirm-container">
+            <h2 class="text-center">Confirmar Pedido</h2>
 
-<form id="formPedido" method="POST" action="{{ url_for('confirmar_pedido') }}">
-    <div class="mb-3">
-        <label for="nombre_destinatario">Nombre del destinatario</label>
-        <input type="text" id="nombre_destinatario" name="nombre_destinatario" class="form-control" required>
-    </div>
-    <div class="mb-3">
-        <label for="direccion">Dirección de envío</label>
-        <input type="text" id="direccion" name="direccion" class="form-control" required>
-    </div>
-    <div class="mb-3">
-        <label for="metodo_pago">Método de pago</label>
-        <select id="metodo_pago" name="metodo_pago" class="form-select" required>
-            {% for metodo in metodos_pago %}
-                <option value="{{ metodo.Id_metodo }}">{{ metodo.Nombre_pago }}</option>
-            {% endfor %}
-        </select>
-    </div>
+            <form id="formPedido" method="POST" action="{{ url_for('confirmar_pedido') }}">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label" for="nombre_destinatario">¿Quién recibe?</label>
+                        <input type="text" id="nombre_destinatario" name="nombre_destinatario" class="form-control" placeholder="Ej: Ana García" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label" for="metodo_pago">Método de pago</label>
+                        <select id="metodo_pago" name="metodo_pago" class="form-select" required>
+                            {% for metodo in metodos_pago %}
+                                <option value="{{ metodo.Id_metodo }}">{{ metodo.Nombre_pago }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
 
-    <h4>Productos en tu carrito</h4>
-    <div id="carritoContainer" class="mb-4 border p-3 rounded" style="background-color:#fff3e0;">
-        <p>Cargando carrito...</p>
-    </div>
+                <div class="mb-4">
+                    <label class="form-label" for="direccion">Dirección de envío</label>
+                    <input type="text" id="direccion" name="direccion" class="form-control" placeholder="Calle, Barrio, Apto..." required>
+                </div>
 
-    <button type="submit" class="btn btn-success">Confirmar y Comprar</button>
-</form>
+                <h4>Resumen de tu pedido</h4>
+                <div id="carritoContainer" class="mb-4 border shadow-sm">
+                    <p class="text-center text-muted">Cargando tu carrito...</p>
+                </div>
+
+                <button type="submit" class="btn btn-confirmar">
+                    <i class="bi bi-check-circle-fill me-2"></i>Confirmar Compra
+                </button>
+            </form>
+        </div>
+    </div>
 </div>
+
 <script>
 let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 const carritoContainer = document.getElementById("carritoContainer");
-const formPedido = document.getElementById("formPedido");
 
 function renderCarritoConfirm() {
     if (carrito.length === 0) {
-        carritoContainer.innerHTML = "<p>Tu carrito está vacío.</p>";
+        carritoContainer.innerHTML = "<p class='text-center'>Tu carrito está vacío.</p>";
         return;
     }
 
@@ -70,62 +65,50 @@ function renderCarritoConfirm() {
     carrito.forEach((item, index) => {
         total += Number(item.precio);
         let div = document.createElement("div");
-        div.classList.add("mb-2");
+        div.classList.add("item-carrito");
 
-        let precioFormateado = parseInt(item.precio).toLocaleString('es-CO', { minimumFractionDigits: 0 });
-
-        // Mostrar nombres de sabores
-        let saboresHTML = item.sabores.map(s => `<small>${s.nombre}</small>`).join("<br>");
-        let toppingsHTML = item.toppings && item.toppings.length > 0 ? item.toppings.map(t => `<small>Topping: ${t.nombre}</small>`).join("<br>"): "<small>Sin toppings</small>";
+        let precioFormateado = parseInt(item.precio).toLocaleString('es-CO');
+        let saboresHTML = item.sabores.map(s => `<span class="badge bg-info text-dark me-1">${s.nombre}</span>`).join("");
+        let toppingsHTML = item.toppings && item.toppings.length > 0 
+            ? item.toppings.map(t => `<small class="text-muted"><br>+ Topping: ${t.nombre}</small>`).join("") 
+            : "";
 
         div.innerHTML = `
-            <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex justify-content-between align-items-start">
                 <div>
-                    <strong>${item.nombre}</strong> - $${precioFormateado} <br>
+                    <span class="fw-bold" style="color:#147D7D;">${item.nombre}</span><br>
                     ${saboresHTML}
+                    ${toppingsHTML}
                 </div>
+                <span class="fw-bold text-end">$${precioFormateado}</span>
             </div>
+            <input type="hidden" name="carrito[${index}][id_producto]" value="${item.id_producto}">
+            <input type="hidden" name="carrito[${index}][precio]" value="${item.precio}">
         `;
 
-// Inputs ocultos para enviar al backend
-div.innerHTML += `<input type="hidden" name="carrito[${index}][id_producto]" value="${item.id_producto}">`;
+        item.sabores.forEach(sabor => {
+            div.innerHTML += `<input type="hidden" name="carrito[${index}][sabores]" value="${sabor.id}">`;
+        });
 
-item.sabores.forEach(sabor => {
-    div.innerHTML += `
-        <input type="hidden"
-        name="carrito[${index}][sabores]"
-        value="${sabor.id}">
-    `;
-});
+        if (item.toppings) {
+            item.toppings.forEach((topping, i) => {
+                div.innerHTML += `<input type="hidden" name="carrito[${index}][toppings][${i}]" value="${topping.id}">`;
+            });
+        }
 
-
-// Toppings ✅ (aunque no tenga, no rompe)
-if (item.toppings && item.toppings.length > 0) {
-    item.toppings.forEach((topping, i) => {
-        div.innerHTML += `<input type="hidden" name="carrito[${index}][toppings][${i}]" value="${topping.id}">`;
-    });
-}
-
-// Precio
-div.innerHTML += `<input type="hidden" name="carrito[${index}][precio]" value="${item.precio}">`;
-
-carritoContainer.appendChild(div);
+        carritoContainer.appendChild(div);
     });
 
-    // Mostrar total
     const totalDiv = document.createElement("div");
-    totalDiv.classList.add("mt-3", "fw-bold", "text-end");
-    totalDiv.innerHTML = `Total: $${total.toLocaleString('es-CO', { minimumFractionDigits: 0 })}`;
+    totalDiv.classList.add("mt-3", "pt-2", "text-end");
+    totalDiv.innerHTML = `<span style="font-size: 1.2rem; color: #F54388;">Total a pagar: <strong>$${total.toLocaleString('es-CO')}</strong></span>`;
     carritoContainer.appendChild(totalDiv);
 }
 
-// Renderizar al cargar la página
 renderCarritoConfirm();
 
-// Limpiar localStorage después de enviar
-formPedido.addEventListener("submit", () => {
+document.getElementById("formPedido").addEventListener("submit", () => {
     localStorage.removeItem("carrito");
-    localStorage.removeItem("total");
 });
 </script>
 
