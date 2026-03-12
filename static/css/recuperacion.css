@@ -1,108 +1,36 @@
-/* ---------------------------
-   ESTILOS GENERALES DEL BODY
-----------------------------*/
 body {
-    font-family: Arial, sans-serif; /* Fuente principal */
-    background: #FFF9EF; /* Fondo color crema suave */
-    margin: 0; /* Sin margen por defecto */
-    padding: 0; /* Sin padding por defecto */
+    background: #f7a8c1; /* Rosa del helado */
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    font-family: sans-serif;
 }
-
-/* ---------------------------
-   LÍNEA DECORATIVA SUPERIOR
-----------------------------*/
-.color-line {
-    width: 100%; /* Ocupa todo el ancho */
-    height: 40px; /* Altura de la línea */
-    background: #C7F2D0; /* Verde pastel */
+.card {
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
 }
-
-/* ---------------------------
-   CONTENEDOR PRINCIPAL
-----------------------------*/
-.container {
-    width: 90%; /* Ancho del 90% del viewport */
-    max-width: 400px; /* Ancho máximo de 400px */
-    background: #ffffff; /* Fondo blanco */
-    padding: 30px; /* Espaciado interno */
-    margin: 50px auto; /* Centrado vertical y horizontal */
-    border-radius: 12px; /* Bordes redondeados */
-    box-shadow: 0 0 10px rgba(0,0,0,0.1); /* Sombra ligera */
-    text-align: center; /* Texto centrado */
-}
-
-/* ---------------------------
-   TITULOS
-----------------------------*/
-h2 {
-    margin-bottom: 10px; /* Espacio debajo del título */
-    color: #004f4f; /* Verde oscuro */
-}
-
-/* ---------------------------
-   SUBTEXTO
-----------------------------*/
-.subtexto {
-    font-size: 14px; /* Tamaño de letra más pequeño */
-    color: #555; /* Gris medio */
-    margin-bottom: 25px; /* Espacio inferior */
-}
-
-/* ---------------------------
-   FORMULARIO
-----------------------------*/
-form {
-    display: flex; /* Usar flexbox */
-    flex-direction: column; /* Columnas verticales */
-    gap: 15px; /* Espacio entre inputs */
-}
-
-label {
-    text-align: left; /* Alineado a la izquierda */
-    font-weight: bold; /* Negrita */
-    color: #444; /* Gris oscuro */
-}
-
+.icon { font-size: 50px; margin-bottom: 10px; }
+h1 { color: #6d4c41; font-size: 22px; }
 input {
-    padding: 12px; /* Espaciado interno */
-    border: 1px solid #ccc; /* Borde gris claro */
-    border-radius: 8px; /* Bordes redondeados */
-    outline: none; /* Sin outline por defecto */
-    font-size: 16px; /* Tamaño de texto */
+    width: 100%;
+    padding: 12px;
+    margin: 20px 0;
+    border: 2px solid #eee;
+    border-radius: 10px;
+    box-sizing: border-box;
 }
-
-input:focus {
-    border-color: #8ED7C6; /* Borde verde menta al enfocar */
-}
-
-/* ---------------------------
-   BOTÓN ENVIAR
-----------------------------*/
-.btn-enviar {
-    background: #8ED7C6; /* Verde menta */
-    color: white; /* Texto blanco */
-    padding: 12px; /* Espaciado interno */
-    border: none; /* Sin borde */
-    border-radius: 8px; /* Bordes redondeados */
-    font-size: 16px; /* Tamaño de texto */
-    cursor: pointer; /* Cursor tipo puntero */
-}
-
-.btn-enviar:hover {
-    opacity: 0.9; /* Efecto hover */
-}
-
-/* ---------------------------
-   ENLACE VOLVER
-----------------------------*/
-.volver {
-    display: block; /* Ocupa toda la línea */
-    margin-top: 10px; /* Espacio superior */
-    color: #F06292; /* Rosa */
-    text-decoration: none; /* Sin subrayado */
-    font-size: 14px; /* Tamaño de texto */
-}
-
-.volver:hover {
-    text-decoration: underline; /* Subrayado al pasar el cursor */
+button {
+    background: #66e0a3; /* Verde del helado */
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    width: 100%;
 }

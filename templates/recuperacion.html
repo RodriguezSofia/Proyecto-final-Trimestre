@@ -2,109 +2,18 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recuperar contraseña - Heladería Annia</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/recuperacion.css') }}">
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <title>Paso 1: Recuperar Cuenta</title>
+    <link rel="stylesheet" href="../static/css/recuperacion.css">
 </head>
 <body>
-    <div class="color-line"></div>
-    <div class="container">
-        <h2>Recuperar contraseña</h2>
-        <p class="subtexto">
-            Ingresa tu correo y te enviaremos una contraseña temporal.
-        </p>
-        
-        <div id="mensaje" class="mensaje"></div>
-        
-        <form id="formularioRecuperacion">
-            <label for="correo">Correo electrónico</label>
-            <input type="email" id="correo" name="correo" placeholder="ejemplo@correo.com" required>
-            
-            <button type="submit" class="btn-enviar" id="btnEnviar">Enviar enlace</button>
-            <a href="/login" class="volver">Volver al inicio de sesión</a>
+    <div class="card">
+        <div class="icon">📧</div>
+        <h1>¿Olvidaste tu clave?</h1>
+        <p>Ingresa tu correo y te enviaremos un código de seguridad.</p>
+        <form action="verificar.html">
+            <input type="email" placeholder="Correo electrónico" required>
+            <button type="submit">Enviar Código</button>
         </form>
     </div>
-
-    <script>
-        // ─────────── JavaScript para manejo del formulario de recuperación ───────────
-        console.log('JavaScript cargado correctamente');
-        // Referencias a elementos del DOM
-        const formulario = document.getElementById('formularioRecuperacion');
-        const btnEnviar = document.getElementById('btnEnviar');
-        const mensajeDiv = document.getElementById('mensaje');
-        const correoInput = document.getElementById('correo');
-
-        if (!formulario) {
-            console.error('Error: No se encontró el formulario');
-        }
-        //  Manejo del evento submit del formulario
-        formulario.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            console.log('Formulario enviado');
-            
-            const correo = correoInput.value.trim();
-            console.log('Correo ingresado:', correo);
-            
-            if (!correo) {
-                mostrarMensaje('Por favor ingresa tu correo electrónico', 'error');
-                return;
-            }
-            //
-            const regexCorreo = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!regexCorreo.test(correo)) {
-                mostrarMensaje('Por favor ingresa un correo válido', 'error');
-                return;
-            }
-            // Deshabilitar el botón para evitar múltiples envíos
-            btnEnviar.disabled = true;
-            btnEnviar.textContent = 'Enviando...';
-            console.log('Enviando petición al servidor...');
-            // Realizar la solicitud al servidor
-            try {
-                const response = await fetch('/recuperacion', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ correo: correo })
-                });
-
-                console.log('Respuesta del servidor:', response.status);
-                const data = await response.json();
-                console.log('Datos recibidos:', data);
-
-                if (response.ok) {
-                    mostrarMensaje(data.mensaje || 'Contraseña temporal enviada', 'exito');
-                    correoInput.value = '';
-                    
-                    setTimeout(() => {
-                        window.location.href = '/login';
-                    }, 3000);
-                } else {
-                    mostrarMensaje(data.error || 'Error al procesar la solicitud', 'error');
-                }
-            } catch (error) {
-                console.error('Error de conexión:', error);
-                mostrarMensaje('Error de conexión. Por favor intenta de nuevo.', 'error');
-            } finally {
-                btnEnviar.disabled = false;
-                btnEnviar.textContent = 'Enviar enlace';
-            }
-        });
-        //  Función para mostrar mensajes al usuario
-        function mostrarMensaje(texto, tipo) {
-            console.log('Mostrando mensaje:', texto, tipo);
-            mensajeDiv.textContent = texto;
-            mensajeDiv.className = `mensaje ${tipo} mostrar`;
-            
-            if (tipo === 'error') {
-                setTimeout(() => {
-                    mensajeDiv.classList.remove('mostrar');
-                }, 6000);
-            }
-        }
-    </script>
 </body>
 </html>

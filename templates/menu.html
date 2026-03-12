@@ -102,22 +102,29 @@
             <h3>{{ p.Nombre_producto }}</h3>
             <p>{{ p.Descripción }}</p>
             <span class="precio">${{ p.Precio_producto }}</span>
-<!-- Dropdown dinámicos según Numero_bolas -->
+<div class="sabores-container">
+
 {% for i in range(1, p.Numero_bolas + 1) %}
+<div class="grupo-sabor">
 <label for="sabor-{{ p.Id_producto }}-{{ i }}">Sabor {{ i }}:</label>
 <select id="sabor-{{ p.Id_producto }}-{{ i }}" class="select-sabor">
     {% for s in sabores %}
     <option value="{{ s.Id_sabor }}">{{ s.Nombre_sabor }}</option>
     {% endfor %}
 </select>
+</div>
 {% endfor %}
-<!-- Dropdown de Topping (opcional) -->
+
+<div class="grupo-sabor">
 <label for="topping-{{ p.Id_producto }}">Topping:</label>
 <select id="topping-{{ p.Id_producto }}" class="select-sabor">
     {% for t in toppings %}
         <option value="{{ t.Id_toppings }}">{{ t.Nombre_toppings }}</option>
     {% endfor %}
 </select>
+</div>
+
+</div>
 
 
             <!-- BOTÓN DE AGREGAR -->

@@ -137,7 +137,7 @@ background-color: #fdfcee; /* Color al pasar el mouse */
 }
 
 nav a.activo {
-background-color:#B5EFCC; /* Fondo verde para link activo */
+background-color:#DFF5EC; /* Fondo verde para link activo */
 color: #D3183D; /* Color del texto activo */
 }
 
@@ -230,14 +230,13 @@ section {
 }
 
 /* === GRID DE PRODUCTOS === */
+
 .menu-grid {
-    display: flex; /* Contenedor flex */
-    flex-direction: column; /* Vertical */
-    max-width: 700px; /* Ancho máximo */
-    width: 100%; 
-    margin: 0 auto; /* Centrar contenedor */
-    gap: 20px; /* Espacio vertical entre tarjetas */
-    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 tarjetas por fila */
+    gap: 25px;
+    max-width: 1000px;
+    margin: 0 auto;
 }
 
 /* === TARJETAS INDIVIDUALES === */
@@ -245,7 +244,7 @@ section {
     display: flex; /* Contenedor flex */
     flex-direction: column; /* Imagen arriba, texto abajo */
     overflow: hidden; 
-    background-color: #B5EFCC; /* Fondo menta pastel */
+    background-color: #DFF5EC; /* Fondo menta pastel */
     border-radius: 15px; /* Bordes redondeados */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
     text-align: left;
@@ -260,17 +259,16 @@ section {
 
 /* === IMAGEN TARJETA === */
 .card-image-container {
-    width: 100%; 
-    height: 250px; /* Altura fija */
-    overflow: hidden; 
-    border-radius: 15px 15px 0 0; /* Bordes superiores redondeados */
+    width: 100%;
+    aspect-ratio: 1 / 1; /* hace que sea cuadrado */
+    overflow: hidden;
+    border-radius: 15px 15px 0 0;
 }
 
 .card-image {
-    width: 100%; /* Ancho completo */
-    height: 100%; /* Alto completo */
-    object-fit: cover; /* Ajuste de imagen */
-    display: block; 
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 /* === CONTENIDO TARJETA === */
@@ -411,4 +409,125 @@ footer {
 #modalCarrito .modal-footer .btn-success:hover {
     background-color: #147D7D !important; /* Hover verde azulado */
     border-color: #147D7D !important;
+}
+/* contenedor de cada opción */
+.opcion {
+    display: inline-block;
+    margin: 10px 20px 10px 0; /* separa los botones */
+}
+
+/* === ESTILO BONITO PARA LISTAS DE SABORES Y TOPPING === */
+select {
+    padding: 10px 14px;
+    border-radius: 20px;
+    border: 2px solid #F54388;
+    background-color: #FFFDF2;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 14px;
+    color: #147D7D;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* hover */
+select:hover {
+    border-color: #147D7D;
+    box-shadow: 0 3px 8px rgba(20,125,125,0.2);
+}
+
+/* focus */
+select:focus {
+    outline: none;
+    border-color: #09e3ef;
+    box-shadow: 0 0 6px rgba(9,227,239,0.6);
+}
+.sabores-container{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+    margin: 10px 0;
+}
+
+.grupo-sabor{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* ===== MODALES ESTILO MODERNO ===== */
+
+/* Fondo del modal */
+.modal-backdrop.show {
+    backdrop-filter: blur(5px);
+}
+
+/* Modal general */
+.modal-content {
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    border: none;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+}
+
+/* Header */
+.modal-header {
+    border-bottom: none;
+    background: linear-gradient(135deg,#43f5d7,#87ffcd);
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+.modal-title {
+    font-weight: 600;
+    color: #147D7D;
+    font-size: 22px;
+    font-family: 'Pacifico', bold;
+}
+
+/* Body */
+.modal-body {
+    color: #555;
+    padding: 25px;
+}
+
+/* Inputs modernos */
+.modal-body input {
+    border-radius: 12px;
+    border: 1px solid #eee;
+    padding: 10px;
+    transition: all 0.3s;
+}
+
+.modal-body input:focus {
+    border-color: #F54388;
+    box-shadow: 0 0 8px rgba(245,67,136,0.3);
+}
+
+/* Botones modernos */
+.modal .btn {
+    border-radius: 30px;
+    padding: 8px 22px;
+    font-weight: 500;
+    transition: all 0.3s;
+}
+
+/* Botón principal */
+.modal .btn-primary,
+.modal .btn-success {
+    background: linear-gradient(135deg,#99f543,#fff787);
+    border: none;
+}
+
+.modal .btn-primary:hover,
+.modal .btn-success:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+}
+
+/* Footer */
+.modal-footer {
+    border-top: none;
 }
