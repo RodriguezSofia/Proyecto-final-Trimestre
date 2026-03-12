@@ -88,7 +88,7 @@ def menu():
         sabores = cursor.fetchall()
 
         cursor.execute("""
-            SELECT "Id_toppings", "Nombre_toppings"
+            SELECT "Id_toppings", "Nombre_toppings", "stock"
             FROM public."Toppings";
         """)
         toppings = cursor.fetchall()
@@ -202,6 +202,13 @@ def confirmar_pedido():
                             ) VALUES (%s, %s, %s, %s);
                         """, (id_factura, res["Id_product_sabor"], 4, item["precio"]))
 
+                        #RESTAR STOCK DEL TOPPING
+                                    # 🔽 RESTAR STOCK DEL TOPPING
+                        cursor.execute("""
+                            UPDATE public."Toppings"
+                            SET "Stock" = "Stock" - 1
+                            WHERE "Id_toppings" = %s;
+                        """, (4,))
             conexion.commit()
             cursor.close()
             conexion.close()
@@ -327,7 +334,7 @@ def admin_pedidos():
     if not conexion:
         return "Error al conectar a la base de datos", 500
 
-    detalle_pedido = []  # 👈 inicializar vacío
+    detalle_pedido = []  #  inicializar vacío
 
     try:
         cursor = conexion.cursor(cursor_factory=RealDictCursor)
@@ -361,7 +368,7 @@ def admin_pedidos():
                 JOIN public."Sabor" s ON ps."Id_sabor" = s."Id_sabor"
                 WHERE df."Id_factura" = %s;
             """, (id_factura,))
-            detalle_pedido = cursor.fetchall()  # 👈 aquí ya es lista
+            detalle_pedido = cursor.fetchall()  #  aquí ya es lista
 
         cursor.close()
         conexion.close()
@@ -852,25 +859,43 @@ def admin_panel():
 
     try:
         cursor = conexion.cursor(cursor_factory=RealDictCursor)
-        cursor.execute('SELECT "Id_tipo" FROM public."Usuarios" WHERE "Id_usuario" = %s;',
-                    (session["usuario_id"],))
+
+        # Obtener tipo de usuario
+        cursor.execute(
+            'SELECT "Id_tipo" FROM public."Usuarios" WHERE "Id_usuario" = %s;',
+            (session["usuario_id"],)
+        )
         usuario = cursor.fetchone()
+
+        # Consulta de stock bajo
+        cursor.execute("""
+            SELECT COUNT(*) AS alertas
+            FROM public."Toppings"
+            WHERE "stock" <= 5;
+        """)
+        resultado = cursor.fetchone()
+        alertas = resultado["alertas"]
 
         cursor.close()
         conexion.close()
 
         if usuario["Id_tipo"] == 1:
-            return render_template('admin/admin_panel.html')
+            return render_template(
+                'admin/admin_panel.html',
+                alertas=alertas,
+                ventas=0,
+                pendientes=0,
+                clientes=0
+            )
 
         if usuario["Id_tipo"] == 2:
             return render_template('trabajador/panel_trabajadores.html')
+
         return redirect(url_for('home'))
 
     except Exception as e:
         print(f"Error en admin_panel: {e}")
         return "Error interno", 500
-
-# ======================================================
 # RECUPERACIÓN DE CONTRASEÑA
 # ======================================================
 

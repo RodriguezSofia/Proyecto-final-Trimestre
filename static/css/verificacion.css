@@ -1,38 +1,77 @@
 body {
-    background: #f9cb43; /* Amarillo/Naranja del helado */
+    background: #fce4ec; /* Rosa pastel */
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
     margin: 0;
-    font-family: sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
+
 .card {
-    background: white;
+    background: #ffffff;
     padding: 40px;
-    border-radius: 20px;
+    border-radius: 25px;
     text-align: center;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
 }
+
+.icon {
+    font-size: 50px;
+    margin-bottom: 20px;
+    color: #f06292; /* Rosa del icono */
+}
+
+h1 {
+    color: #2c3e50;
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+p {
+    color: #7f8c8d;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
 .code-inputs {
     display: flex;
     gap: 10px;
     justify-content: center;
     margin: 25px 0;
 }
+
 .code-inputs input {
     width: 50px;
     height: 50px;
     text-align: center;
     font-size: 20px;
-    border: 2px solid #fdf189;
-    border-radius: 8px;
+    border: 1.5px solid #d1d8e0;
+    border-radius: 12px;
+    outline: none;
+    transition: border-color 0.3s;
 }
+
+.code-inputs input:focus {
+    border-color: #4db6ac; /* Verde menta */
+}
+
 button {
-    background: #29d8f3; /* Cyan del helado */
+    width: 100%;
+    padding: 14px;
+    background: #4db6ac; /* Verde menta */
     color: white;
     border: none;
-    padding: 12px 25px;
-    border-radius: 10px;
-    cursor: pointer;
+    border-radius: 12px;
+    font-size: 16px;
     font-weight: bold;
+    cursor: pointer;
 }
+
+button:hover {
+    background: #00897b; /* Verde menta oscuro */
+}
+
+button:active {
+    transform: translateY(0);
+} 

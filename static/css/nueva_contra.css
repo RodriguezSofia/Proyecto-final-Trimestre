@@ -1,39 +1,78 @@
 body {
-    background: #b592f1; /* Morado del helado */
+    background: #fce4ec; /* Rosa pastel */
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
     margin: 0;
-    font-family: sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
+
 .card {
-    background: white;
+    background: #ffffff;
     padding: 40px;
-    border-radius: 20px;
+    border-radius: 25px;
     width: 320px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    text-align: center;
 }
-.icon { font-size: 40px; text-align: center; margin-bottom: 10px; }
-h1 { color: #6d4c41; font-size: 20px; text-align: center; }
-.field { margin-top: 15px; }
-label { display: block; font-size: 12px; font-weight: bold; color: #888; }
+
+.icon {
+    font-size: 50px;
+    margin-bottom: 20px;
+    color: #f06292; /* Rosa del icono */
+}
+
+h1 {
+    color: #2c3e50;
+    font-size: 22px;
+    margin-bottom: 20px;
+}
+
+.field {
+    margin-top: 15px;
+    text-align: left;
+}
+
+label {
+    display: block;
+    font-size: 12px;
+    font-weight: bold;
+    color: #7f8c8d;
+}
+
 input {
     width: 100%;
-    padding: 10px;
-    margin-top: 5px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
+    padding: 12px;
+    margin-top: 6px;
+    border: 1.5px solid #d1d8e0;
+    border-radius: 12px;
     box-sizing: border-box;
+    outline: none;
+    transition: border-color 0.3s;
 }
+
+input:focus {
+    border-color: #4db6ac; /* Verde menta */
+}
+
 button {
-    background: #6d4c41; /* Marrón base del helado */
+    background: #4db6ac; /* Verde menta */
     color: white;
     border: none;
     margin-top: 25px;
-    padding: 12px;
+    padding: 14px;
     width: 100%;
-    border-radius: 8px;
+    border-radius: 12px;
     cursor: pointer;
     font-weight: bold;
+    font-size: 16px;
 }
+
+button:hover {
+    background: #00897b; /* Verde menta oscuro */
+}
+
+button:active {
+    transform: translateY(0);
+} 
