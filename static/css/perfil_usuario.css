@@ -1,0 +1,67 @@
+body {
+    font-family: Arial;
+    background: #f8f5f2;
+}
+
+/* CONTENEDOR */
+.perfil {
+    width: 320px;
+    margin: 40px auto;
+    background: white;
+    border-radius: 20px;
+    padding: 20px;
+}
+
+/* HEADER */
+.header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: #f7c6d9; /* rosado */
+    padding: 15px;
+    border-radius: 15px;
+}
+
+.header img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+}
+
+/* EDITAR */
+.editar input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+}
+
+.editar button {
+    width: 100%;
+    margin-top: 10px;
+    padding: 10px;
+    background: #4ecdc4; /* turquesa */
+    border: none;
+    border-radius: 10px;
+    color: white;
+}
+
+/* MENÚ */
+.menu {
+    margin-top: 20px;
+}
+
+.item {
+    padding: 12px;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+}
+
+.item:hover {
+    background: #f1f1f1;
+}
+
+.danger {
+    color: #ff6b6b;
+}
