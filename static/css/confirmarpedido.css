@@ -1,0 +1,189 @@
+/* Variables de color basadas en Heladería Annia */
+:root {
+    --rosa-principal: #F06292;
+    --lila-fondo: #F3E5F5;
+    --crema-fondo: #FFF8F0;
+    --verde-turquesa: #4DB6AC;
+    --verde-oscuro: #004D40;
+    --blanco: #ffffff;
+    --shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+body {
+    font-family: 'Quicksand', sans-serif;
+    background-color: var(--crema-fondo);
+    color: #333;
+}
+
+/* Navbar con los colores de la imagen */
+.navbar {
+    background: linear-gradient(90deg, #F8BBD0, #E1F5FE); /* Degradado suave */
+    box-shadow: var(--shadow);
+}
+
+.navbar-brand {
+    color: var(--verde-oscuro) !important;
+    font-weight: 700;
+}
+
+/* Títulos */
+h2, h4 {
+    color: var(--rosa-principal);
+    font-weight: 700;
+}
+
+/* Formulario y Contenedores */
+.container.my-5 {
+    background: var(--blanco);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+}
+.form-control, .form-select {
+    border-radius: 10px;
+    border: 1px solid #eee;
+    padding: 12px;
+}
+
+.form-control:focus {
+    border-color: var(--rosa-principal);
+    box-shadow: 0 0 0 0.25rem rgba(240, 98, 146, 0.25);
+}
+
+/* Contenedor del Carrito */
+#carritoContainer {
+    background-color: var(--lila-fondo) !important;
+    border: none !important;
+    border-radius: 15px;
+    padding: 20px;
+}
+
+/* Botones */
+.btn-success {
+    background-color: var(--verde-turquesa);
+    border: none;
+    border-radius: 25px;
+    padding: 12px 30px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+.btn-success:hover {
+    background-color: var(--verde-oscuro);
+    transform: translateY(-2px);
+}
+
+.btn-primary-custom {
+    background-color: var(--rosa-principal);
+    color: white;
+    border-radius: 20px;
+    border: none;
+    padding: 5px 15px;
+}
+/*BOTONES HEADER */
+.botones-header {
+    display: flex;
+    gap: 15px;
+}
+.header-fijo{
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+/* Botón Registrarse */
+.btn-registrarse {
+    background: linear-gradient(135deg, #5ed6c3, #4bb8c4);
+    color: white;
+    padding: 10px 22px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 600;
+    box-shadow: 0 6px 15px rgba(94, 214, 195, 0.4);
+    transition: 0.3s ease-in-out;
+}
+
+.btn-registrarse:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(94, 214, 195, 0.6);
+}
+
+/* Botón Iniciar sesión */
+.btn-login {
+    background: linear-gradient(135deg, #c084fc, #a855f7);
+    color: white;
+    padding: 10px 22px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 600;
+    box-shadow: 0 6px 15px rgba(168, 85, 247, 0.4);
+    transition: 0.3s ease-in-out;
+}
+
+.btn-login:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(168, 85, 247, 0.6);
+}
+
+/* =========================
+PRIMERA BARRA (LOGO + LOGIN)
+========================= */
+
+.barra-navegacion {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(255,255,255,0.75);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    margin-bottom: 0%;
+}
+/* Color de los links */
+.navbar-glass .nav-link {
+    color: #e85aad;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.navbar-glass .nav-link:hover {
+    color: #09e3ef;
+}
+
+/* Botón hamburguesa color */
+.navbar-toggler {
+    border: none;
+}
+
+nav ul {
+list-style: none; /* Quitar viñetas */
+padding: 0; /* Quitar padding por defecto */
+margin: 0; /* Quitar margen por defecto */
+}
+
+nav ul li {
+display: inline-block; /* Poner los items uno al lado del otro */
+margin: 0 10px; /* Separación horizontal */
+}
+nav a {
+font-family: 'Quicksand', sans-serif; /* Fuente de los links */
+text-decoration: none; /* Quitar subrayado */
+color: #880e4f; /* Color del texto */
+font-weight: bold; /* Negrita */
+padding: 6px 12px; /* Espacio interno */
+border-radius: 6px; /* Bordes redondeados */
+}
+
+nav a:hover {
+background-color: #fdfcee; /* Color al pasar el mouse */
+}
+
+nav a.activo {
+background-color:#B5EFCC; /* Fondo verde para link activo */
+color: #D3183D; /* Color del texto activo */
+}
+
+.logo {
+height: 60px; /* Altura del logo */
+width: auto; /* Mantiene proporción */
+margin-right: 20px; /* Espacio a la derecha */
+}
