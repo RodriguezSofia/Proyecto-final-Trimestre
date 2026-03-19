@@ -74,12 +74,12 @@ def conectar_bd():
         return None
 
 # ======================================================
-# FUNCIÓN: GENERAR CONTRASEÑA TEMPORAL
+# FUNCIONES: RECUPERACIÓN DE CONTRASEÑA
 # ======================================================
 
-def generar_contrasena_temporal():
-    caracteres = string.ascii_letters + string.digits + "!@#$%" # Define un conjunto de caracteres posibles (letras, dígitos y símbolos).
-    return ''.join(random.choice(caracteres) for _ in range(8)) # Genera una cadena de 8 caracteres elegidos al azar.
+def generar_codigo_verificacion(length: int = 4):
+    """Genera un código numérico de verificación de `length` dígitos."""
+    return ''.join(random.choice(string.digits) for _ in range(length))
 
 # ======================================================
 # RUTA PARA GENERAR MENÚ (GET)
@@ -945,14 +945,21 @@ def admin_panel():
 def recuperacion():
     if request.method == 'GET':
         return render_template('recuperacion.html')
-    datos = request.get_json()
+
+    json_body = request.get_json(silent=True)
+    datos = json_body or request.form
     correo = datos.get('correo', '').strip()
 
     if not correo:
-        return jsonify({'error': 'El correo es obligatorio'}), 400
+        if json_body:
+            return jsonify({'error': 'El correo es obligatorio'}), 400
+        return render_template('recuperacion.html', error='El correo es obligatorio')
+
     conexion = conectar_bd()
     if not conexion:
-        return jsonify({'error': 'Error de conexión a la base de datos'}), 500
+        if json_body:
+            return jsonify({'error': 'Error de conexión a la base de datos'}), 500
+        return render_template('recuperacion.html', error='Error de conexión a la base de datos')
 
     try:
         cursor = conexion.cursor(cursor_factory=RealDictCursor)
@@ -967,41 +974,37 @@ def recuperacion():
         if not usuario:
             cursor.close()
             conexion.close()
-            return jsonify({'error': 'El correo no está registrado'}), 404
+            if json_body:
+                return jsonify({'error': 'El correo no está registrado'}), 404
+            return render_template('recuperacion.html', error='El correo no está registrado')
 
-        # generar contraseña temporal
-        contrasena_temporal = generar_contrasena_temporal()
+        codigo = generar_codigo_verificacion()
 
-        password_hash = bcrypt.hashpw(contrasena_temporal.encode('utf-8'),
-                                    bcrypt.gensalt()).decode('utf-8')
-
-        cursor.execute("""
-            UPDATE public."Usuarios"
-            SET "password" = %s
-            WHERE "correo_usuario" = %s;
-        """, (password_hash, correo))
-
-        conexion.commit()
+        session['reset_email'] = correo
+        session['reset_code'] = codigo
+        session['reset_code_expires'] = (datetime.datetime.now() + datetime.timedelta(minutes=10)).isoformat()
+        session.pop('reset_code_validated', None)
 
         # enviar correo
-        msg = Message('Contraseña temporal - Heladería Annia', recipients=[correo])
+        msg = Message('Código de recuperación - Heladería Annia', recipients=[correo])
         msg.html = f"""
         <html>
             <body style="font-family: Arial; padding: 20px; background-color: #f5f5f5;">
                 <div style="max-width: 600px; background:white; padding:30px; border-radius:10px;">
                     <h2 style="color:#FF69B4; text-align:center;">🍦 Heladería Annia</h2>
                     <p>Hola {usuario['Nombre_completo_usuario']},</p>
-                    <p>Tu contraseña temporal es:</p>
+                    <p>Tu código de verificación es:</p>
 
                     <div style="background:#fff3cd; padding:18px; border-radius:5px; text-align:center;">
-                        <strong style="font-size:22px;">{contrasena_temporal}</strong>
+                        <strong style="font-size:22px;">{codigo}</strong>
                     </div>
 
                     <br>
-                    <a href="http://localhost:5000/login"
+                    <p>Puedes usarlo en la página de recuperación de contraseña.</p>
+                    <a href="{url_for('verificar_codigo', _external=True)}"
                        style="background:#FF69B4; padding:12px 35px; color:white; 
                               text-decoration:none; border-radius:20px; font-weight:bold;">
-                       Iniciar Sesión
+                       Verificar Código
                     </a>
                 </div>
             </body>
@@ -1013,14 +1016,122 @@ def recuperacion():
         cursor.close()
         conexion.close()
 
-        return jsonify({'mensaje': 'Contraseña temporal enviada a tu correo'}), 200
+        if json_body:
+            return jsonify({'mensaje': 'Código enviado a tu correo', 'redirect': url_for('verificar_codigo')}), 200
+        return redirect(url_for('verificar_codigo'))
 
     except Exception as e:
         print(f"Error en recuperación: {e}")
         conexion.rollback()
         cursor.close()
         conexion.close()
-        return jsonify({'error': 'Error interno del servidor'}), 500
+        if json_body:
+            return jsonify({'error': 'Error interno del servidor'}), 500
+        return render_template('recuperacion.html', error='Error interno del servidor')
+
+
+@app.route('/recuperacion/verificar', methods=['GET', 'POST'])
+def verificar_codigo():
+    if request.method == 'GET':
+        if not session.get('reset_email'):
+            return redirect(url_for('recuperacion'))
+        return render_template('verificacion.html')
+
+    json_body = request.get_json(silent=True)
+    datos = json_body or request.form
+    codigo_enviado = datos.get('codigo')
+
+    # Si el formulario tiene 4 inputs separados, únalos.
+    if not codigo_enviado:
+        partes = [datos.get(f'digit{i}', '') for i in range(1, 5)]
+        codigo_enviado = ''.join(partes)
+
+    codigo_guardado = session.get('reset_code')
+    expires = session.get('reset_code_expires')
+
+    if not codigo_guardado or not expires:
+        if json_body:
+            return jsonify({'error': 'No hay un proceso de recuperación en curso'}), 400
+        return render_template('verificacion.html', error='No hay un proceso de recuperación en curso')
+
+    if datetime.datetime.fromisoformat(expires) < datetime.datetime.now():
+        session.pop('reset_code', None)
+        session.pop('reset_code_expires', None)
+        if json_body:
+            return jsonify({'error': 'El código ha expirado'}), 400
+        return render_template('verificacion.html', error='El código ha expirado')
+
+    if codigo_enviado != codigo_guardado:
+        if json_body:
+            return jsonify({'error': 'Código inválido'}), 400
+        return render_template('verificacion.html', error='Código inválido')
+
+    session['reset_code_validated'] = True
+    if json_body:
+        return jsonify({'mensaje': 'Código validado', 'redirect': url_for('nueva_contra')}), 200
+    return redirect(url_for('nueva_contra'))
+
+
+@app.route('/recuperacion/nueva_contra', methods=['GET', 'POST'])
+def nueva_contra():
+    if request.method == 'GET':
+        if not session.get('reset_code_validated'):
+            return redirect(url_for('recuperacion'))
+        return render_template('nueva_contra.html')
+
+    json_body = request.get_json(silent=True)
+    datos = json_body or request.form
+    nueva = datos.get('nueva', '').strip()
+    confirmar = datos.get('confirmar', '').strip()
+
+    if not nueva or not confirmar:
+        if json_body:
+            return jsonify({'error': 'Debes completar ambos campos'}), 400
+        return render_template('nueva_contra.html', error='Debes completar ambos campos')
+
+    if nueva != confirmar:
+        if json_body:
+            return jsonify({'error': 'Las contraseñas no coinciden'}), 400
+        return render_template('nueva_contra.html', error='Las contraseñas no coinciden')
+
+    correo = session.get('reset_email')
+    if not correo:
+        if json_body:
+            return jsonify({'error': 'No hay un proceso de recuperación en curso'}), 400
+        return render_template('nueva_contra.html', error='No hay un proceso de recuperación en curso')
+
+    conexion = conectar_bd()
+    if not conexion:
+        if json_body:
+            return jsonify({'error': 'Error de conexión a la base de datos'}), 500
+        return render_template('nueva_contra.html', error='Error de conexión a la base de datos')
+
+    try:
+        cursor = conexion.cursor()
+        password_hash = bcrypt.hashpw(nueva.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
+        cursor.execute('UPDATE public."Usuarios" SET "password" = %s WHERE "correo_usuario" = %s;', (password_hash, correo))
+        conexion.commit()
+        cursor.close()
+        conexion.close()
+
+        # Limpiar datos de recuperación
+        session.pop('reset_email', None)
+        session.pop('reset_code', None)
+        session.pop('reset_code_expires', None)
+        session.pop('reset_code_validated', None)
+
+        if json_body:
+            return jsonify({'mensaje': 'Contraseña actualizada', 'redirect': url_for('login')}), 200
+        return redirect(url_for('login'))
+
+    except Exception as e:
+        print(f"Error al actualizar la contraseña: {e}")
+        conexion.rollback()
+        cursor.close()
+        conexion.close()
+        if json_body:
+            return jsonify({'error': 'Error interno del servidor'}), 500
+        return render_template('nueva_contra.html', error='Error interno del servidor')
 
 #------------CERRAR SESION--------------------
 @app.route('/logout')

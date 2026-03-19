@@ -10,12 +10,15 @@
         <div class="icon">🔢</div>
         <h1>Verifica tu identidad</h1>
         <p>Introduce el código de 4 dígitos enviado a tu correo.</p>
-        <form action="nueva_contra.html">
+        {% if error %}
+            <p class="error">{{ error }}</p>
+        {% endif %}
+        <form action="{{ url_for('verificar_codigo') }}" method="POST">
             <div class="code-inputs">
-                <input type="text" maxlength="1" required>
-                <input type="text" maxlength="1" required>
-                <input type="text" maxlength="1" required>
-                <input type="text" maxlength="1" required>
+                <input type="text" name="digit1" maxlength="1" required>
+                <input type="text" name="digit2" maxlength="1" required>
+                <input type="text" name="digit3" maxlength="1" required>
+                <input type="text" name="digit4" maxlength="1" required>
             </div>
             <button type="submit">Verificar Ahora</button>
         </form>
