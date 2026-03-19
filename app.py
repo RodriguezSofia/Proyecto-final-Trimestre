@@ -314,9 +314,9 @@ def home(): #coneccion a la base de datos para obtener los sabores y toppings
         return "Error interno cargando la página principal"
 
 
-@app.route('/redes')
-def redes():
-    return render_template('redes.html')
+@app.route('/encuentranos')
+def encuentranos():
+    return render_template('encuentranos.html')
 
 @app.route('/acerca')
 def acerca():
