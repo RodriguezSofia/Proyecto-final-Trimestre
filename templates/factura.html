@@ -71,6 +71,35 @@
 
             <hr class="factura-divider" style="border-top: 2px dashed #ccc; margin: 30px 0;">
 
+            <div class="metodos-pago" style="margin-top:25px;">
+
+                <h5 class="detalle-titulo">Método de pago seleccionado</h5>
+
+                {% if metodo_pago == "nequi" %}
+                <div style="background:#f9f9f9;padding:15px;border-radius:10px;margin-top:10px;">
+                    <strong>Pagar con Nequi</strong><br>
+                    Número: {{ datos_pago.nequi.numero }}<br>
+                    Titular: {{ datos_pago.nequi.titular }}
+                </div>
+                {% endif %}
+
+                {% if metodo_pago == "banco" %}
+                <div style="background:#f9f9f9;padding:15px;border-radius:10px;margin-top:10px;">
+                    <strong>Transferencia Bancolombia</strong><br>
+                    Banco: {{ datos_pago.banco.banco }}<br>
+                    Cuenta: {{ datos_pago.banco.numero }}<br>
+                    Tipo: {{ datos_pago.banco.tipo }}<br>
+                    Titular: {{ datos_pago.banco.titular }}<br>
+                    Cédula: {{ datos_pago.banco.cedula }}
+                </div>
+                {% endif %}
+
+                <p style="margin-top:15px;color:#888;font-size:0.9rem;">
+                    Después de realizar el pago envía el comprobante por WhatsApp para confirmar tu pedido.
+                </p>
+
+            </div>
+
             <div class="factura-detalle" style="text-align: center;">
                 <h5 class="detalle-titulo">¡Pedido Confirmado!</h5>
                 <p class="detalle-texto">Estamos preparando tu helado para que llegue perfecto.</p>

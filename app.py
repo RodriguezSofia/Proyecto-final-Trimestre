@@ -3,7 +3,10 @@ from flask_mail import Mail, Message #Se importa para el envio de correos
 import psycopg2
 from psycopg2.extras import RealDictCursor
 import bcrypt #Se importa bcrypt para el hash o no visualizacion de las contraseñas del usuario
-import os  #Se importa os para mejor manejo de las variables del entorno
+import os, uuid
+import datetime  #Se importa os para mejor manejo de las variables del entorno
+# - uuid: para generar referencias únicas de pedido (ej: PED-A1B2C3D4)
+# - datetime: para registrar la fecha y hora de cada pedido
 import random # Se importa random para la generacion de  contraseñas temporales.         
 import string #En conjunto con random, se usa para la generación de contraseñas temporales
 from werkzeug.utils import secure_filename # Se importa para manejar la seguridad de los nombres de archivos subidos.
@@ -17,6 +20,24 @@ app.secret_key = os.environ.get('SECRET_KEY', 'Dulce_manjar')
 app.config['UPLOAD_FOLDER'] = os.path.join('static', 'img') # Carpeta para guardar las imágenes subidas.
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'webp'} #Modolo seguro para permitir solo ciertos tipos de archivos (imágenes) al subir.
 
+DATOS_PAGO = {
+
+    # ── NEQUI ────────────────────────────────────────────────────────
+    "nequi": {
+        "numero":   "3019283491",          # ← tu número Nequi (ya configurado)
+        "titular":  "Nicolk Anelca Diaz Hernandez",      # ← ej: "Juan García"
+    },
+
+    # ── PSE / TRANSFERENCIA BANCARIA ────────────────────────────────
+    "bancolombia": {
+        "banco":    "BANCOLOMBIA",       # ← ej: "Bancolombia"
+        "cuenta":   "888-699065-86", # ← ej: "123-456789-00"
+        "tipo":     "Ahorros",             # ← "Ahorros" o "Corriente"
+        "titular":  "Nicolk Anelca Diaz Hernandez",      # ← nombre del titular
+        "cedula":   "1114001814",      # ← ej: "1.234.567.890"
+    },
+
+}
 def allowed_file(filename): # Función para verificar si el archivo tiene una extensión permitida.
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS # Verifica que el nombre del archivo contenga un punto y que la extensión (lo que viene después del último punto) esté en el conjunto de extensiones permitidas.
 
@@ -39,7 +60,7 @@ mail = Mail(app) # Inicializa la extensión Flask-Mail con la configuración de 
 
 DB_CONFIG = {
     'host': os.environ.get('DB_HOST', 'localhost'),
-    'database': os.environ.get('DB_NAME', 'heladeria_cream'),
+    'database': os.environ.get('DB_NAME', 'heladeria_ice'),
     'user': os.environ.get('DB_USER', 'postgres'),
     'password': os.environ.get('DB_PASSWORD', '123456'),
     'port': 5432
@@ -104,9 +125,19 @@ def menu():
     except Exception as e:
         print("Error cargando menú:", e)
         return "Error interno cargando menú", 500
+@app.route("/api/datos-pago")
+def datos_pago():
+    metodo = request.args.get("metodo", "nequi").lower()
+
+    if metodo == "banco":
+        metodo = "bancolombia"
+
+    datos = DATOS_PAGO.get(metodo, DATOS_PAGO["nequi"])
+
+    return jsonify({"metodo": metodo, "datos": datos})
 
 @app.route('/confirmar_pedido', methods=['GET', 'POST'])
-def confirmar_pedido():
+def confirmar_pedido():  # sourcery skip: low-code-quality
     id_usuario = session.get("usuario_id")
     if not id_usuario:
         return redirect(url_for('login'))
@@ -175,6 +206,18 @@ def confirmar_pedido():
                     "precio": precio
                 })
                 index += 1
+                
+                
+            metodo_texto = request.form.get("metodo_pago")
+
+            mapa_metodos = {
+                "efectivo": 1,
+                "nequi": 2,
+                "bancolombia": 3
+            }
+
+            id_metodo = mapa_metodos.get(metodo_texto)
+            
 
             # --- INSERTAR FACTURA ---
             cursor.execute("""
@@ -186,6 +229,8 @@ def confirmar_pedido():
                 RETURNING "Id_factura";
             """, (id_metodo, id_usuario, nombre_destinatario, direccion))
             id_factura = cursor.fetchone()["Id_factura"]
+            # generar referencia de pago
+            referencia_pago = f"PED-{uuid.uuid4().hex[:8].upper()}"
 
             # --- INSERTAR DETALLES ---
             for item in carrito_procesar:
@@ -206,25 +251,21 @@ def confirmar_pedido():
                                     # 🔽 RESTAR STOCK DEL TOPPING
                         cursor.execute("""
                             UPDATE public."Toppings"
-                            SET "Stock" = "Stock" - 1
+                            SET "stock" = "stock" - 1
                             WHERE "Id_toppings" = %s;
                         """, (4,))
             conexion.commit()
             cursor.close()
             conexion.close()
-
             # --- RENDERIZAR CON TODA LA INFO ---
-            return render_template("factura.html", 
-                                   id_factura=id_factura, 
-                                   carrito=carrito_detalles, 
-                                   total=total_acumulado)
+            return render_template("factura.html",id_factura=id_factura, carrito=carrito_detalles, total=total_acumulado, referencia=referencia_pago,  datos_pago=DATOS_PAGO,  )
 
         except Exception as e:
             if conexion: conexion.rollback()
             print("Error guardando factura:", e)
             return "Error interno", 500
 
-    # Lógica GET (sin cambios)
+    # Lógica GET 
     conexion = conectar_bd()
     cursor = conexion.cursor(cursor_factory=RealDictCursor)
     cursor.execute('SELECT "Id_metodo", "Nombre_pago" FROM public."Metodos_pago";')
@@ -232,6 +273,7 @@ def confirmar_pedido():
     cursor.close()
     conexion.close()
     return render_template("confirmar_pedido.html", metodos_pago=metodos_pago)
+    #datos de pago para cada método 
 
 # ======================================================
 # RUTAS PRINCIPALES

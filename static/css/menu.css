@@ -28,7 +28,8 @@
 /*BOTONES HEADER */
 .botones-header {
     display: flex;
-    gap: 15px;
+    gap: 15px;      /* Espacio entre Registrarse e Iniciar Sesión */
+    align-items: center;
 }
 .header-fijo{
     position: fixed;
@@ -71,22 +72,27 @@
 }
 
 /* =========================
-   PRIMERA BARRA (LOGO + LOGIN)
+PRIMERA BARRA (LOGO + LOGIN)
 ========================= */
-
 .barra-navegacion {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    background: rgba(255,255,255,0.75);
+    height: 80px; /* Ajusta según tu gusto */
+    background: rgba(255, 255, 255, 0.8);
     backdrop-filter: blur(10px);
-    z-index: 1000;
-    margin-bottom: 0%;
+    z-index: 1001;
+    
+    /* ESTO ES LO IMPORTANTE */
+    display: flex;
+    justify-content: space-between; /* Empuja logo a izq y botones a der */
+    align-items: center;            /* Centra todo verticalmente */
+    padding: 0 40px;                /* Espacio en los bordes para que no toquen la pared */
 }
 
 /* =========================
-   SEGUNDA BARRA (MENÚ)
+SEGUNDA BARRA (MENÚ)
 ========================= */
 
 .segunda-barra {
@@ -95,6 +101,10 @@
     backdrop-filter: blur(10px);
     z-index: 999;
     margin-top: 0%;
+    overflow-x: auto; /* Permite desplazamiento horizontal en pantallas pequeñas */
+    white-space: nowrap;
+    display: flex;
+    justify-content: center;
 }
 
 /* Color de los links */
@@ -144,7 +154,7 @@ color: #D3183D; /* Color del texto activo */
 .logo {
 height: 60px; /* Altura del logo */
 width: auto; /* Mantiene proporción */
-margin-right: 20px; /* Espacio a la derecha */
+margin:0; /* Espacio a la derecha */
 }
 /* -ESTILOS PARA LOS LINKS -- */
 
@@ -286,9 +296,9 @@ section {
 .menu-grid article p {
     color: #5a3e36; /* Marrón */
     font-size: 0.95em;
-    height: 40px; 
+    height: auto; 
     font-style: normal;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
 }
 
 .menu-grid article .precio {
@@ -428,6 +438,8 @@ select {
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 /* hover */
@@ -444,10 +456,10 @@ select:focus {
 }
 .sabores-container{
     display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
+    gap: 10px;
     justify-content: center;
     margin: 10px 0;
+    flex-direction: column;
 }
 
 .grupo-sabor{
@@ -530,4 +542,78 @@ select:focus {
 /* Footer */
 .modal-footer {
     border-top: none;
+}
+
+/* ==========================================
+   RESPONSIVE DESIGN (Móviles y Tablets)
+   ========================================== */
+
+@media (max-width: 768px) {
+    /* 1. Ajuste del Body: más espacio arriba para las dos barras */
+    body {
+        padding-top: 150px; 
+    }
+
+    /* 2. Grid de productos: de 2 columnas a 1 sola */
+    .menu-grid {
+        grid-template-columns: 1fr; /* Una sola tarjeta por fila */
+        padding: 10px;
+    }
+
+    /* 3. Ajuste de encabezados */
+    h2 {
+        font-size: 2.2em; /* Texto un poco más pequeño en móvil */
+    }
+
+    /* 4. Barras de navegación: apilarlas correctamente */
+    .barra-navegacion {
+        padding: 10px 0;
+    }
+
+    .segunda-barra {
+        top: 60px; /* Ajustar posición según el alto de tu logo */
+    }
+
+    /* 5. Botones del Header: hacerlos más compactos */
+    .botones-header {
+        gap: 8px;
+    }
+
+    .btn-registrarse, .btn-login {
+        padding: 8px 15px;
+        font-size: 0.9em;
+    }
+
+    /* 6. Carrito y WhatsApp flotante: no estorbar el contenido */
+    #carritoFlotante {
+        bottom: 15px;
+        right: 85px; /* Un poco más a la izquierda del de WhatsApp */
+        width: 50px;
+        height: 50px;
+    }
+
+    .whatsapp-float {
+        bottom: 15px;
+        right: 15px;
+        width: 50px;
+        height: 50px;
+    }
+
+    /* 7. Contenedor principal (Main) */
+    main {
+        margin: 15px;
+        padding: 15px;
+        border-radius: 15px;
+    }
+}
+
+/* Ajuste para pantallas MUY pequeñas (iPhone SE, etc) */
+@media (max-width: 400px) {
+    .menu-grid article .precio {
+        font-size: 1.2em;
+    }
+    
+    .logo {
+        height: 45px; /* Logo más pequeño */
+    }
 }
