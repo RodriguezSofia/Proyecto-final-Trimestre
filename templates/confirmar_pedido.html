@@ -12,7 +12,7 @@
 
 <div class="container my-5">
     <div class="row justify-content-center">
-        <div class="col-md-8 confirm-container">
+        <div class="col-md-8 confirm-container"> 
             <h2 class="text-center">Confirmar Pedido</h2>
 
             <form id="formPedido" method="POST" action="{{ url_for('confirmar_pedido') }}">
@@ -23,11 +23,14 @@
                     </div>
                     <div class="col-md-6 mb-3">
                         <label class="form-label" for="metodo_pago">Método de pago</label>
-                        <select id="metodo_pago" name="metodo_pago" class="form-select" required>
-                            {% for metodo in metodos_pago %}
-                                <option value="{{ metodo.Nombre_pago|lower|replace('transferencia ', '') }}">
-                            {% endfor %}
-                        </select>
+<select id="metodo_pago" name="metodo_pago" class="form-select" required>
+    <option value="" disabled selected>Selecciona un método</option>
+    {% for metodo in metodos_pago %}
+        <option value="{{ metodo.Nombre_pago|lower }}">
+            {{ metodo.Nombre_pago }}
+        </option>
+    {% endfor %}
+</select>
 
                         <div id="infoPago" class="mt-3 p-3 border rounded bg-light">
                             <small class="text-muted">Selecciona un método de pago para ver los datos.</small>
@@ -62,7 +65,7 @@ async function cargarDatosPago() {
 
     let metodo = metodoSelect.value;
 
-    // 💵 EFECTIVO
+    // EFECTIVO
     if (metodo === "efectivo") {
         infoPago.innerHTML = `
             <div class="pago-box">
@@ -73,7 +76,7 @@ async function cargarDatosPago() {
         return;
     }
 
-    // 🟢 NEQUI
+    //  NEQUI
     if (metodo === "nequi") {
         const res = await fetch(`/api/datos-pago?metodo=nequi`);
         const data = await res.json();
@@ -88,7 +91,7 @@ async function cargarDatosPago() {
         return;
     }
 
-    // 🟡 BANCOLOMBIA
+    //  BANCOLOMBIA
     if (metodo === "bancolombia") {
         const res = await fetch(`/api/datos-pago?metodo=bancolombia`);
         const data = await res.json();
@@ -165,8 +168,8 @@ function renderCarritoConfirm() {
 
 renderCarritoConfirm();
 
-document.getElementById("formPedido").addEventListener("submit", () => {
-    localStorage.removeItem("carrito");
+document.addEventListener("DOMContentLoaded", () => {
+    cargarDatosPago();
 });
 </script>
 
