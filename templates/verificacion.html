@@ -15,13 +15,70 @@
         {% endif %}
         <form action="{{ url_for('verificar_codigo') }}" method="POST">
             <div class="code-inputs">
-                <input type="text" name="digit1" maxlength="1" required>
-                <input type="text" name="digit2" maxlength="1" required>
-                <input type="text" name="digit3" maxlength="1" required>
-                <input type="text" name="digit4" maxlength="1" required>
+                <input type="text" name="digit1" maxlength="1" required autofocus inputmode="numeric" pattern="[0-9]*" autocomplete="one-time-code">
+                <input type="text" name="digit2" maxlength="1" required inputmode="numeric" pattern="[0-9]*">
+                <input type="text" name="digit3" maxlength="1" required inputmode="numeric" pattern="[0-9]*">
+                <input type="text" name="digit4" maxlength="1" required inputmode="numeric" pattern="[0-9]*">
             </div>
             <button type="submit">Verificar Ahora</button>
         </form>
     </div>
+    <script>
+        (function () {
+            const inputs = Array.from(document.querySelectorAll(".code-inputs input"));
+            if (inputs.length === 0) return;
+
+            const focusNext = (index) => {
+                if (index < inputs.length - 1) {
+                    inputs[index + 1].focus();
+                    inputs[index + 1].select();
+                }
+            };
+
+            const focusPrev = (index) => {
+                if (index > 0) {
+                    inputs[index - 1].focus();
+                    inputs[index - 1].select();
+                }
+            };
+
+            inputs.forEach((input, index) => {
+                input.addEventListener("input", (e) => {
+                    const value = e.target.value.replace(/\D/g, "");
+                    e.target.value = value.slice(-1);
+                    if (e.target.value) focusNext(index);
+                });
+
+                input.addEventListener("keydown", (e) => {
+                    if (e.key === "Backspace" && !e.target.value) {
+                        e.preventDefault();
+                        focusPrev(index);
+                    }
+                    if (e.key === "ArrowLeft") {
+                        e.preventDefault();
+                        focusPrev(index);
+                    }
+                    if (e.key === "ArrowRight") {
+                        e.preventDefault();
+                        focusNext(index);
+                    }
+                });
+
+                input.addEventListener("paste", (e) => {
+                    const paste = (e.clipboardData || window.clipboardData)
+                        .getData("text")
+                        .replace(/\D/g, "")
+                        .slice(0, inputs.length);
+                    if (!paste) return;
+                    e.preventDefault();
+                    paste.split("").forEach((char, i) => {
+                        if (inputs[i]) inputs[i].value = char;
+                    });
+                    const lastIndex = Math.min(paste.length, inputs.length) - 1;
+                    inputs[lastIndex].focus();
+                });
+            });
+        })();
+    </script>
 </body>
 </html>
