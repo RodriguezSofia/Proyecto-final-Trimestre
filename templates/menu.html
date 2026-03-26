@@ -15,400 +15,260 @@
 
 <body>
     <header class="header-fijo">
-    <!-- ================= BARRA SUPERIOR ================= -->
-    <div class="barra-navegacion d-flex justify-content-between align-items-center px-4 py-2">
-        <a href="{{ url_for('home') }}" class="logo-link">
-            <img src="{{ url_for('static', filename='img/logo.png') }}" 
-                alt="Logo Heladería Annia" class="logo">
-        </a>
-        
+        <div class="barra-navegacion d-flex justify-content-between align-items-center px-4 py-2">
+            <a href="{{ url_for('home') }}" class="logo-link">
+                <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo Heladería Annia" class="logo">
+            </a>
 
-
-        <div class="d-flex gap-3 align-items-center">
-            {% if not session.get('usuario_nombre') %}
-                <a href="{{ url_for('registro') }}" class="btn-registrarse">Registrarse</a>
-                <a href="{{ url_for('login') }}" class="btn-login">Iniciar sesión</a>
-            {% else %}
-                <span style="font-weight:bold; color:#147D7D; font-size:1.1em;">
-                    Hola, {{ session['usuario_nombre'] }}
-                </span>
-                <a href="{{ url_for('logout') }}" class="btn btn-danger">Cerrar sesión</a>
-            {% endif %}
-        </div>
-
-    </div>
-    <!-- ================= MENÚ PRINCIPAL ================= -->
-    <nav class="navbar navbar-expand-lg segunda-barra">
-        <div class="container">
-            <button class="navbar-toggler" type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
-                <ul class="navbar-nav gap-lg-4 text-center">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('home') }}">Inicio</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('menu') }}">Menú</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('acerca')}}">Acerca de</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('contacto') }}">Contacto</a>
-                    </li>
-                    <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('encuentranos') }}">Encuéntranos</a>
-                    </li>
-                    <!--  CONTADOR -->
-                    <li>        <span id="carritoCount" style="
-            /* Fondo de color rosa */
-            background:#F54388; 
-            /*color para el texto */
-            color:white; 
-            /* Relleno interno (padding): 3px vertical, 8px horizontal */
-            padding:3px 8px;
-            /* Redondea las esquinas del contenedor */
-            border-radius:12px;
-            /* Hace que el número (0) sea negrita */
-            font-weight:bold;
-        ">0</span></li>
-                </ul>
+            <div class="d-flex gap-3 align-items-center">
+                {% if not session.get('usuario_nombre') %}
+                    <a href="{{ url_for('registro') }}" class="btn-registrarse">Registrarse</a>
+                    <a href="{{ url_for('login') }}" class="btn-login">Iniciar sesión</a>
+                {% else %}
+                    <span style="font-weight:bold; color:#147D7D; font-size:1.1em;">
+                        Hola, {{ session['usuario_nombre'] }}
+                    </span>
+                    <a href="{{ url_for('logout') }}" class="btn btn-danger">Cerrar sesión</a>
+                {% endif %}
             </div>
         </div>
-    </nav>
+
+        <nav class="navbar navbar-expand-lg segunda-barra">
+            <div class="container">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+                    <ul class="navbar-nav gap-lg-4 text-center">
+                        <li class="nav-item"><a class="nav-link" href="{{ url_for('home') }}">Inicio</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ url_for('menu') }}">Menú</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ url_for('acerca')}}">Acerca de</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ url_for('contacto') }}">Contacto</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ url_for('encuentranos') }}">Encuéntranos</a></li>
+                        <li><span id="carritoCount" style="background:#F54388; color:white; padding:3px 8px; border-radius:12px; font-weight:bold;">0</span></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
     </header>
 
     <main style="background-color: #ffffffff; padding: 40px 20px;">
         <section id="Menu" class="container text-center">
             <h2 style="color: #F54388; font-size: 2.5em; margin-bottom: 10px;">Nuestro Menú</h2>
-            <p style="color: #147D7D; font-style: italic; font-size: 1.1em; margin-bottom: 40px;">Disfruta nuestras delicias frías: helados, copas, malteadas y más. ¡Hechos con amor y sabor artesanal!</p>
+            <p style="color: #147D7D; font-style: italic; font-size: 1.1em; margin-bottom: 40px;">Disfruta nuestras delicias frías artesanal!</p>
 
-<div class="menu-grid">
-    {% for p in productos %}
-    <article class="card">
-        <!-- Imagen -->
-        <div class="card-image-container">
-            <img src="{{ url_for('static', filename='img/' + p.Imagen) }}"
-                 alt="{{ p.Nombre_producto }}"
-                 class="card-image">
-        </div>
-
-        <!-- Contenido -->
-        <div class="card-content">
-            <h3>{{ p.Nombre_producto }}</h3>
-            <p>{{ p.Descripción }}</p>
-            <span class="precio">${{ p.Precio_producto }}</span>
-<div class="sabores-container">
-
-{% for i in range(1, p.Numero_bolas + 1) %}
-<div class="grupo-sabor">
-<label for="sabor-{{ p.Id_producto }}-{{ i }}">Sabor {{ i }}:</label>
-<select id="sabor-{{ p.Id_producto }}-{{ i }}" class="select-sabor">
-    {% for s in sabores %}
-    <option value="{{ s.Id_sabor }}">{{ s.Nombre_sabor }}</option>
-    {% endfor %}
-</select>
-</div>
-{% endfor %}
-
-<div class="grupo-sabor">
-<label for="topping-{{ p.Id_producto }}">Topping:</label>
-<select id="topping-{{ p.Id_producto }}" class="select-sabor">
-    {% for t in toppings %}
-        <option value="{{ t.Id_toppings }}">{{ t.Nombre_toppings }}</option>
-    {% endfor %}
-</select>
-</div>
-
-</div>
-
-
-            <!-- BOTÓN DE AGREGAR -->
-            <button class="btn-agregar"
-                onclick="agregarAlCarrito('{{ p.Id_producto }}', '{{ p.Nombre_producto }}', {{ p.Precio_producto }}, {{ p.Numero_bolas }})">
-                <i class="bi bi-basket2-fill"></i> Agregar
-            </button>
-        </div>
-    </article>
-    {% endfor %}
-</div>
+            <div class="menu-grid">
+                {% for p in productos %}
+                <article class="card">
+                    <div class="card-image-container">
+                        <img src="{{ url_for('static', filename='img/' + p.Imagen) }}" alt="{{ p.Nombre_producto }}" class="card-image">
+                    </div>
+                    <div class="card-content">
+                        <h3>{{ p.Nombre_producto }}</h3>
+                        <p>{{ p.Descripción }}</p>
+                        <span class="precio">${{ p.Precio_producto }}</span>
+                        <div class="sabores-container">
+                            {% for i in range(1, p.Numero_bolas + 1) %}
+                            <div class="grupo-sabor">
+                                <label for="sabor-{{ p.Id_producto }}-{{ i }}">Sabor {{ i }}:</label>
+                                <select id="sabor-{{ p.Id_producto }}-{{ i }}" class="select-sabor">
+                                    {% for s in sabores %}
+                                    <option value="{{ s.Id_sabor }}">{{ s.Nombre_sabor }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            {% endfor %}
+                            <div class="grupo-sabor">
+                                <label for="topping-{{ p.Id_producto }}">Topping:</label>
+                                <select id="topping-{{ p.Id_producto }}" class="select-sabor">
+                                    {% for t in toppings %}
+                                        <option value="{{ t.Id_toppings }}">{{ t.Nombre_toppings }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <button class="btn-agregar" onclick="agregarAlCarrito('{{ p.Id_producto }}', '{{ p.Nombre_producto }}', {{ p.Precio_producto }}, {{ p.Numero_bolas }})">
+                            <i class="bi bi-basket2-fill"></i> Agregar
+                        </button>
+                    </div>
+                </article>
+                {% endfor %}
+            </div>
         </section>
     </main>
-        <!-- BOTÓN FLOTANTE WHATSAPP -->
-        <a href="https://wa.me/573019283491?text=Hola%20quiero%20información%20sobre%20los%20helados%20"
-        class="whatsapp-float"
-        target="_blank">
-        <img src="{{ url_for('static', filename='img/whasap.jpg') }}" 
-                alt="WhatsApp" 
-                class="whatsapp-icon">
-        </a>
-    <!-- CARRITO FLOTANTE -->
+
+    <a href="https://wa.me/573019283491?text=Hola%20quiero%20información" class="whatsapp-float" target="_blank">
+        <img src="{{ url_for('static', filename='img/whasap.jpg') }}" alt="WhatsApp" class="whatsapp-icon">
+    </a>
     <a href="#" id="carritoFlotante" data-bs-toggle="modal" data-bs-target="#modalCarrito" style="background-color: #147D7D;">
         <i class="bi bi-basket2-fill"></i>
         <span id="carritoCountFloat" style="background-color: #F54388;">0</span>
     </a>
 
-    <!-- MODAL DEL CARRITO -->
-    <div class="modal fade" id="modalCarrito" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-
-                <div class="modal-header" style="background-color: #FCEA85; color: #147D7D;">
-                    <h5 class="modal-title">Mi Carrito</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+    <div class="modal fade" id="modalPopUp" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm">
+            <div class="modal-content text-center" style="border-radius: 25px; border: none; padding: 25px; box-shadow: 0px 10px 30px rgba(0,0,0,0.1);">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <i class="bi bi-check-circle-fill" style="font-size: 3.5rem; color: #F54388;"></i>
+                    </div>
+                    <h4 style="color: #147D7D; font-weight: bold;">¡Excelente elección!</h4>
+                    <p class="mb-0 text-muted">Añadido al carrito con éxito.</p>
                 </div>
-
-                <div class="modal-body" id="listaCarrito">
-                    <p>Tu carrito está vacío</p>
-                </div>
-
-                <!--  BOTÓN CORREGIDO -->
-                <div class="modal-footer">
-                    <button class="btn" style="background-color: #F54388; color: white;" onclick="validarCompra()">
-                        Comprar
-                    </button>
-                </div>
-
             </div>
         </div>
     </div>
 
-    <!-- MODAL LOGIN -->
-    <div class="modal fade" id="modalLogin" tabindex="-1">
+    <div class="modal fade" id="modalCarrito" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-                <div class="modal-header" style="background-color: #B5EFCC; color: #147D7D;">
-                    <h5 class="modal-title">Debes iniciar sesión</h5>
+                <div class="modal-header" style="background-color: #FCEA85; color: #147D7D;">
+                    <h5 class="modal-title" style="font-weight: bold;">Mi Carrito</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
-                    Para poder comprar debes iniciar sesión en tu cuenta.
+                    <div id="listaCarrito"><p>Tu carrito está vacío</p></div>
+                    <div id="carritoContainer"></div>
                 </div>
                 <div class="modal-footer">
-                    <a href="{{ url_for('login') }}" class="btn" style="background-color: #147D7D; color: white;">Iniciar Sesión</a>
+                    <button class="btn" style="background-color: #F54388; color: white;" onclick="validarCompra()">Comprar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalLogin" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content text-center">
+                <div class="modal-header" style="background-color: #B5EFCC; color: #147D7D;">
+                    <h5 class="modal-title">Inicia sesión</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">Debes estar en tu cuenta para realizar pedidos.</div>
+                <div class="modal-footer justify-content-center">
+                    <a href="{{ url_for('login') }}" class="btn" style="background-color: #147D7D; color: white;">Ir al Login</a>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-    const usuarioLogueado = "{{ 'true' if session.get('usuario_nombre') else 'false' }}" === "true";
-let carrito = [];
+        const usuarioLogueado = "{{ 'true' if session.get('usuario_nombre') else 'false' }}" === "true";
+        let carrito = [];
 
-// Elementos DOM
-const carritoCount = document.getElementById("carritoCount");
-const carritoCountFloat = document.getElementById("carritoCountFloat");
-const listaCarrito = document.getElementById("listaCarrito");
+        const carritoCount = document.getElementById("carritoCount");
+        const carritoCountFloat = document.getElementById("carritoCountFloat");
+        const listaCarrito = document.getElementById("listaCarrito");
+        const carritoContainer = document.getElementById("carritoContainer");
 
-// ─────────── AGREGAR PRODUCTO ───────────
-function agregarAlCarrito(idProducto, nombre, precio, numeroBolas) {
-    let sabores = [];
-    let topping = null;
+        // FUNCION PRINCIPAL CORREGIDA
+        function agregarAlCarrito(idProducto, nombre, precio, numeroBolas) {
+            let sabores = [];
+            let topping = null;
 
-    // Leer cada sabor según numeroBolas
-    for (let i = 1; i <= numeroBolas; i++) {
-        const select = document.getElementById(`sabor-${idProducto}-${i}`);
-        const idSabor = Number(select.value); 
-        const nombreSabor = select.options[select.selectedIndex].text; 
-        sabores.push({ id: idSabor, nombre: nombreSabor });
-    }
+            // Recoger sabores seleccionados
+            for (let i = 1; i <= numeroBolas; i++) {
+                const select = document.getElementById(`sabor-${idProducto}-${i}`);
+                if (select) {
+                    sabores.push({ id: Number(select.value), nombre: select.options[select.selectedIndex].text });
+                }
+            }
 
-    // Leer topping (si existe)
-    const selectTopping = document.getElementById(`topping-${idProducto}`);
-    if (selectTopping && selectTopping.value !== "") {
-        topping = {
-            id: Number(selectTopping.value),
-            nombre: selectTopping.options[selectTopping.selectedIndex].text
-        };
-    }
+            // Recoger topping
+            const selectTopping = document.getElementById(`topping-${idProducto}`);
+            if (selectTopping && selectTopping.value !== "") {
+                topping = { id: Number(selectTopping.value), nombre: selectTopping.options[selectTopping.selectedIndex].text };
+            }
 
-    // Agregar al arreglo del carrito
-    carrito.push({
-        id_producto: Number(idProducto),
-        nombre,
-        precio: Number(precio.toString().replace(/\./g, "")),
-        sabores,
-        topping 
-    });
+            // Guardar en el arreglo
+            carrito.push({
+                id_producto: Number(idProducto),
+                nombre,
+                precio: Number(precio.toString().replace(/\./g, "")),
+                sabores,
+                topping 
+            });
 
-    actualizarContadores();
-    renderCarrito();
-
-    // === LÓGICA DE LA VENTANA EMERGENTE (TOAST) ===
-    const toastElement = document.getElementById('toastAgregar');
-    if (toastElement) {
-        // Esto fuerza a Bootstrap a reconocer el elemento y mostrarlo
-        const mensajeToast = bootstrap.Toast.getOrCreateInstance(toastElement);
-        mensajeToast.show();
-    } else {
-        console.error("No se encontró el elemento con ID 'toastAgregar' en el HTML");
-    }
-}
-    let sabores = [];
-    let topping = null;
-
-    // Leer cada sabor según numeroBolas
-    for (let i = 1; i <= numeroBolas; i++) {
-        const select = document.getElementById(`sabor-${idProducto}-${i}`);
-        const idSabor = Number(select.value); // Para enviar al backend
-        const nombreSabor = select.options[select.selectedIndex].text; // Para mostrar en pantalla
-        sabores.push({ id: idSabor, nombre: nombreSabor });
-    }
-    // Leer topping (si existe)
-const selectTopping = document.getElementById(`topping-${idProducto}`);
-if (selectTopping && selectTopping.value !== "") {
-    topping = {
-        id: Number(selectTopping.value),
-        nombre: selectTopping.options[selectTopping.selectedIndex].text
-    };
-}
-
-
-    carrito.push({
-        id_producto: Number(idProducto),
-        nombre,
-        precio: Number(precio.toString().replace(/\./g, "")),
-        sabores,
-        topping 
-    });
-
-    actualizarContadores();
-    renderCarrito();
-}
-
-// ─────────── ELIMINAR PRODUCTO ───────────
-function eliminarProducto(index) {
-    carrito.splice(index, 1);
-    actualizarContadores();
-    renderCarrito();
-}
-
-// ─────────── ACTUALIZAR CONTADORES ───────────
-function actualizarContadores() {
-    if (carritoCount) carritoCount.textContent = carrito.length;
-    if (carritoCountFloat) carritoCountFloat.textContent = carrito.length;
-}
-
-// ─────────── RENDER CARRITO ───────────
-function renderCarrito() {
-    if (!listaCarrito) return;
-
-    if (carrito.length === 0) {
-        listaCarrito.innerHTML = "<p>Tu carrito está vacío </p>";
-        return;
-    }
-
-    let total = 0;
-
-    listaCarrito.innerHTML = carrito.map((item, index) => {
-        const precioFormateado = parseInt(item.precio).toLocaleString('es-CO', { minimumFractionDigits: 0 });
-        total += item.precio;
-
-        // Mostrar nombres de sabores
-        const saboresHTML = item.sabores.map(s => `<br>${s.nombre}`).join("");
-        const toppingHTML = item.topping 
-    ? `<br><small>Topping: ${item.topping.nombre}</small>`
-    : "";
-
-
-        return `
-        <div class="d-flex justify-content-between align-items-center border-bottom py-2">
-            <div>
-                <strong>${item.nombre}</strong> — $${precioFormateado}
-                ${saboresHTML}
-                ${toppingHTML}
-            </div>
-            <button class="btn btn-danger btn-sm" onclick="eliminarProducto(${index})">
-                <i class="bi bi-trash3-fill"></i>
-            </button>
-        </div>`;
-    }).join("");
-
-    // Inputs ocultos para enviar al backend
-    const carritoContainer = document.getElementById("carritoContainer");
-    carritoContainer.innerHTML = "";
-    carrito.forEach((item, index) => {
-        const div = document.createElement("div");
-        div.classList.add("mb-2");
-
-        div.innerHTML += `<input type="hidden" name="carrito[${index}][id_producto]" value="${item.id_producto}">`;
-        item.sabores.forEach((sabor, i) => {
-            div.innerHTML += `<input type="hidden" name="carrito[${index}][sabores][${i}]" value="${sabor.id}">`;
-        });
-        if (item.topping) {
-            div.innerHTML += `<input type="hidden" name="carrito[${index}][topping]" value="${item.topping.id}">`;
+            actualizarContadores();
+            renderCarrito();
+            
+            // MOSTRAR VENTANA EMERGENTE EN LA MITAD
+            const popUp = new bootstrap.Modal(document.getElementById('modalPopUp'));
+            popUp.show();
+            
+            // Cerrar automáticamente después de 1.5 segundos
+            setTimeout(() => { popUp.hide(); }, 1500);
         }
-        div.innerHTML += `<input type="hidden" name="carrito[${index}][precio]" value="${item.precio}">`;
 
-        carritoContainer.appendChild(div);
-    });
+        function eliminarProducto(index) {
+            carrito.splice(index, 1);
+            actualizarContadores();
+            renderCarrito();
+        }
 
-    // Mostrar total
-    const totalDiv = document.createElement("div");
-    totalDiv.classList.add("mt-3", "fw-bold", "text-end");
-    totalDiv.innerHTML = `Total: $${total.toLocaleString('es-CO', { minimumFractionDigits: 0 })}`;
-    carritoContainer.appendChild(totalDiv);
-}
+        function actualizarContadores() {
+            if (carritoCount) carritoCount.textContent = carrito.length;
+            if (carritoCountFloat) carritoCountFloat.textContent = carrito.length;
+        }
 
-// ─────────── VALIDAR SESIÓN ANTES DE COMPRAR ───────────
-function validarCompra() {
-    if (!usuarioLogueado) {
-        const loginModal = new bootstrap.Modal(document.getElementById("modalLogin"));
-        loginModal.show();
-        return;
-    }
-    comprar();
-}
+        function renderCarrito() {
+            if (!listaCarrito || !carritoContainer) return;
+            if (carrito.length === 0) {
+                listaCarrito.innerHTML = "<p>Tu carrito está vacío</p>";
+                carritoContainer.innerHTML = "";
+                return;
+            }
 
-// ─────────── COMPRAR ───────────
-function comprar() {
-    if (carrito.length === 0) {
-        alert("Tu carrito está vacío");
-        return;
-    }
+            let total = 0;
+            listaCarrito.innerHTML = carrito.map((item, index) => {
+                total += item.precio;
+                const saboresStr = item.sabores.map(s => `<br><small>• ${s.nombre}</small>`).join("");
+                const topStr = item.topping ? `<br><small>Topping: ${item.topping.nombre}</small>` : "";
+                return `
+                <div class="d-flex justify-content-between align-items-center border-bottom py-2">
+                    <div>
+                        <strong>${item.nombre}</strong> — $${item.precio.toLocaleString('es-CO')}
+                        ${saboresStr} ${topStr}
+                    </div>
+                    <button class="btn btn-danger btn-sm" onclick="eliminarProducto(${index})"><i class="bi bi-trash3-fill"></i></button>
+                </div>`;
+            }).join("");
 
-    // Guardar carrito en localStorage (para mostrar en confirmar pedido)
-    localStorage.setItem("carrito", JSON.stringify(carrito));
+            carritoContainer.innerHTML = "";
+            carrito.forEach((item, index) => {
+                const div = document.createElement("div");
+                div.innerHTML = `<input type="hidden" name="carrito[${index}][id_producto]" value="${item.id_producto}">`;
+                item.sabores.forEach((s, i) => { div.innerHTML += `<input type="hidden" name="carrito[${index}][sabores][${i}]" value="${s.id}">`; });
+                if (item.topping) div.innerHTML += `<input type="hidden" name="carrito[${index}][topping]" value="${item.topping.id}">`;
+                div.innerHTML += `<input type="hidden" name="carrito[${index}][precio]" value="${item.precio}">`;
+                carritoContainer.appendChild(div);
+            });
 
-    // Guardar total
-    const total = carrito.reduce((suma, p) => suma + p.precio, 0);
-    localStorage.setItem("total", total);
+            const totalDiv = document.createElement("div");
+            totalDiv.className = "mt-3 fw-bold text-end";
+            totalDiv.innerHTML = `Total: $${total.toLocaleString('es-CO')}`;
+            carritoContainer.appendChild(totalDiv);
+        }
 
-    // Guardar usuario
-    localStorage.setItem("usuario", "{{ session.get('usuario_nombre') }}");
+        function validarCompra() {
+            if (!usuarioLogueado) {
+                new bootstrap.Modal(document.getElementById("modalLogin")).show();
+                return;
+            }
+            if (carrito.length === 0) return alert("El carrito está vacío");
+            localStorage.setItem("carrito", JSON.stringify(carrito));
+            localStorage.setItem("total", carrito.reduce((s, p) => s + p.precio, 0));
+            window.location.href = "/confirmar_pedido";
+        }
 
-    // Redirigir a confirmar pedido
-    window.location.href = "/confirmar_pedido";
-}
-
-// ─────────── CARGAR CARRITO AL INICIAR PÁGINA ───────────
-document.addEventListener("DOMContentLoaded", () => {
-    const carritoGuardado = JSON.parse(localStorage.getItem("carrito"));
-    if (carritoGuardado && carritoGuardado.length > 0) {
-        carrito = carritoGuardado;
-        actualizarContadores();
-        renderCarrito();
-    }
-});
-
+        document.addEventListener("DOMContentLoaded", () => {
+            const guardado = JSON.parse(localStorage.getItem("carrito"));
+            if (guardado) { carrito = guardado; actualizarContadores(); renderCarrito(); }
+        });
     </script>
-    <footer style="background-color: #FCEA85; color: #147D7D;">
+
+    <footer style="background-color: #FCEA85; color: #147D7D; text-align: center; padding: 20px;">
         <p>&copy; 2025 Heladería Annia. Todos los derechos reservados.</p>
     </footer>
-    <div class="toast-container position-fixed bottom-0 start-0 p-3" style="z-index: 4000;">
-    <div id="toastAgregar" class="toast align-items-center text-white border-0" role="alert" aria-live="assertive" aria-atomic="true" style="background-color: #147D7D; border-radius: 15px;">
-        <div class="d-flex">
-            <div class="toast-body">
-                <i class="bi bi-check-circle-fill me-2"></i> 
-                ¡Producto añadido al carrito correctamente!
-            </div>
-            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
-        </div>
-    </div>
-</div>
 </body>
 </html>
