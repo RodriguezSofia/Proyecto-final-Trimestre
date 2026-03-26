@@ -191,3 +191,66 @@ body {
         text-align: center; /* Centrar */
     }
 }
+
+.modal-backdrop {
+    background-color: rgba(20, 125, 125, 0.4);
+    backdrop-filter: blur(4px);
+}
+
+.modal-content {
+    background-color: #ffffff;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    animation: popIn 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+
+@keyframes popIn {
+    0% { transform: scale(0.5); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.modal {
+    z-index: 1060 !important;
+}
+
+/* FUERZA EL CENTRADO TOTAL DEL MODAL */
+.modal {
+    position: fixed !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important; /* El truco mágico para centrar */
+    width: 100vw !important;
+    height: 100vh !important;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1060 !important;
+}
+
+/* Evita que el body flex empuje el modal hacia los lados */
+.modal-dialog {
+    margin: auto !important;
+    max-width: 350px !important;
+    width: 90% !important;
+    pointer-events: auto !important;
+}
+
+/* Asegura que el fondo oscuro cubra toda la pantalla desde la esquina */
+.modal-backdrop {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    width: 100vw !important;
+    height: 100vh !important;
+    z-index: 1050 !important;
+}
+
+/* Animación para que no aparezca de golpe */
+.modal-content {
+    animation: aparecerModal 0.3s ease-out;
+    border-radius: 25px !important;
+}
+
+@keyframes aparecerModal {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
