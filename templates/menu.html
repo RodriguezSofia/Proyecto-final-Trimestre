@@ -11,8 +11,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-    <link rel="shortcut icon" href="{{ url_for('static', filename='img/logo_01.png') }}" type="image/x-icon">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -130,64 +128,16 @@
 
 
             <!-- BOTÓN DE AGREGAR -->
-function agregarAlCarrito(idProducto, nombre, precio, numeroBolas) {
-    let sabores = [];
-    let topping = null;
-
-    // Configuración estética de la heladería
-    const alertConfig = {
-        customClass: {
-            popup: 'swal-heladeria-popup',
-            title: 'swal-heladeria-title',
-            htmlContainer: 'swal-heladeria-content',
-            confirmButton: 'swal-heladeria-confirm-btn',
-            icon: 'swal-heladeria-icon'
-        },
-        buttonsStyling: false
-    };
-
-    // Leer sabores
-    for (let i = 1; i <= numeroBolas; i++) {
-        const select = document.getElementById(`sabor-${idProducto}-${i}`);
-        const idSabor = Number(select.value);
-        const nombreSabor = select.options[select.selectedIndex].text;
-        sabores.push({ id: idSabor, nombre: nombreSabor });
-    }
-
-    // Leer topping
-    const selectTopping = document.getElementById(`topping-${idProducto}`);
-    if (selectTopping && selectTopping.value !== "") {
-        topping = {
-            id: Number(selectTopping.value),
-            nombre: selectTopping.options[selectTopping.selectedIndex].text
-        };
-    }
-
-    // Guardar en el arreglo del carrito
-    carrito.push({
-        id_producto: Number(idProducto),
-        nombre,
-        precio: Number(precio.toString().replace(/\./g, "")),
-        sabores,
-        topping 
-    });
-
-    // --- NOTIFICACIÓN ESTÉTICA ---
-    Swal.fire({
-        ...alertConfig,
-        icon: 'success',
-        title: '¡Añadido!',
-        text: `Tu ${nombre} se agregó al carrito.`,
-        timer: 2000, // Se cierra sola en 2 segundos
-        showConfirmButton: false // Para que sea más rápida y fluida
-    });
-
-    actualizarContadores();
-    renderCarrito();
-    
-    // Guardar en localStorage para no perderlo al recargar
-    localStorage.setItem("carrito", JSON.stringify(carrito));
-}
+            <button class="btn-agregar"
+                onclick="agregarAlCarrito('{{ p.Id_producto }}', '{{ p.Nombre_producto }}', {{ p.Precio_producto }}, {{ p.Numero_bolas }})">
+                <i class="bi bi-basket2-fill"></i> Agregar
+            </button>
+        </div>
+    </article>
+    {% endfor %}
+</div>
+        </section>
+    </main>
         <!-- BOTÓN FLOTANTE WHATSAPP -->
         <a href="https://wa.me/573019283491?text=Hola%20quiero%20información%20sobre%20los%20helados%20"
         class="whatsapp-float"
@@ -244,6 +194,7 @@ function agregarAlCarrito(idProducto, nombre, precio, numeroBolas) {
             </div>
         </div>
     </div>
+
     <script>
     const usuarioLogueado = "{{ 'true' if session.get('usuario_nombre') else 'false' }}" === "true";
 let carrito = [];
@@ -255,6 +206,48 @@ const listaCarrito = document.getElementById("listaCarrito");
 
 // ─────────── AGREGAR PRODUCTO ───────────
 function agregarAlCarrito(idProducto, nombre, precio, numeroBolas) {
+    let sabores = [];
+    let topping = null;
+
+    // Leer cada sabor según numeroBolas
+    for (let i = 1; i <= numeroBolas; i++) {
+        const select = document.getElementById(`sabor-${idProducto}-${i}`);
+        const idSabor = Number(select.value); 
+        const nombreSabor = select.options[select.selectedIndex].text; 
+        sabores.push({ id: idSabor, nombre: nombreSabor });
+    }
+
+    // Leer topping (si existe)
+    const selectTopping = document.getElementById(`topping-${idProducto}`);
+    if (selectTopping && selectTopping.value !== "") {
+        topping = {
+            id: Number(selectTopping.value),
+            nombre: selectTopping.options[selectTopping.selectedIndex].text
+        };
+    }
+
+    // Agregar al arreglo del carrito
+    carrito.push({
+        id_producto: Number(idProducto),
+        nombre,
+        precio: Number(precio.toString().replace(/\./g, "")),
+        sabores,
+        topping 
+    });
+
+    actualizarContadores();
+    renderCarrito();
+
+    // === LÓGICA DE LA VENTANA EMERGENTE (TOAST) ===
+    const toastElement = document.getElementById('toastAgregar');
+    if (toastElement) {
+        // Esto fuerza a Bootstrap a reconocer el elemento y mostrarlo
+        const mensajeToast = bootstrap.Toast.getOrCreateInstance(toastElement);
+        mensajeToast.show();
+    } else {
+        console.error("No se encontró el elemento con ID 'toastAgregar' en el HTML");
+    }
+}
     let sabores = [];
     let topping = null;
 
@@ -406,5 +399,16 @@ document.addEventListener("DOMContentLoaded", () => {
     <footer style="background-color: #FCEA85; color: #147D7D;">
         <p>&copy; 2025 Heladería Annia. Todos los derechos reservados.</p>
     </footer>
+    <div class="toast-container position-fixed bottom-0 start-0 p-3" style="z-index: 4000;">
+    <div id="toastAgregar" class="toast align-items-center text-white border-0" role="alert" aria-live="assertive" aria-atomic="true" style="background-color: #147D7D; border-radius: 15px;">
+        <div class="d-flex">
+            <div class="toast-body">
+                <i class="bi bi-check-circle-fill me-2"></i> 
+                ¡Producto añadido al carrito correctamente!
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+        </div>
+    </div>
+</div>
 </body>
 </html>
