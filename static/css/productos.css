@@ -171,3 +171,63 @@ li {
     padding: 10px;
     border-bottom: 1px solid #eee;
 }
+/* ===========================
+   SOLUCIÓN RESPONSIVE TABLA
+=========================== */
+
+@media (max-width: 600px) {
+    /* Ajuste del contenedor para que no se pegue a los bordes */
+    .contenedor {
+        padding: 40px 15px;
+    }
+
+    /* Forzamos a la tabla a comportarse como bloques */
+    table, thead, tbody, th, td, tr {
+        display: block;
+        width: 100%;
+    }
+
+    /* Escondemos el encabezado azul original */
+    thead tr, th {
+        display: none;
+    }
+
+    tr {
+        margin-bottom: 20px;
+        border: 2px solid var(--cian-acentos);
+        border-radius: 15px;
+        overflow: hidden;
+        background: white;
+    }
+
+    td {
+        text-align: right; /* El dato a la derecha */
+        padding: 12px 15px;
+        position: relative;
+        border-bottom: 1px solid #eee;
+    }
+
+    /* Insertamos el nombre de la columna a la izquierda usando data-label */
+    td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 15px;
+        font-weight: 700;
+        color: var(--cian-acentos);
+        text-transform: uppercase;
+        font-size: 12px;
+    }
+
+    td:last-child {
+        border-bottom: none;
+    }
+
+    /* Ajuste del Header para que el botón no tape el título */
+    header {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+        height: auto;
+        padding: 20px;
+    }
+}

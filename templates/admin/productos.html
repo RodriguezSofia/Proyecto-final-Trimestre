@@ -42,21 +42,25 @@
         </form>
 
         <h3> Productos registrados</h3>
-        <table>
-            <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Precio</th>
-                <th>Nº Bolas</th>
-            </tr>
-            {% for p in productos %}
-            <tr>
-                <td>{{ p.Id_producto }}</td>
-                <td>{{ p.Nombre_producto }}</td>
-                <td>${{ p.Precio_producto }}</td>
-                <td>{{ p.Numero_bolas }}</td>
-            </tr>
-            {% endfor %}
+        <table class="tabla-productos">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                    <th>Nº Bolas</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for p in productos %}
+                <tr>
+                    <td data-label="ID">{{ p.Id_producto }}</td>
+                    <td data-label="Nombre">{{ p.Nombre_producto }}</td>
+                    <td data-label="Precio">${{ p.Precio_producto }}</td>
+                    <td data-label="Nº Bolas">{{ p.Numero_bolas }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
         </table>
     </section>
 
