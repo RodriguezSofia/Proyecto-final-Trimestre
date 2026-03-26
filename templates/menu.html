@@ -12,6 +12,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <link rel="shortcut icon" href="{{ url_for('static', filename='img/logo_01.png') }}" type="image/x-icon">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -129,16 +130,64 @@
 
 
             <!-- BOTÓN DE AGREGAR -->
-            <button class="btn-agregar"
-                onclick="agregarAlCarrito('{{ p.Id_producto }}', '{{ p.Nombre_producto }}', {{ p.Precio_producto }}, {{ p.Numero_bolas }})">
-                <i class="bi bi-basket2-fill"></i> Agregar
-            </button>
-        </div>
-    </article>
-    {% endfor %}
-</div>
-        </section>
-    </main>
+function agregarAlCarrito(idProducto, nombre, precio, numeroBolas) {
+    let sabores = [];
+    let topping = null;
+
+    // Configuración estética de la heladería
+    const alertConfig = {
+        customClass: {
+            popup: 'swal-heladeria-popup',
+            title: 'swal-heladeria-title',
+            htmlContainer: 'swal-heladeria-content',
+            confirmButton: 'swal-heladeria-confirm-btn',
+            icon: 'swal-heladeria-icon'
+        },
+        buttonsStyling: false
+    };
+
+    // Leer sabores
+    for (let i = 1; i <= numeroBolas; i++) {
+        const select = document.getElementById(`sabor-${idProducto}-${i}`);
+        const idSabor = Number(select.value);
+        const nombreSabor = select.options[select.selectedIndex].text;
+        sabores.push({ id: idSabor, nombre: nombreSabor });
+    }
+
+    // Leer topping
+    const selectTopping = document.getElementById(`topping-${idProducto}`);
+    if (selectTopping && selectTopping.value !== "") {
+        topping = {
+            id: Number(selectTopping.value),
+            nombre: selectTopping.options[selectTopping.selectedIndex].text
+        };
+    }
+
+    // Guardar en el arreglo del carrito
+    carrito.push({
+        id_producto: Number(idProducto),
+        nombre,
+        precio: Number(precio.toString().replace(/\./g, "")),
+        sabores,
+        topping 
+    });
+
+    // --- NOTIFICACIÓN ESTÉTICA ---
+    Swal.fire({
+        ...alertConfig,
+        icon: 'success',
+        title: '¡Añadido!',
+        text: `Tu ${nombre} se agregó al carrito.`,
+        timer: 2000, // Se cierra sola en 2 segundos
+        showConfirmButton: false // Para que sea más rápida y fluida
+    });
+
+    actualizarContadores();
+    renderCarrito();
+    
+    // Guardar en localStorage para no perderlo al recargar
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+}
         <!-- BOTÓN FLOTANTE WHATSAPP -->
         <a href="https://wa.me/573019283491?text=Hola%20quiero%20información%20sobre%20los%20helados%20"
         class="whatsapp-float"

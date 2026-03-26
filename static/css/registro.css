@@ -5,7 +5,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "Quicksand", sans-serif; /* Fuente principal para todo */
+    font-family: "Quicksand", sans-serif;
 }
 
 /* =========================================
@@ -13,19 +13,15 @@
    ========================================= */
 body {
     display: flex;
-    justify-content: center; /* Centra horizontalmente */
-    align-items: center;     /* Centra verticalmente */
-    min-height: 100vh;       /* Ocupa toda la altura de la ventana */
+    justify-content: center;
+    align-items: center; 
+    min-height: 100vh;
     padding: 20px;
-
-    /* Fondo con imagen fija */
     background-image: url('../img/inicio.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
-
-    /* Degradado morado sobre la imagen */
     background-color: #af76ec;
     background-blend-mode: multiply;
 }
@@ -35,16 +31,12 @@ body {
    ========================================= */
 .wrapper {
     width: 100%;
-    max-width: 450px; /* Ancho máximo */
-    background: rgba(196, 96, 226, 0.75); /* Fondo semi-transparente morado */
-    border-radius: 20px;
+    max-width: 400px; /* Lo hice un poco más estrecho para un look más moderno */
+    background: rgba(196, 96, 226, 0.7); 
+    border-radius: 30px; /* Más redondeado como pediste */
     padding: 40px 30px;
-
-    /* Sombras y borde */
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
     border: 2px solid rgba(255, 255, 255, 0.3);
-
-    /* Efecto de desenfoque */
     backdrop-filter: blur(12px);
     color: white;
     text-align: center;
@@ -54,54 +46,67 @@ body {
    TÍTULO PRINCIPAL
    ========================================= */
 .wrapper h1 {
-    font-family: 'Pacifico', cursive; /* Fuente cursiva estilo llamativo */
-    font-size: 42px;
-    margin-bottom: 20px;
+    font-family: 'Pacifico', cursive;
+    font-size: 38px;
+    margin-bottom: 25px;
     color: white;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* Sombra sutil */
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 /* =========================================
-   INPUTS (.input-box)
+   INPUTS Y SELECTS
    ========================================= */
 .input-box {
-    position: relative; /* Para posicionar el icono */
+    position: relative;
     width: 100%;
     height: 50px;
-    margin: 18px 0;
+    margin: 15px 0;
 }
 
-.input-box input {
+.input-box input, select#ciudad {
     width: 100%;
     height: 100%;
-    background: rgba(255, 255, 255, 0.22); /* Fondo semi-transparente */
-    border: none;
-    outline: none;
+    background: rgba(255, 255, 255, 0.2);
     border: 2px solid rgba(255, 255, 255, 0.35);
-    border-radius: 40px;
-    font-size: 16px;
+    border-radius: 40px; /* Redondeado total */
+    font-size: 15px;
     color: white;
-    padding: 18px 45px 18px 20px;
+    padding: 0 45px 0 20px;
+    outline: none;
     transition: 0.3s ease;
 }
 
+/* Estilo específico para el select de Palmira */
+select#ciudad {
+    appearance: none;
+    cursor: pointer;
+    margin-bottom: 15px;
+    padding-right: 20px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    background-size: 18px;
+}
+
+select#ciudad option {
+    color: #6a11cb; /* Texto oscuro para que se lea en la lista blanca */
+}
+
 .input-box input::placeholder {
-    color: rgba(255, 255, 255, 0.85);
+    color: rgba(255, 255, 255, 0.8);
 }
 
 .input-box input:focus {
     border-color: white;
-    background: rgba(255, 255, 255, 0.28);
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.35);
+    background: rgba(255, 255, 255, 0.3);
 }
 
-/* Icono dentro del input */
 .input-box i {
     position: absolute;
     right: 20px;
     top: 50%;
     transform: translateY(-50%);
-    font-size: 20px;
+    font-size: 18px;
     color: white;
 }
 
@@ -115,55 +120,166 @@ body {
     border: none;
     border-radius: 40px;
     cursor: pointer;
-    font-size: 17px;
+    font-size: 16px;
     font-weight: bold;
-    color: #6a11cb; /* Morado oscuro */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+    color: #af76ec;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     transition: 0.3s ease;
     margin-top: 10px;
 }
 
 .btn:hover {
-    background: rgb(245, 245, 245);
-    transform: translateY(-3px);
-    box-shadow: 0 7px 20px rgba(0, 0, 0, 0.35);
-}
-
-.btn:active {
-    transform: translateY(0);
+    transform: scale(1.02);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
 }
 
 /* =========================================
-   LINK DE LOGIN (.register-link)
+   LINK DE LOGIN
    ========================================= */
 .register-link {
-    margin-top: 25px;
-    font-size: 15px;
-    color: white;
+    margin-top: 20px;
+    font-size: 14px;
 }
 
 .register-link a {
     color: white;
     text-decoration: none;
     font-weight: bold;
-    margin-left: 5px;
-    transition: 0.3s ease;
-}
-
-.register-link a:hover {
-    text-decoration: underline;
-    text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
 }
 
 /* =========================================
-   RESPONSIVE (Pantallas pequeñas)
+   ALERTAS ESTÉTICAS (SweetAlert2 Custom) 
+   Optimizadas: Pequeñas, suaves y centradas
    ========================================= */
-@media (max-width: 480px) {
-    .wrapper {
-        padding: 30px 20px;
-    }
 
-    .wrapper h1 {
-        font-size: 32px;
-    }
+/* El contenedor principal de la alerta */
+.swal-custom-popup {
+    width: 300px !important; /* Ancho muy compacto */
+    border-radius: 40px !important; /* Bordes extra redondeados */
+    background: rgba(255, 255, 255, 0.98) !important;
+    padding: 25px 15px !important;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2) !important;
+    border: none !important;
+}
+
+/* El título (estilo Pacifico como tu h1) */
+.swal-custom-title {
+    font-family: 'Pacifico', cursive !important;
+    color: #af76ec !important;
+    font-size: 22px !important;
+    margin-top: 10px !important;
+    font-weight: normal !important;
+}
+
+/* El texto descriptivo */
+.swal-custom-content {
+    font-family: 'Quicksand', sans-serif !important;
+    color: #666 !important;
+    font-size: 14px !important;
+    line-height: 1.4 !important;
+    margin-bottom: 5px !important;
+}
+
+/* El botón de confirmación */
+.swal-custom-confirm-btn {
+    background-color: #af76ec !important; /* Morado de tu paleta */
+    color: white !important;
+    border-radius: 50px !important;
+    padding: 10px 35px !important;
+    font-family: 'Quicksand', sans-serif !important;
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border: none !important;
+    margin-top: 15px !important;
+    transition: 0.3s ease !important;
+}
+
+.swal-custom-confirm-btn:hover {
+    background-color: #9b5de5 !important;
+    transform: scale(1.05);
+}
+
+/* Ajuste para el icono (hacerlo más pequeño) */
+.swal2-icon {
+    transform: scale(0.7); /* Reduce el tamaño del icono de éxito/error */
+    margin-bottom: 5px !important;
+}
+
+/* Animación de error (shake) */
+.animate__shakeX {
+    animation: shakeX 0.5s;
+}
+
+@keyframes shakeX {
+    from, to { transform: translate3d(0, 0, 0); }
+    10%, 30%, 50%, 70%, 90% { transform: translate3d(-5px, 0, 0); }
+    20%, 40%, 60%, 80% { transform: translate3d(5px, 0, 0); }
+}
+
+/* =========================================
+   ESTILOS DE ALERTA: HELADERÍA
+   Optimizados para SweetAlert2
+   ========================================= */
+
+/* 1. EL CONTENEDOR PRINCIPAL (MODAL)
+   Pequeño y con bordes muy redondeados (cozy) */
+.swal-heladeria-popup {
+    width: 320px !important; /* Más compacto y centrado */
+    border-radius: 40px !important; /* Bordes suaves */
+    background: rgba(255, 255, 255, 0.98) !important;
+    padding: 25px !important;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.15) !important;
+    border: none !important;
+}
+
+/* 2. EL ICONO DE EXCLAMACIÓN
+   Cambiado a Morado Mora Jugosa */
+.swal-heladeria-icon.swal2-warning {
+    border-color: #8e24aa !important; /* Morado Mora */
+    color: #8e24aa !important;
+    transform: scale(0.7) !important; /* Un poco más pequeño y estético */
+    margin-bottom: 5px !important;
+}
+
+/* 3. EL TÍTULO (Morado Profundo) */
+.swal-heladeria-title {
+    font-family: 'Pacifico', cursive !important; /* Fuente llamativa */
+    color: #4a148c !important; /* Morado Profundo Premium */
+    font-size: 22px !important;
+    margin-top: 5px !important;
+    font-weight: normal !important;
+}
+
+/* 4. EL TEXTO DESCRIPTIVO (Morado Suave) */
+.swal-heladeria-content {
+    font-family: 'Quicksand', sans-serif !important;
+    color: #7e57c2 !important; /* Morado Suave */
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+    margin-bottom: 5px !important;
+}
+
+/* 5. EL BOTÓN "OK" (Rosa Helado de Fresa Cremoso)
+   Cambiado para un look más apetitoso y acogedor */
+.swal-heladeria-confirm-btn {
+    background-color: #f48fb1 !important; /* Rosa Fresa Cremoso */
+    color: white !important;
+    border-radius: 50px !important;
+    padding: 10px 35px !important;
+    font-family: 'Quicksand', sans-serif !important;
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border: none !important;
+    margin-top: 15px !important;
+    transition: 0.3s ease !important;
+    cursor: pointer;
+}
+
+.swal-heladeria-confirm-btn:hover {
+    background-color: #f06292 !important; /* Un poco más oscuro al pasar mouse */
+    transform: scale(1.05); /* Efecto de brillo suave */
 }

@@ -13,19 +13,26 @@
 </head>
 
 <body>
-
+<div class="menu-overlay" id="menuOverlay"></div>
 <!-- ================= HEADER ================= -->
 <header>
     <div class="logo-box">
+        <button class="menu-toggle" id="menuOpen" aria-label="Abrir menú">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#b51773" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </button>
+        
         <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo Annia">
-        <h1>Panel de Administración · Heladería Annia</h1>
+        <h1>Panel <span class="hide-mobile">de Administración</span></h1>
     </div>
 </header>
-
 <!-- ================= SIDEBAR ================= -->
-<aside class="sidebar">
-    <h3>Menú</h3>
-
+<aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+        <h3>Menú</h3>
+        <button class="menu-close" id="menuClose" aria-label="Cerrar menú">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#7a2c63" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+    </div>
     <a href="{{ url_for('admin_pedidos') }}">Pedidos</a>
     <a href="{{ url_for('admin_productos') }}">Productos</a>
     <a href="{{ url_for('admin_clientes') }}">Clientes</a>
@@ -99,6 +106,22 @@
     </div>
 
 </main>
+<script>
+    const btnOpen = document.getElementById('menuOpen');
+    const btnClose = document.getElementById('menuClose');
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('menuOverlay');
 
+    function toggleMenu() {
+        sidebar.classList.toggle('active');
+        overlay.classList.toggle('active');
+        // Evita que el cuerpo haga scroll cuando el menú está abierto
+        document.body.style.overflow = sidebar.classList.contains('active') ? 'hidden' : '';
+    }
+
+    btnOpen.addEventListener('click', toggleMenu);
+    btnClose.addEventListener('click', toggleMenu);
+    overlay.addEventListener('click', toggleMenu); // Cerrar si se toca fuera
+</script>
 </body>
 </html>

@@ -1,3 +1,131 @@
+/* ===================================================
+   RESPONSIVE & HAMBURGER MENU (Copiar y pegar esto)
+   =================================================== */
+
+/* Ajustes base para evitar desbordamientos */
+body {
+    overflow-x: hidden;
+}
+
+/* 1. Elementos del Header para Móvil */
+.menu-toggle {
+    display: none; /* Oculto en PC */
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    margin-right: 10px;
+}
+
+/* 2. Overlay (Capa oscura al abrir menú) */
+.menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(2px);
+    z-index: 998;
+    display: none; /* Se activa con JS */
+}
+
+.menu-overlay.active {
+    display: block;
+}
+
+/* 3. Botón de cerrar dentro del Sidebar */
+.menu-close {
+    display: none; /* Oculto en PC */
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+/* 4. MEDIA QUERY PARA MÓVILES (Celulares y Tablets) */
+@media (max-width: 992px) {
+    
+    header {
+        height: 70px;
+        padding: 0 15px;
+    }
+
+    header h1 {
+        font-size: 18px;
+    }
+
+    .hide-mobile {
+        display: none; /* Para textos largos del título */
+    }
+
+    /* Mostrar botón hamburguesa */
+    .menu-toggle {
+        display: block;
+    }
+
+    /* Transformar Sidebar en Panel Desplegable Lateral */
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 260px;
+        height: 100vh;
+        z-index: 1001;
+        transform: translateX(-100%); /* Lo saca de la pantalla */
+        transition: transform 0.3s ease-in-out;
+        background: white; /* Color sólido en móvil para legibilidad */
+        padding: 20px;
+        border-right: 1px solid #f3b2d7;
+    }
+
+    /* Clase que activará el JavaScript */
+    .sidebar.active {
+        transform: translateX(0); /* Lo mete a la pantalla */
+    }
+
+    .sidebar-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 25px;
+    }
+
+    .menu-close {
+        display: block;
+    }
+
+    /* Ajuste del Contenido Principal */
+    .main {
+        margin-left: 0;
+        margin-top: 70px;
+        padding: 20px;
+        width: 100%;
+    }
+
+    /* Ajuste de Cards a una sola columna */
+    .cards {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .card {
+        width: 100%;
+    }
+
+    /* Ajuste de Gráfica y Tabla */
+    .bottom {
+        flex-direction: column;
+    }
+
+    .chart-box, .orders-box {
+        width: 100%;
+    }
+
+    /* Hacer la tabla scrolleable para que no rompa el diseño */
+    .orders-box {
+        overflow-x: auto;
+    }
+}
 /* ===========================
    RESET + BASE
 =========================== */
@@ -11,6 +139,9 @@ body {
     font-family: 'Quicksand', sans-serif;
     background: #fff3f8;
     color: #4a2c3f;
+    overflow-x: hidden; /* Evita scroll horizontal extraño */
+    display: flex;
+    flex-direction: column;
 }
 
 /* ===========================
@@ -106,10 +237,14 @@ header h1 {
    MAIN CONTENT
 =========================== */
 .main {
-    margin-left: 240px;
-    margin-top: 90px;
-    padding: 40px 60px;
-    max-width: 1400px;
+    margin-left: 250px; /* Ancho del sidebar en PC */
+    margin-top: 80px;  /* Altura del header */
+    padding: 40px;
+    width: calc(100% - 250px);
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra horizontalmente el contenido directo */
+    transition: all 0.3s ease;
 }
 
 /* ===========================
@@ -119,11 +254,15 @@ header h1 {
     font-size: 28px;
     color: #b51773;
     margin-bottom: 10px;
+    text-align: center;
+    width: 100%;
 }
 
 .subtitle {
     color: #7a2c63;
     margin-bottom: 35px;
+    text-align: center;
+    width: 100%;
 }
 
 /* ===========================
@@ -133,6 +272,10 @@ header h1 {
     display: flex;
     gap: 20px;
     margin-bottom: 30px;
+    flex-wrap: wrap; /* Importante: permite que bajen si no caben */
+    width: 100%;
+    max-width: 1200px; /* Limita el ancho máximo para que no se separen demasiado */
+    justify-content: center;
 }
 
 .card {
