@@ -7,12 +7,25 @@ footer {
     color: #147D7D; /* Color del texto */
     font-weight: bold; /* Negrita */
 }
-iframe {
-    border: 2px solid #e85aad;
+/* Contenedor del mapa */
+.map-responsive {
+    overflow: hidden;
+    padding-bottom: 56.25%; /* Relación de aspecto 16:9 */
+    position: relative;
+    height: 0;
+    width: 100%;
     border-radius: 12px;
-    padding: 10px;
-    background-color: #fff;
+    margin-bottom: 20px;
+}
 
+/* Estilos para el iframe dentro del contenedor */
+.map-responsive iframe {
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    border: 2px solid #e85aad;
     box-shadow: 0 0 10px #e85aad, 0 0 20px rgba(232, 90, 173, 0.5);
 }
 
