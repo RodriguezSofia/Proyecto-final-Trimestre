@@ -10,6 +10,8 @@ import datetime  #Se importa os para mejor manejo de las variables del entorno
 import random # Se importa random para la generacion de  contraseñas temporales.         
 import string #En conjunto con random, se usa para la generación de contraseñas temporales
 from werkzeug.utils import secure_filename # Se importa para manejar la seguridad de los nombres de archivos subidos.
+from sqlalchemy import create_engine, text
+from urllib.parse import quote_plus
 
 # ======================================================
 # CONFIGURACIÓN GENERAL
@@ -65,6 +67,29 @@ DB_CONFIG = {
     'password': os.environ.get('DB_PASSWORD', '123456'),
     'port': 5432
 }
+
+_sqlalchemy_engine = None
+
+def get_sqlalchemy_engine():
+    global _sqlalchemy_engine
+    if _sqlalchemy_engine is not None:
+        return _sqlalchemy_engine
+
+    database_url = os.environ.get('DATABASE_URL')
+    if database_url:
+        _sqlalchemy_engine = create_engine(database_url)
+        return _sqlalchemy_engine
+
+    user = quote_plus(DB_CONFIG['user'])
+    password = quote_plus(DB_CONFIG['password'])
+    host = DB_CONFIG['host']
+    port = DB_CONFIG['port']
+    database = DB_CONFIG['database']
+
+    _sqlalchemy_engine = create_engine(
+        f"postgresql+psycopg2://{user}:{password}@{host}:{port}/{database}"
+    )
+    return _sqlalchemy_engine
 
 def conectar_bd():
     try:
@@ -135,6 +160,40 @@ def datos_pago():
     datos = DATOS_PAGO.get(metodo, DATOS_PAGO["nequi"])
 
     return jsonify({"metodo": metodo, "datos": datos})
+
+@app.route("/api/ventas-semanales")
+def ventas_semanales():
+    hoy = datetime.date.today()
+    inicio = hoy - datetime.timedelta(days=29)
+
+    query = text("""
+        SELECT DATE(f."Fecha") AS fecha, COALESCE(SUM(d."Total"), 0) AS total
+        FROM public."Factura" f
+        JOIN public."Detalle_factura" d
+            ON f."Id_factura" = d."Id_factura"
+        WHERE f."Fecha"::date BETWEEN :inicio AND :hoy
+        GROUP BY fecha
+        ORDER BY fecha;
+    """)
+
+    engine = get_sqlalchemy_engine()
+    with engine.connect() as conn:
+        rows = conn.execute(query, {"inicio": inicio, "hoy": hoy}).fetchall()
+
+    totales_por_fecha = {}
+    for row in rows:
+        fecha = row._mapping["fecha"]
+        total = row._mapping["total"]
+        totales_por_fecha[fecha] = float(total or 0)
+
+    labels = []
+    data = []
+    for i in range(30):
+        dia = inicio + datetime.timedelta(days=i)
+        labels.append(dia.strftime("%d/%m"))
+        data.append(float(totales_por_fecha.get(dia, 0)))
+
+    return jsonify({"labels": labels, "data": data})
 
 @app.route('/confirmar_pedido', methods=['GET', 'POST'])
 def confirmar_pedido():  # sourcery skip: low-code-quality
@@ -918,6 +977,29 @@ def admin_panel():
         resultado = cursor.fetchone()
         alertas = resultado["alertas"]
 
+        # Ventas de hoy (suma de detalles por factura)
+        cursor.execute("""
+            SELECT COALESCE(SUM(d."Total"), 0) AS ventas
+            FROM public."Factura" f
+            JOIN public."Detalle_factura" d
+                ON f."Id_factura" = d."Id_factura"
+            WHERE f."Fecha" = CURRENT_DATE;
+        """)
+        ventas_hoy = cursor.fetchone()["ventas"]
+        try:
+            ventas_hoy_val = int(round(float(ventas_hoy)))
+        except Exception:
+            ventas_hoy_val = 0
+        ventas_hoy_formateadas = f"{ventas_hoy_val:,}".replace(",", ".")
+
+        # Clientes registrados (Id_tipo = 3)
+        cursor.execute("""
+            SELECT COUNT(*) AS clientes
+            FROM public."Usuarios"
+            WHERE "Id_tipo" = 3;
+        """)
+        clientes_registrados = cursor.fetchone()["clientes"]
+
         cursor.close()
         conexion.close()
 
@@ -925,9 +1007,9 @@ def admin_panel():
             return render_template(
                 'admin/admin_panel.html',
                 alertas=alertas,
-                ventas=0,
+                ventas=ventas_hoy_formateadas,
                 pendientes=0,
-                clientes=0
+                clientes=clientes_registrados
             )
 
         if usuario["Id_tipo"] == 2:

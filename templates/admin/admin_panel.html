@@ -73,8 +73,10 @@
 
         <!-- CHART -->
         <section class="chart-box">
-            <h3>Ventas Semanales</h3>
-            <img src="{{ url_for('static', filename='grafica.png') }}" alt="Gráfica de ventas">
+            <h3>Ventas Mensuales</h3>
+            <div class="chart-canvas">
+                <canvas id="ventasSemanalesChart" aria-label="Grafica de ventas mensuales" role="img"></canvas>
+            </div>
         </section>
 
         <!-- ORDERS -->
@@ -104,6 +106,65 @@
     </div>
 
 </main>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    async function cargarVentasSemanales() {
+        try {
+            const respuesta = await fetch("/api/ventas-semanales");
+            const payload = await respuesta.json();
+
+            const canvas = document.getElementById("ventasSemanalesChart");
+            if (!canvas) return;
+
+            const ctx = canvas.getContext("2d");
+            new Chart(ctx, {
+                type: "line",
+                data: {
+                    labels: payload.labels,
+                    datasets: [{
+                        label: "Ventas (COP)",
+                        data: payload.data,
+                        borderColor: "#D81B60",
+                        backgroundColor: "rgba(216, 27, 96, 0.15)",
+                        borderWidth: 3,
+                        tension: 0.35,
+                        fill: true,
+                        pointRadius: 4,
+                        pointBackgroundColor: "#D81B60",
+                        pointBorderColor: "#ffffff",
+                        pointHoverRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: (ctx) => ` $${ctx.parsed.y.toLocaleString("es-CO")}`
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: { display: false }
+                        },
+                        y: {
+                            ticks: {
+                                callback: (value) => `$${value.toLocaleString("es-CO")}`
+                            }
+                        }
+                    }
+                }
+            });
+        } catch (error) {
+            console.error("Error cargando ventas semanales:", error);
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", cargarVentasSemanales);
+</script>
 <script>
     const btnOpen = document.getElementById('menuOpen');
     const btnClose = document.getElementById('menuClose');
