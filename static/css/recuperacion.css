@@ -1,70 +1,100 @@
 body {
-    background: #fce4ec; /* Rosa pastel */
+    background-image: url('../img/recuperacion.png');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover; 
+    background-color: #F8C8D8;
+    margin: 0;
+    padding: 0;
     height: 100vh;
     display: flex;
-    justify-content: center;
     align-items: center;
-    margin: 0;
+    justify-content: flex-start; 
+    padding-left: 45%; 
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .card {
-    background: #ffffff;
-    padding: 40px;
-    border-radius: 25px;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(15px);
+    padding: 3rem;
+    border-radius: 30px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 350px;
     text-align: center;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    border: 1px solid rgba(255, 255, 255, 0.4);
 }
 
-.icon {
-    font-size: 50px;
-    margin-bottom: 20px;
-    color: #f06292; /* Rosa del icono */
+.icono-principal {
+    display: block;
+    margin: 0 auto 15px auto;
+    color: #4db6ac;
+    width: 60px;
 }
 
 h1 {
-    color: #2c3e50; /* Texto oscuro */
-    font-size: 24px;
-    margin-bottom: 10px;
+    color: #2c3e50;
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 8px;
 }
 
 p {
-    color: #7f8c8d;
-    font-size: 14px;
-    margin-bottom: 30px;
+    color: #5f6c6d;
+    font-size: 13px;
+    line-height: 1.4;
+    margin-bottom: 25px;
 }
 
 input {
     width: 100%;
-    padding: 12px 15px;
-    margin-bottom: 20px;
-    border: 1.5px solid #d1d8e0;
-    border-radius: 12px;
-    font-size: 16px;
+    padding: 14px;
+    margin-bottom: 15px;
+    border: 1px solid rgba(0,0,0,0.05);
+    border-radius: 15px;
+    font-size: 15px;
     box-sizing: border-box;
+    background: white;
+    box-shadow: 0 0 15px rgba(238, 166, 187, 0.3);
+    transition: 0.3s;
 }
 
 input:focus {
     outline: none;
-    border-color: #4db6ac; /* Verde menta */
+    border-color: #4db6ac;
+    box-shadow: 0 0 20px rgba(238, 166, 187, 0.6);
 }
 
 button {
     width: 100%;
     padding: 14px;
-    background: #4db6ac; /* Verde menta */
+    background: #4db6ac;
     color: white;
     border: none;
-    border-radius: 12px;
+    border-radius: 15px;
     font-size: 16px;
-    font-weight: bold;
+    font-weight: 600;
     cursor: pointer;
+    box-shadow: 0 8px 15px rgba(77, 182, 172, 0.3);
+    transition: 0.3s;
 }
 
 button:hover {
-    background: #00897b; /* Verde menta oscuro */
+    background: #00897b;
+    transform: translateY(-2px);
 }
 
-button:active {
-    transform: translateY(0);
-} 
+@media screen and (max-width: 850px) {
+    body {
+        justify-content: center !important;
+        padding-left: 0 !important;
+        background-position: 30% center !important;
+    }
+
+    .card {
+        max-width: 85% !important;
+        padding: 2.5rem 1.5rem !important;
+    }
+}

@@ -99,9 +99,15 @@ footer {
     top: 0;
     left: 0;
     width: 100%;
-    background: rgba(255,255,255,0.75);
+    min-height: 70px; /* Altura mínima */
+    background: rgba(255,255,255,0.85);
     backdrop-filter: blur(10px);
-    z-index: 1000;
+    z-index: 1001;
+    display: flex;
+    justify-content: space-between; /* Logo a la izquierda, botones a la derecha */
+    align-items: center;
+    padding: 10px 5%; /* Padding lateral flexible */
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
 /* =========================
@@ -317,5 +323,30 @@ text-align: center; /* Centro el contenido de las secciones */
     
     .carrusel-dual-altura .carousel-item {
         height: 480px;
+    }
+}
+
+@media (max-width: 480px) {
+    /* 1. Achicamos el logo para dar espacio */
+    .logo {
+        height: 40px; 
+        margin-right: 5px;
+    }
+
+    /* 2. Reducimos el tamaño de los botones para que quepan */
+    .btn-registrarse, .btn-login {
+        padding: 6px 12px;
+        font-size: 12px;
+        border-radius: 15px;
+    }
+
+    /* 3. Ajustamos el espacio superior del body para que no se tape el contenido */
+    body {
+        padding-top: 140px; 
+    }
+
+    /* 4. Bajamos la segunda barra para que no choque con la primera */
+    .segunda-barra {
+        top: 60px; /* Ajuste según la nueva altura del header en móvil */
     }
 }

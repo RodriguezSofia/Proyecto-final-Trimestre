@@ -68,9 +68,15 @@
     top: 0;
     left: 0;
     width: 100%;
-    background: rgba(255,255,255,0.75);
+    min-height: 70px; /* Altura mínima */
+    background: rgba(255,255,255,0.85);
     backdrop-filter: blur(10px);
-    z-index: 1000;
+    z-index: 1001;
+    display: flex;
+    justify-content: space-between; /* Logo a la izquierda, botones a la derecha */
+    align-items: center;
+    padding: 10px 5%; /* Padding lateral flexible */
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
 /* =========================
@@ -78,9 +84,7 @@
 ========================= */
 
 .segunda-barra {
-    position: fixed;
-    top: 70px;
-    width: 100%;
+    top: 70px; /* debajo de la barra superior */
     background: rgba(255, 255, 255, 0.7);
     backdrop-filter: blur(10px);
     z-index: 999;
@@ -99,7 +103,25 @@
 
 /* Botón hamburguesa color */
 .navbar-toggler {
-    border: none;
+    border: none !important;      /* Quita el borde principal */
+    background-color: transparent !important; /* Asegura que no haya fondo café/gris */
+    outline: none !important;     /* Quita la línea de selección */
+    box-shadow: none !important;  /* Quita el resplandor azul/café al hacer clic */
+    padding: 0;                   /* Elimina espacio interno extra */
+}
+
+/* ELIMINAR EL BORDE CUANDO SE HACE CLIC (FOCUS) */
+.navbar-toggler:focus,
+.navbar-toggler:active {
+    outline: none !important; 
+    box-shadow: none !important;
+    border: none !important;
+}
+
+/* AJUSTE DEL ICONO PARA QUE SE VEA CLARO */
+.navbar-toggler-icon {
+    width: 32px;  /* Ajusta el tamaño si lo ves muy pequeño */
+    height: 32px;
 }
 .header-fijo{
     position: fixed;
@@ -308,4 +330,29 @@ button {
 
 button:hover {
     background-color: #C99D71; /* Cambio de color al pasar el mouse */
+}
+
+@media (max-width: 480px) {
+    /* 1. Achicamos el logo para dar espacio */
+    .logo {
+        height: 40px; 
+        margin-right: 5px;
+    }
+
+    /* 2. Reducimos el tamaño de los botones para que quepan */
+    .btn-registrarse, .btn-login {
+        padding: 6px 12px;
+        font-size: 12px;
+        border-radius: 15px;
+    }
+
+    /* 3. Ajustamos el espacio superior del body para que no se tape el contenido */
+    body {
+        padding-top: 140px; 
+    }
+
+    /* 4. Bajamos la segunda barra para que no choque con la primera */
+    .segunda-barra {
+        top: 60px; /* Ajuste según la nueva altura del header en móvil */
+    }
 }

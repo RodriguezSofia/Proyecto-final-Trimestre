@@ -17,10 +17,10 @@ BOTONES HEADER
     border-radius: 25px;
     text-decoration: none;
     font-weight: 600;
-    box-shadow: 0 6px 15px rgba(94, 214, 195, 0.4);
+    box-shadow: 0 6px 15px rgba(94, 214, 195, 0.);
     transition: 0.3s ease-in-out;
 }
-
+ 
 .btn-registrarse:hover {
     transform: translateY(-3px);
     box-shadow: 0 10px 20px rgba(94, 214, 195, 0.6);
@@ -88,6 +88,9 @@ SEGUNDA BARRA (MENÚ)
 /* Botón hamburguesa color */
 .navbar-toggler {
     border: none;
+    background-color: transparent !important; /* Fuerza a que no tenga color de fondo */
+    outline: none;
+    box-shadow: none !important; /* Quita el resplandor al hacer clic */
 }
 header {
 background-color: #F2CAEF; /* Fondo rosado suave */
