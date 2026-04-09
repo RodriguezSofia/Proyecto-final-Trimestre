@@ -408,8 +408,9 @@ def contacto():
 
         
         sql = """
-            INSERT INTO "Contacto" (correo, mensaje, creado)
-            VALUES (%s, %s, NOW())
+            INSERT INTO "Contacto" (correo, mensaje, creado, "Id_usuario")
+            OVERRIDING SYSTEM VALUE
+            VALUES (%s, %s, NOW(), 17)
             RETURNING id;
         """
         cursor.execute(sql, (correo, mensaje))
