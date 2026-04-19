@@ -9,6 +9,7 @@ import datetime  #Se importa os para mejor manejo de las variables del entorno
 # - datetime: para registrar la fecha y hora de cada pedido
 import random # Se importa random para la generacion de  contraseñas temporales.         
 import string #En conjunto con random, se usa para la generación de contraseñas temporales
+import requests # Se importa para verificar reCAPTCHA
 from werkzeug.utils import secure_filename # Se importa para manejar la seguridad de los nombres de archivos subidos.
 from sqlalchemy import create_engine, text
 from urllib.parse import quote_plus
@@ -399,6 +400,19 @@ def contacto():
 
         if not correo or not mensaje:
             return jsonify({'error': 'correo y mensaje son obligatorios'}), 400
+
+        # Verificar reCAPTCHA
+        recaptcha_response = datos.get('g-recaptcha-response', '')
+        if not recaptcha_response:
+            return jsonify({'error': 'Por favor, verifica que no eres un robot'}), 400
+
+        # Verificar con Google reCAPTCHA
+        secret_key = '6LdYyb4sAAAAAMTPRKSwc3L7EO-nUPlIt9_BYCLy'  # Reemplaza con tu clave secreta
+        verify_url = 'https://www.google.com/recaptcha/api/siteverify'
+        response = requests.post(verify_url, data={'secret': secret_key, 'response': recaptcha_response})
+        result = response.json()
+        if not result.get('success'):
+            return jsonify({'error': 'Verificación reCAPTCHA fallida'}), 400
 
         conexion = conectar_bd()
         if not conexion:
