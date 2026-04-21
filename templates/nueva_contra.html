@@ -13,19 +13,119 @@
 </svg>
         <h1>Crea tu nueva clave</h1>
         {% if error %}
-            <p class="error">{{ error }}</p>
+            <p class="error" id="error-servidor">{{ error }}</p>
         {% endif %}
-        <form action="{{ url_for('nueva_contra') }}" method="POST">
+        <p class="error" id="error-validacion" style="display: none;">Las contraseñas no coinciden</p>
+        <p class="exito" id="exito-guardado" style="display: none;">✓ Contraseña actualizada correctamente</p>
+        
+        <form action="{{ url_for('nueva_contra') }}" method="POST" id="form-nueva-contra">
             <div class="field">
                 <label>Nueva Contraseña</label>
-                <input type="password" name="nueva" placeholder="••••••••" required>
+                <input type="password" name="nueva" id="nueva" placeholder="••••••••" required>
             </div>
             <div class="field">
                 <label>Confirmar Contraseña</label>
-                <input type="password" name="confirmar" placeholder="••••••••" required>
+                <input type="password" name="confirmar" id="confirmar" placeholder="••••••••" required>
             </div>
             <button type="submit">Actualizar y Entrar</button>
         </form>
     </div>
+
+    <script>
+        const formulario = document.getElementById('form-nueva-contra');
+        const inputNueva = document.getElementById('nueva');
+        const inputConfirmar = document.getElementById('confirmar');
+        const errorValidacion = document.getElementById('error-validacion');
+
+        // Validar mientras escribes en el campo "Confirmar"
+        inputConfirmar.addEventListener('input', function() {
+            const nueva = inputNueva.value.trim();
+            const confirmar = inputConfirmar.value.trim();
+
+            // Solo mostrar error si ambos campos tienen contenido y no coinciden
+            if (confirmar.length > 0 && nueva !== confirmar) {
+                errorValidacion.style.display = 'block';
+            } else {
+                errorValidacion.style.display = 'none';
+            }
+        });
+
+        // También validar al enviar el formulario
+        formulario.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const nueva = inputNueva.value.trim();
+            const confirmar = inputConfirmar.value.trim();
+            const exitoMensaje = document.getElementById('exito-guardado');
+            const boton = formulario.querySelector('button');
+
+            // Verificar si las contraseñas coinciden
+            if (nueva !== confirmar) {
+                errorValidacion.textContent = 'Las contraseñas no coinciden';
+                errorValidacion.style.display = 'block';
+                exitoMensaje.style.display = 'none';
+                return;
+            }
+
+            // Deshabilitar botón durante el envío
+            boton.disabled = true;
+            boton.textContent = 'Actualizando...';
+            errorValidacion.style.display = 'none';
+            exitoMensaje.style.display = 'none';
+
+            // Enviar el formulario con fetch
+            fetch(formulario.action, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    nueva: nueva,
+                    confirmar: confirmar
+                })
+            })
+            .then(response => {
+                // Verificar si la respuesta es exitosa
+                return response.json().then(data => ({
+                    status: response.status,
+                    ok: response.ok,
+                    data: data
+                }));
+            })
+            .then(result => {
+                boton.disabled = false;
+                boton.textContent = 'Actualizar y Entrar';
+                
+                if (result.ok && result.data.mensaje) {
+                    // Mostrar mensaje de éxito
+                    exitoMensaje.style.display = 'block';
+                    errorValidacion.style.display = 'none';
+                    
+                    // Redirigir después de 2 segundos
+                    setTimeout(() => {
+                        window.location.href = result.data.redirect;
+                    }, 2000);
+                } else if (result.data.error) {
+                    // Mostrar error del servidor
+                    errorValidacion.textContent = result.data.error;
+                    errorValidacion.style.display = 'block';
+                    exitoMensaje.style.display = 'none';
+                } else {
+                    // Error desconocido
+                    errorValidacion.textContent = 'Error desconocido al actualizar la contraseña';
+                    errorValidacion.style.display = 'block';
+                    exitoMensaje.style.display = 'none';
+                }
+            })
+            .catch(error => {
+                boton.disabled = false;
+                boton.textContent = 'Actualizar y Entrar';
+                console.error('Error de red:', error);
+                errorValidacion.textContent = 'Error de conexión. Por favor intenta de nuevo.';
+                errorValidacion.style.display = 'block';
+                exitoMensaje.style.display = 'none';
+            });
+        });
+    </script>
 </body>
 </html>

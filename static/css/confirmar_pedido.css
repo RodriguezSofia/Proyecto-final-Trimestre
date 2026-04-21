@@ -102,6 +102,18 @@ h4 {
     background: transparent;
 }
 
-.confirm-container select {
-    background: transparent;
+.pago-box img.qr-image {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin-top: 1rem;
+    border-radius: 15px;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.qr-text-note {
+    display: block;
+    margin-top: 0.75rem;
+    color: #555;
+    font-size: 0.95rem;
 }

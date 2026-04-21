@@ -60,6 +60,8 @@
 <script>
     const metodoSelect = document.getElementById("metodo_pago");
     const infoPago = document.getElementById("infoPago");
+    const nequiQR = "{{ url_for('static', filename='img/nequi_QR.jpeg') }}";
+    const bancolombiaQR = "{{ url_for('static', filename='img/bancolombia_QR.jpeg') }}";
     metodoSelect.addEventListener("change", cargarDatosPago);
 
 async function cargarDatosPago() {
@@ -87,6 +89,8 @@ async function cargarDatosPago() {
                 <strong>Pagar con Nequi</strong><br>
                 Número: ${data.datos.numero}<br>
                 Titular: ${data.datos.titular}
+                <span class="qr-text-note">También puedes escanear este código QR desde la app de Nequi.</span>
+                <img src="${nequiQR}" alt="QR Nequi" class="qr-image">
             </div>
         `;
         return;
@@ -105,6 +109,8 @@ async function cargarDatosPago() {
                 Tipo: ${data.datos.tipo}<br>
                 Titular: ${data.datos.titular}<br>
                 Cédula: ${data.datos.cedula}
+                <span class="qr-text-note">También puedes escanear este código QR desde la app de Bancolombia.</span>
+                <img src="${bancolombiaQR}" alt="QR Bancolombia" class="qr-image">
             </div>
         `;
     }

@@ -33,6 +33,7 @@
             <input type="password" id="confirmar-contrasena" placeholder="Confirmar contraseña" required>
             <i class="fas fa-lock"></i>
         </div>
+        <p id="error-validacion" style="display:none; color:#e74c3c; font-size:0.95rem; margin:0 0 16px 0;">Las contraseñas no coinciden</p>
   
         <!-- Dirección -->
         <div class="input-box">
@@ -60,103 +61,123 @@
     </div>
 
 <script>
-    function registro() {
-        const nombre = document.getElementById('nombre').value.trim();
-        const correo = document.getElementById('email').value.trim();
-        const contrasena = document.getElementById('contrasena').value.trim();
-        const confirmarContrasena = document.getElementById('confirmar-contrasena').value.trim();
-        const direccion = document.getElementById('direccion').value.trim();
-        const telefono = document.getElementById('telefono').value.trim();
-        const Id_ciudad = document.getElementById('ciudad').value.trim();
+        const inputContrasena = document.getElementById('contrasena');
+        const inputConfirmar = document.getElementById('confirmar-contrasena');
+        const errorValidacion = document.getElementById('error-validacion');
 
-        // Configuración estética reutilizable
-        const alertConfig = {
-            customClass: {
-                popup: 'swal-heladeria-popup',
-                title: 'swal-heladeria-title',
-                htmlContainer: 'swal-heladeria-content',
-                confirmButton: 'swal-heladeria-confirm-btn',
-                icon: 'swal-heladeria-icon'
-            },
-            buttonsStyling: false // Obliga a usar nuestro CSS
-        };
+        function actualizarErrorContrasenas() {
+            const contrasena = inputContrasena.value.trim();
+            const confirmar = inputConfirmar.value.trim();
 
-        // 1. Validar campos vacíos
-        if (!nombre || !correo || !contrasena || !confirmarContrasena || !direccion || !telefono || !Id_ciudad) {
-            Swal.fire({
-                ...alertConfig,
-                icon: 'warning',
-                title: 'Campos incompletos',
-                text: 'Por favor, rellena todos los campos obligatorios.'
-            });
-            return;
+            if (confirmar.length > 0 && contrasena !== confirmar) {
+                errorValidacion.style.display = 'block';
+            } else {
+                errorValidacion.style.display = 'none';
+            }
         }
 
-        // 2. Validar contraseñas
-        if (contrasena !== confirmarContrasena) {
-            Swal.fire({
-                ...alertConfig,
-                icon: 'error',
-                title: '¡Error!',
-                text: 'Las contraseñas no coinciden.'
-            });
-            return;
-        }
+        inputContrasena.addEventListener('input', actualizarErrorContrasenas);
+        inputConfirmar.addEventListener('input', actualizarErrorContrasenas);
 
-        const datos = {
-            nombre_completo: nombre,
-            correo: correo,
-            contrasena: contrasena,
-            confirmar_contrasena: confirmarContrasena,
-            direccion: direccion,
-            telefono: telefono,
-            Id_ciudad: Id_ciudad
-        };
+        function registro() {
+            const nombre = document.getElementById('nombre').value.trim();
+            const correo = document.getElementById('email').value.trim();
+            const contrasena = inputContrasena.value.trim();
+            const confirmarContrasena = inputConfirmar.value.trim();
+            const direccion = document.getElementById('direccion').value.trim();
+            const telefono = document.getElementById('telefono').value.trim();
+            const Id_ciudad = document.getElementById('ciudad').value.trim();
 
-        // 3. Indicador de carga estilizado
-        Swal.fire({
-            ...alertConfig,
-            title: 'Preparando tu cuenta...',
-            didOpen: () => { Swal.showLoading() },
-            allowOutsideClick: false
-        });
+            // Configuración estética reutilizable
+            const alertConfig = {
+                customClass: {
+                    popup: 'swal-heladeria-popup',
+                    title: 'swal-heladeria-title',
+                    htmlContainer: 'swal-heladeria-content',
+                    confirmButton: 'swal-heladeria-confirm-btn',
+                    icon: 'swal-heladeria-icon'
+                },
+                buttonsStyling: false // Obliga a usar nuestro CSS
+            };
 
-        fetch('/registro', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(datos)
-        })
-        .then(res => res.json())
-        .then(data => {
-            if (data.error) {
+            // 1. Validar campos vacíos
+            if (!nombre || !correo || !contrasena || !confirmarContrasena || !direccion || !telefono || !Id_ciudad) {
+                Swal.fire({
+                    ...alertConfig,
+                    icon: 'warning',
+                    title: 'Campos incompletos',
+                    text: 'Por favor, rellena todos los campos obligatorios.'
+                });
+                return;
+            }
+
+            // 2. Validar contraseñas
+            if (contrasena !== confirmarContrasena) {
+                errorValidacion.style.display = 'block';
                 Swal.fire({
                     ...alertConfig,
                     icon: 'error',
-                    title: 'No se pudo registrar',
-                    text: data.error
+                    title: '¡Error!',
+                    text: 'Las contraseñas no coinciden.'
                 });
-            } else {
-                Swal.fire({
-                    ...alertConfig,
-                    icon: 'success',
-                    title: '¡Bienvenido!',
-                    text: 'Usuario registrado exitosamente'
-                }).then(() => {
-                    window.location.href = '/login';
-                });
+                return;
             }
-        })
-        .catch(err => {
-            console.error(err);
+
+            errorValidacion.style.display = 'none';
+
+            const datos = {
+                nombre_completo: nombre,
+                correo: correo,
+                contrasena: contrasena,
+                confirmar_contrasena: confirmarContrasena,
+                direccion: direccion,
+                telefono: telefono,
+                Id_ciudad: Id_ciudad
+            };
+
+            // 3. Indicador de carga estilizado
             Swal.fire({
                 ...alertConfig,
-                icon: 'error',
-                title: 'Error de conexión',
-                text: 'Hubo un problema al contactar con el servidor.'
+                title: 'Preparando tu cuenta...',
+                didOpen: () => { Swal.showLoading() },
+                allowOutsideClick: false
             });
-        });
-    }
-</script>
 
+            fetch('/registro', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(datos)
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.error) {
+                    Swal.fire({
+                        ...alertConfig,
+                        icon: 'error',
+                        title: 'No se pudo registrar',
+                        text: data.error
+                    });
+                } else {
+                    Swal.fire({
+                        ...alertConfig,
+                        icon: 'success',
+                        title: '¡Bienvenido!',
+                        text: 'Usuario registrado exitosamente'
+                    }).then(() => {
+                        window.location.href = '/login';
+                    });
+                }
+            })
+            .catch(err => {
+                console.error(err);
+                Swal.fire({
+                    ...alertConfig,
+                    icon: 'error',
+                    title: 'Error de conexión',
+                    text: 'Hubo un problema al contactar con el servidor.'
+                });
+            });
+        }
+    </script>
 </body>
 </html>
