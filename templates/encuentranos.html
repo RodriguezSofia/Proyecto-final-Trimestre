@@ -1,66 +1,8 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Encuentranos - Heladería Annia</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+{% extends 'base.html' %}
+{% block extra_css %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/encuentranos.css') }}">
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="icon" href="/static/img/logo_01.png?v=2">
-</head>
-
-<body>
-<!-- ================= BARRA SUPERIOR ================= -->
-<div class="barra-navegacion d-flex justify-content-between align-items-center px-4 py-2">
-    <a href="{{ url_for('home') }}" class="logo-link">
-        <img src="{{ url_for('static', filename='img/logo.png') }}" 
-            alt="Logo Heladería Annia" class="logo">
-    </a>
-
-    <div class="d-flex gap-3 align-items-center">
-        {% if not session.get('usuario_nombre') %}
-            <a href="{{ url_for('registro') }}" class="btn-registrarse">Registrarse</a>
-            <a href="{{ url_for('login') }}" class="btn-login">Iniciar sesión</a>
-        {% else %}
-            <span style="font-weight:bold; color:#147D7D; font-size:1.1em;">
-                Hola, {{ session['usuario_nombre'] }}
-            </span>
-            <a href="{{ url_for('logout') }}" class="btn btn-danger">Cerrar sesión</a>
-        {% endif %}
-    </div>
-</div>
-
-<!-- ================= MENÚ PRINCIPAL ================= -->
-<nav class="navbar navbar-expand-lg segunda-barra fixed-top">
-    <div class="container">
-        <button class="navbar-toggler" type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#navbarNav">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
-            <ul class="navbar-nav gap-lg-4 text-center">
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('home') }}">Inicio</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('menu') }}">Menú</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('acerca')}}">Acerca de</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('contacto') }}">Contacto</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('encuentranos') }}">Encuéntranos</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
+{% endblock %}
+{% block content %}
     <main class="container mt-5">
         <section id="siguenos" class="py-5">
             <div class="row justify-content-center">
@@ -119,7 +61,7 @@
                             <div class="col-md-10">
                                 <div class="map-responsive">
                                     <iframe 
-                                       src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3982.2845787946426!2d-76.30246682418684!3d3.5215575507487884!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3a04e17fbb34e1%3A0x1e430964731ad9a2!2sCra.%2028%20%2323-36%2C%20Palmira%2C%20Valle%20del%20Cauca%2C%20Colombia!5e0!3m2!1ses!2sus!4v1775180545710!5m2!1ses!2sus" 
+                                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3982.2845787946426!2d-76.30246682418684!3d3.5215575507487884!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3a04e17fbb34e1%3A0x1e430964731ad9a2!2sCra.%2028%20%2323-36%2C%20Palmira%2C%20Valle%20del%20Cauca%2C%20Colombia!5e0!3m2!1ses!2sus!4v1775180545710!5m2!1ses!2sus" 
                                         style="border:0;" 
                                         allowfullscreen="" 
                                         loading="lazy" 
@@ -133,18 +75,7 @@
             </div>
         </section>
     </main>
-        <!-- BOTÓN FLOTANTE WHATSAPP -->
-    <a href="https://wa.me/573019283491?text=Hola%20quiero%20información%20sobre%20los%20helados%20"
-    class="whatsapp-float"
-    target="_blank">
-    <img src="{{ url_for('static', filename='img/whasap.jpg') }}" 
-            alt="WhatsApp" 
-            class="whatsapp-icon">
-    </a>
-
+{% endblock %}
+{% block scripts %}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <footer>
-        <p>&copy; 2025 Heladería Annia. Todos los derechos reservados.</p>
-    </footer>
-</body>
-</html>
+{% endblock %}

@@ -63,7 +63,7 @@ mail = Mail(app) # Inicializa la extensión Flask-Mail con la configuración de 
 
 DB_CONFIG = {
     'host': os.environ.get('DB_HOST', 'localhost'),
-    'database': os.environ.get('DB_NAME', 'heladeria_ice'),
+    'database': os.environ.get('DB_NAME', 'Heladeria_annia'),
     'user': os.environ.get('DB_USER', 'postgres'),
     'password': os.environ.get('DB_PASSWORD', '123456'),
     'port': 5432
@@ -106,6 +106,89 @@ def conectar_bd():
 def generar_codigo_verificacion(length: int = 4):
     """Genera un código numérico de verificación de `length` dígitos."""
     return ''.join(random.choice(string.digits) for _ in range(length))
+
+# ======================================================
+# RUTAS PARA PERFIL DE USUARIO
+# ======================================================
+@app.context_processor
+def inject_user():
+    usuario = None
+    if 'usuario_id' in session:
+        usuario = {
+            'nombre': session.get('usuario_nombre'),
+            
+            'correo': session.get('usuario_correo'),
+            
+            'foto': session.get('usuario_foto') or 'https://i.imgur.com/6VBx3io.png'
+        }
+    return dict(usuario=usuario)
+
+#editar perfil usuario
+
+@app.route('/actualizar_perfil', methods=['POST'])
+def actualizar_perfil():
+    if 'usuario_id' not in session:
+        return jsonify({'success': False, 'message': 'Sesión no encontrada'}), 401
+
+    datos = request.get_json()
+    # Extraemos los datos del JSON enviado por JS
+    nuevo_nombre = datos.get('nombre')
+    nuevo_correo = datos.get('correo')
+    usuario_id = session['usuario_id']
+    
+
+    try:
+        conn = conectar_bd()
+        cur = conn.cursor()
+        
+        query = """
+            UPDATE public."Usuarios" 
+            SET "Nombre_completo_usuario" = %s, 
+                "correo_usuario" = %s 
+            WHERE "Id_usuario" = %s
+        """
+        cur.execute(query, (nuevo_nombre, nuevo_correo, usuario_id))
+        
+        conn.commit()
+        cur.close()
+        conn.close()
+
+        # Actualizamos la sesión para que los cambios se vean al recargar
+        session['usuario_nombre'] = nuevo_nombre
+        session['usuario_correo'] = nuevo_correo
+
+        return jsonify({'success': True})
+    except Exception as e:
+        print(f"Error en DB: {e}")
+        return jsonify({'success': False, 'message': str(e)}), 500
+
+
+#cambiar foto de perfil
+
+@app.route('/actualizar_foto', methods=['POST'])
+def actualizar_foto():
+    if 'usuario_id' not in session:
+        return jsonify({'success': False, 'error': 'No hay sesión'}), 401
+    
+    datos = request.get_json()
+    foto_url = datos.get('foto_url')
+    
+    conexion = conectar_bd() 
+    cursor = conexion.cursor()
+    try:
+        cursor.execute('UPDATE public."Usuarios" SET "foto" = %s WHERE "Id_usuario" = %s', 
+                       (foto_url, session['usuario_id']))
+        conexion.commit()
+        
+        session['usuario_foto'] = foto_url
+        
+        return jsonify({'success': True})
+    except Exception as e:
+        print(f"Error: {e}")
+        return jsonify({'success': False}), 500
+    finally:
+        cursor.close()
+        conexion.close()
 
 # ======================================================
 # RUTA PARA GENERAR MENÚ (GET)
@@ -908,8 +991,10 @@ def login():
         session["usuario_id"] = usuario["Id_usuario"]
         session["usuario_nombre"] = usuario["Nombre_completo_usuario"]
         session["usuario_tipo"] = usuario["Id_tipo"]
-
         
+        session["usuario_correo"] = usuario["correo_usuario"]
+
+        session["usuario_foto"] = usuario.get("foto") or "icon.jpg"
 
         cursor.close()
         conexion.close()
@@ -1239,7 +1324,5 @@ def logout():
 # ======================================================
 # EJECUCIÓN
 # ======================================================
-
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5000)
-

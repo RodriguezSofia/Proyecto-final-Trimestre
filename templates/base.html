@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heladería Annia</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <link rel="icon" href="/static/img/logo_01.png?v=2">
+    {% block extra_css %}{% endblock %}
+</head>
+
+<body>
+<!-- ================= BARRA SUPERIOR ================= -->
+<div class="barra-navegacion d-flex justify-content-between align-items-center px-4 py-2">
+    <a href="{{ url_for('home') }}" class="logo-link">
+        <img src="{{ url_for('static', filename='img/logo.png') }}" 
+            alt="Logo Heladería Annia" class="logo">
+    </a>
+
+    <div class="d-flex gap-3 align-items-center" style="position: relative;">
+        {% if not usuario %}
+            <a href="{{ url_for('registro') }}" class="btn-registrarse">Registrarse</a>
+            <a href="{{ url_for('login') }}" class="btn-login">Iniciar sesión</a>
+        {% else %}
+            <div class="perfil-dropdown" onclick="toggleMenu()" style="display: flex; align-items: center; cursor: pointer; gap: 10px;">
+                <span style="font-weight:bold; color:#147D7D;">Hola, {{ usuario.nombre }}</span>
+                <img src="{{ url_for('static', filename='img/' + session['usuario_foto']) }}" class="avatar-nav" style="width:40px; height:40px; border-radius:50%; object-fit: cover; border: 2px solid #F54388;">
+            </div>
+
+            <div id="dropdownPerfil" class="dropdown-perfil-flotante oculto">
+                <div class="container-perfil">
+                    <div class="header-perfil">
+                        <img src="{{ url_for('static', filename='img/' + session['usuario_foto']) }}" alt="Perfil" class="avatar-nav" onclick="togglePerfil()">
+                        <input type="file" id="inputFoto" hidden>
+
+                        <div>
+                            <h2 id="nombreTexto">{{ usuario.nombre }}</h2>
+                            <p id="correoTexto">{{ usuario.correo }}</p>
+                        </div>
+                    </div>
+
+                    <button class="btn-editar-perfil" onclick="toggleEditar()">
+                        <i class="bi bi-pencil"></i> Editar perfil
+                    </button>
+
+                    <div class="editar-perfil-form oculto" id="formEditar">
+                        <input type="text" id="nuevoNombre" placeholder="Nuevo nombre" value="{{ usuario.nombre }}">
+                        <input type="email" id="nuevoCorreo" placeholder="Nuevo correo" value="{{ usuario.correo }}">
+                        <button onclick="guardarDatosPerfil()">
+                            <i class="bi bi-check-circle"></i> Guardar cambios
+                        </button>
+                    </div>
+
+                    <div class="menu-perfil-opciones">
+                        <div class="item-perfil" onclick="misCompras()">
+                            <i class="bi bi-bag"></i> Mis pedidos
+                        </div>
+
+                        <a href="{{ url_for('logout') }}" class="item-perfil" style="text-decoration: none; color: inherit;">
+                            <i class="bi bi-box-arrow-right"></i> Cerrar sesión
+                        </a>
+
+                        <div class="item-perfil danger" onclick="eliminarCuenta()">
+                            <i class="bi bi-trash"></i> Eliminar cuenta
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- BOTÓN FLOTANTE WHATSAPP -->
+<a href="https://wa.me/573019283491?text=Hola%20quiero%20información%20sobre%20los%20helados%20"
+   class="whatsapp-float"
+   target="_blank">
+   <img src="{{ url_for('static', filename='img/whasap.jpg') }}" 
+        alt="WhatsApp" 
+        class="whatsapp-icon">
+</a>
+<!-- ================= MENÚ PRINCIPAL ================= -->
+<nav class="navbar navbar-expand-lg segunda-barra fixed-top">
+    <div class="container">
+        <button class="navbar-toggler" type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+            <ul class="navbar-nav gap-lg-4 text-center">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('home') }}">Inicio</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('menu') }}">Menú</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('acerca')}}">Acerca de</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('contacto') }}">Contacto</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('encuentranos') }}">Encuéntranos</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<main>
+        {% block content %}{% endblock %}
+</main>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="{{ url_for('static', filename='js/usuario.js') }}"></script>
+    {% block scripts %}{% endblock %}
+
+    <footer>
+        <p>&copy; 2025 Heladería Annia. Todos los derechos reservados.</p>
+    </footer>
+</body>
+</html>
