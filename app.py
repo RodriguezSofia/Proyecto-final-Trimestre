@@ -63,7 +63,7 @@ mail = Mail(app) # Inicializa la extensión Flask-Mail con la configuración de 
 
 DB_CONFIG = {
     'host': os.environ.get('DB_HOST', 'localhost'),
-    'database': os.environ.get('DB_NAME', 'Heladeria_annia'),
+    'database': os.environ.get('DB_NAME', 'heladeria_ice'),
     'user': os.environ.get('DB_USER', 'postgres'),
     'password': os.environ.get('DB_PASSWORD', '123456'),
     'port': 5432
@@ -490,7 +490,7 @@ def contacto():
             return jsonify({'error': 'Por favor, verifica que no eres un robot'}), 400
 
         # Verificar con Google reCAPTCHA
-        secret_key = '6LdYyb4sAAAAAMTPRKSwc3L7EO-nUPlIt9_BYCLy'  # Reemplaza con tu clave secreta
+        secret_key = '6LdYyb4sAAAAAMTPRKSwc3L7EO-nUPlIt9_BYCLy'  #clave secreta
         verify_url = 'https://www.google.com/recaptcha/api/siteverify'
         response = requests.post(verify_url, data={'secret': secret_key, 'response': recaptcha_response})
         result = response.json()
