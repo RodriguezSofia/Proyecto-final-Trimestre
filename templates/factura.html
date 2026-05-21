@@ -143,7 +143,7 @@
         const elemento = document.getElementById("area-factura");
         const botones = document.querySelector(".no-pdf");
         
-        // Ocultamos los botones temporalmente para que no salgan en el PDF
+        //Oculta los botones temporalmente para que no salgan en el PDF
         botones.style.visibility = "hidden";
 
         const opciones = {
@@ -155,7 +155,7 @@
         };
 
         html2pdf().set(opciones).from(elemento).save().then(() => {
-            // Restauramos la visibilidad de los botones
+            //Restaura la visibilidad de los botones
             botones.style.visibility = "visible";
         });
     }

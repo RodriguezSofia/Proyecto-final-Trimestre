@@ -10,7 +10,7 @@ footer {
 /* Contenedor del mapa */
 .map-responsive {
     overflow: hidden;
-    padding-bottom: 56.25%; /* Relación de aspecto 16:9 */
+    padding-bottom: 56.25%; 
     position: relative;
     height: 0;
     width: 100%;
@@ -53,7 +53,7 @@ footer {
 .whatsapp-icon {
     width: 50px;
     height: 50px;
-    border: 4px solid #ffffff;  /* aquí está el borde */
+    border: 4px solid #ffffff;  
     border-radius: 50%; 
 }
 /* Botón Registrarse */
@@ -199,7 +199,7 @@ body {
     background-size: cover;       /* Ajusta toda la pantalla */
     background-position: center;  /* Centra la imagen */
     background-repeat: no-repeat; /* No se repite */
-    background-attachment: fixed; /* Efecto elegante tipo premium */
+    background-attachment: fixed; 
 }
 main {
     background-color: rgba(255, 255, 255, 0.65);
@@ -257,29 +257,26 @@ font-weight: bold; /* Negrita */
 }
 
 section {
-padding: 50px 20px; /* Espacio interior amplio */
-text-align: center; /* Centro el contenido de las secciones */
+padding: 50px 20px; 
+text-align: center; 
 }
 /* =========================================
    ESTILOS PARA LA PÁGINA SÍGUENOS
    ========================================= */
-
 /* Contenedor principal del carrusel en Síguenos */
 .carrusel-dual-altura {
-    height: 550px !important; /* Altura ideal para formato vertical 4:5 */
+    height: 550px !important; 
     width: 100%;
-    max-width: 420px; /* Ancho ajustado para que parezca un celular/story */
+    max-width: 420px; 
     margin: 0 auto;
     overflow: hidden;
-    background-color: #f8f9fa; /* Fondo neutro por si la imagen tarda en cargar */
+    background-color: #f8f9fa;
 }
 
-/* Forzar que cada diapositiva ocupe el total de la altura */
 .carrusel-dual-altura .carousel-item {
     height: 550px;
 }
 
-/* Ajuste de las imágenes promocionales (Promocional1, 2, 3, 4) */
 .img-promo-vertical {
     width: 100%;
     height: 100%;
@@ -317,7 +314,7 @@ text-align: center; /* Centro el contenido de las secciones */
 /* Ajustes para pantallas pequeñas (Celulares) */
 @media (max-width: 768px) {
     .carrusel-dual-altura {
-        height: 480px !important; /* Un poco más pequeño en móviles */
+        height: 480px !important;
         max-width: 350px;
     }
     
@@ -327,26 +324,23 @@ text-align: center; /* Centro el contenido de las secciones */
 }
 
 @media (max-width: 480px) {
-    /* 1. Achicamos el logo para dar espacio */
+
     .logo {
         height: 40px; 
         margin-right: 5px;
     }
 
-    /* 2. Reducimos el tamaño de los botones para que quepan */
     .btn-registrarse, .btn-login {
         padding: 6px 12px;
         font-size: 12px;
         border-radius: 15px;
     }
 
-    /* 3. Ajustamos el espacio superior del body para que no se tape el contenido */
     body {
         padding-top: 140px; 
     }
 
-    /* 4. Bajamos la segunda barra para que no choque con la primera */
     .segunda-barra {
-        top: 60px; /* Ajuste según la nueva altura del header en móvil */
+        top: 60px;
     }
 }

@@ -31,9 +31,9 @@ body {
    ========================================= */
 .wrapper {
     width: 100%;
-    max-width: 400px; /* Lo hice un poco más estrecho para un look más moderno */
+    max-width: 400px; 
     background: rgba(196, 96, 226, 0.7); 
-    border-radius: 30px; /* Más redondeado como pediste */
+    border-radius: 30px; 
     padding: 40px 30px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
     border: 2px solid rgba(255, 255, 255, 0.3);
@@ -76,7 +76,6 @@ body {
     transition: 0.3s ease;
 }
 
-/* Estilo específico para el select de Palmira */
 select#ciudad {
     appearance: none;
     cursor: pointer;
@@ -149,20 +148,19 @@ select#ciudad option {
 
 /* =========================================
    ALERTAS ESTÉTICAS (SweetAlert2 Custom) 
-   Optimizadas: Pequeñas, suaves y centradas
    ========================================= */
 
 /* El contenedor principal de la alerta */
 .swal-custom-popup {
-    width: 300px !important; /* Ancho muy compacto */
-    border-radius: 40px !important; /* Bordes extra redondeados */
+    width: 300px !important; 
+    border-radius: 40px !important;
     background: rgba(255, 255, 255, 0.98) !important;
     padding: 25px 15px !important;
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2) !important;
     border: none !important;
 }
 
-/* El título (estilo Pacifico como tu h1) */
+/* El título */
 .swal-custom-title {
     font-family: 'Pacifico', cursive !important;
     color: #af76ec !important;
@@ -182,7 +180,7 @@ select#ciudad option {
 
 /* El botón de confirmación */
 .swal-custom-confirm-btn {
-    background-color: #af76ec !important; /* Morado de tu paleta */
+    background-color: #af76ec !important; 
     color: white !important;
     border-radius: 50px !important;
     padding: 10px 35px !important;
@@ -195,19 +193,16 @@ select#ciudad option {
     margin-top: 15px !important;
     transition: 0.3s ease !important;
 }
-
 .swal-custom-confirm-btn:hover {
     background-color: #9b5de5 !important;
     transform: scale(1.05);
 }
 
-/* Ajuste para el icono (hacerlo más pequeño) */
 .swal2-icon {
-    transform: scale(0.7); /* Reduce el tamaño del icono de éxito/error */
+    transform: scale(0.7); 
     margin-bottom: 5px !important;
 }
-
-/* Animación de error (shake) */
+/* Animación de error */
 .animate__shakeX {
     animation: shakeX 0.5s;
 }
@@ -220,51 +215,40 @@ select#ciudad option {
 
 /* =========================================
    ESTILOS DE ALERTA: HELADERÍA
-   Optimizados para SweetAlert2
    ========================================= */
-
-/* 1. EL CONTENEDOR PRINCIPAL (MODAL)
-   Pequeño y con bordes muy redondeados (cozy) */
 .swal-heladeria-popup {
-    width: 320px !important; /* Más compacto y centrado */
-    border-radius: 40px !important; /* Bordes suaves */
+    width: 320px !important;
+    border-radius: 40px !important; 
     background: rgba(255, 255, 255, 0.98) !important;
     padding: 25px !important;
     box-shadow: 0 15px 40px rgba(0,0,0,0.15) !important;
     border: none !important;
 }
-
-/* 2. EL ICONO DE EXCLAMACIÓN
-   Cambiado a Morado Mora Jugosa */
 .swal-heladeria-icon.swal2-warning {
-    border-color: #8e24aa !important; /* Morado Mora */
+    border-color: #8e24aa !important;
     color: #8e24aa !important;
-    transform: scale(0.7) !important; /* Un poco más pequeño y estético */
+    transform: scale(0.7) !important; 
     margin-bottom: 5px !important;
 }
 
-/* 3. EL TÍTULO (Morado Profundo) */
 .swal-heladeria-title {
-    font-family: 'Pacifico', cursive !important; /* Fuente llamativa */
-    color: #4a148c !important; /* Morado Profundo Premium */
+    font-family: 'Pacifico', cursive !important; 
+    color: #4a148c !important; 
     font-size: 22px !important;
     margin-top: 5px !important;
     font-weight: normal !important;
 }
 
-/* 4. EL TEXTO DESCRIPTIVO (Morado Suave) */
 .swal-heladeria-content {
     font-family: 'Quicksand', sans-serif !important;
-    color: #7e57c2 !important; /* Morado Suave */
+    color: #7e57c2 !important; 
     font-size: 14px !important;
     line-height: 1.5 !important;
     margin-bottom: 5px !important;
 }
 
-/* 5. EL BOTÓN "OK" (Rosa Helado de Fresa Cremoso)
-   Cambiado para un look más apetitoso y acogedor */
 .swal-heladeria-confirm-btn {
-    background-color: #f48fb1 !important; /* Rosa Fresa Cremoso */
+    background-color: #f48fb1 !important; 
     color: white !important;
     border-radius: 50px !important;
     padding: 10px 35px !important;
@@ -280,6 +264,6 @@ select#ciudad option {
 }
 
 .swal-heladeria-confirm-btn:hover {
-    background-color: #f06292 !important; /* Un poco más oscuro al pasar mouse */
-    transform: scale(1.05); /* Efecto de brillo suave */
+    background-color: #f06292 !important; 
+    transform: scale(1.05); 
 }

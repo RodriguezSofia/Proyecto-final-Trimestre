@@ -65,7 +65,6 @@ header h1 {
     padding: 40px; /* Espaciado interno */
 }
 
-
 /* Animación que hace aparecer el texto letra por letra */
 @keyframes escribir {
     from { width: 0; } /* Comienza con ancho 0 */

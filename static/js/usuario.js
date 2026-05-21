@@ -20,7 +20,7 @@
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    // Actualiza los textos en la ventanita sin recargar
+                    // Actualiza los textos sin recargar
                     document.getElementById("nombreTexto").textContent = nombre;
                     document.getElementById("correoTexto").textContent = correo;
                     
@@ -46,7 +46,7 @@
                 reader.onload = function (e) {
                     const base64Image = e.target.result;
                     
-                    // Enviamos la imagen al servidor
+                    // Envia la imagen al servidor
                     fetch('/actualizar_foto', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
@@ -55,8 +55,7 @@
                     .then(res => res.json())
                     .then(data => {
                         if(data.success) {
-                            foto.src = base64Image; // Cambia la foto en la ventanita
-                            // Cambia también la foto de la burbuja pequeña en la nav
+                            foto.src = base64Image; // Cambia la foto en la ventana
                             document.querySelector(".avatar-nav").src = base64Image; 
                         }
                     });

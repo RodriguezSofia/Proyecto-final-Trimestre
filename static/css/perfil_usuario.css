@@ -41,10 +41,10 @@ body {
 
 #nombreTexto {
     margin: 0;
-    font-size: 1.2rem; /* Lo subí un poquito para que luzca más */
+    font-size: 1.2rem; 
     color: #147D7D;
-    font-family: 'Quicksand', sans-serif; /* <--- ESTA ES LA CLAVE */
-    font-weight: 700;                     /* <--- Para que sea gruesa como el saludo */
+    font-family: 'Quicksand', sans-serif; 
+    font-weight: 700;                    
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis; 

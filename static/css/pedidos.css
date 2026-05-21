@@ -72,7 +72,6 @@ header h1 {
 
 /* ===== CONTENEDOR PRINCIPAL (ESPACIADO EXTERIOR) ===== */
 .main-content {
-    /* Esto separa la tabla de la barra superior (50px) y de los lados (5%) */
     padding: 50px 5%; 
     width: 100%;
     max-width: 1300px;
@@ -82,7 +81,6 @@ header h1 {
 /* ===== TARJETA DE LA TABLA (ESPACIADO INTERIOR) ===== */
 .tabla-contenedor {
     background: var(--blanco-puro);
-    /* El padding interno hace que la tabla no toque los bordes blancos */
     padding: 30px; 
     border-radius: 25px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.05);

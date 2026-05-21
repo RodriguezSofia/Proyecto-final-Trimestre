@@ -1,4 +1,4 @@
-/* Variables de color basadas en Heladería Annia */
+/* Variables de color*/
 :root {
     --rosa-principal: #F06292;
     --lila-fondo: #F3E5F5;
@@ -15,7 +15,7 @@ body {
     color: #333;
 }
 
-/* Navbar con los colores de la imagen */
+
 .navbar {
     background: linear-gradient(90deg, #F8BBD0, #E1F5FE); /* Degradado suave */
     box-shadow: var(--shadow);

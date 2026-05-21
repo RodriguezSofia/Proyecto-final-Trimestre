@@ -97,7 +97,7 @@ button:hover {
 
 .galeria-sabores article:hover {
     transform: translateY(-5px); /* Levanta al pasar el mouse */
-    box-shadow: 0 12px 20px rgba(20, 125, 125, 0.25); /* Sombra más intensa */
+    box-shadow: 0 12px 20px rgba(20, 125, 125, 0.25); 
 }
 
 .galeria-sabores img {
@@ -143,7 +143,7 @@ button:hover {
     width: 160px; /* Ancho de la imagen */
     height: 160px; /* Alto de la imagen */
     border-radius: 50%; /* Circular */
-    object-fit: cover; /* Recorta sin deformar */
+    object-fit: cover;
 }
 
 .galeria-Toppings h3 {

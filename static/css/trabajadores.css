@@ -1,8 +1,8 @@
 /* ================= VARIABLES ================= */
 :root {
-    --rosa-principal: #f7a8c6;      /* Fondo barra (Imagen) */
-    --rosa-boton: #f9b6cf;         /* Rosa del botón (Imagen) */
-    --rosa-claro: #ffdce6;         /* Rosa suave para badges */
+    --rosa-principal: #f7a8c6;     
+    --rosa-boton: #f9b6cf;       
+    --rosa-claro: #ffdce6;       
     --blanco-puro: #ffffff;
     --crema-fondo: #f5f5f5;
     --negro-boton: #000000;
@@ -22,7 +22,7 @@ body {
     overflow-x: hidden; 
 }
 
-/* ===== HEADER (ESTILO EXACTO A LA IMAGEN) ===== */
+/* ===== HEADER===== */
 header {
     background-color: var(--rosa-principal);
     padding: 15px 5%; 
@@ -59,7 +59,7 @@ header h1 {
     box-shadow: 0 10px 20px rgba(94, 214, 195, 0.6);
 }
 
-/* ===== GRID DE TARJETAS (MAIN) ===== */
+/* =====(MAIN) ===== */
 main {
     max-width: 1200px;
     margin: 40px auto;

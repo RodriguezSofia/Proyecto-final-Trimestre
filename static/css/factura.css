@@ -8,14 +8,11 @@
 }
 
 body.factura-body {
-    /* Fondo principal: Imagen */
-    background-image: url('../img/fondo-pastel.png'); /* 👈 Reemplaza por tu ruta real */
+    background-image: url('../img/fondo-pastel.png'); 
     background-size: cover;          /* Ajusta la imagen a toda la pantalla */
     background-position: center;     /* Centra la imagen */
     background-repeat: no-repeat;    /* No repite la imagen */
-    background-attachment: fixed;    /* Efecto "fijo" al hacer scroll */
-    
-    /* El resto de tus estilos se mantienen... */
+    background-attachment: fixed;  
     font-family: 'Quicksand', sans-serif;
     color: var(--text);
     margin: 0;
@@ -35,7 +32,7 @@ body.factura-body {
     background: var(--white);
     position: relative;
     filter: drop-shadow(0px 10px 20px rgba(0,0,0,0.1));
-    /* El truco del zig-zag con clip-path */
+    /*zig-zag con clip-path */
     clip-path: polygon(
         0% 2%, 5% 0%, 10% 2%, 15% 0%, 20% 2%, 25% 0%, 30% 2%, 35% 0%, 40% 2%, 45% 0%, 50% 2%, 55% 0%, 60% 2%, 65% 0%, 70% 2%, 75% 0%, 80% 2%, 85% 0%, 90% 2%, 95% 0%, 100% 2%, 
         100% 98%, 95% 100%, 90% 98%, 85% 100%, 80% 98%, 75% 100%, 70% 98%, 65% 100%, 60% 98%, 55% 100%, 50% 98%, 45% 100%, 40% 98%, 35% 100%, 30% 98%, 25% 100%, 20% 98%, 15% 100%, 10% 98%, 5% 100%, 0% 98%

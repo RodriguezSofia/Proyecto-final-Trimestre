@@ -27,17 +27,17 @@ DATOS_PAGO = {
 
     # ── NEQUI ────────────────────────────────────────────────────────
     "nequi": {
-        "numero":   "3019283491",          # ← tu número Nequi (ya configurado)
-        "titular":  "Nicolk Anelca Diaz Hernandez",      # ← ej: "Juan García"
+        "numero":   "3019283491",   #número Nequi
+        "titular":  "Nicolk Anelca Diaz Hernandez",    
     },
 
     # ── PSE / TRANSFERENCIA BANCARIA ────────────────────────────────
     "bancolombia": {
-        "banco":    "BANCOLOMBIA",       # ← ej: "Bancolombia"
-        "cuenta":   "888-699065-86", # ← ej: "123-456789-00"
-        "tipo":     "Ahorros",             # ← "Ahorros" o "Corriente"
-        "titular":  "Nicolk Anelca Diaz Hernandez",      # ← nombre del titular
-        "cedula":   "1114001814",      # ← ej: "1.234.567.890"
+        "banco":    "BANCOLOMBIA",      
+        "cuenta":   "888-699065-86",
+        "tipo":     "Ahorros",             
+        "titular":  "Nicolk Anelca Diaz Hernandez",     
+        "cedula":   "1114001814",     
     },
 
 }
@@ -131,7 +131,7 @@ def actualizar_perfil():
         return jsonify({'success': False, 'message': 'Sesión no encontrada'}), 401
 
     datos = request.get_json()
-    # Extraemos los datos del JSON enviado por JS
+    #Extrae los datos del JSON enviado por JS
     nuevo_nombre = datos.get('nombre')
     nuevo_correo = datos.get('correo')
     usuario_id = session['usuario_id']
@@ -340,7 +340,7 @@ def menu():
     try:
         cursor = conexion.cursor(cursor_factory=RealDictCursor)
 
-        #Recorrer productos, sabores y toppings para mostrar en el menú
+        #Recorre productos, sabores y toppings para mostrar en el menú
         cursor.execute("""
             SELECT "Id_producto", "Nombre_producto", "Precio_producto", 
                    "Imagen", "Descripción", "Numero_bolas"
@@ -437,7 +437,7 @@ def confirmar_pedido():  # sourcery skip: low-code-quality
         
         try:
             conexion = conectar_bd()
-            # Usamos RealDictCursor para manejar nombres de columnas fácilmente
+            #RealDictCursor para manejar nombres de columnas fácilmente
             cursor = conexion.cursor(cursor_factory=RealDictCursor)
 
 # --- PROCESAR FORMULARIO Y OBTENER NOMBRES ---
@@ -449,10 +449,10 @@ def confirmar_pedido():  # sourcery skip: low-code-quality
 
                 precio = float(request.form.get(f"{prefix}[precio]"))
                 
-                # 1. Obtenemos los IDs de los sabores desde el formulario
+                #Obtener los IDs de los sabores desde el formulario
                 sabores_ids = [int(s) for s in request.form.getlist(f"{prefix}[sabores]")]
 
-                # 2. NUEVO: Buscamos los NOMBRES de esos sabores en la BD
+                #Busca los NOMBRES de esos sabores en la BD
                 nombres_sabores = []
                 if sabores_ids:
                     for s_id in sabores_ids:
@@ -461,25 +461,24 @@ def confirmar_pedido():  # sourcery skip: low-code-quality
                         if sabor_info:
                             nombres_sabores.append(sabor_info["Nombre_sabor"])
                 
-                # Convertimos la lista de nombres en un solo texto separado por comas
+                # Convertir la lista de nombres en un solo texto separado por comas
                 texto_sabores = ", ".join(nombres_sabores) if nombres_sabores else "Selección de la casa"
 
-                # 3. Buscamos el nombre del producto
+                #Busca el nombre del producto
                 cursor.execute('SELECT "Nombre_producto" FROM public."Productos" WHERE "Id_producto" = %s', (id_producto,))
                 producto_info = cursor.fetchone()
                 nombre_p = producto_info["Nombre_producto"] if producto_info else "Helado Personalizado"
 
-                # 4. ACTUALIZADO: Guardamos 'sabores' en el diccionario para el HTML
+                #Guarda 'sabores' en el diccionario para el HTML
                 carrito_detalles.append({
                     "nombre": nombre_p,
                     "cantidad": 1,
                     "precio_total": precio,
-                    "sabores": texto_sabores  # <-- Esto es lo que leerá tu factura.html
+                    "sabores": texto_sabores  
                 })
                 
                 total_acumulado += precio
 
-                # (El resto de tu código de inserción en BD permanece igual...)
                 carrito_procesar.append({
                     "id_producto": int(id_producto),
                     "sabores": sabores_ids,
@@ -528,7 +527,6 @@ def confirmar_pedido():  # sourcery skip: low-code-quality
                         """, (id_factura, res["Id_product_sabor"], 4, item["precio"]))
 
                         #RESTAR STOCK DEL TOPPING
-                                    # 🔽 RESTAR STOCK DEL TOPPING
                         cursor.execute("""
                             UPDATE public."Toppings"
                             SET "stock" = "stock" - 1
@@ -704,7 +702,7 @@ def admin_pedidos():
                 JOIN public."Sabor" s ON ps."Id_sabor" = s."Id_sabor"
                 WHERE df."Id_factura" = %s;
             """, (id_factura,))
-            detalle_pedido = cursor.fetchall()  #  aquí ya es lista
+            detalle_pedido = cursor.fetchall()
 
         cursor.close()
         conexion.close()
@@ -1007,8 +1005,8 @@ def ver_contactos():
         if not conexion:
             return jsonify({'error': 'Error al conectar a la base de datos'}), 500
 
-        cursor = conexion.cursor(cursor_factory=RealDictCursor) # Usa RealDictCursor para obtener resultados como diccionarios.
-        cursor.execute('SELECT * FROM Contacto ORDER BY creado DESC;') # Consulta para obtener todos los contactos, ordenados por fecha de creación (más reciente primero).
+        cursor = conexion.cursor(cursor_factory=RealDictCursor) #RealDictCursor para obtener resultados como diccionarios.
+        cursor.execute('SELECT * FROM Contacto ORDER BY creado DESC;') #Consulta para obtener todos los contactos, ordenados por fecha de creación (más reciente primero).
         contactos = cursor.fetchall()
         cursor.close()
         conexion.close()
@@ -1173,16 +1171,16 @@ def cambiar_password():
 
     conexion = conectar_bd()
     cursor = conexion.cursor(cursor_factory=RealDictCursor)
-# 1. Obtener la contraseña hasheada actual del usuario logueado.
+# 1.Obtener la contraseña hasheada actual del usuario logueado.
     cursor.execute('SELECT "password" FROM public."Usuarios" WHERE "Id_usuario" = %s;',
                 (session["usuario_id"],))
     usuario = cursor.fetchone()
-# 2. Verificar si la contraseña actual es correcta.
+# 2.Verificar si la contraseña actual es correcta.
     if not bcrypt.checkpw(actual.encode('utf-8'), usuario["password"].encode('utf-8')):
         return jsonify({'error': 'La contraseña actual es incorrecta'}), 400
-# 3. Hashear la nueva contraseña.
+# 3.Hashear la nueva contraseña.
     nueva_hash = bcrypt.hashpw(nueva.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
-# 4. Actualizar la contraseña en la base de datos.
+# 4.Actualizar la contraseña en la base de datos.
     cursor.execute('UPDATE public."Usuarios" SET "password"=%s WHERE "Id_usuario"=%s;',
                 (nueva_hash, session["usuario_id"]))
 

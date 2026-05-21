@@ -1,4 +1,4 @@
-/* ================= VARIABLES (Tus colores originales) ================= */
+/* ================= VARIABLES ================= */
 :root {
     --rosa-principal: #f7a8c6;
     --rosa-boton: #f9b6cf;
@@ -25,7 +25,7 @@ body {
     min-height: 100vh;
 }
 
-/* ================= HEADER (Igual a tus fotos) ================= */
+/* ================= HEADER ================= */
 header {
     background-color: var(--rosa-principal);
     padding: 15px 5%;
@@ -61,10 +61,9 @@ header h1 {
     transform: translateY(-3px);
     box-shadow: 0 10px 20px rgba(94, 214, 195, 0.6);
 }
-/* ================= EL CONTENEDOR (LA CLAVE DEL ESPACIO) ================= */
-/* Aquí usamos la clase 'contenedor' que tienes en tu HTML */
+/* ================= EL CONTENEDOR ================= */
 .contenedor {
-    padding: 60px 8%; /* 60px para despegar de la barra rosa y 8% para los lados */
+    padding: 60px 8%; 
     max-width: 1400px;
     margin: 0 auto;
     display: flex;
@@ -75,7 +74,7 @@ header h1 {
 /* ================= TARJETAS BLANCAS ================= */
 section {
     background-color: var(--blanco-puro);
-    padding: 40px;       /* Espacio interno para que el contenido no toque los bordes */
+    padding: 40px;       
     border-radius: 25px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.05);
 }
@@ -148,7 +147,6 @@ th {
     text-align: left;
 }
 
-/* Bordes redondeados del encabezado azul como en tu foto */
 th:first-child { border-radius: 12px 0 0 12px; }
 th:last-child { border-radius: 0 12px 12px 0; }
 
@@ -176,18 +174,15 @@ li {
 =========================== */
 
 @media (max-width: 600px) {
-    /* Ajuste del contenedor para que no se pegue a los bordes */
     .contenedor {
         padding: 40px 15px;
     }
 
-    /* Forzamos a la tabla a comportarse como bloques */
     table, thead, tbody, th, td, tr {
         display: block;
         width: 100%;
     }
 
-    /* Escondemos el encabezado azul original */
     thead tr, th {
         display: none;
     }
@@ -201,13 +196,12 @@ li {
     }
 
     td {
-        text-align: right; /* El dato a la derecha */
+        text-align: right; 
         padding: 12px 15px;
         position: relative;
         border-bottom: 1px solid #eee;
     }
 
-    /* Insertamos el nombre de la columna a la izquierda usando data-label */
     td::before {
         content: attr(data-label);
         position: absolute;
@@ -222,7 +216,6 @@ li {
         border-bottom: none;
     }
 
-    /* Ajuste del Header para que el botón no tape el título */
     header {
         flex-direction: column;
         text-align: center;

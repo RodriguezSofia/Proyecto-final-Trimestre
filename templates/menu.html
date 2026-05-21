@@ -195,12 +195,11 @@
         const listaCarrito = document.getElementById("listaCarrito");
         const carritoContainer = document.getElementById("carritoContainer");
 
-        // FUNCION PRINCIPAL CORREGIDA
         function agregarAlCarrito(idProducto, nombre, precio, numeroBolas) {
             let sabores = [];
             let topping = null;
 
-            // Recoger sabores seleccionados
+            //Recoger sabores seleccionados
             for (let i = 1; i <= numeroBolas; i++) {
                 const select = document.getElementById(`sabor-${idProducto}-${i}`);
                 if (select) {
@@ -208,13 +207,13 @@
                 }
             }
 
-            // Recoger topping
+            //Recoger topping
             const selectTopping = document.getElementById(`topping-${idProducto}`);
             if (selectTopping && selectTopping.value !== "") {
                 topping = { id: Number(selectTopping.value), nombre: selectTopping.options[selectTopping.selectedIndex].text };
             }
 
-            // Guardar en el arreglo
+            //Guardar en el arreglo
             carrito.push({
                 id_producto: Number(idProducto),
                 nombre,
@@ -226,11 +225,11 @@
             actualizarContadores();
             renderCarrito();
             
-            // MOSTRAR VENTANA EMERGENTE EN LA MITAD
+            //MOSTRAR VENTANA EMERGENTE EN LA MITAD
             const popUp = new bootstrap.Modal(document.getElementById('modalPopUp'));
             popUp.show();
             
-            // Cerrar automáticamente después de 1.5 segundos
+            //Cerrar automáticamente después de 1.5 segundos
             setTimeout(() => { popUp.hide(); }, 1500);
         }
 

@@ -16,15 +16,15 @@ function guardarDatos() {
         return;
     }
 
-    // 1. Guardamos en la memoria local
+    //Guarda en la memoria local
     localStorage.setItem("nombre", nombre);
     localStorage.setItem("correo", correo);
 
-    // 2. Actualizamos la TARJETA
+    //Actualiza la TARJETA
     nombreTexto.textContent = nombre;
     correoTexto.textContent = correo;
 
-    // 3. Actualizamos el SALUDO de arriba (Busca el ID saludoTop)
+    //Actualiza el SALUDO de arriba (Busca el ID saludoTop)
     const saludoTop = document.getElementById("saludoTop");
     if (saludoTop) {
         saludoTop.textContent = nombre;
@@ -115,7 +115,7 @@ function guardarDatosPerfil() {
     });
 }
 
-// ELIMINAR CUENTA (La que te faltaba)
+// ELIMINAR CUENTA
 function eliminarCuenta() {
     Swal.fire({
         title: "¿Estás seguro?",

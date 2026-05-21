@@ -22,7 +22,7 @@
 .whatsapp-icon {
     width: 50px;
     height: 50px;
-    border: 4px solid #ffffff;  /* aquí está el borde */
+    border: 4px solid #ffffff; 
     border-radius: 50%; 
 }
 /*BOTONES HEADER */
@@ -87,7 +87,7 @@ PRIMERA BARRA (LOGO + LOGIN)
     justify-content: space-between; /* Logo a la izquierda, botones a la derecha */
     align-items: center;
     padding: 10px 5%; /* Padding lateral flexible */
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);              /* Espacio en los bordes para que no toquen la pared */
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);        
 }
 
 /* =========================
@@ -100,7 +100,7 @@ SEGUNDA BARRA (MENÚ)
     backdrop-filter: blur(10px);
     z-index: 999;
     margin-top: 0%;
-    overflow-x: auto; /* Permite desplazamiento horizontal en pantallas pequeñas */
+    overflow-x: auto; 
     white-space: nowrap;
     display: flex;
     justify-content: center;
@@ -135,9 +135,8 @@ SEGUNDA BARRA (MENÚ)
     border: none !important;
 }
 
-/* AJUSTE DEL ICONO PARA QUE SE VEA CLARO */
 .navbar-toggler-icon {
-    width: 32px;  /* Ajusta el tamaño si lo ves muy pequeño */
+    width: 32px; 
     height: 32px;
 }
 
@@ -168,8 +167,6 @@ nav a.activo {
 background-color:#DFF5EC; /* Fondo verde para link activo */
 color: #D3183D; /* Color del texto activo */
 }
-
-
 .logo {
     height: 60px;          
     width: auto;           
@@ -177,12 +174,10 @@ color: #D3183D; /* Color del texto activo */
     transition: transform 0.3s ease; 
 }
 
-
 .logo:hover {
-    transform: scale(1.05); /* Pequeña ampliación al pasar el mouse */
+    transform: scale(1.05); /*ampliación al pasar el mouse */
 }
 /* -ESTILOS PARA LOS LINKS -- */
-
 .menu-principal li a {
     color: #e85aad;
     font-weight: 600;
@@ -204,7 +199,7 @@ body {
     background-size: cover;       /* Ajusta toda la pantalla */
     background-position: center;  /* Centra la imagen */
     background-repeat: no-repeat; /* No se repite */
-    background-attachment: fixed; /* Efecto elegante tipo premium */
+    background-attachment: fixed; 
 }
 main {
     background-color: rgba(255, 255, 255, 0.65);
@@ -225,7 +220,7 @@ h2 {
 
 /* === ENCABEZADO PRINCIPAL === */
 header h1 {
-    font-size: 2.5em; /* Tamaño del H1 */
+    font-size: 2.5em; 
     margin-bottom: 10px; /* Separación inferior */
 }
 
@@ -248,11 +243,10 @@ section {
 #Menu {
     padding: 40px 20px; /* Espaciado interno específico de la sección */
 }
-
 /* === TÍTULO Y TEXTO SECCIÓN === */
 #Menu h2 {
-    font-family: 'Pacifico', cursive; /* Fuente cursiva */
-    color: #F54388; /* Rosa chicle */
+    font-family: 'Pacifico', cursive; 
+    color: #F54388; 
     font-size: 2.5em; 
     margin-bottom: 5px; 
 }
@@ -265,7 +259,6 @@ section {
 }
 
 /* === GRID DE PRODUCTOS === */
-
 .menu-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr); /* 2 tarjetas por fila */
@@ -279,7 +272,7 @@ section {
     display: flex; /* Contenedor flex */
     flex-direction: column; /* Imagen arriba, texto abajo */
     overflow: hidden; 
-    background-color: #DFF5EC; /* Fondo menta pastel */
+    background-color: #DFF5EC; 
     border-radius: 15px; /* Bordes redondeados */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
     text-align: left;
@@ -336,7 +329,7 @@ section {
 
 /* === BOTÓN AGREGAR === */
 .btn-agregar {
-    background-color: #F54388; /* Fondo rosa chicle */
+    background-color: #F54388;
     color: white; 
     border: none;
     padding: 10px 20px; 
@@ -352,7 +345,7 @@ section {
 
 .btn-agregar:hover {
     background-color: #147D7D; /* Hover verde azulado */
-    transform: scale(1.05); /* Pequeña ampliación */
+    transform: scale(1.05);
 }
 
 /* === CARRITO FLOTANTE === */
@@ -376,14 +369,14 @@ section {
 }
 
 #carritoFlotante:hover {
-    transform: scale(1.1); /* Pequeño efecto al pasar el cursor */
+    transform: scale(1.1); /*efecto al pasar el cursor */
 }
 
 #carritoFlotante span {
     position: absolute;
     top: -5px; 
     right: -5px; 
-    background-color: #F54388; /* Contador rosa chicle */
+    background-color: #F54388; 
     color: white;
     padding: 2px 7px;
     font-size: 0.8em;
@@ -404,12 +397,12 @@ footer {
 /* === MODALES === */
 /* Modal Login */
 #modalLogin .modal-content {
-    background: #FFFDF2; /* Fondo crema */
+    background: #FFFDF2; 
     border-radius: 15px;
-    border: 2px solid #F54388; /* Borde rosa chicle */
+    border: 2px solid #F54388; 
 }
 #modalLogin .modal-header {
-    background: #FCEA85; /* Amarillo pastel */
+    background: #FCEA85;
     color: #147D7D; 
     border-top-left-radius: 13px;
     border-top-right-radius: 13px;
@@ -423,26 +416,26 @@ footer {
     font-size: 16px;
 }
 #modalLogin .btn-primary {
-    background-color: #147D7D !important; /* Botón verde azulado */
+    background-color: #147D7D !important; 
     border-color: #147D7D !important;
 }
 #modalLogin .btn-primary:hover {
-    background-color: #F54388 !important; /* Hover rosa chicle */
+    background-color: #F54388 !important; 
     border-color: #F54388 !important;
 }
 
 /* Modal Carrito */
 #modalCarrito .modal-header {
-    background-color: #B5EFCC; /* Menta pastel */
+    background-color: #B5EFCC; 
     color: #147D7D;
 }
 #modalCarrito .modal-footer .btn-success {
-    background-color: #F54388 !important; /* Botón comprar rosa chicle */
+    background-color: #F54388 !important; 
     border-color: #F54388 !important;
     color: white !important;
 }
 #modalCarrito .modal-footer .btn-success:hover {
-    background-color: #147D7D !important; /* Hover verde azulado */
+    background-color: #147D7D !important; 
     border-color: #147D7D !important;
 }
 /* contenedor de cada opción */
@@ -451,7 +444,7 @@ footer {
     margin: 10px 20px 10px 0; /* separa los botones */
 }
 
-/* === ESTILO BONITO PARA LISTAS DE SABORES Y TOPPING === */
+/* === ESTILOPARA LISTAS DE SABORES Y TOPPING === */
 select {
     padding: 10px 14px;
     border-radius: 20px;
@@ -493,9 +486,8 @@ select:focus {
     gap: 8px;
 }
 
-/* ===== MODALES ESTILO MODERNO ===== */
+/* ===== MODALES===== */
 
-/* Fondo del modal */
 .modal-backdrop.show {
     backdrop-filter: blur(5px);
 }
@@ -530,7 +522,6 @@ select:focus {
     padding: 25px;
 }
 
-/* Inputs modernos */
 .modal-body input {
     border-radius: 12px;
     border: 1px solid #eee;
@@ -543,7 +534,6 @@ select:focus {
     box-shadow: 0 0 8px rgba(245,67,136,0.3);
 }
 
-/* Botones modernos */
 .modal .btn {
     border-radius: 30px;
     padding: 8px 22px;
@@ -572,50 +562,33 @@ select:focus {
 /* ==========================================
    RESPONSIVE DESIGN (Móviles y Tablets)
    ========================================== */
-
 @media (max-width: 768px) {
-    /* 1. Ajuste del Body: más espacio arriba para las dos barras */
-
-
-    /* 2. Grid de productos: de 2 columnas a 1 sola */
     .menu-grid {
-        grid-template-columns: 1fr; /* Una sola tarjeta por fila */
+        grid-template-columns: 1fr; 
         padding: 10px;
     }
-
-    /* 3. Ajuste de encabezados */
     h2 {
-        font-size: 2.2em; /* Texto un poco más pequeño en móvil */
+        font-size: 2.2em; 
     }
-
-
-
-    /* 5. Botones del Header: hacerlos más compactos */
     .botones-header {
         gap: 8px;
     }
-
     .btn-registrarse, .btn-login {
         padding: 8px 15px;
         font-size: 0.9em;
     }
-
-    /* 6. Carrito y WhatsApp flotante: no estorbar el contenido */
     #carritoFlotante {
         bottom: 15px;
-        right: 85px; /* Un poco más a la izquierda del de WhatsApp */
+        right: 85px; 
         width: 50px;
         height: 50px;
     }
-
     .whatsapp-float {
         bottom: 15px;
         right: 15px;
         width: 50px;
         height: 50px;
     }
-
-    /* 7. Contenedor principal (Main) */
     main {
         margin: 15px;
         padding: 15px;
@@ -624,38 +597,32 @@ select:focus {
 }
 
 
-/* Ajuste para pantallas MUY pequeñas (iPhone SE, etc) */
 @media (max-width: 480px) {
     .menu-grid article .precio {
         font-size: 1.2em;
     }
-    
     .menu-grid article h3 {
         font-size: 1.2em;
     }
 }
 
 @media (max-width: 480px) {
-    /* 1. Achicamos el logo para dar espacio */
     .logo {
         height: 40px; 
         margin-right: 5px;
     }
 
-    /* 2. Reducimos el tamaño de los botones para que quepan */
     .btn-registrarse, .btn-login {
         padding: 6px 12px;
         font-size: 12px;
         border-radius: 15px;
     }
 
-    /* 3. Ajustamos el espacio superior del body para que no se tape el contenido */
     body {
         padding-top: 140px; 
     }
 
-    /* 4. Bajamos la segunda barra para que no choque con la primera */
     .segunda-barra {
-        top: 60px; /* Ajuste según la nueva altura del header en móvil */
+        top: 60px; 
     }
 }

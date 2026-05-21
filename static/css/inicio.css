@@ -217,7 +217,7 @@ body {
     position: fixed !important;
     top: 50% !important;
     left: 50% !important;
-    transform: translate(-50%, -50%) !important; /* El truco mágico para centrar */
+    transform: translate(-50%, -50%) !important; 
     width: 100vw !important;
     height: 100vh !important;
     display: none;
@@ -226,7 +226,6 @@ body {
     z-index: 1060 !important;
 }
 
-/* Evita que el body flex empuje el modal hacia los lados */
 .modal-dialog {
     margin: auto !important;
     max-width: 350px !important;
@@ -234,7 +233,6 @@ body {
     pointer-events: auto !important;
 }
 
-/* Asegura que el fondo oscuro cubra toda la pantalla desde la esquina */
 .modal-backdrop {
     position: fixed !important;
     top: 0;
@@ -244,7 +242,6 @@ body {
     z-index: 1050 !important;
 }
 
-/* Animación para que no aparezca de golpe */
 .modal-content {
     animation: aparecerModal 0.3s ease-out;
     border-radius: 25px !important;

@@ -113,7 +113,7 @@
                     mensajeDiv.textContent = result.mensaje;
                     mensajeDiv.style.display = 'block';
                     form.reset();
-                    grecaptcha.reset(); // Resetear el CAPTCHA después del envío exitoso
+                    grecaptcha.reset(); // Resetea el CAPTCHA después del envío exitoso
                 } else {
                     mensajeDiv.className = 'message error';
                     mensajeDiv.textContent = result.error;

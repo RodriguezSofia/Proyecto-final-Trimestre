@@ -223,7 +223,6 @@ th, td {
    RESPONSIVE DESIGN
 =========================== */
 
-/* Ocultar elementos de escritorio por defecto */
 .menu-toggle {
     display: none;
     background: none;
@@ -241,7 +240,7 @@ th, td {
     background: rgba(0, 0, 0, 0.4);
     backdrop-filter: blur(4px);
     z-index: 1500;
-    display: none; /* Se activa con JS */
+    display: none;
 }
 
 .menu-overlay.active {
@@ -249,7 +248,7 @@ th, td {
 }
 
 .sidebar-header {
-    display: none; /* Solo visible en móvil */
+    display: none; 
     justify-content: space-between;
     align-items: center;
     margin-bottom: 30px;
@@ -261,7 +260,7 @@ th, td {
     cursor: pointer;
 }
 
-/* --- TABLETS Y MÓVILES (Menos de 1024px) --- */
+/* --- TABLETS Y MÓVILES --- */
 @media (max-width: 1024px) {
     .menu-toggle {
         display: block;
@@ -289,7 +288,6 @@ th, td {
         display: flex;
     }
 
-    /* El contenido principal ocupa todo el ancho */
     .main {
         margin-left: 0;
         padding: 30px 20px;

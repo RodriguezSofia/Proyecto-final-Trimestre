@@ -76,16 +76,16 @@
 .item-perfil i { margin-right: 10px; color: #ff9ecf; }
 .item-perfil.danger { color: #ff4d6d; }
 
-/* Para que la ventana flote */
+
 .dropdown-perfil-flotante {
     position: absolute;
-    top: 55px; /* Aparece justo debajo del nombre */
+    top: 55px; 
     right: 0;
     background: white;
     width: 220px;
     border-radius: 15px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.2); /* Sombrita para que resalte */
-    z-index: 2000; /* Siempre por encima */
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    z-index: 2000;
     padding: 15px;
     text-align: center;
     border: 1px solid #eee;
@@ -172,7 +172,7 @@ BOTONES HEADER
     display: flex;
     gap: 10px;
     align-items: center;
-    flex-wrap: nowrap; /* Evita que se rompan en dos líneas si no quieres */
+    flex-wrap: nowrap; /* Evita que se rompan en dos líneas */
 }
 
 /* Botón Registrarse */
@@ -254,7 +254,7 @@ SEGUNDA BARRA (MENÚ)
 /* Botón hamburguesa color */
 .navbar-toggler {
     border: none;
-    background-color: transparent !important; /* Fuerza a que no tenga color de fondo */
+    background-color: transparent !important; 
     outline: none;
     box-shadow: none !important; /* Quita el resplandor al hacer clic */
 }
@@ -320,8 +320,8 @@ body {
     background-image: url("../img/fondo-pastel.png");
     background-size: cover;       /* Ajusta toda la pantalla */
     background-position: center;  /* Centra la imagen */
-    background-repeat: no-repeat; /* No se repite */
-    background-attachment: fixed; /* Efecto elegante tipo premium */
+    background-repeat: no-repeat;
+    background-attachment: fixed; 
 }
 main {
     background-color: rgba(255, 255, 255, 0.65);
@@ -404,50 +404,44 @@ footer {
 .whatsapp-icon {
     width: 50px;
     height: 50px;
-    border: 4px solid #ffffff;  /* aquí está el borde */
+    border: 4px solid #ffffff; 
     border-radius: 50%; 
 }
 
 @media (max-width: 480px) {
-    /* 1. Achicamos el logo para dar espacio */
+
     .logo {
         height: 40px; 
         margin-right: 5px;
     }
 
-    /* 2. Reducimos el tamaño de los botones para que quepan */
     .btn-registrarse, .btn-login {
         padding: 6px 12px;
         font-size: 12px;
         border-radius: 15px;
     }
 
-    /* 3. Ajustamos el espacio superior del body para que no se tape el contenido */
     body {
         padding-top: 140px; 
     }
 
-    /* 4. Bajamos la segunda barra para que no choque con la primera */
     .segunda-barra {
         top: 60px; /* Ajuste según la nueva altura del header en móvil */
     }
-/* Esto asegura que el footer no se comporte como un link del menú */
 footer {
     position: relative;
     z-index: 2000 !important; /* Lo pone por encima de cualquier capa invisible */
     background-color: #f9f285; /* Tu color amarillo */
 }
 
-/* Evita que el menú 'fixed-top' tape el contenido */
 body {
     padding-top: 100px; 
 }
 }
 /* =========================================
-   REPARACIÓN DE TEXTOS LARGOS (ANNIA)
+   REPARACIÓN DE TEXTOS LARGOS 
    ========================================= */
 
-/* 1. Arreglo para el nombre y correo en la tarjeta */
 .header-perfil div, .header-mini div {
     overflow: hidden; /* Corta lo que se salga */
     max-width: 180px; /* Evita que empuje la tarjeta hacia los lados */
@@ -471,17 +465,15 @@ body {
     word-break: break-all;
 }
 
-/* 2. Ajuste para el saludo superior (el que dice Hola, ...) */
 #saludoTop {
     display: inline-block;
-    max-width: 150px; /* Ajusta según el espacio de tu barra */
+    max-width: 150px; 
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     vertical-align: middle;
 }
 
-/* 3. Asegurar que la tarjeta no se deforme */
 .dropdown-perfil-flotante, .dropdown-perfil {
     min-width: 250px;
     max-width: 300px;
@@ -490,27 +482,18 @@ body {
 /* ======================================================
    MODAL
 ====================================================== */
-
 .modal-eliminar{
-
     position:fixed;
     inset:0;
-
     background:rgba(0,0,0,.35);
-
     backdrop-filter:blur(6px);
-
     display:flex;
     align-items:center;
     justify-content:center;
-
     padding:20px;
-
     opacity:0;
     visibility:hidden;
-
     transition:.3s;
-
     z-index:9999;
 }
 
@@ -524,22 +507,14 @@ body {
 ====================================================== */
 
 .contenido-modal-eliminar{
-
     width:100%;
     max-width:430px;
-
     background:white;
-
     border-radius:35px;
-
     padding:40px 30px;
-
     text-align:center;
-
     box-shadow:0 20px 50px rgba(0,0,0,.15);
-
     transform:translateY(20px) scale(.95);
-
     transition:.3s;
 }
 
@@ -552,122 +527,87 @@ body {
 ====================================================== */
 
 .icono-alerta{
-
     width:95px;
     height:95px;
-
     margin:auto auto 20px;
-
     border-radius:50%;
-
     background:linear-gradient(
         135deg,
         #ffe3ec,
         #fff3f7
     );
-
     display:flex;
     align-items:center;
     justify-content:center;
-
     box-shadow:0 10px 25px rgba(255,92,168,.15);
 }
 
 .icono-alerta i{
-
     font-size:45px;
     color:#ff4f93;
-
 }
 
 /* ======================================================
    TEXTOS
 ====================================================== */
-
 .contenido-modal-eliminar h2{
-
     color:#ff4f93;
-
     margin-bottom:12px;
-
     font-size:32px;
 }
 
 .contenido-modal-eliminar p{
-
     color:#7f6f7c;
-
     line-height:1.6;
-
     font-size:15px;
-
     margin-bottom:30px;
 }
 
 /* ======================================================
    BOTONES
 ====================================================== */
-
 .botones-modal{
-
     display:flex;
     gap:15px;
-
     justify-content:center;
-
     flex-wrap:wrap;
 }
 
 .botones-modal button{
-
     border:none;
     outline:none;
-
     padding:14px 22px;
-
     border-radius:16px;
-
     font-size:15px;
     font-weight:600;
-
     cursor:pointer;
-
     transition:.3s;
 }
 
 /* cancelar */
-
 .btn-cancelar{
-
     background:#f5f1f4;
     color:#7c6b77;
 }
 
 .btn-cancelar:hover{
-
     background:#ece4e8;
 
 }
 
 /* eliminar */
-
 .btn-eliminar{
-
     background:linear-gradient(
         135deg,
         #ff5ca8,
         #ff7eb8
     );
-
     color:white;
-
     box-shadow:0 10px 20px rgba(255,92,168,.25);
 }
 
 .btn-eliminar:hover{
-
     transform:translateY(-2px);
-
     box-shadow:0 14px 25px rgba(255,92,168,.35);
 }
 
@@ -676,34 +616,24 @@ body {
 ====================================================== */
 
 @media(max-width:480px){
-
     .contenido-modal-eliminar{
-
         border-radius:28px;
-
         padding:35px 22px;
     }
-
     .contenido-modal-eliminar h2{
         font-size:26px;
     }
-
     .icono-alerta{
-
         width:80px;
         height:80px;
     }
-
     .icono-alerta i{
         font-size:38px;
     }
-
     .botones-modal{
         flex-direction:column;
     }
-
     .botones-modal button{
         width:100%;
     }
-
 }
