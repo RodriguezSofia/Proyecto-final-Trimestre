@@ -131,11 +131,45 @@
                     <div id="carritoContainer"></div>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn" style="background-color: #F54388; color: white;" onclick="validarCompra()">Comprar</button>
+                    <button id="btnEliminarTodo" class="btn btn-danger d-none" onclick="eliminarTodo()">
+    Eliminar todo
+</button>
+    
+
+
+<button class="btn" style="background-color: #F54388; color: white;" onclick="validarCompra()">
+    Comprar
+</button>
                 </div>
             </div>
         </div>
     </div>
+<div class="modal fade" id="modalEliminarTodo" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content text-center"
+            style="border-radius: 25px; border: none; padding: 25px;
+            box-shadow: 0px 10px 30px rgba(0,0,0,0.1);">
+
+            <div class="modal-body">
+
+                <div class="mb-3">
+                    <i class="bi bi-trash3-fill"
+                       style="font-size: 3.5rem; color: #F54388;"></i>
+                </div>
+
+                <h4 style="color: #147D7D; font-weight: bold;">
+                    Carrito vacío
+                </h4>
+
+                <p class="mb-0 text-muted">
+                    Todos los productos fueron eliminados correctamente.
+                </p>
+
+            </div>
+        </div>
+    </div>
+</div>
+
 
     <div class="modal fade" id="modalLogin" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
@@ -200,16 +234,55 @@
             setTimeout(() => { popUp.hide(); }, 1500);
         }
 
-        function eliminarProducto(index) {
-            carrito.splice(index, 1);
-            actualizarContadores();
-            renderCarrito();
+ function eliminarProducto(index) {
+    carrito.splice(index, 1);
+    actualizarContadores();
+    renderCarrito();
+}
+
+function eliminarTodo() {
+
+    carrito = [];
+
+    actualizarContadores();
+    renderCarrito();
+
+    localStorage.removeItem("carrito");
+
+    // Mostrar modal bonito
+    const modalEliminar = new bootstrap.Modal(
+        document.getElementById('modalEliminarTodo')
+    );
+
+    modalEliminar.show();
+
+    // Cerrar automático
+    setTimeout(() => {
+        modalEliminar.hide();
+    }, 1800);
+}
+        
+
+       function actualizarContadores() {
+
+    if (carritoCount)
+        carritoCount.textContent = carrito.length;
+
+    if (carritoCountFloat)
+        carritoCountFloat.textContent = carrito.length;
+
+    const btnEliminar = document.getElementById("btnEliminarTodo");
+
+    if (btnEliminar) {
+
+        if (carrito.length >= 3) {
+            btnEliminar.classList.remove("d-none");
+        } else {
+            btnEliminar.classList.add("d-none");
         }
 
-        function actualizarContadores() {
-            if (carritoCount) carritoCount.textContent = carrito.length;
-            if (carritoCountFloat) carritoCountFloat.textContent = carrito.length;
-        }
+    }
+}
 
         function renderCarrito() {
             if (!listaCarrito || !carritoContainer) return;

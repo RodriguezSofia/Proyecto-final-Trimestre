@@ -63,6 +63,11 @@
     const nequiQR = "{{ url_for('static', filename='img/nequi_QR.jpeg') }}";
     const bancolombiaQR = "{{ url_for('static', filename='img/bancolombia_QR.jpeg') }}";
     metodoSelect.addEventListener("change", cargarDatosPago);
+    const inputNombre = document.getElementById("nombre_destinatario");
+
+inputNombre.addEventListener("input", function () {
+    this.value = this.value.replace(/[^A-Za-zÁÉÍÓÚáéíóúÑñ\s]/g, '');
+});
 
 async function cargarDatosPago() {
 

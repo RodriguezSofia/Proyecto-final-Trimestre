@@ -101,6 +101,7 @@
                     <h3>{{ s.Nombre_sabor }}</h3>
                     <p>{{ s.Descripción if s.Descripción else 'Sin descripción disponible' }}</p>
                 </article>
+                </a>
                 {% endfor %}
             </div>
         </section>
@@ -117,6 +118,7 @@
                     <img src="{{ url_for('static', filename='img/' + t.Imagen) }}" alt="{{ t.Nombre_toppings }}">
                     <h3>{{ t.Nombre_toppings }}</h3>
                 </article>
+                </a>
                 {% endfor %}
             </div>
         </section>

@@ -64,6 +64,28 @@
                 reader.readAsDataURL(file);
             }
         });
+
+        function confirmarEliminarCuenta(){
+            document.getElementById("modalEliminar")
+                .classList.add("active");
+        }
+
+        function cerrarModalEliminar(){
+            document.getElementById("modalEliminar")
+                .classList.remove("active");
+        }
+
+        function eliminarCuenta(){
+            window.location.href = "/eliminar-cuenta";
+        }
+
+        // cerrar si se da click afuera
+        window.addEventListener("click", function(e){
+            const modal = document.getElementById("modalEliminar");
+            if(e.target === modal){
+                cerrarModalEliminar();
+            }
+        });
     
         // Cerrar si hacen clic fuera
         window.addEventListener('click', function(e) {

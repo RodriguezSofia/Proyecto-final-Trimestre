@@ -65,7 +65,7 @@ DB_CONFIG = {
     'host': os.environ.get('DB_HOST', 'localhost'),
     'database': os.environ.get('DB_NAME', 'heladeria_ice'),
     'user': os.environ.get('DB_USER', 'postgres'),
-    'password': os.environ.get('DB_PASSWORD', '123456'),
+    'password': os.environ.get('DB_PASSWORD', 'DAYANA123'),
     'port': 5432
 }
 
@@ -190,6 +190,143 @@ def actualizar_foto():
         cursor.close()
         conexion.close()
 
+# ======================================================
+# MIS PEDIDOS
+# ======================================================
+
+@app.route('/mis-pedidos')
+def mis_pedidos():
+
+    # Verificar sesión
+    if "usuario_id" not in session:
+        return redirect(url_for('login'))
+
+    conexion = conectar_bd()
+
+    if not conexion:
+        return "Error de conexión", 500
+
+    try:
+
+        cursor = conexion.cursor(cursor_factory=RealDictCursor)
+
+        # =========================================
+        # OBTENER PEDIDOS DEL USUARIO
+        # =========================================
+
+        cursor.execute("""
+
+            SELECT 
+                f."Id_factura",
+                f."Fecha",
+                f."Nombre_destinatario",
+                f."Direccion_envio",
+                SUM(df."Total") AS total
+
+            FROM public."Factura" f
+
+            JOIN public."Detalle_factura" df
+                ON f."Id_factura" = df."Id_factura"
+
+            WHERE f."Id_usuario" = %s
+
+            GROUP BY
+                f."Id_factura",
+                f."Fecha",
+                f."Nombre_destinatario",
+                f."Direccion_envio"
+
+            ORDER BY f."Fecha" DESC;
+
+        """, (session["usuario_id"],))
+
+        pedidos = cursor.fetchall()
+
+        # =========================================
+        # OBTENER DETALLES DE CADA PEDIDO
+        # =========================================
+
+        for pedido in pedidos:
+
+            cursor.execute("""
+
+                SELECT
+                    p."Nombre_producto",
+                    s."Nombre_sabor",
+                    df."Total"
+
+                FROM public."Detalle_factura" df
+
+                JOIN public."Producto_Sabor" ps
+                    ON df."Id_product_sabor" = ps."Id_product_sabor"
+
+                JOIN public."Productos" p
+                    ON ps."Id_producto" = p."Id_producto"
+
+                JOIN public."Sabor" s
+                    ON ps."Id_sabor" = s."Id_sabor"
+
+                WHERE df."Id_factura" = %s;
+
+            """, (pedido["Id_factura"],))
+
+            detalles = cursor.fetchall()
+
+            pedido["detalles"] = detalles
+
+        cursor.close()
+        conexion.close()
+
+        return render_template(
+            'mis_pedidos.html',
+            pedidos=pedidos
+        )
+
+    except Exception as e:
+
+        print("Error en mis pedidos:", e)
+
+        return "Error interno", 500
+
+#ELIMINAR CUENTA
+# ======================================================
+# DESACTIVAR CUENTA
+# ======================================================
+
+@app.route('/eliminar-cuenta')
+def eliminar_cuenta():
+
+    if "usuario_id" not in session:
+        return redirect(url_for('login'))
+
+    conexion = conectar_bd()
+
+    if not conexion:
+        return "Error de conexión", 500
+
+    try:
+        cursor = conexion.cursor()
+
+        cursor.execute("""
+            UPDATE public."Usuarios"
+            SET activo = FALSE
+            WHERE "Id_usuario" = %s;
+        """, (session["usuario_id"],))
+
+        conexion.commit()
+        cursor.close()
+        conexion.close()
+
+        # cerrar sesión
+        session.clear()
+
+        return redirect(url_for('home'))
+
+    except Exception as e:
+        conexion.rollback()
+        print("Error desactivando cuenta:", e)
+        return "Error interno", 500
+    
 # ======================================================
 # RUTA PARA GENERAR MENÚ (GET)
 # ======================================================
@@ -975,6 +1112,16 @@ def login():
         cursor = conexion.cursor(cursor_factory=RealDictCursor)
         cursor.execute('SELECT * FROM public."Usuarios" WHERE "correo_usuario" = %s;', (correo,))
         usuario = cursor.fetchone()
+
+        # verificar si la cuenta está desactivada
+        if usuario and usuario.get("activo") == False:
+
+            cursor.close()
+            conexion.close()
+
+            return jsonify({
+                "error": "Tu cuenta fue desactivada"
+            }), 403
 
         if not usuario:
             cursor.close()

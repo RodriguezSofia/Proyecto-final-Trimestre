@@ -1,67 +1,89 @@
 body {
-    font-family: Arial;
+    font-family: 'Quicksand', sans-serif;
     background: #f8f5f2;
+    margin: 0;
+    padding: 0;
 }
 
-/* CONTENEDOR */
 .perfil {
     width: 320px;
+    max-width: 90%;
     margin: 40px auto;
     background: white;
-    border-radius: 20px;
+    border-radius: 25px;
     padding: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
 }
 
-/* HEADER */
 .header {
     display: flex;
     align-items: center;
-    gap: 15px;
-    background: #f7c6d9; /* rosado */
+    gap: 12px;
+    background: #f7c6d9;
     padding: 15px;
-    border-radius: 15px;
+    border-radius: 20px;
 }
 
 .header img {
-    width: 80px;
-    height: 80px;
+    width: 65px;
+    height: 65px;
     border-radius: 50%;
+    flex-shrink: 0;
+    object-fit: cover;
+    border: 2px solid white;
 }
 
-/* EDITAR */
+.info-usuario {
+    flex: 1;
+    min-width: 0; /* Permite que el texto se recorte */
+    overflow: hidden;
+}
+
+#nombreTexto {
+    margin: 0;
+    font-size: 1.2rem; /* Lo subí un poquito para que luzca más */
+    color: #147D7D;
+    font-family: 'Quicksand', sans-serif; /* <--- ESTA ES LA CLAVE */
+    font-weight: 700;                     /* <--- Para que sea gruesa como el saludo */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; 
+}
+
+#correoTexto {
+    margin: 0;
+    font-size: 0.8rem;
+    color: #666;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .editar input {
     width: 100%;
     padding: 10px;
-    margin-top: 10px;
-    border: 1px solid #ddd;
+    margin-top: 8px;
+    border: 1px solid #eee;
     border-radius: 10px;
+    box-sizing: border-box;
 }
 
 .editar button {
     width: 100%;
-    margin-top: 10px;
+    margin-top: 12px;
     padding: 10px;
-    background: #4ecdc4; /* turquesa */
+    background: #FF87B2;
     border: none;
-    border-radius: 10px;
+    border-radius: 15px;
     color: white;
-}
-
-/* MENÚ */
-.menu {
-    margin-top: 20px;
+    font-weight: bold;
+    cursor: pointer;
 }
 
 .item {
     padding: 12px;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid #f9f9f9;
     cursor: pointer;
 }
 
-.item:hover {
-    background: #f1f1f1;
-}
-
-.danger {
-    color: #ff6b6b;
-}
+.danger { color: #ff6b6b; }

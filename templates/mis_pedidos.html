@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% block extra_css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/mis_pedidos.css') }}">
+{% endblock %}
+{% block content %}
+    <div class="info-pedidos">
+
+        <div class="icono-pedidos">
+            <i class="bi bi-bag"></i>
+        </div>
+
+        <div class="textos-pedidos">
+            <h1>Mis pedidos</h1>
+
+            <p>
+                Consulta el estado y detalles de todos tus pedidos.
+            </p>
+        </div>
+
+    </div>
+
+        {% if pedidos %}
+            {% for pedido in pedidos %}
+            <div class="card-pedido">
+                <div class="pedido-top">
+
+                    <div>
+                        <h2>
+                            Pedido #{{ pedido.Id_factura }}
+                        </h2>
+
+                        <div class="fecha-pedido">
+
+                            <i class="bi bi-calendar4-week"></i>
+
+                            <span>
+                                {{ pedido.Fecha.strftime('%d/%m/%Y') }}
+                            </span>
+
+                        </div>
+                    </div>
+
+                    <div class="precio-pedido">
+                        ${{ "{:,.0f}".format(pedido.total).replace(",", ".") }}
+                    </div>
+
+                </div>
+                <div class="pedido-body">
+                    {% for item in pedido.detalles %}
+
+                    <div class="item-pedido">
+
+                        <strong>
+                            {{ item.Nombre_producto }}
+                        </strong>
+
+                        <span>
+                            Sabor:
+                            {{ item.Nombre_sabor }}
+                        </span>
+
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="sin-pedidos">
+                <h3>No tienes pedidos aún 🍦</h3>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

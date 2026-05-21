@@ -3,39 +3,62 @@
 <head>
 <meta charset="UTF-8">
 <title>Perfil</title>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/perfil_usuario.css') }}">
 </head>
 
 <body>
 
 <div class="perfil">
+    
+    
 
     <!-- HEADER -->
     <div class="header">
+
         <img id="fotoPerfil" src="https://via.placeholder.com/80">
-        <div>
-            <h2 id="nombreTexto">Usuario</h2>
-            <p id="correoTexto">correo@email.com</p>
+
+        <div class="info-usuario">
+
+            <h2 id="nombreTexto">
+                {{ session['usuario_nombre'][:15] }}{% if session['usuario_nombre']|length > 15 %}...{% endif %}
+            </h2>
+
+            <p id="correoTexto">
+                {{ session['usuario_email'][:20] }}{% if session['usuario_email']|length > 20 %}...{% endif %}
+            </p>
+
         </div>
+
     </div>
 
     <!-- EDITAR -->
     <div class="editar">
-        <input type="text" id="nombre" placeholder="Nombre">
-        <input type="email" id="correo" placeholder="Correo">
+
+        <input type="text" id="nombre" placeholder="Nombre" maxlength="15">
+
+        <input type="email" id="correo" placeholder="Correo" maxlength="30">
+
         <input type="file" id="inputFoto">
+
         <button onclick="guardarDatos()">Guardar cambios</button>
+
     </div>
 
     <!-- MENÚ -->
     <div class="menu">
+
         <div class="item" onclick="misCompras()">🛒 Mis compras</div>
+
         <div class="item" onclick="cerrarSesion()">🔒 Cerrar sesión</div>
+
         <div class="item danger" onclick="eliminarCuenta()">⚠ Eliminar cuenta</div>
+
     </div>
 
 </div>
 
 <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
 </body>
 </html>
