@@ -45,7 +45,9 @@
                         <li class="nav-item"><a class="nav-link" href="{{ url_for('acerca')}}">Acerca de</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ url_for('contacto') }}">Contacto</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ url_for('encuentranos') }}">Encuéntranos</a></li>
-                        <li><span id="carritoCount" style="background:#F54388; color:white; padding:3px 8px; border-radius:12px; font-weight:bold;">0</span></li>
+                        <li class="nav-item d-flex align-items-center">
+                        <span id="carritoCount" class="d-flex align-items-center justify-content-center" style="background: #F54388; color: white; width: 24px; height: 24px; border-radius: 50%; font-weight: bold; font-size: 0.85rem; line-height: 1;">0</span>
+                    </li>
                     </ul>
                 </div>
             </div>
@@ -87,7 +89,7 @@
                                 </select>
                             </div>
                         </div>
-                        <button class="btn-agregar" onclick="agregarAlCarrito('{{ p.Id_producto }}', '{{ p.Nombre_producto }}', {{ p.Precio_producto }}, {{ p.Numero_bolas }})">
+                        <button class="btn-agregar" onclick="agregarAlCarrito('{{ p.Id_producto }}', '{{ p.Nombre_producto }}', '{{ p.Precio_producto }}', '{{ p.Numero_bolas }}')">
                             <i class="bi bi-basket2-fill"></i> Agregar
                         </button>
                     </div>
@@ -188,7 +190,7 @@
 
     <script>
         const usuarioLogueado = "{{ 'true' if session.get('usuario_nombre') else 'false' }}" === "true";
-        let carrito = [];
+        let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
 
         const carritoCount = document.getElementById("carritoCount");
         const carritoCountFloat = document.getElementById("carritoCountFloat");
@@ -221,7 +223,7 @@
                 sabores,
                 topping 
             });
-
+            localStorage.setItem('carrito', JSON.stringify(carrito));
             actualizarContadores();
             renderCarrito();
             
@@ -332,11 +334,12 @@ function eliminarTodo() {
             localStorage.setItem("total", carrito.reduce((s, p) => s + p.precio, 0));
             window.location.href = "/confirmar_pedido";
         }
-
         document.addEventListener("DOMContentLoaded", () => {
-            const guardado = JSON.parse(localStorage.getItem("carrito"));
-            if (guardado) { carrito = guardado; actualizarContadores(); renderCarrito(); }
-        });
+            if (carrito.length > 0) {
+                actualizarContadores();
+                renderCarrito();
+            }
+        }); 
     </script>
 
     <footer style="background-color: #FCEA85; color: #147D7D; text-align: center; padding: 20px;">
