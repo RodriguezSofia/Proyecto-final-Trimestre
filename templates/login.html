@@ -24,7 +24,9 @@
         
         <div class="input-box">
             <input type="password" id="contrasena" placeholder="Contraseña" required>
-            <i class="bi bi-lock-fill"></i>
+            <span id="togglePassword" style="cursor: pointer;">
+                <i class="bi bi-eye-fill" id="eyeIcon"></i>
+            </span>
         </div>
         
         <div class="remember-forgot">
@@ -66,6 +68,23 @@
     </div>
 
     <script> 
+        // Lógica para mostrar y ocultar la contraseña
+        document.getElementById('togglePassword').addEventListener('click', function () {
+            const passwordInput = document.getElementById('contrasena');
+            const eyeIcon = document.getElementById('eyeIcon');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                eyeIcon.classList.remove('bi-eye-fill');
+                eyeIcon.classList.add('bi-eye-slash-fill'); // Cambia a ojo tachado
+            } else {
+                passwordInput.type = 'password';
+                eyeIcon.classList.remove('bi-eye-slash-fill');
+                eyeIcon.classList.add('bi-eye-fill'); // Vuelve a ojo abierto
+            }
+        });
+
+        // Tu función de Login original (Sin alteraciones)
         function login() {
             const datos = {
                 correo: document.getElementById('usuario').value,
@@ -101,4 +120,4 @@
         }
     </script>
 </body>
-</html>
+</html
