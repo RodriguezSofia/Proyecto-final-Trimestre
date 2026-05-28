@@ -21,6 +21,7 @@
     </a>
 
     <div class="d-flex gap-3 align-items-center" style="position: relative;">
+        {% block carrito %}{% endblock %}
         {% if not usuario %}
             <a href="{{ url_for('registro') }}" class="btn-registrarse">Registrarse</a>
             <a href="{{ url_for('login') }}" class="btn-login">Iniciar sesión</a>
