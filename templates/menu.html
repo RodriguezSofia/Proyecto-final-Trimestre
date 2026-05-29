@@ -337,17 +337,18 @@
             carritoContainer.appendChild(totalDiv);
         }
 
-        function validarCompra() {
-            if (!usuarioLogueado) {
-                new bootstrap.Modal(document.getElementById("modalLogin")).show();
-                return;
-            }
-            if (carrito.length === 0) return alert("El carrito está vacío");
-            localStorage.setItem("carrito", JSON.stringify(carrito));
-            localStorage.setItem("total", carrito.reduce((s, p) => s + p.precio, 0));
-            window.location.href = "/confirmar_pedido";
-        }
+      function validarCompra() {
+    if (!usuarioLogueado) {
+        new bootstrap.Modal(document.getElementById("modalLogin")).show();
+        return;
+    }
+    // Si el carrito está vacío, la función se detiene aquí en silencio
+    if (carrito.length === 0) return; 
 
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+    localStorage.setItem("total", carrito.reduce((s, p) => s + p.precio, 0));
+    window.location.href = "/confirmar_pedido";
+}
         document.addEventListener("DOMContentLoaded", () => {
             if (carrito.length > 0) {
                 actualizarContadores();
