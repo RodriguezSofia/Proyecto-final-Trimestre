@@ -125,17 +125,15 @@ def inject_user():
 
 #editar perfil usuario
 
-@app.route('/actualizar_perfil', methods=['POST'])
-def actualizar_perfil():
+@app.route('/editar_perfil', methods=['POST'])
+def editar_perfil():
     if 'usuario_id' not in session:
-        return jsonify({'success': False, 'message': 'Sesión no encontrada'}), 401
+        return jsonify({'error': 'Sesión no encontrada'}), 401
 
     datos = request.get_json()
-    #Extrae los datos del JSON enviado por JS
     nuevo_nombre = datos.get('nombre')
     nuevo_correo = datos.get('correo')
     usuario_id = session['usuario_id']
-    
 
     try:
         conn = conectar_bd()
@@ -153,15 +151,14 @@ def actualizar_perfil():
         cur.close()
         conn.close()
 
-        # Actualizamos la sesión para que los cambios se vean al recargar
+        # Actualizamos la sesión para mantener los datos frescos
         session['usuario_nombre'] = nuevo_nombre
         session['usuario_correo'] = nuevo_correo
 
-        return jsonify({'success': True})
+        return jsonify({'mensaje': 'Tus datos se han guardado con éxito.'}), 200
     except Exception as e:
         print(f"Error en DB: {e}")
-        return jsonify({'success': False, 'message': str(e)}), 500
-
+        return jsonify({'error': f'No se pudieron actualizar los datos: {str(e)}'}), 500
 
 #cambiar foto de perfil
 
