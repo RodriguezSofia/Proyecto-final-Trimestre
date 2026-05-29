@@ -14,6 +14,16 @@ from werkzeug.utils import secure_filename # Se importa para manejar la segurida
 from sqlalchemy import create_engine, text
 from urllib.parse import quote_plus
 
+from openpyxl import Workbook
+from flask import send_file
+from reportlab.pdfgen import canvas
+from flask import send_file  
+from flask import send_file
+from reportlab.platypus import (SimpleDocTemplate,Paragraph,Spacer,Image,Table,TableStyle)
+from reportlab.lib import colors
+from reportlab.lib.styles import getSampleStyleSheet
+import base64
+import io
 # ======================================================
 # CONFIGURACIÓN GENERAL
 # ======================================================
@@ -290,7 +300,7 @@ def mis_pedidos():
 # DESACTIVAR CUENTA
 # ======================================================
 
-@app.route('/eliminar-cuenta')
+@app.route('/eliminar_cuenta')
 def eliminar_cuenta():
 
     if "usuario_id" not in session:
@@ -884,59 +894,161 @@ def admin_reportes():
     conexion = conectar_bd()
     cursor = conexion.cursor(cursor_factory=RealDictCursor)
 
-    # ----------------------
-    # Producto más vendido (según veces que aparece en Detalle_factura)
-    # ----------------------
-    cursor.execute("""
-        SELECT p."Nombre_producto", COUNT(df."Id_product_sabor") AS unidades_vendidas
+    # FILTROS
+    desde = request.args.get("desde")
+    hasta = request.args.get("hasta")
+    filtro_sql = ""
+    params = []
+    if desde and hasta:
+        filtro_sql = '''
+            WHERE DATE(f."Fecha") BETWEEN %s AND %s
+        '''
+        params = [desde, hasta]
+
+    # PRODUCTO MÁS VENDIDO
+    cursor.execute(f"""
+        SELECT 
+            p."Nombre_producto",
+            COUNT(df."Id_product_sabor") AS unidades_vendidas
         FROM public."Detalle_factura" df
-        JOIN public."Producto_Sabor" ps ON df."Id_product_sabor" = ps."Id_product_sabor"
-        JOIN public."Productos" p ON ps."Id_producto" = p."Id_producto"
+        JOIN public."Producto_Sabor" ps
+            ON df."Id_product_sabor" = ps."Id_product_sabor"
+        JOIN public."Productos" p
+            ON ps."Id_producto" = p."Id_producto"
+        JOIN public."Factura" f
+            ON df."Id_factura" = f."Id_factura"
+        {filtro_sql}
         GROUP BY p."Nombre_producto"
         ORDER BY unidades_vendidas DESC
         LIMIT 1
-    """)
+    """, params)
     producto_mas_vendido = cursor.fetchone()
 
-    # ----------------------
-    # Sabor más vendido (según veces que aparece en Detalle_factura)
-    # ----------------------
-    cursor.execute("""
-        SELECT s."Nombre_sabor", COUNT(df."Id_product_sabor") AS unidades_vendidas
+    # SABOR MÁS VENDIDO
+    cursor.execute(f"""
+        SELECT 
+            s."Nombre_sabor",
+            COUNT(df."Id_product_sabor") AS unidades_vendidas
         FROM public."Detalle_factura" df
-        JOIN public."Producto_Sabor" ps ON df."Id_product_sabor" = ps."Id_product_sabor"
-        JOIN public."Sabor" s ON ps."Id_sabor" = s."Id_sabor"
+        JOIN public."Producto_Sabor" ps
+            ON df."Id_product_sabor" = ps."Id_product_sabor"
+        JOIN public."Sabor" s
+            ON ps."Id_sabor" = s."Id_sabor"
+        JOIN public."Factura" f
+            ON df."Id_factura" = f."Id_factura"
+        {filtro_sql}
         GROUP BY s."Nombre_sabor"
         ORDER BY unidades_vendidas DESC
         LIMIT 1
-    """)
+    """, params)
     sabor_mas_vendido = cursor.fetchone()
 
-    # ----------------------
-    # Todos los productos
-    # ----------------------
-    cursor.execute("""
-        SELECT p."Nombre_producto", COUNT(df."Id_product_sabor") AS unidades_vendidas
+    # TODOS LOS PRODUCTOS
+    cursor.execute(f"""
+        SELECT 
+            p."Nombre_producto",
+            COUNT(df."Id_product_sabor") AS unidades_vendidas
         FROM public."Detalle_factura" df
-        JOIN public."Producto_Sabor" ps ON df."Id_product_sabor" = ps."Id_product_sabor"
-        JOIN public."Productos" p ON ps."Id_producto" = p."Id_producto"
+        JOIN public."Producto_Sabor" ps
+            ON df."Id_product_sabor" = ps."Id_product_sabor"
+        JOIN public."Productos" p
+            ON ps."Id_producto" = p."Id_producto"
+        JOIN public."Factura" f
+            ON df."Id_factura" = f."Id_factura"
+        {filtro_sql}
         GROUP BY p."Nombre_producto"
         ORDER BY unidades_vendidas DESC
-    """)
+    """, params)
     productos_totales = cursor.fetchall()
 
-    # ----------------------
-    # Todos los sabores
-    # ----------------------
-    cursor.execute("""
-        SELECT s."Nombre_sabor", COUNT(df."Id_product_sabor") AS unidades_vendidas
+    #TODOS LOS SABORES
+    cursor.execute(f"""
+        SELECT 
+            s."Nombre_sabor",
+            COUNT(df."Id_product_sabor") AS unidades_vendidas
         FROM public."Detalle_factura" df
-        JOIN public."Producto_Sabor" ps ON df."Id_product_sabor" = ps."Id_product_sabor"
-        JOIN public."Sabor" s ON ps."Id_sabor" = s."Id_sabor"
+        JOIN public."Producto_Sabor" ps
+            ON df."Id_product_sabor" = ps."Id_product_sabor"
+        JOIN public."Sabor" s
+            ON ps."Id_sabor" = s."Id_sabor"
+        JOIN public."Factura" f
+            ON df."Id_factura" = f."Id_factura"
+        {filtro_sql}
         GROUP BY s."Nombre_sabor"
         ORDER BY unidades_vendidas DESC
-    """)
+    """, params)
     sabores_totales = cursor.fetchall()
+
+    # VENTAS TOTALES
+
+    cursor.execute(f"""
+        SELECT 
+            COALESCE(SUM(df."Total"), 0) AS total_ventas
+        FROM public."Detalle_factura" df
+        JOIN public."Factura" f
+            ON df."Id_factura" = f."Id_factura"
+        {filtro_sql}
+    """, params)
+    ventas_totales = cursor.fetchone()["total_ventas"]
+
+    ventas_totales_formateado = "${:,.0f}".format(
+        float(ventas_totales)
+    ).replace(",", ".")
+
+    # TOTAL PEDIDOS
+    cursor.execute(f"""
+        SELECT 
+            COUNT(*) AS total_pedidos
+        FROM public."Factura" f
+        {filtro_sql}
+    """, params)
+    total_pedidos = cursor.fetchone()["total_pedidos"]
+
+    # TOTAL CLIENTES
+
+    if filtro_sql:
+        cursor.execute(f"""
+            SELECT 
+                COUNT(DISTINCT f."Id_usuario") AS total_clientes
+            FROM public."Factura" f
+            {filtro_sql}
+        """, params)
+    else:
+        cursor.execute("""
+            SELECT 
+                COUNT(*) AS total_clientes
+            FROM public."Usuarios"
+            WHERE "Id_tipo" = 3
+        """)
+
+    total_clientes = cursor.fetchone()["total_clientes"]
+
+    # HORA PICO
+    cursor.execute(f"""
+        SELECT 
+            EXTRACT(HOUR FROM f."Fecha") AS hora,
+            COUNT(*) AS cantidad
+        FROM public."Factura" f
+        {filtro_sql}
+        GROUP BY hora
+        ORDER BY cantidad DESC
+        LIMIT 1
+    """, params)
+
+    resultado_hora = cursor.fetchone()
+
+    if resultado_hora:
+        hora = int(resultado_hora["hora"])
+        if hora == 0:
+            hora_pico = "12 AM"
+        elif hora < 12:
+            hora_pico = f"{hora} AM"
+        elif hora == 12:
+            hora_pico = "12 PM"
+        else:
+            hora_pico = f"{hora - 12} PM"
+    else:
+        hora_pico = "Sin datos"
 
     cursor.close()
     conexion.close()
@@ -946,7 +1058,398 @@ def admin_reportes():
         producto_mas_vendido=producto_mas_vendido,
         sabor_mas_vendido=sabor_mas_vendido,
         productos_totales=productos_totales,
-        sabores_totales=sabores_totales
+        sabores_totales=sabores_totales,
+        ventas_totales=ventas_totales_formateado,
+        total_pedidos=total_pedidos,
+        total_clientes=total_clientes,
+        hora_pico=hora_pico
+    )
+
+# ======================================================
+# RUTA PARA OBTENER VENTAS EN UN RANGO DE FECHAS (GRÁFICO)
+# ======================================================
+
+@app.route('/api/ventas')
+def api_ventas():
+    desde = request.args.get("desde")
+    hasta = request.args.get("hasta")
+    conexion = conectar_bd()
+    cursor = conexion.cursor(cursor_factory=RealDictCursor)
+    filtro = ""
+    params = []
+    if desde and hasta:
+        filtro = '''
+            WHERE DATE(f."Fecha") BETWEEN %s AND %s
+        '''
+        params = [desde, hasta]
+    cursor.execute(f"""
+        SELECT
+            DATE(f."Fecha") AS fecha,
+            COALESCE(SUM(df."Total"), 0) AS total
+        FROM public."Factura" f
+        JOIN public."Detalle_factura" df
+            ON f."Id_factura" = df."Id_factura"
+        {filtro}
+        GROUP BY fecha
+        ORDER BY fecha
+    """, params)
+    resultados = cursor.fetchall()
+    labels = []
+    valores = []
+    for fila in resultados:
+        labels.append(
+            fila["fecha"].strftime("%d/%m/%Y")
+        )
+        valores.append(
+            float(fila["total"])
+        )
+    cursor.close()
+    conexion.close()
+    return jsonify({
+        "labels": labels,
+        "valores": valores
+    })
+
+# ======================================================
+# RUTA PARA DESCARGAR REPORTE GENERAL EN PDF
+# ======================================================
+
+@app.route('/descargar/reporte-general', methods=['POST'])
+def descargar_reporte_general():
+    conexion = conectar_bd()
+    cursor = conexion.cursor(
+        cursor_factory=RealDictCursor
+    )
+    # RECIBIR GRÁFICA DESDE HTML
+    data = request.get_json()
+    grafica_base64 = data["grafica"]
+    grafica_base64 = grafica_base64.split(",")[1]
+    imagen_grafica = base64.b64decode(
+        grafica_base64
+    )
+
+    # VENTAS TOTALES
+    cursor.execute("""
+        SELECT COALESCE(SUM("Total"),0) AS total
+        FROM public."Detalle_factura"
+    """)
+    ventas = cursor.fetchone()["total"]
+    ventas_formateadas = "${:,.0f}".format(
+        ventas
+    ).replace(",", ".")
+    # PEDIDOS
+    cursor.execute("""
+        SELECT COUNT(*) AS pedidos
+        FROM public."Factura"
+    """)
+    pedidos = cursor.fetchone()["pedidos"]
+    
+    # CLIENTES
+    cursor.execute("""
+        SELECT COUNT(*) AS clientes
+        FROM public."Usuarios"
+        WHERE "Id_tipo" = 3
+    """)
+    clientes = cursor.fetchone()["clientes"]
+
+    # HORA PICO
+    cursor.execute("""
+        SELECT
+            EXTRACT(HOUR FROM "Fecha") AS hora,
+            COUNT(*) AS cantidad
+        FROM public."Factura"
+        GROUP BY hora
+        ORDER BY cantidad DESC
+        LIMIT 1
+    """)
+    resultado_hora = cursor.fetchone()
+
+    if resultado_hora:
+        hora = int(resultado_hora["hora"])
+        if hora == 0:
+            hora_pico = "12 AM"
+        elif hora < 12:
+            hora_pico = f"{hora} AM"
+        elif hora == 12:
+            hora_pico = "12 PM"
+        else:
+            hora_pico = f"{hora - 12} PM"
+    else:
+        hora_pico = "Sin datos"
+
+    # PRODUCTO MÁS VENDIDO
+    cursor.execute("""
+        SELECT
+            p."Nombre_producto",
+            COUNT(*) AS total
+        FROM public."Detalle_factura" df
+        JOIN public."Producto_Sabor" ps
+            ON df."Id_product_sabor" = ps."Id_product_sabor"
+        JOIN public."Productos" p
+            ON ps."Id_producto" = p."Id_producto"
+        GROUP BY p."Nombre_producto"
+        ORDER BY total DESC
+        LIMIT 1
+    """)
+    producto = cursor.fetchone()
+
+    # SABOR MÁS VENDIDO
+    cursor.execute("""
+        SELECT
+            s."Nombre_sabor",
+            COUNT(*) AS total
+        FROM public."Detalle_factura" df
+        JOIN public."Producto_Sabor" ps
+            ON df."Id_product_sabor" = ps."Id_product_sabor"
+        JOIN public."Sabor" s
+            ON ps."Id_sabor" = s."Id_sabor"
+        GROUP BY s."Nombre_sabor"
+        ORDER BY total DESC
+        LIMIT 1
+    """)
+    sabor = cursor.fetchone()
+
+    # CREAR PDF
+    archivo = io.BytesIO()
+    doc = SimpleDocTemplate(
+        archivo,
+        rightMargin=40,
+        leftMargin=40,
+        topMargin=40,
+        bottomMargin=30
+    )
+    elementos = []
+    estilos = getSampleStyleSheet()
+
+# =====================================================
+# ENCABEZADO TIPO MEMBRETE
+# =====================================================
+    ruta_logo = os.path.join(
+        app.root_path,
+        'static',
+        'img',
+        'logo.png'
+    )
+    datos_encabezado = []
+    if os.path.exists(ruta_logo):
+        logo = Image(
+            ruta_logo,
+            width=150,
+            height=68
+        )
+        titulo_empresa = Paragraph(
+            """
+            <font color="#F54388" size="22">
+            <b>Reporte General de Ventas</b>
+            </font>
+            <br/>
+            <font color="#666666" size="11">
+            Heladería Annia • Sistema Administrativo
+            </font>
+            """,
+            estilos['Title']
+        )
+        datos_encabezado = [
+            [logo, titulo_empresa]
+        ]
+        tabla_encabezado = Table(
+            datos_encabezado,
+            colWidths=[170, 330]
+        )
+        tabla_encabezado.setStyle(TableStyle([
+            ('VALIGN', (0,0), (-1,-1), 'MIDDLE'),
+            ('ALIGN', (0,0), (0,0), 'LEFT'),
+            ('LEFTPADDING', (0,0), (-1,-1), 0),
+            ('RIGHTPADDING', (0,0), (-1,-1), 10),
+            ('BOTTOMPADDING', (0,0), (-1,-1), 15)
+        ]))
+        elementos.append(tabla_encabezado)
+    elementos.append(Spacer(1, 20))
+
+    # TABLA RESUMEN
+    tabla = Table([
+        ["Métrica", "Valor"],
+        ["Ventas Totales", ventas_formateadas],
+        ["Pedidos Totales", str(pedidos)],
+        ["Clientes Totales", str(clientes)],
+        ["Hora Pico", hora_pico]
+    ])
+    tabla.setStyle(TableStyle([
+        ('BACKGROUND', (0,0), (-1,0), colors.HexColor("#F54388")),
+        ('TEXTCOLOR',(0,0),(-1,0),colors.white),
+        ('FONTNAME', (0,0), (-1,0), 'Helvetica-Bold'),
+        ('FONTSIZE', (0,0), (-1,-1), 12),
+        ('BOTTOMPADDING', (0,0), (-1,0), 12),
+        ('BACKGROUND', (0,1), (-1,-1), colors.HexColor("#FFF0F6")),
+        ('GRID', (0,0), (-1,-1), 1, colors.HexColor("#FFC2DD"))
+    ]))
+    elementos.append(tabla)
+    elementos.append(Spacer(1, 30))
+
+    # PRODUCTO MÁS VENDIDO
+    titulo_producto = Paragraph(
+        """
+        <font color="#7C4DFF">
+        <b>Producto Más Vendido</b>
+        </font>
+        """,
+        estilos['Heading2']
+    )
+    elementos.append(titulo_producto)
+
+    if producto:
+        texto_producto = Paragraph(
+            f"""
+            {producto["Nombre_producto"]}
+            • {producto["total"]} ventas
+            """,
+            estilos['BodyText']
+        )
+        elementos.append(texto_producto)
+    elementos.append(Spacer(1, 20))
+
+    # SABOR MÁS VENDIDO
+    titulo_sabor = Paragraph(
+        """
+        <font color="#00B894">
+        <b>Sabor Más Vendido</b>
+        </font>
+        """,
+        estilos['Heading2']
+    )
+    elementos.append(titulo_sabor)
+    if sabor:
+        texto_sabor = Paragraph(
+            f"""
+            {sabor["Nombre_sabor"]}
+            • {sabor["total"]} ventas
+            """,
+            estilos['BodyText']
+        )
+        elementos.append(texto_sabor)
+    elementos.append(Spacer(1, 30))
+
+    # GRÁFICA
+    titulo_grafica = Paragraph(
+        """
+        <font color="#FF8A00">
+        <b>Gráfica de Ventas</b>
+        </font>
+        """,
+        estilos['Heading2']
+    )
+    elementos.append(titulo_grafica)
+    elementos.append(Spacer(1, 10))
+    imagen_bytes = io.BytesIO(
+        imagen_grafica
+    )
+    grafica = Image(
+        imagen_bytes,
+        width=500,
+        height=250
+    )
+    elementos.append(grafica)
+    elementos.append(Spacer(1, 25))
+    # FOOTER
+    footer = Paragraph(
+        """
+        <font color="#888888">
+        Documento generado automáticamente por Heladería Annia
+        </font>
+        """,
+        estilos['Italic']
+    )
+    elementos.append(footer)
+
+    # CREAR PDF
+    doc.build(elementos)
+    archivo.seek(0)
+    cursor.close()
+    conexion.close()
+    return send_file(
+        archivo,
+        as_attachment=True,
+        download_name="Reporte_Heladeria_Annia.pdf",
+        mimetype="application/pdf"
+    )
+
+@app.route('/descargar/excel')
+def descargar_excel():
+    conexion = conectar_bd()
+    cursor = conexion.cursor(cursor_factory=RealDictCursor)
+    cursor.execute("""
+        SELECT
+            f."Fecha",
+            SUM(df."Total") AS total
+        FROM public."Factura" f
+        JOIN public."Detalle_factura" df
+            ON f."Id_factura" = df."Id_factura"
+        GROUP BY f."Fecha"
+        ORDER BY f."Fecha"
+    """)
+    datos = cursor.fetchall()
+    wb = Workbook()
+    ws = wb.active
+    ws.title = "Reporte Ventas"
+    ws.append(["Fecha", "Ventas"])
+    for fila in datos:
+        ws.append([
+            str(fila["Fecha"]),
+            float(fila["total"])
+        ])
+    archivo = io.BytesIO()
+    wb.save(archivo)
+    archivo.seek(0)
+
+    cursor.close()
+    conexion.close()
+
+    return send_file(
+        archivo,
+        as_attachment=True,
+        download_name="reporte_ventas.xlsx",
+        mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    )
+
+@app.route('/descargar/pdf')
+def descargar_pdf():
+    conexion = conectar_bd()
+    cursor = conexion.cursor(cursor_factory=RealDictCursor)
+
+    cursor.execute("""
+        SELECT
+            f."Fecha",
+            SUM(df."Total") AS total
+        FROM public."Factura" f
+        JOIN public."Detalle_factura" df
+            ON f."Id_factura" = df."Id_factura"
+        GROUP BY f."Fecha"
+        ORDER BY f."Fecha"
+    """)
+    datos = cursor.fetchall()
+    archivo = io.BytesIO()
+    pdf = canvas.Canvas(archivo)
+    pdf.setFont("Helvetica-Bold", 16)
+    pdf.drawString(200, 800, "Reporte de Ventas")
+    y = 760
+    pdf.setFont("Helvetica", 12)
+    for fila in datos:
+        texto = f'{fila["Fecha"]}  -  ${float(fila["total"]):,.0f}'
+        pdf.drawString(80, y, texto)
+        y -= 20
+        if y < 50:
+            pdf.showPage()
+            y = 800
+    pdf.save()
+    archivo.seek(0)
+    cursor.close()
+    conexion.close()
+
+    return send_file(
+        archivo,
+        as_attachment=True,
+        download_name="reporte_ventas.pdf",
+        mimetype="application/pdf"
     )
 
 

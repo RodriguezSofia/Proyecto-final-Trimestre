@@ -92,34 +92,35 @@ async function guardarDatosPerfil() {
 // ======================================================================
 // 3. MODAL DE ELIMINACIÓN DE CUENTA
 // ======================================================================
-
-// Muestra el modal personalizado que tienes estructurado en base.html
 function confirmarEliminarCuenta() {
+    if (window.event) {
+        window.event.preventDefault();
+    }
     const modal = document.getElementById('modalEliminar');
     if (modal) {
-        modal.style.display = 'flex'; // Usamos flex para centrar el contenido del modal
+        modal.classList.add('active');
     }
 }
 
-// Oculta el modal si el usuario decide cancelar
+// Ocultar modal
 function cerrarModalEliminar() {
     const modal = document.getElementById('modalEliminar');
     if (modal) {
-        modal.style.display = 'none';
+        modal.classList.remove('active');
     }
 }
 
-// Ejecuta la petición de eliminación al servidor si el usuario confirma
+// Ejecutar eliminación de cuenta
 async function eliminarCuenta() {
     try {
         const response = await fetch('/eliminar_cuenta', {
-            method: 'POST',
+            method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
             }
         });
-
-        if (response.ok) {
+        // Si Flask redirecciona correctamente
+        if (response.redirected) {
             cerrarModalEliminar();
             Swal.fire({
                 icon: 'success',
@@ -127,14 +128,13 @@ async function eliminarCuenta() {
                 text: 'Tu cuenta ha sido desactivada correctamente.',
                 confirmButtonColor: '#F54388'
             }).then(() => {
-                window.location.href = '/'; // Redirecciona a la página de inicio
+                window.location.href = response.url;
             });
         } else {
-            const result = await response.json();
             Swal.fire({
                 icon: 'error',
                 title: 'No se pudo eliminar',
-                text: result.error || 'Hubo un problema al procesar la solicitud.'
+                text: 'Hubo un problema al procesar la solicitud.'
             });
         }
     } catch (error) {
@@ -146,3 +146,14 @@ async function eliminarCuenta() {
         });
     }
 }
+
+// ======================================================================
+// CERRAR MODAL AL HACER CLICK FUERA
+// ======================================================================
+
+window.addEventListener('click', function(e) {
+    const modal = document.getElementById('modalEliminar');
+    if (e.target === modal) {
+        cerrarModalEliminar();
+    }
+});

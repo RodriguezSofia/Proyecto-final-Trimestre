@@ -1,158 +1,780 @@
-/* ================= VARIABLES (Paleta Helados + Estilo Imagen) ================= */
-:root {
-    --rosa-principal: #f7a8c6;
-    --rosa-boton: #f9b6cf;
-    --rosa-claro: #F4A7BB;
-    --blanco-puro: #ffffff;
-    --crema-fondo: #F1F9F8;
-    --cian-acentos: #00D4F0;
-    --naranja-toppings: #FFCE4B;
-    --menta-sabores: #66E0A3;
-    --chocolate-texto: #6E462D;
-    --negro-boton: #000000;
+:root{
+    --rosa:#ff4fa3;
+    --rosa-claro:#ff7ac3;
+    --azul:#4facfe;
+    --verde:#43e97b;
+    --morado:#8e54e9;
+
+    --texto:#5b4b4b;
+    --fondo:#fff8fb;
+    --blanco:#ffffff;
 }
 
-/* ================= RESET BASE ================= */
+/* =========================================
+RESET
+========================================= */
+
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
 }
 
-body {
-    font-family: 'Quicksand', 'Poppins', sans-serif;
-    background-color: var(--crema-fondo);
-    color: var(--chocolate-texto);
-    line-height: 1.6;
+body{
+    font-family:'Quicksand', sans-serif;
+    background:var(--fondo);
+    color:var(--texto);
 }
 
 /* ================= HEADER ================= */
-header {
-    background-color: var(--rosa-principal);
-    color: white;
-    padding: 20px 5%;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
 
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    border-bottom: 2px solid #fcf7f7ef;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+header{
+    width:100%;
+    height:76px;
+    background:#F7A8C6;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:0 40px;
+    position:sticky;
+    top:0;
+    z-index:1000;
+    box-shadow:0 4px 12px rgba(0,0,0,.08);
+    border-bottom:2px solid rgba(255,255,255,.25);
 }
 
-header h1 {
-    margin: 0;
-    font-size: 24px;
-    font-weight: 700;
+/* CONTENEDOR IZQUIERDO */
+
+.header-left{
+    display:flex;
+    align-items:center;
+    gap:18px;
 }
 
-/* ================= BOTÓN VOLVER ================= */
-.button-volver {
-    background: linear-gradient(135deg, #5ed6c3, #4bb8c4);
-    color: white;
-    padding: 10px 22px;
-    border-radius: 25px;
-    text-decoration: none;
-    font-weight: 600;
-    box-shadow: 0 6px 15px rgba(94, 214, 195, 0.4);
-    transition: 0.3s ease-in-out;
+/* LOGO */
+
+.logo-header{
+    width:130px;
+    height:auto;
+
+    object-fit:contain;
 }
 
-.button-volver:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(94, 214, 195, 0.6);
+/* TITULO */
+
+header h1{
+    color:white;
+
+    font-size:26px;
+    font-weight:700;
+
+    margin:0;
 }
 
-/* ================= MAIN Y CONTENIDO ================= */
-main {
-    padding: 40px 15px; 
-    max-width: 1200px; 
-    margin: 0 auto;
+/* BOTON VOLVER */
+
+.button-volver{
+    background: linear-gradient(
+        135deg,
+        #5ed6c3,
+        #4bb8c4
+    );
+
+    color:white;
+
+    padding:12px 24px;
+
+    border-radius:25px;
+
+    text-decoration:none;
+
+    font-weight:700;
+
+    box-shadow:0 6px 15px rgba(94,214,195,.35);
+
+    transition:.3s;
 }
 
-/* ================= TARJETA REPORTE ================= */
-.reporte {
-    background-color: var(--blanco-puro);
-    border-radius: 20px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-    padding: 25px;
-    margin-bottom: 30px;
+.button-volver:hover{
+    transform:translateY(-3px);
+
+    box-shadow:0 10px 20px rgba(94,214,195,.5);
+}
+/* =========================================
+CONTENEDOR
+========================================= */
+
+.dashboard-reportes{
+    width:95%;
+    max-width:1400px;
+
+    margin:auto;
+    padding:30px 0;
 }
 
-.reporte h2 {
-    color: var(--rosa-principal);
-    margin-bottom: 20px;
+/* =========================================
+FILTROS
+========================================= */
+
+.filtros-reportes{
+    display:flex;
+    flex-wrap:wrap;
+    gap:20px;
+
+    align-items:end;
+
+    background:white;
+
+    padding:25px;
+
+    border-radius:25px;
+
+    box-shadow:0 5px 20px rgba(0,0,0,.05);
+
+    margin-bottom:30px;
 }
 
-/* ================= BARRAS DE ESTADÍSTICA ================= */
-.barra-estadistica {
-    display: flex;
-    align-items: center;
-    margin: 15px 0;
+.filtro-box{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
 }
 
-.nombre {
-    width: 150px;
-    font-weight: 600;
+.filtro-box label{
+    font-weight:700;
+    color:#666;
 }
 
-.barra-fondo {
-    background-color: #f0f0f0;
-    width: 100%;
-    height: 26px;
-    border-radius: 15px;
-    margin: 0 15px;
-    overflow: hidden;
+.filtro-box input{
+    height:50px;
+    min-width:180px;
+
+    border:none;
+    outline:none;
+
+    padding:0 18px;
+
+    border-radius:14px;
+
+    background:#f5f5f5;
 }
 
-.barra-llenada {
-    height: 100%;
-    border-radius: 15px;
-    transition: width 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+/* =========================================
+BOTONES
+========================================= */
+
+.acciones-filtros{
+    display:flex;
+    gap:12px;
+    align-items:center;
 }
 
-/* ================= COLORES DE BARRAS ================= */
-.color0 .barra-llenada { background-color: var(--rosa-principal); }
-.color1 .barra-llenada { background-color: var(--rosa-claro); }
-.color2 .barra-llenada { background-color: var(--naranja-toppings); }
-.color3 .barra-llenada { background-color: var(--menta-sabores); }
-.color4 .barra-llenada { background-color: var(--cian-acentos); }
-.color5 .barra-llenada { background-color: #c8a2ff; }
+#btnFiltrar{
+    height:50px;
 
-.valor {
-    width: 60px;
-    text-align: right;
-    font-weight: bold;
+    border:none;
+
+    padding:0 28px;
+
+    border-radius:14px;
+
+    background:linear-gradient(
+        135deg,
+        var(--rosa),
+        var(--rosa-claro)
+    );
+
+    color:white;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    transition:.3s;
 }
 
-/* ================= RESPONSIVE ================= */
-@media (max-width: 600px) {
+#btnFiltrar:hover{
+    transform:translateY(-3px);
+}
 
-    header {
+.btn-limpiar{
+    background:#ececec;
+
+    color:#444;
+
+    text-decoration:none;
+
+    padding:14px 20px;
+
+    border-radius:14px;
+
+    font-weight:700;
+
+    transition:.3s;
+}
+
+.btn-limpiar:hover{
+    background:#ddd;
+}
+
+.btn-pdf-pro{
+    background:linear-gradient(
+        135deg,
+        var(--rosa),
+        var(--rosa-claro)
+    );
+
+    border:none;
+
+    color:white;
+
+    padding:14px 22px;
+
+    border-radius:14px;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+    box-shadow:0 10px 25px rgba(0,0,0,0.08);
+}
+
+.btn-pdf-pro:hover{
+    transform:translateY(-3px);
+}
+
+/* =========================================
+CARDS RESUMEN
+========================================= */
+
+.cards-resumen{
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(260px,1fr));
+
+    gap:22px;
+
+    margin-bottom:35px;
+}
+
+.card-resumen{
+    background:white;
+
+    border-radius:25px;
+
+    padding:24px;
+
+    display:flex;
+    align-items:center;
+    gap:18px;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.05);
+
+    transition:.3s;
+}
+
+.card-resumen:hover{
+    transform:translateY(-5px);
+}
+
+.card-icon{
+    width:70px;
+    height:70px;
+
+    border-radius:20px;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    font-size:30px;
+
+    color:white;
+
+    flex-shrink:0;
+}
+
+.card-info{
+    display:flex;
+    flex-direction:column;
+}
+
+.card-info h3{
+    font-size:16px;
+    color:#888;
+    margin-bottom:6px;
+}
+
+.card-info p{
+    font-size:30px;
+    font-weight:700;
+    color:var(--texto);
+}
+
+/* =========================================
+COLORES ICONOS
+========================================= */
+
+.rosa{
+    background:linear-gradient(
+        135deg,
+        #ff4fa3,
+        #ff7ac3
+    );
+}
+
+.azul{
+    background:linear-gradient(
+        135deg,
+        #4facfe,
+        #6dd5fa
+    );
+}
+
+.verde{
+    background:linear-gradient(
+        135deg,
+        #43e97b,
+        #84fab0
+    );
+}
+
+.morado{
+    background:linear-gradient(
+        135deg,
+        #8e54e9,
+        #c790ff
+    );
+}
+
+/* =========================================
+REPORTE
+========================================= */
+
+.reporte{
+    background:white;
+
+    border-radius:25px;
+
+    padding:30px;
+
+    margin-bottom:30px;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.05);
+}
+
+.reporte h2{
+    margin-bottom:20px;
+    color:var(--rosa);
+}
+
+/* =========================================
+TOP PRODUCTOS
+========================================= */
+
+.top-productos-grid{
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(320px,1fr));
+
+    gap:25px;
+}
+
+/* =========================================
+CARD INTERNA
+========================================= */
+
+.card{
+    background:#fff;
+
+    border-radius:20px;
+
+    padding:20px;
+
+    border:1px solid #f1f1f1;
+}
+
+/* =========================================
+BARRAS
+========================================= */
+
+.barra-estadistica{
+    display:grid;
+
+    grid-template-columns:
+    160px 1fr 70px;
+
+    gap:15px;
+
+    align-items:center;
+
+    margin-bottom:18px;
+}
+
+.nombre{
+    font-weight:700;
+    color:#555;
+}
+
+.valor{
+    font-weight:700;
+    text-align:right;
+    color:#555;
+}
+
+.barra-fondo{
+    width:100%;
+    height:22px;
+
+    background:#ececec;
+
+    border-radius:999px;
+
+    overflow:hidden;
+}
+
+.barra-llenada{
+    height:100%;
+
+    border-radius:999px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    color:white;
+    font-size:13px;
+    font-weight:700;
+
+    transition:width .8s ease;
+}
+
+/* =========================================
+COLORES BARRAS
+========================================= */
+
+.color0 .barra-llenada{
+    background:#ff4fa3;
+}
+
+.color1 .barra-llenada{
+    background:#43e97b;
+}
+
+.color2 .barra-llenada{
+    background:#4facfe;
+}
+
+.color3 .barra-llenada{
+    background:#f6b93b;
+}
+
+.color4 .barra-llenada{
+    background:#8e54e9;
+}
+
+.color5 .barra-llenada{
+    background:#ff7f50;
+}
+
+/* =========================================
+GRAFICA
+========================================= */
+
+.grafica-container{
+    margin-bottom:35px;
+}
+
+.grafica-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    margin-bottom:20px;
+}
+
+#graficaVentas{
+    width:100% !important;
+    height:450px !important;
+}
+
+/* =========================================
+BOTONES DESCARGA
+========================================= */
+
+.descargas{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+}
+
+.btn-descarga{
+    background:var(--rosa);
+
+    color:white;
+
+    text-decoration:none;
+
+    padding:12px 18px;
+
+    border-radius:14px;
+
+    font-weight:700;
+
+    transition:.3s;
+}
+
+.btn-descarga:hover{
+    transform:translateY(-3px);
+}
+
+/* =========================================
+RESPONSIVE
+========================================= */
+
+@media(max-width:768px){
+
+    header{
+        flex-direction:column;
+        gap:15px;
+        text-align:center;
+    }
+
+    .filtros-reportes{
+        flex-direction:column;
+        align-items:stretch;
+    }
+
+    .acciones-filtros{
+        flex-direction:column;
+    }
+
+    #btnFiltrar,
+    .btn-limpiar,
+    .btn-pdf-pro{
+        width:100%;
+    }
+
+    .barra-estadistica{
+        grid-template-columns:1fr;
+    }
+
+    .grafica-header{
+        flex-direction:column;
+        gap:15px;
+        align-items:flex-start;
+    }
+
+    .card-resumen{
+        padding:20px;
+    }
+
+    .card-icon{
+        width:60px;
+        height:60px;
+        font-size:25px;
+    }
+
+    .card-info p{
+        font-size:24px;
+    }
+
+}
+
+/* =========================================
+RESPONSIVE GENERAL
+========================================= */
+
+@media (max-width: 768px){
+
+    /* HEADER */
+    header{
         flex-direction: column;
+        text-align: center;
         gap: 15px;
+        padding: 20px;
+    }
+
+    .header-left{
+        justify-content: center;
+        width: 100%;
+    }
+
+    .header-logo{
+        width: 120px;
+        height: auto;
+    }
+
+    header h1{
+        font-size: 22px;
+    }
+
+    .button-volver{
+        width: 100%;
         text-align: center;
     }
 
-    main{
-        padding:30px 12px;
+    /* CONTENEDOR */
+    .dashboard-reportes{
+        width: 100%;
+        padding: 20px 15px;
     }
 
-    .barra-estadistica {
+    /* FILTROS */
+    .filtros-reportes{
         flex-direction: column;
-        align-items: flex-start;
+        align-items: stretch;
+        padding: 20px;
     }
 
-    .barra-fondo {
-        margin: 10px 0;
-        width:100%;
+    .filtro-box{
+        width: 100%;
+    }
+
+    .filtro-box input{
+        width: 100%;
+        min-width: 100%;
+    }
+
+    .acciones-filtros{
+        width: 100%;
+        flex-direction: column;
+    }
+
+    #btnFiltrar,
+    .btn-limpiar,
+    .btn-pdf-pro{
+        width: 100%;
+        text-align: center;
+    }
+
+    .descargas{
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .btn-descarga{
+        width: 100%;
+        text-align: center;
+    }
+
+    /* CARDS */
+    .cards-resumen{
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .card-resumen{
+        padding: 22px;
+    }
+
+    .card-resumen p{
+        font-size: 24px;
+    }
+
+    .card-icono{
+        width: 55px;
+        height: 55px;
+        font-size: 24px;
+    }
+
+    /* PRODUCTOS TOP */
+    .top-productos-grid{
+        grid-template-columns: 1fr;
+    }
+
+    /* REPORTES */
+    .reporte{
+        padding: 22px;
+        overflow-x: auto;
+    }
+
+    .reporte h2{
+        font-size: 20px;
+    }
+
+    /* BARRAS */
+    .barra-estadistica{
+        grid-template-columns: 1fr;
+        gap: 10px;
     }
 
     .nombre{
-        width:100%;
+        width: 100%;
+        font-size: 14px;
+    }
+
+    .valor{
+        width: 100%;
+        text-align: left;
+        font-size: 14px;
+    }
+
+    .barra-fondo{
+        width: 100%;
+    }
+
+    /* GRÁFICA */
+    .grafica-header{
+        flex-direction: column;
+        align-items: stretch;
+        gap: 15px;
+    }
+
+    .grafica-container{
+        height: auto;
+    }
+
+    #graficaVentas{
+        height: 320px !important;
+    }
+
+}
+
+/* =========================================
+MÓVILES PEQUEÑOS
+========================================= */
+
+@media (max-width: 480px){
+
+    header h1{
+        font-size: 18px;
+    }
+
+    .header-logo{
+        width: 100px;
+    }
+
+    .card-resumen{
+        padding: 18px;
+    }
+
+    .card-resumen h3{
+        font-size: 15px;
+    }
+
+    .card-resumen p{
+        font-size: 22px;
+    }
+
+    .reporte{
+        padding: 18px;
+    }
+
+    .reporte h2{
+        font-size: 18px;
+    }
+
+    .btn-descarga,
+    .btn-pdf-pro,
+    #btnFiltrar,
+    .btn-limpiar{
+        padding: 12px;
+        font-size: 14px;
     }
 
 }

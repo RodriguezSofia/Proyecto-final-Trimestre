@@ -7,41 +7,151 @@
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
     <link rel="icon" href="/static/img/logo_01.png?v=2">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 </head>
 <body>
     <header>
     <h1>Reportes de Ventas • Heladería Annia</h1>
-        <a href="{{ url_for('admin_panel') }}" class="button-volver">⬅ Volver al panel</a>
+        <a href="{{ url_for('admin_panel') }}" class="button-volver">Volver al panel</a>
     </header>
-
-    <main>
-        <!-- Producto más vendido -->
-        <section class="reporte">
-            <h2>Producto Más Vendido</h2>
-            {% if producto_mas_vendido %}
-                <div class="card">
-                    <p><strong>Producto:</strong> {{ producto_mas_vendido.Nombre_producto }}</p>
-                    <p><strong>Total Vendidas:</strong> {{ producto_mas_vendido.unidades_vendidas }} Unidades</p>
-                </div>
-            {% else %}
-                <p>No hay datos de ventas.</p>
-            {% endif %}
+    <main class="dashboard-reportes">
+        <!-- =========================================
+        FILTROS SUPERIORES
+        ========================================== -->
+        <section class="top-dashboard">
+                <!-- FILTROS -->
+                <form method="GET" action="/admin/reportes" class="filtros-reportes">
+                    <div class="filtro-box">
+                        <label>Desde</label>
+                        <input
+                            type="date"
+                            name="desde"
+                            value="{{ request.args.get('desde', '') }}"
+                        >
+                    </div>
+                    <div class="filtro-box">
+                        <label>Hasta</label>
+                        <input
+                            type="date"
+                            name="hasta"
+                            value="{{ request.args.get('hasta', '') }}"
+                        >
+                    </div>
+                    <div class="acciones-filtros">
+                        <button type="submit" id="btnFiltrar">
+                            Filtrar
+                        </button>
+                        <a
+                            href="/admin/reportes"
+                            class="btn-limpiar"
+                        >
+                            Limpiar
+                        </a>
+                    </div>
+                    <div class="descargas">
+                        <button 
+                            type="button"
+                            id="btnReporteCompleto" 
+                            class="btn-pdf-pro"
+                        >
+                            Descargar Reporte Completo
+                        </button>
+                    </div>
+                </form>
         </section>
-
-        <!-- Sabor más vendido -->
-        <section class="reporte">
-            <h2>Sabor Más Vendido</h2>
-            {% if sabor_mas_vendido %}
-                <div class="card">
-                    <p><strong>Sabor:</strong> {{ sabor_mas_vendido.Nombre_sabor }}</p>
-                    <p><strong>Total Vendidas:</strong> {{ sabor_mas_vendido.unidades_vendidas }} Unidades</p>
+        <!-- =========================================
+        TARJETAS RESUMEN
+        ========================================== -->
+        <section class="cards-resumen">
+            <div class="card-resumen">
+                <div class="card-icon rosa">
+                    <i class="bi bi-cash-coin"></i>
                 </div>
-            {% else %}
-                <p>No hay datos de ventas.</p>
-            {% endif %}
-        </section>
 
-        <!-- Estadísticas por Producto -->
+                <div class="card-info">
+                    <h3>Ventas Totales</h3>
+                    <p>{{ ventas_totales }}</p>
+                </div>
+            </div>
+
+            <div class="card-resumen">
+                <div class="card-icon azul">
+                    <i class="bi bi-bag"></i>
+                </div>
+
+                <div class="card-info">
+                    <h3>Pedidos</h3>
+                    <p>{{ total_pedidos }}</p>
+                </div>
+            </div>
+
+            <div class="card-resumen">
+                <div class="card-icon verde">
+                    <i class="bi bi-people"></i>
+                </div>
+
+                <div class="card-info">
+                    <h3>Clientes</h3>
+                    <p>{{ total_clientes }}</p>
+                </div>
+            </div>
+
+            <div class="card-resumen">
+                <div class="card-icon morado">
+                    <i class="bi bi-clock"></i>
+                </div>
+
+                <div class="card-info">
+                    <h3>Hora Pico</h3>
+                    <p>{{ hora_pico }}</p>
+                </div>
+            </div>
+
+        </section>
+        <!-- =========================================
+        PRODUCTO Y SABOR TOP
+        ========================================== -->
+        <section class="top-productos-grid">
+            <!-- Producto más vendido -->
+            <section class="reporte">
+                <h2>Producto Más Vendido</h2>
+                {% if producto_mas_vendido %}
+                    <div class="card">
+                        <p>
+                            <strong>Producto:</strong>
+                            {{ producto_mas_vendido.Nombre_producto }}
+                        </p>
+                        <p>
+                            <strong>Total Vendidas:</strong>
+                            {{ producto_mas_vendido.unidades_vendidas }} Unidades
+                        </p>
+                    </div>
+                {% else %}
+                    <p>No hay datos de ventas.</p>
+                {% endif %}
+            </section>
+            <!-- Sabor más vendido -->
+            <section class="reporte">
+                <h2>Sabor Más Vendido</h2>
+                {% if sabor_mas_vendido %}
+                    <div class="card">
+                        <p>
+                            <strong>Sabor:</strong>
+                            {{ sabor_mas_vendido.Nombre_sabor }}
+                        </p>
+                        <p>
+                            <strong>Total Vendidas:</strong>
+                            {{ sabor_mas_vendido.unidades_vendidas }} Unidades
+                        </p>
+                    </div>
+                {% else %}
+                    <p>No hay datos de ventas.</p>
+                {% endif %}
+            </section>
+        </section>
+        <!-- =========================================
+        VENTAS POR PRODUCTO
+        ========================================== -->
         <section class="reporte">
             <h2>Ventas por Producto</h2>
             {% set max_total = productos_totales[0].unidades_vendidas if productos_totales else 1 %}
@@ -49,16 +159,24 @@
                 {% set porcentaje = (producto.unidades_vendidas / max_total) * 100 %}
                 {% set color = loop.index0 % 6 %}
                 <div class="barra-estadistica color{{ color }}">
-                    <span class="nombre">{{ producto.Nombre_producto }}</span>
+                    <span class="nombre">
+                        {{ producto.Nombre_producto }}
+                    </span>
                     <div class="barra-fondo">
-                        <div class="barra-llenada" style="width: {{ porcentaje }}%"></div>
+                        <div
+                            class="barra-llenada"
+                            style="width: {{ porcentaje }}%">
+                        </div>
                     </div>
-                    <span class="valor">{{ producto.unidades_vendidas }} U.</span>
+                    <span class="valor">
+                        {{ producto.unidades_vendidas }} U.
+                    </span>
                 </div>
             {% endfor %}
         </section>
-
-        <!-- Estadísticas por Sabor -->
+        <!-- =========================================
+        VENTAS POR SABOR
+        ========================================== -->
         <section class="reporte">
             <h2>Ventas por Sabor</h2>
             {% set max_total_sabor = sabores_totales[0].unidades_vendidas if sabores_totales else 1 %}
@@ -66,14 +184,131 @@
                 {% set porcentaje = (sabor.unidades_vendidas / max_total_sabor) * 100 %}
                 {% set color = loop.index0 % 6 %}
                 <div class="barra-estadistica color{{ color }}">
-                    <span class="nombre">{{ sabor.Nombre_sabor }}</span>
+                    <span class="nombre">
+                        {{ sabor.Nombre_sabor }}
+                    </span>
                     <div class="barra-fondo">
-                        <div class="barra-llenada" style="width: {{ porcentaje }}%"></div>
+                        <div
+                            class="barra-llenada"
+                            style="width: {{ porcentaje }}%">
+                        </div>
                     </div>
-                    <span class="valor">{{ sabor.unidades_vendidas }} U.</span>
+                    <span class="valor">
+                        {{ sabor.unidades_vendidas }} U.
+                    </span>
                 </div>
             {% endfor %}
         </section>
+        <section class="grafica-container">
+            <div class="reporte">
+                <div class="grafica-header">
+                    <h2>Ventas</h2>
+                    <div class="descargas">
+                        <a href="/descargar/excel" class="btn-descarga">
+                            Excel
+                        </a>
+                        <a href="/descargar/pdf" class="btn-descarga">
+                            PDF
+                        </a>
+                    </div>
+                </div>
+                <canvas id="graficaVentas"></canvas>
+            </div>
+        </section>
     </main>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@2.0.1/dist/chartjs-plugin-zoom.min.js"></script>
+    <script>
+        document
+        .getElementById("btnReporteCompleto")
+        .addEventListener("click", async () => {
+            const canvas = document.getElementById("graficaVentas");
+            // CONVERTIR GRÁFICA A IMAGEN
+            const imagenGrafica = canvas.toDataURL("image/png");
+            // ENVIAR AL BACKEND
+            const response = await fetch("/descargar/reporte-general", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    grafica: imagenGrafica
+                })
+            });
+            // DESCARGAR PDF
+            const blob = await response.blob();
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = "Reporte_Heladeria_Annia.pdf";
+            a.click();
+        });
+    </script>
+    <script>
+        let grafica;
+        async function cargarGrafica() {
+            const desde =
+                "{{ request.args.get('desde', '') }}";
+            const hasta =
+                "{{ request.args.get('hasta', '') }}";
+            const response = await fetch(
+                `/api/ventas?desde=${desde}&hasta=${hasta}`
+            );
+            const data = await response.json();
+            const ctx = document
+                .getElementById("graficaVentas")
+                .getContext("2d");
+            if (grafica) {
+                grafica.destroy();
+            }
+            grafica = new Chart(ctx, {
+                type: "line",
+                data: {
+                    labels: data.labels,
+                    datasets: [{
+                        label: "Ventas por día",
+                        data: data.valores,
+                        borderWidth: 3,
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: {
+                        mode: "index",
+                        intersect: false
+                    },
+                    plugins: {
+                        legend: {
+                            display: true
+                        },
+                        zoom: {
+                            pan: {
+                                enabled: true,
+                                mode: 'x'
+                            },
+                            zoom: {
+                                wheel: {
+                                    enabled: true
+                                },
+                                pinch: {
+                                    enabled: true
+                                },
+                                mode: 'x'
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+        window.onload = cargarGrafica;
+    </script>
 </body>
 </html>
