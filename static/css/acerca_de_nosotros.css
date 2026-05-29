@@ -185,7 +185,7 @@ body {
     font-family: 'Quicksand', sans-serif;
     margin: 0;
     color: #5a3e36;
-    padding-top: 180px; /* espacio para las dos barras */
+    padding-top: 180px; /* Se mantiene en 180px tal como lo tienes en Encuéntranos */
     background-image: url("../img/fondo-pastel.png");
     background-size: cover;       /* Ajusta toda la pantalla */
     background-position: center;  /* Centra la imagen */
@@ -199,7 +199,7 @@ main {
     margin: 40px auto;
     padding: 30px;
     max-width: 1200px;
-    margin-top: 120px; /* espacio para las dos barras */
+    /* CORRECCIÓN: Quitamos el margin-top de 120px para que herede el comportamiento de Encuéntranos */
 }
 h2 {
 font-family: 'Pacifico', cursive; /* Fuente decorativa para títulos */
