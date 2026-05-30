@@ -1,7 +1,7 @@
 /* ================= VARIABLES ================= */
 :root {
     --rosa-principal: #f7a8c6;
-    --rosa-boton: #f9b6cf;
+    --rosa-boton: #f9b6cf; 
     --blanco-puro: #ffffff;
     --crema-fondo: #F1F9F8;
     --cian-acentos: #00D4F0;
@@ -35,6 +35,8 @@ header {
     position: sticky;
     top: 0;
     z-index: 1000;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
 }
 
 header h1 {
@@ -101,7 +103,7 @@ input, textarea {
     font-size: 15px;
 }
 
-/* Tu botón amarillo de imagen */
+/*  botón amarillo de imagen */
 .file-upload {
     background-color: var(--naranja-toppings);
     color: var(--chocolate-texto);
@@ -115,7 +117,7 @@ input, textarea {
 
 .file-upload input { display: none; }
 
-/* Tu botón rosa de guardar */
+/*  botón rosa de guardar */
 button[type="submit"] {
     background-color: var(--rosa-principal);
     color: white;
@@ -132,7 +134,7 @@ button[type="submit"]:hover {
     background-color: var(--menta-sabores);
 }
 
-/* ================= TABLA CIAN (Estilo Pedidos) ================= */
+/* ================= TABLA CIAN ================= */
 table {
     width: 100%;
     border-collapse: separate;
@@ -170,7 +172,7 @@ li {
     border-bottom: 1px solid #eee;
 }
 /* ===========================
-   SOLUCIÓN RESPONSIVE TABLA
+   RESPONSIVE TABLA
 =========================== */
 
 @media (max-width: 600px) {
