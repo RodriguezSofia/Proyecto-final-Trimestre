@@ -1483,7 +1483,7 @@ def admin_trabajadores():
     cursor.close()
     conexion.close()
 
-    return render_template('admin/gestion_usuarios.html', usuarios=usuarios)
+    return render_template('admin/gestion_de_usuarios.html', usuarios=usuarios)
 
 # ======================================================
 # PANEL TRABAJADORES
