@@ -1453,7 +1453,7 @@ def descargar_pdf():
     )
 
 
-@app.route('/admin/admin_trabajadores', methods=['GET', 'POST'])
+@app.route('/admin/gestion_de_usuarios', methods=['GET', 'POST'])
 def admin_trabajadores():
     conexion = conectar_bd()
     cursor = conexion.cursor(cursor_factory=RealDictCursor)
@@ -1483,7 +1483,7 @@ def admin_trabajadores():
     cursor.close()
     conexion.close()
 
-    return render_template('admin/gestion_usuarios.html', usuarios=usuarios)
+    return render_template('admin/gestion_de_usuarios.html', usuarios=usuarios)
 
 # ======================================================
 # PANEL TRABAJADORES

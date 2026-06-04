@@ -154,7 +154,7 @@
         ========================================== -->
         <section class="reporte">
             <h2>Ventas por Producto</h2>
-            {% set max_total = productos_totales[0].unidades_vendidas if productos_totales else 1 %}
+            {% set max_total = productos_totales[0].unidades_vendidas if productos_totales and productos_totales[0].unidades_vendidas else 1 %}
             {% for producto in productos_totales %}
                 {% set porcentaje = (producto.unidades_vendidas / max_total) * 100 %}
                 {% set color = loop.index0 % 6 %}
@@ -179,19 +179,16 @@
         ========================================== -->
         <section class="reporte">
             <h2>Ventas por Sabor</h2>
-            {% set max_total_sabor = sabores_totales[0].unidades_vendidas if sabores_totales else 1 %}
+            {% set max_total_sabor = sabores_totales[0].unidades_vendidas if sabores_totales and sabores_totales[0].unidades_vendidas else 1 %}
             {% for sabor in sabores_totales %}
                 {% set porcentaje = (sabor.unidades_vendidas / max_total_sabor) * 100 %}
                 {% set color = loop.index0 % 6 %}
-                <div class="barra-estadistica color{{ color }}">
+                <div class="barra-estadistica color-{{ color }}">
                     <span class="nombre">
                         {{ sabor.Nombre_sabor }}
                     </span>
                     <div class="barra-fondo">
-                        <div
-                            class="barra-llenada"
-                            style="width: {{ porcentaje }}%">  
-                        </div>
+                        <div class="barra-llenada" style="width: {{ porcentaje }}%;"></div>
                     </div>
                     <span class="valor">
                         {{ sabor.unidades_vendidas }} U.
