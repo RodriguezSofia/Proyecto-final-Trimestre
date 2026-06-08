@@ -234,6 +234,7 @@ SEGUNDA BARRA (MENÚ)
 ========================= */
 
 .segunda-barra {
+    position: fixed;
     top: 70px; /* debajo de la barra superior */
     background: rgba(255, 255, 255, 0.7);
     backdrop-filter: blur(10px);
@@ -426,6 +427,7 @@ footer {
     }
 
     .segunda-barra {
+    position: fixed;
         top: 60px; /* Ajuste según la nueva altura del header en móvil */
     }
 footer {
