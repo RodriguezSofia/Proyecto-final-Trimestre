@@ -386,6 +386,74 @@ section {
     font-weight: bold;
 }
 
+
+/* Contenedor que alinea la etiqueta y el selector */
+/* Nueva clase para el contenedor ubicado afuera */
+.grupo-cantidad-externo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 15px;
+    margin-bottom: 15px; /* Le da espacio respecto al botón Agregar */
+    padding: 0 5px;
+}
+
+/* El óvalo contenedor principal */
+.control-cantidad-ovalado {
+    display: flex;
+    align-items: center;
+    border: 2px solid #F54388;
+    border-radius: 20px;
+    background-color: #fffdf9;
+    padding: 2px;
+    width: 130px;
+    justify-content: space-between;
+}
+
+/* Estilos para ambos botones (+ y -) */
+.control-cantidad-ovalado button {
+    background-color: #F54388;
+    color: white;
+    border: none;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.1s ease;
+}
+
+/* Efecto sutil al presionar los botones */
+.control-cantidad-ovalado button:active {
+    transform: scale(0.9);
+}
+
+/* Estilo para el número editable del centro */
+.control-cantidad-ovalado .input-cantidad {
+    border: none;
+    background: transparent;
+    text-align: center;
+    width: 45px;
+    font-size: 16px;
+    color: #147D7D;
+    font-weight: bold;
+    outline: none;
+    margin: 0;
+    /* Solución estándar moderna para quitar las flechas en todos los navegadores */
+    appearance: textfield;
+    -webkit-appearance: textfield;
+}
+
+/* Limpieza extra para navegadores basados en Webkit (Chrome/Safari) */
+.control-cantidad-ovalado .input-cantidad::-webkit-outer-spin-button,
+.control-cantidad-ovalado .input-cantidad::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
 /* === FOOTER === */
 footer {
     background-color: #FCEA85; /* Amarillo pastel */
