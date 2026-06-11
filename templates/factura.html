@@ -111,22 +111,19 @@
             </div>
         </div>
 
-        <div class="factura-footer no-pdf">
-            <div class="row gx-2">
-                <div class="col-6">
-                    <button onclick="generarPDF()" class="btn-descargar" style="width: 100%; background: #70C9C2; color: white; border: none; padding: 12px; border-radius: 25px; font-weight: bold; cursor: pointer;">
-                        Descargar PDF
-                    </button>
-                </div>
-                <div class="col-6">
-                    <a href="{{ url_for('menu') }}" class="btn-volver" style="display: block; width: 100%; text-decoration: none; text-align: center; background: #F54388; color: white; padding: 12px; border-radius: 25px; font-weight: bold;">
-                        Volver al menú
-                    </a>
-                </div>
-            </div>
-        </div>
+        
     </div>
+    <div class="factura-footer no-pdf">
 
+        <button onclick="generarPDF()" class="btn-descargar">
+            Descargar PDF
+        </button>
+
+        <a href="{{ url_for('menu') }}" class="btn-volver">
+            Volver al menú
+        </a>
+
+    </div>
 </div>
 
 <script>

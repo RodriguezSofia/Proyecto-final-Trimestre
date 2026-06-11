@@ -7,38 +7,63 @@
     --white: #ffffff;
 }
 
+/* ==========================
+   BODY
+========================== */
+
 body.factura-body {
-    background-image: url('../img/fondo-pastel.png'); 
-    background-size: cover;          /* Ajusta la imagen a toda la pantalla */
-    background-position: center;     /* Centra la imagen */
-    background-repeat: no-repeat;    /* No repite la imagen */
-    background-attachment: fixed;  
+    background-image: url('../img/fondo-pastel.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+
     font-family: 'Quicksand', sans-serif;
     color: var(--text);
+
     margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    padding: 20px;
+
     min-height: 100vh;
 }
+
+/* ==========================
+   CONTENEDOR
+========================== */
 
 .container-factura {
     width: 100%;
     max-width: 650px;
+    margin: 0 auto;
 }
+
+/* ==========================
+   TICKET
+========================== */
 
 .factura-card {
     background: var(--white);
     position: relative;
+
     filter: drop-shadow(0px 10px 20px rgba(0,0,0,0.1));
-    /*zig-zag con clip-path */
+
     clip-path: polygon(
-        0% 2%, 5% 0%, 10% 2%, 15% 0%, 20% 2%, 25% 0%, 30% 2%, 35% 0%, 40% 2%, 45% 0%, 50% 2%, 55% 0%, 60% 2%, 65% 0%, 70% 2%, 75% 0%, 80% 2%, 85% 0%, 90% 2%, 95% 0%, 100% 2%, 
-        100% 98%, 95% 100%, 90% 98%, 85% 100%, 80% 98%, 75% 100%, 70% 98%, 65% 100%, 60% 98%, 55% 100%, 50% 98%, 45% 100%, 40% 98%, 35% 100%, 30% 98%, 25% 100%, 20% 98%, 15% 100%, 10% 98%, 5% 100%, 0% 98%
+        0% 2%, 5% 0%, 10% 2%, 15% 0%, 20% 2%, 25% 0%,
+        30% 2%, 35% 0%, 40% 2%, 45% 0%, 50% 2%, 55% 0%,
+        60% 2%, 65% 0%, 70% 2%, 75% 0%, 80% 2%, 85% 0%,
+        90% 2%, 95% 0%, 100% 2%,
+        100% 98%, 95% 100%, 90% 98%, 85% 100%, 80% 98%,
+        75% 100%, 70% 98%, 65% 100%, 60% 98%, 55% 100%,
+        50% 98%, 45% 100%, 40% 98%, 35% 100%, 30% 98%,
+        25% 100%, 20% 98%, 15% 100%, 10% 98%, 5% 100%, 0% 98%
     );
-    padding: 20px 0;
+
+    overflow: hidden;
 }
+
+/* ==========================
+   HEADER
+========================== */
 
 .factura-header {
     text-align: center;
@@ -50,12 +75,21 @@ body.factura-body {
     font-family: 'Pacifico', cursive;
     color: var(--primary);
     font-size: 2.8rem;
-    margin: 0;
+    margin-top: 25px;
 }
+
+.factura-subtitulo {
+    color: #777;
+    margin-top: 5px;
+    margin-bottom: 0;
+}
+
+/* ==========================
+   CONTENIDO
+========================== */
 
 .factura-body-content {
     padding: 20px 30px;
-    font-size: 1.1rem;  
 }
 
 .factura-info p {
@@ -70,55 +104,148 @@ body.factura-body {
 }
 
 .factura-divider {
-    border-top: 2px dashed #eee;
-    margin: 20px 0;
+    border-top: 2px dashed #ccc;
+    margin: 30px 0;
 }
 
-/* Tabla de detalles */
+/* ==========================
+   TABLA
+========================== */
+
 .tabla-ticket {
     width: 100%;
     border-collapse: collapse;
-    margin: 15px 0;
-    font-size: 0.95rem;
+    margin-top: 20px;
 }
 
-.tabla-ticket td {
-    padding: 8px 0;
-    color: var(--text);
+.tabla-ticket td,
+.tabla-ticket th {
+    padding: 10px 0;
 }
 
 .total-row td {
-    border-top: 2px solid var(--bg);
-    padding-top: 15px;
-    font-size: 1.1rem;
-    color: var(--primary);
+    border-top: 2px solid #f0f0f0;
 }
 
-.text-end { text-align: right; }
+.text-end {
+    text-align: right;
+}
+
+/* ==========================
+   ALERTA
+========================== */
 
 .factura-alerta {
-    background-color: #f1fcf6;
-    color: #155724;
+    background: #fff0f5;
+    border: 1px solid #ffc1d6;
+    padding: 15px;
+    border-radius: 10px;
     text-align: center;
-    padding: 10px;
-    border-radius: 8px;
     font-weight: bold;
-    margin: 20px 0;
+    color: #d43675;
+    margin-bottom: 20px;
 }
 
+/* ==========================
+   BOTONES
+========================== */
+
+.factura-footer {
+    display: flex;
+    gap: 12px;
+    margin-top: 10px;
+    margin-bottom: 35px;
+    padding-bottom: 20px;
+}
+
+.btn-descargar,
 .btn-volver {
-    display: block;
-    background: var(--accent);
-    color: var(--text);
-    text-align: center;
-    text-decoration: none;
-    padding: 12px;
+    flex: 1;
+
+    height: 50px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
     border-radius: 25px;
     font-weight: bold;
+    text-decoration: none;
+
+    border: none;
+
     transition: 0.3s;
 }
 
+.btn-descargar {
+    background: #70C9C2;
+    color: white;
+    cursor: pointer;
+}
+
+.btn-volver {
+    background: #F54388;
+    color: white;
+}
+
+.btn-descargar:hover,
 .btn-volver:hover {
-    transform: scale(1.02);
-    background: #f7e06a;
+    transform: translateY(-2px);
+}
+
+/* ==========================
+   RESPONSIVE TABLET
+========================== */
+
+@media (max-width: 768px) {
+
+    .container-factura {
+        width: 95%;
+    }
+
+    .factura-titulo {
+        font-size: 2rem;
+    }
+
+    .factura-body-content {
+        padding: 15px;
+    }
+
+    .tabla-ticket {
+        font-size: 0.9rem;
+    }
+
+    .tabla-ticket td,
+    .tabla-ticket th {
+        word-break: break-word;
+    }
+
+    .factura-footer {
+        flex-direction: column;
+    }
+}
+
+/* ==========================
+   RESPONSIVE CELULAR
+========================== */
+
+@media (max-width: 480px) {
+
+    .factura-titulo {
+        font-size: 1.7rem;
+    }
+
+    .factura-info p {
+        font-size: 0.8rem;
+    }
+
+    .tabla-ticket {
+        font-size: 0.8rem;
+    }
+
+    .btn-descargar,
+    .btn-volver {
+        height: 48px;
+        font-size: 0.9rem;
+    }
 }
