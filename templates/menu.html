@@ -312,15 +312,16 @@
 
         function eliminarProducto(index) {
             carrito.splice(index, 1);
+            localStorage.setItem('carrito', JSON.stringify(carrito));
             actualizarContadores();
             renderCarrito();
         }
 
         function eliminarTodo() {
             carrito = [];
+            localStorage.removeItem("carrito");
             actualizarContadores();
             renderCarrito();
-            localStorage.removeItem("carrito");
 
             const modalEliminar = new bootstrap.Modal(document.getElementById('modalEliminarTodo'));
             modalEliminar.show();

@@ -125,7 +125,7 @@ async function eliminarCuenta() {
             Swal.fire({
                 icon: 'success',
                 title: 'Cuenta eliminada',
-                text: 'Tu cuenta ha sido desactivada correctamente.',
+                text: 'Tu cuenta ha sido eliminada correctamente.',
                 confirmButtonColor: '#F54388'
             }).then(() => {
                 window.location.href = response.url;
