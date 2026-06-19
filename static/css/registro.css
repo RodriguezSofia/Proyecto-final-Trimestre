@@ -267,3 +267,13 @@ select#ciudad option {
     background-color: #f06292 !important; 
     transform: scale(1.05); 
 }
+/* Quitar el ojo negro nativo que ponen los navegadores */
+.input-box input::-ms-reveal,
+.input-box input::-ms-clear {
+    display: none !important;
+}
+
+.input-box input::-webkit-contacts-auto-fill-button,
+.input-box input::-webkit-credentials-auto-fill-button {
+    display: none !important;
+}

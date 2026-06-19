@@ -251,3 +251,13 @@ body {
     from { transform: scale(0.8); opacity: 0; }
     to { transform: scale(1); opacity: 1; }
 }
+/* Quitar el ojo negro por defecto del navegador en el inicio de sesión */
+.input-box input::-ms-reveal,
+.input-box input::-ms-clear {
+    display: none !important;
+}
+
+.input-box input::-webkit-contacts-auto-fill-button,
+.input-box input::-webkit-credentials-auto-fill-button {
+    display: none !important;
+}
