@@ -119,7 +119,7 @@ async function eliminarCuenta() {
                 'Content-Type': 'application/json'
             }
         });
-        // Si Flask redirecciona correctamente
+        
         if (response.redirected) {
             cerrarModalEliminar();
             Swal.fire({

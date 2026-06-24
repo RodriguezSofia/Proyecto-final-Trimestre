@@ -47,7 +47,6 @@ header h1 {
 
 /* ================= BOTÓN VOLVER ================= */
 
-/* Botón volver */
 .button-volver {
     background: linear-gradient(135deg, #5ed6c3, #4bb8c4);
     color: white;
@@ -171,6 +170,185 @@ li {
     padding: 10px;
     border-bottom: 1px solid #eee;
 }
+
+/* ===========================
+   BOTONES EDITAR / ELIMINAR
+=========================== */
+
+.btn-editar,
+.btn-eliminar{
+    width:110px;
+    height:46px;
+    line-height:46px;
+
+    display:inline-block;
+    text-align:center;
+
+    border:none;
+    border-radius:14px;
+
+    font-weight:700;
+    font-size:16px;
+
+    padding:0 !important;
+    margin:0 !important;
+}
+
+.btn-editar {
+    color: white !important;
+    background: linear-gradient(
+        135deg,
+        #66E0A3,
+        #4fc98a
+    );
+}
+
+.btn-editar:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 12px rgba(102,224,163,.4);
+}
+
+.btn-eliminar {
+    background: linear-gradient(
+        135deg,
+        #ff6b6b,
+        #ff4d4d
+    );
+}
+
+.btn-eliminar:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 12px rgba(255,77,77,.4);
+}
+/* ===========================
+   ACCIONES TABLA
+=========================== */
+
+td:last-child {
+    min-width: 220px;
+}
+
+td form {
+    display: inline-block;
+    margin: 0;
+}
+
+/* ===========================
+   FORMULARIOS DE EDICIÓN
+=========================== */
+
+[id^="editar-producto-"],
+[id^="editar-sabor-"],
+[id^="editar-topping-"] {
+
+    background: #f8fffe;
+    border: 2px dashed var(--cian-acentos);
+    border-radius: 15px;
+    padding: 20px;
+    margin-top: 10px;
+}
+
+[id^="editar-producto-"] form,
+[id^="editar-sabor-"] form,
+[id^="editar-topping-"] form {
+    margin: 0;
+}
+
+[id^="editar-producto-"] input,
+[id^="editar-sabor-"] input,
+[id^="editar-topping-"] input,
+[id^="editar-producto-"] textarea,
+[id^="editar-sabor-"] textarea,
+[id^="editar-topping-"] textarea {
+
+    width: 100%;
+    margin-bottom: 12px;
+}
+
+.grupo-campo {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 12px;
+}
+
+.grupo-campo label {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--chocolate-texto);
+    padding-left: 3px;
+}
+
+.fila-edicion {
+    padding: 30px !important;
+    width: 100%;
+}
+
+.fila-edicion form {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* ===========================
+   LISTAS DE SABORES Y TOPPINGS
+=========================== */
+
+ul li {
+    background: #fafafa;
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 10px;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+ul li strong {
+    flex: 1;
+    color: var(--chocolate-texto);
+}
+
+/* ===========================
+   FILA DE EDICIÓN PRODUCTO
+=========================== */
+
+tr[id^="editar-producto-"] td {
+    background: #f9ffff;
+}
+/* ===========================
+   IMÁGENES DE PRODUCTOS
+=========================== */
+
+.miniatura {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 18px;
+    border: 3px solid white;
+    background: white;
+    box-shadow:
+        0 6px 15px rgba(0,0,0,0.08),
+        0 0 0 2px #f7a8c6;
+    transition: all .3s ease;
+}
+
+.miniatura:hover {
+    transform: scale(1.12);
+    box-shadow:
+        0 12px 25px rgba(0,0,0,0.15),
+        0 0 0 3px #66E0A3;
+}
+
+th:nth-child(2),
+td:nth-child(2) {
+    width: 110px;
+    text-align: center;
+}
+
+
 /* ===========================
    RESPONSIVE TABLA
 =========================== */
@@ -224,5 +402,32 @@ li {
         gap: 10px;
         height: auto;
         padding: 20px;
+    }
+
+    ul li {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    ul li button,
+    ul li form button {
+        width: 100%;
+    }
+
+    td:last-child {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    td:last-child button,
+    td:last-child form button {
+        width: 100%;
+    }
+
+    [id^="editar-producto-"],
+    [id^="editar-sabor-"],
+    [id^="editar-topping-"] {
+        padding: 15px;
     }
 }

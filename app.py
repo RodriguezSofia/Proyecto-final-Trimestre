@@ -722,23 +722,39 @@ def admin_pedidos():
 
 @app.route('/admin/productos')
 def admin_productos():
-   
-
     conexion = conectar_bd()
     cursor = conexion.cursor(cursor_factory=RealDictCursor)
 
-    cursor.execute('SELECT * FROM public."Productos" ORDER BY "Id_producto";')
+    cursor.execute("""
+        SELECT *
+        FROM public."Productos"
+        WHERE activo = TRUE
+        ORDER BY "Id_producto";
+    """)
     productos = cursor.fetchall()
 
-    cursor.execute('SELECT * FROM public."Sabor" ORDER BY "Id_sabor";')
+    cursor.execute("""
+        SELECT *
+        FROM public."Sabor"
+        WHERE activo = TRUE
+        ORDER BY "Id_sabor";
+    """)
     sabores = cursor.fetchall()
 
     cursor.execute("""
         SELECT * FROM public."Toppings"
         WHERE "Nombre_toppings" != 'Sin topping'
+        AND activo = TRUE
         ORDER BY "Id_toppings";
     """)
     toppings = cursor.fetchall()
+    
+    cursor.execute("""
+    SELECT *
+    FROM public."Historial_productos"
+    ORDER BY "Id_historial" DESC
+""")
+    historial = cursor.fetchall()
 
     cursor.close()
     conexion.close()
@@ -747,7 +763,8 @@ def admin_productos():
         'admin/productos.html',
         productos=productos,
         sabores=sabores,
-        toppings=toppings
+        toppings=toppings,
+        historial=historial
     )
 
 @app.route('/crear_producto', methods=['POST'])
@@ -777,6 +794,9 @@ def crear_producto():
             ("Nombre_producto", "Precio_producto", "Imagen", "Descripción", "Numero_bolas")
             VALUES (%s, %s, %s, %s, %s);
         """, (nombre, precio, nombre_imagen, descripcion, numero_bolas))
+        
+        nuevo_id = cursor.fetchone()[0] 
+        guardar_historial( "Producto", "Crear", nuevo_id, nombre )
 
         conexion.commit()
         cursor.close()
@@ -787,6 +807,132 @@ def crear_producto():
     except Exception as e:
         print("Error creando producto:", e)
         return "Error al crear producto", 500
+
+# ======================================================
+# EDITAR PRODUCTO
+# ======================================================
+
+@app.route('/editar_producto/<int:id_producto>', methods=['POST'])
+def editar_producto(id_producto):
+
+    if "usuario_id" not in session or session.get("usuario_tipo") != 1:
+        return redirect(url_for('login'))
+
+    nombre = request.form.get('nombre')
+    precio = request.form.get('precio')
+    descripcion = request.form.get('descripcion')
+    numero_bolas = request.form.get('numero_bolas')
+
+    conexion = conectar_bd()
+    cursor = conexion.cursor(cursor_factory=RealDictCursor)
+
+    cursor.execute("""
+        SELECT *
+        FROM public."Productos"
+        WHERE "Id_producto" = %s
+    """, (id_producto,))
+
+    producto = cursor.fetchone()
+
+    imagen_actual = producto["Imagen"]
+
+    imagen = request.files.get("imagen")
+
+    if imagen and imagen.filename != '' and allowed_file(imagen.filename):
+
+        nombre_imagen = secure_filename(imagen.filename)
+
+        ruta = os.path.join(
+            'static',
+            'img',
+            nombre_imagen
+        )
+
+        imagen.save(ruta)
+
+    else:
+        nombre_imagen = imagen_actual
+
+    cursor.execute("""
+        UPDATE public."Productos"
+        SET
+            "Nombre_producto" = %s,
+            "Precio_producto" = %s,
+            "Descripción" = %s,
+            "Numero_bolas" = %s,
+            "Imagen" = %s
+        WHERE "Id_producto" = %s
+    """,
+    (
+        nombre,
+        precio,
+        descripcion,
+        numero_bolas,
+        nombre_imagen,
+        id_producto
+    ))
+
+    guardar_historial(
+        "Producto",
+        "Editar",
+        id_producto,
+        nombre
+    )
+
+    conexion.commit()
+
+    cursor.close()
+    conexion.close()
+
+    return redirect(url_for('admin_productos'))
+
+
+# ======================================================
+# ELIMINAR PRODUCTO
+# ======================================================
+
+@app.route('/eliminar_producto/<int:id_producto>', methods=['POST'])
+def eliminar_producto(id_producto):
+
+    if "usuario_id" not in session or session.get("usuario_tipo") != 1:
+        return redirect(url_for('login'))
+
+    try:
+        conexion = conectar_bd()
+        cursor = conexion.cursor()
+
+        cursor.execute("""
+            SELECT "Nombre_producto"
+            FROM public."Productos"
+            WHERE "Id_producto" = %s
+        """, (id_producto,))
+
+        producto = cursor.fetchone()
+
+        nombre_producto = producto[0] 
+        cursor.execute("""
+            UPDATE public."Productos"
+            SET activo = FALSE
+            WHERE "Id_producto" = %s
+        """, (id_producto,))
+
+        guardar_historial(
+            "Producto",
+            "Eliminar",
+            id_producto,
+            nombre_producto
+        )
+
+        conexion.commit()
+
+        cursor.close()
+        conexion.close()
+
+        return redirect(url_for('admin_productos'))
+
+    except Exception as e:
+        print("Error eliminando producto:", e)
+        return "Error al eliminar producto", 500
 
 @app.route('/crear_sabor', methods=['POST'])
 def crear_sabor():
@@ -813,6 +959,15 @@ def crear_sabor():
             ("Nombre_sabor", "Descripción", "Imagen")
             VALUES (%s, %s, %s);
         """, (nombre, descripcion, nombre_imagen))
+        
+        nuevo_id = cursor.fetchone()[0]
+
+        guardar_historial(
+            "Sabor",
+            "Crear",
+            nuevo_id,
+            nombre
+        )
 
         conexion.commit()
         cursor.close()
@@ -823,6 +978,126 @@ def crear_sabor():
     except Exception as e:
         print("Error creando sabor:", e)
         return "Error al crear sabor", 500
+    
+
+# ======================================================
+# EDITAR SABOR
+# ======================================================
+
+@app.route('/editar_sabor/<int:id_sabor>', methods=['POST'])
+def editar_sabor(id_sabor):
+
+    if "usuario_id" not in session or session.get("usuario_tipo") != 1:
+        return redirect(url_for('login'))
+
+    nombre = request.form.get('nombre')
+    descripcion = request.form.get('descripcion')
+
+    conexion = conectar_bd()
+    cursor = conexion.cursor(cursor_factory=RealDictCursor)
+
+    cursor.execute("""
+        SELECT *
+        FROM public."Sabor"
+        WHERE "Id_sabor" = %s
+    """, (id_sabor,))
+
+    sabor = cursor.fetchone()
+
+    imagen_actual = sabor["Imagen"]
+
+    imagen = request.files.get("imagen")
+
+    if imagen and imagen.filename != '' and allowed_file(imagen.filename):
+
+        nombre_imagen = secure_filename(imagen.filename)
+
+        ruta = os.path.join(
+            'static',
+            'img',
+            nombre_imagen
+        )
+
+        imagen.save(ruta)
+
+    else:
+        nombre_imagen = imagen_actual
+
+    cursor.execute("""
+        UPDATE public."Sabor"
+        SET
+            "Nombre_sabor" = %s,
+            "Descripción" = %s,
+            "Imagen" = %s
+        WHERE "Id_sabor" = %s
+    """,
+    (
+        nombre,
+        descripcion,
+        nombre_imagen,
+        id_sabor
+    ))
+
+    guardar_historial(
+        "Sabor",
+        "Editar",
+        id_sabor,
+        nombre
+    )
+
+    conexion.commit()
+
+    cursor.close()
+    conexion.close()
+
+    return redirect(url_for('admin_productos'))
+
+
+# ======================================================
+# ELIMINAR SABOR
+# ======================================================
+@app.route('/eliminar_sabor/<int:id_sabor>', methods=['POST'])
+def eliminar_sabor(id_sabor):
+
+    if "usuario_id" not in session or session.get("usuario_tipo") != 1:
+        return redirect(url_for('login'))
+
+    try:
+        conexion = conectar_bd()
+        cursor = conexion.cursor()
+
+        cursor.execute("""
+            SELECT "Nombre_sabor"
+            FROM public."Sabor"
+            WHERE "Id_sabor" = %s
+        """, (id_sabor,))
+
+        sabor = cursor.fetchone()
+
+        nombre_sabor = sabor[0]
+
+        cursor.execute("""
+            UPDATE public."Sabor"
+            SET activo = FALSE
+            WHERE "Id_sabor" = %s
+        """, (id_sabor,))
+
+        guardar_historial(
+            "Sabor",
+            "Eliminar",
+            id_sabor,
+            nombre_sabor
+        )
+
+        conexion.commit()
+        cursor.close()
+        conexion.close()
+
+        return redirect(url_for('admin_productos'))
+
+    except Exception as e:
+        print("Error eliminando sabor:", e)
+        return "Error al eliminar sabor", 500
 
 @app.route('/crear_topping', methods=['POST'])
 def crear_topping():
@@ -830,7 +1105,7 @@ def crear_topping():
         return redirect(url_for('login'))
 
     nombre = request.form.get('nombre')
-
+    stock = request.form.get('stock')
     if nombre.lower() == "sin topping":
         return redirect(url_for('admin_productos'))
 
@@ -848,9 +1123,18 @@ def crear_topping():
 
         cursor.execute("""
             INSERT INTO public."Toppings"
-            ("Nombre_toppings", "Imagen")
-            VALUES (%s, %s);
-        """, (nombre, nombre_imagen))
+            ("Nombre_toppings", "Imagen", stock)
+            VALUES (%s, %s, %s);
+        """, (nombre, nombre_imagen, stock))
+        
+        nuevo_id = cursor.fetchone()[0]
+
+        guardar_historial(
+            "Topping",
+            "Crear",
+            nuevo_id,
+            nombre
+        )
 
         conexion.commit()
         cursor.close()
@@ -861,6 +1145,157 @@ def crear_topping():
     except Exception as e:
         print("Error creando topping:", e)
         return "Error al crear topping", 500
+
+# ======================================================
+# EDITAR TOPPING
+# ======================================================
+
+@app.route('/editar_topping/<int:id_topping>', methods=['POST'])
+def editar_topping(id_topping):
+
+    if "usuario_id" not in session or session.get("usuario_tipo") != 1:
+        return redirect(url_for('login'))
+
+    nombre = request.form.get('nombre')
+    stock = request.form.get('stock')
+    conexion = conectar_bd()
+    cursor = conexion.cursor(cursor_factory=RealDictCursor)
+
+    cursor.execute("""
+        SELECT *
+        FROM public."Toppings"
+        WHERE "Id_toppings" = %s
+    """, (id_topping,))
+    
+    topping = cursor.fetchone()
+
+    imagen_actual = topping["Imagen"]
+    imagen = request.files.get("imagen")
+
+    if imagen and imagen.filename != '' and allowed_file(imagen.filename):
+        nombre_imagen = secure_filename(imagen.filename)
+
+        ruta = os.path.join(
+            'static',
+            'img',
+            nombre_imagen
+        )
+        imagen.save(ruta)
+
+    else:
+        nombre_imagen = imagen_actual
+
+    cursor.execute("""
+        UPDATE public."Toppings"
+        SET
+            "Nombre_toppings" = %s,
+            "Imagen" = %s,
+            stock = %s
+        WHERE "Id_toppings" = %s
+    """,
+    (
+        nombre,
+        nombre_imagen,
+        stock,
+        id_topping
+    ))
+
+    guardar_historial(
+        "Topping",
+        "Editar",
+        id_topping,
+        nombre
+    )
+
+    conexion.commit()
+    cursor.close()
+    conexion.close()
+    return redirect(url_for('admin_productos'))
+
+# ======================================================
+# ELIMINAR TOPPING
+# ======================================================
+@app.route('/eliminar_topping/<int:id_topping>', methods=['POST'])
+def eliminar_topping(id_topping):
+
+    if "usuario_id" not in session or session.get("usuario_tipo") != 1:
+        return redirect(url_for('login'))
+
+    try:
+        conexion = conectar_bd()
+        cursor = conexion.cursor()
+
+        cursor.execute("""
+            SELECT "Nombre_toppings"
+            FROM public."Toppings"
+            WHERE "Id_toppings" = %s
+        """, (id_topping,))
+
+        topping = cursor.fetchone()
+
+        nombre_topping = topping[0]
+
+        cursor.execute("""
+            UPDATE public."Toppings"
+            SET activo = FALSE
+            WHERE "Id_toppings" = %s
+        """, (id_topping,))
+
+        guardar_historial(
+            "Topping",
+            "Eliminar",
+            id_topping,
+            nombre_topping
+        )
+
+        conexion.commit()
+
+        cursor.close()
+        conexion.close()
+
+        return redirect(url_for('admin_productos'))
+
+    except Exception as e:
+        print("Error eliminando topping:", e)
+        return "Error al eliminar topping", 500
+
+def guardar_historial(tipo, accion, registro_id, nombre):
+
+    try:
+
+        print("ENTRO A HISTORIAL")
+
+        conexion = conectar_bd()
+        cursor = conexion.cursor()
+
+        cursor.execute("""
+            INSERT INTO public."Historial_productos"
+            (
+                "Tipo",
+                "Accion",
+                "Registro_id",
+                "Nombre",
+                "Usuario"
+            )
+            VALUES (%s,%s,%s,%s,%s)
+        """,
+        (
+            tipo,
+            accion,
+            registro_id,
+            nombre,
+            session.get("usuario_nombre")
+        ))
+
+        conexion.commit()
+
+        print("HISTORIAL GUARDADO")
+
+        cursor.close()
+        conexion.close()
+
+    except Exception as e:
+        print("Error historial:", e)
 
 @app.route('/admin/clientes')
 def admin_clientes():

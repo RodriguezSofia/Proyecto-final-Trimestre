@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestión de Productos</title>
-
     <link rel="stylesheet" href="{{ url_for('static', filename='css/productos.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="icon" href="/static/img/logo_01.png?v=2">
@@ -13,18 +12,18 @@
 
 <header>
     <h1>Gestión de Productos • Heladería Annia</h1>
-    
+
     {% if session['usuario_tipo'] == 1 %}
-        <a href="{{ url_for('admin_panel') }}" class="button-volver"> Volver al Panel</a>
+        <a href="{{ url_for('admin_panel') }}" class="button-volver">Volver al Panel</a>
     {% elif session['usuario_tipo'] == 2 %}
-        <a href="{{ url_for('panel_trabajadores') }}" class="button-volver"> Volver al Panel</a>
+        <a href="{{ url_for('panel_trabajadores') }}" class="button-volver">Volver al Panel</a>
     {% endif %}
 </header>
 
 <main class="contenedor">
     <!-- ================= PRODUCTOS ================= -->
     <section>
-        <h2> Agregar Producto</h2>
+        <h2>Agregar Producto</h2>
 
         <form method="POST"
               action="{{ url_for('crear_producto') }}"
@@ -41,29 +40,109 @@
 
             <span class="nombre-imagen">Ningún archivo seleccionado</span>
 
-
             <textarea name="descripcion" placeholder="Descripción"></textarea>
 
             <button type="submit">Guardar Producto</button>
         </form>
 
-        <h3> Productos registrados</h3>
+        <h3>Productos registrados</h3>
+
         <table class="tabla-productos">
             <thead>
                 <tr>
                     <th>ID</th>
+                    <th>Imagen</th>
                     <th>Nombre</th>
+                    <th>Descripción</th>
                     <th>Precio</th>
-                    <th>Nº Bolas</th>
+                    <th>Bolas</th>
+                    <th>Acciones</th>
                 </tr>
             </thead>
+
             <tbody>
                 {% for p in productos %}
                 <tr>
-                    <td data-label="ID">{{ p.Id_producto }}</td>
-                    <td data-label="Nombre">{{ p.Nombre_producto }}</td>
-                    <td data-label="Precio">${{ p.Precio_producto }}</td>
-                    <td data-label="Nº Bolas">{{ p.Numero_bolas }}</td>
+                    <td>{{ p.Id_producto }}</td>
+                    <td data-label="Imagen">
+                        {% if p.Imagen %}
+                            <img src="{{ url_for('static', filename='img/' + p.Imagen) }}"
+                                class="miniatura">
+                        {% else %}
+                            Sin imagen
+                        {% endif %}
+                    </td>
+                    <td>{{ p.Nombre_producto }}</td>
+                    <td>{{ p.Descripción }}</td>
+                    <td>${{ p.Precio_producto }}</td>
+                    <td>{{ p.Numero_bolas }}</td>
+
+                    <td class="acciones">
+                        <button type="button" class="btn-editar"
+                                onclick="toggleEditarProducto('{{ p.Id_producto }}')">
+                            Editar
+                        </button>
+
+                        <form method="POST"
+                              action="{{ url_for('eliminar_producto', id_producto=p.Id_producto) }}"
+                              style="display:inline;">
+                            <button type="submit" class="btn-eliminar"
+                                    onclick="return confirm('¿Eliminar este producto?')">
+                                Eliminar
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+
+                <tr id="editar-producto-{{ p.Id_producto }}" style="display:none;">
+                    <td colspan="7">
+
+                        <form method="POST"
+                              action="{{ url_for('editar_producto', id_producto=p.Id_producto) }}"
+                              enctype="multipart/form-data">
+
+                            
+                        <div class="grupo-campo">
+                            <label>Nombre del producto</label>
+                            <input type="text"
+                                name="nombre"
+                                value="{{ p.Nombre_producto }}"
+                                required>
+                        </div>
+
+                        <div class="grupo-campo">
+                            <label>Precio</label>
+                            <input type="number"
+                                name="precio"
+                                value="{{ p.Precio_producto }}"
+                                required>
+                        </div>
+
+                        <div class="grupo-campo">
+                            <label>Número de bolas</label>
+                            <input type="number"
+                                name="numero_bolas"
+                                value="{{ p.Numero_bolas }}"
+                                required>
+                        </div>
+
+                        <div class="grupo-campo">
+                            <label>Descripción</label>
+                            <textarea name="descripcion">{{ p.Descripción }}</textarea>
+                        </div>
+
+                        <div class="grupo-campo">
+                            <label>Cambiar imagen</label>
+                            <input type="file" name="imagen">
+                        </div>
+
+                        <button type="submit">
+                            Guardar Cambios
+                        </button>
+
+                        </form>
+
+                    </td>
                 </tr>
                 {% endfor %}
             </tbody>
@@ -72,7 +151,8 @@
 
     <!-- ================= SABORES ================= -->
     <section>
-        <h2> Agregar Sabor</h2>
+
+        <h2>Agregar Sabor</h2>
 
         <form method="POST"
               action="{{ url_for('crear_sabor') }}"
@@ -92,23 +172,108 @@
             <button type="submit">Guardar Sabor</button>
         </form>
 
-        <h3> Sabores existentes</h3>
-        <ul>
-            {% for s in sabores %}
-                <li>{{ s.Nombre_sabor }}</li>
-            {% endfor %}
-        </ul>
+        <h3>Sabores existentes</h3>
+
+        <table class="tabla-productos">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Imagen</th>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for s in sabores %}
+
+                <tr>
+                    <td>{{ s.Id_sabor }}</td>
+
+                    <td>
+                        {% if s.Imagen %}
+                            <img src="{{ url_for('static', filename='img/' + s.Imagen) }}"
+                                class="miniatura">
+                        {% else %}
+                            Sin imagen
+                        {% endif %}
+                    </td>
+
+                    <td>{{ s.Nombre_sabor }}</td>
+                    <td>{{ s.Descripción }}</td>
+
+                    <td class="acciones">
+
+                        <button type="button" class="btn-editar"
+                                onclick="toggleEditarSabor('{{ s.Id_sabor }}')">
+                            Editar
+                        </button>
+
+                        <form method="POST"
+                            action="{{ url_for('eliminar_sabor', id_sabor=s.Id_sabor) }}"
+                            style="display:inline;">
+
+                            <button type="submit" class="btn-eliminar"
+                                    onclick="return confirm('¿Eliminar este sabor?')">
+                                Eliminar
+                            </button>
+
+                        </form>
+
+                    </td>
+                </tr>
+
+                <tr id="editar-sabor-{{ s.Id_sabor }}" style="display:none;">
+                    <td colspan="5">
+
+                        <form method="POST"
+                            action="{{ url_for('editar_sabor', id_sabor=s.Id_sabor) }}"
+                            enctype="multipart/form-data">
+
+                            <div class="grupo-campo">
+                                <label>Nombre del sabor</label>
+                                <input type="text"
+                                    name="nombre"
+                                    value="{{ s.Nombre_sabor }}"
+                                    required>
+                            </div>
+
+                            <div class="grupo-campo">
+                                <label>Descripción</label>
+                                <textarea name="descripcion">{{ s.Descripción }}</textarea>
+                            </div>
+
+                            <div class="grupo-campo">
+                                <label>Cambiar imagen</label>
+                                <input type="file" name="imagen">
+                            </div>
+
+                            <button type="submit">
+                                Guardar Cambios
+                            </button>
+
+                        </form>
+
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </section>
 
     <!-- ================= TOPPINGS ================= -->
     <section>
-        <h2> Agregar Topping</h2>
+
+        <h2>Agregar Topping</h2>
 
         <form method="POST"
-              action="{{ url_for('crear_topping') }}"
-              enctype="multipart/form-data">
+            action="{{ url_for('crear_topping') }}"
+            enctype="multipart/form-data">
 
             <input type="text" name="nombre" placeholder="Nombre del topping" required>
+            <input type="number" name="stock" placeholder="Stock" required>
             <label class="file-upload">
                 Subir imagen
                 <input type="file" name="imagen" accept="image/*" onchange="mostrarNombre(this)">
@@ -119,18 +284,147 @@
             <button type="submit">Guardar Topping</button>
         </form>
 
-        <h3> Toppings existentes</h3>
-        <ul>
-            {% for t in toppings %}
+        <h3>Toppings existentes</h3>
+
+        <table class="tabla-productos">
+
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Imagen</th>
+                    <th>Nombre</th>
+                    <th>Stock</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for t in toppings %}
+
                 {% if t.Nombre_toppings != 'Sin topping' %}
-                    <li>{{ t.Nombre_toppings }}</li>
+
+                <tr>
+
+                    <td>{{ t.Id_toppings }}</td>
+
+                    <td>
+                        {% if t.Imagen %}
+                            <img src="{{ url_for('static', filename='img/' + t.Imagen) }}"
+                                class="miniatura">
+                        {% else %}
+                            Sin imagen
+                        {% endif %}
+                    </td>
+
+                    <td>{{ t.Nombre_toppings }}</td>
+
+                    <td>{{ t.stock }}</td>
+
+                    <td class="acciones">
+
+                        <button type="button" class="btn-editar"
+                                onclick="toggleEditarTopping('{{ t.Id_toppings }}')">
+                            Editar
+                        </button>
+
+                        <form method="POST"
+                            action="{{ url_for('eliminar_topping', id_topping=t.Id_toppings) }}"
+                            style="display:inline;">
+
+                            <button type="submit" class="btn-eliminar"
+                                    onclick="return confirm('¿Eliminar este topping?')">
+                                Eliminar
+                            </button>
+
+                        </form>
+
+                    </td>
+
+                </tr>
+
+                <tr id="editar-topping-{{ t.Id_toppings }}" style="display:none;">
+                    <td colspan="4">
+
+                        <form method="POST"
+                            action="{{ url_for('editar_topping', id_topping=t.Id_toppings) }}"
+                            enctype="multipart/form-data">
+
+                            <div class="grupo-campo">
+                                <label>Nombre del topping</label>
+                                <input type="text"
+                                    name="nombre"
+                                    value="{{ t.Nombre_toppings }}"
+                                    required>
+                            </div>
+
+                            <div class="grupo-campo">
+                                <label>Stock disponible</label>
+                                <input type="number"
+                                    name="stock"
+                                    value="{{ t.stock }}"
+                                    required>
+                            </div>
+
+                            <div class="grupo-campo">
+                                <label>Cambiar imagen</label>
+                                <input type="file" name="imagen">
+                            </div>
+
+                            <button type="submit">
+                                Guardar Cambios
+                            </button>
+
+                        </form>
+
+                    </td>
+                </tr>
+
                 {% endif %}
-            {% endfor %}
-        </ul>
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+    </section>
+
+    <!-- ================= HISTORIAL ================= -->
+    <section>
+
+        <h2>Historial de cambios</h2>
+
+        <table class="tabla-productos">
+
+            <thead>
+                <tr>
+                    <th>Tipo</th>
+                    <th>Acción</th>
+                    <th>ID Registro</th>
+                    <th>Nombre</th>
+                    <th>Usuario</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for h in historial %}
+
+                <tr>
+                    <td>{{ h.Tipo }}</td>
+                    <td>{{ h.Accion }}</td>
+                    <td>{{ h.Registro_id }}</td>
+                    <td>{{ h.Nombre }}</td>
+                    <td>{{ h.Usuario }}</td>
+                </tr>
+
+                {% endfor %}
+            </tbody>
+        </table>
     </section>
 
 </main>
 <script>
+
 function mostrarNombre(input) {
     const texto = input.files.length > 0
         ? "Imagen seleccionada: " + input.files[0].name
@@ -138,6 +432,36 @@ function mostrarNombre(input) {
 
     input.parentElement.nextElementSibling.textContent = texto;
 }
+
+function toggleEditarProducto(id){
+    let fila = document.getElementById("editar-producto-" + id);
+
+    if(fila.style.display === "none"){
+        fila.style.display = "table-row";
+    }else{
+        fila.style.display = "none";
+    }
+}
+function toggleEditarSabor(id){
+    let fila = document.getElementById("editar-sabor-" + id);
+
+    if(fila.style.display === "none"){
+        fila.style.display = "table-row";
+    }else{
+        fila.style.display = "none";
+    }
+}
+
+function toggleEditarTopping(id){
+    let fila = document.getElementById("editar-topping-" + id);
+
+    if(fila.style.display === "none"){
+        fila.style.display = "table-row";
+    }else{
+        fila.style.display = "none";
+    }
+}
+
 </script>
 
 </body>
