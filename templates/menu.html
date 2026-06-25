@@ -136,7 +136,7 @@
                             <label>Cantidad:</label>
                             <div class="control-cantidad-ovalado">
                                 <button type="button" class="btn-cantidad-menos" onclick="cambiarCantidad('{{ p.Id_producto }}', -1)">-</button>
-                                <input type="number" id="cantidad-{{ p.Id_producto }}" class="input-cantidad" value="1" min="1" oninput="validarEntrada(this)">
+                                <input type="number" id="cantidad-{{ p.Id_producto }}" class="input-cantidad" value="1" min="0" oninput="if(this.value < 0) this.value = 0;">
                                 <button type="button" class="btn-cantidad-mas" onclick="cambiarCantidad('{{ p.Id_producto }}', 1)">+</button>
                             </div>
                         </div>
@@ -258,27 +258,50 @@
         }
 
         // Valida que lo que el usuario digite directamente sea correcto
-        function validarEntrada(input) {
-            let valor = parseInt(input.value);
-            if (isNaN(valor) || valor < 1) {
-                input.value = 1;
-            } else {
-                input.value = valor;
-            }
-        }
-
-        function agregarAlCarritoConCantidad(idProducto, nombre, precio, numeroBolas) {
-            let sabores = [];
-            let topping = null;
+        // Valida que el número sea correcto cuando el usuario cambia de casilla
+// Valida que el número sea correcto y muestra un aviso temporal si es 0 o vacío
+// Esta función ahora solo limpia el número en silencio cuando el usuario hace clic por fuera
+function validarEntrada(input) {
+    let valor = parseInt(input.value);
     
-        // Capturamos la cantidad que el usuario eligió o escribió
-        const cantidadElegida = parseInt(document.getElementById(`cantidad-${idProducto}`).value) || 1;
-        for (let i = 1; i <= numeroBolas; i++) {
+    // Si se sale de la cajita y dejó el campo vacío, un 0 o un negativo...
+    if (isNaN(valor) || valor < 1) {
+        input.value = 1; // Lo regresa a 1 automáticamente sin mostrar carteles
+    }
+}      
+function agregarAlCarritoConCantidad(idProducto, nombre, precio, numeroBolas) {
+    let sabores = [];
+    let topping = null;
+    
+    // 1. Capturamos la cantidad real que el usuario tiene escrita en la pantalla
+    const cantidadInput = document.getElementById(`cantidad-${idProducto}`);
+    let cantidadElegida = parseInt(cantidadInput.value);
+
+    // ============================================================
+    // ¡EL BLOQUEO DEFINITIVO CON CARTEL EN EL CENTRO! 
+    // ============================================================
+    if (isNaN(cantidadElegida) || cantidadElegida <= 0) {
+        Swal.fire({
+            title: '¡Falta la cantidad!',
+            text: 'Por favor, ingresa cuántos helados deseas llevar antes de agregarlos al carrito.',
+            icon: 'warning',
+            confirmButtonColor: '#F54388', // El color rosado de Annia Ice Cream
+            confirmButtonText: 'Entendido'
+        });
+        
+        cantidadInput.value = 1; // Reseteamos la casilla a 1 para ayudar al cliente
+        return; // ¡FRENAMOS EL CÓDIGO! No pasa al "for" ni añade nada al carrito
+    }
+    // ============================================================
+
+    // 2. Aquí continúa el código de tu compañera tal cual:
+    for (let i = 1; i <= numeroBolas; i++) {
         const select = document.getElementById(`sabor-${idProducto}-${i}`);
         if (select) {
             sabores.push({ id: Number(select.value), nombre: select.options[select.selectedIndex].text });
         }
     }
+    // ... (el resto de tu función hacia abajo se queda exactamente igual)
 
     const selectTopping = document.getElementById(`topping-${idProducto}`);
     if (selectTopping && selectTopping.value !== "") {
@@ -381,16 +404,53 @@
             carritoContainer.appendChild(totalDiv);
         }
 
-      function validarCompra() {
+ function validarCompra() {
+    console.log("1. Función validarCompra iniciada");
+
     if (!usuarioLogueado) {
+        console.log("2. Usuario no logueado, abriendo modalLogin");
+        const modalElement = document.getElementById('modalCarrito');
+        const modalInstancia = bootstrap.Modal.getInstance(modalElement);
+        if (modalInstancia) modalInstancia.hide();
+
         new bootstrap.Modal(document.getElementById("modalLogin")).show();
         return;
     }
-    // Si el carrito está vacío, la función se detiene aquí en silencio
-    if (carrito.length === 0) return; 
+    
+    console.log("3. Cantidad de productos en carrito:", carrito.length);
+    
+    // ====================================================================
+    // SI EL CARRITO ESTÁ VACÍO, AVISAR Y QUEDARSE EN EL MENÚ
+    // ====================================================================
+    if (carrito.length === 0) {
+        // 1. Cerramos el modal del carrito para que el usuario pueda ver el menú de fondo
+        const modalElement = document.getElementById('modalCarrito');
+        const modalInstancia = bootstrap.Modal.getInstance(modalElement);
+        if (modalInstancia) modalInstancia.hide();
 
+        // 2. Mostramos una alerta bonita avisando que el carrito está vacío
+        Swal.fire({
+            title: '¡Tu carrito está vacío!',
+            text: 'Elige primero tus helados favoritos de nuestro menú para continuar.',
+            icon: 'warning',
+            confirmButtonColor: '#F54388', // El color rosado de tu marca
+            confirmButtonText: 'Ver Menú'
+        });
+        
+        return; // Detiene la función aquí para que NO viaje a confirmación
+    }
+
+    // ====================================================================
+    // SI SÍ TIENE PRODUCTOS, CONTINÚA NORMALMENTE A CONFIRMACIÓN
+    // ====================================================================
     localStorage.setItem("carrito", JSON.stringify(carrito));
     localStorage.setItem("total", carrito.reduce((s, p) => s + p.precio, 0));
+    
+    // Cerramos el modal antes de redirigir para que todo se vea fluido
+    const modalElement = document.getElementById('modalCarrito');
+    const modalInstancia = bootstrap.Modal.getInstance(modalElement);
+    if (modalInstancia) modalInstancia.hide();
+
     window.location.href = "/confirmar_pedido";
 }
         document.addEventListener("DOMContentLoaded", () => {
