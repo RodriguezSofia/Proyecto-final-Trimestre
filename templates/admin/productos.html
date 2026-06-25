@@ -41,7 +41,7 @@
             <span class="nombre-imagen">Ningún archivo seleccionado</span>
 
             <textarea name="descripcion" placeholder="Descripción"></textarea>
-
+ 
             <button type="submit">Guardar Producto</button>
         </form>
 
@@ -79,19 +79,15 @@
 
                     <td class="acciones">
                         <button type="button" class="btn-editar"
-                                onclick="toggleEditarProducto('{{ p.Id_producto }}')">
-                            Editar
-                        </button>
-
-                        <form method="POST"
-                              action="{{ url_for('eliminar_producto', id_producto=p.Id_producto) }}"
-                              style="display:inline;">
-                            <button type="submit" class="btn-eliminar"
-                                    onclick="return confirm('¿Eliminar este producto?')">
-                                Eliminar
-                            </button>
-                        </form>
-                    </td>
+                        onclick="toggleEditarProducto('{{ p.Id_producto }}')">
+                        Editar
+                    </button>
+                    
+                    <button type="button" class="btn-eliminar" 
+                    onclick="abrirModalEliminar(`{{ url_for('eliminar_producto', id_producto=p.Id_producto) }}`, `{{ p.Nombre_producto }}`)">
+                    Eliminar
+                </button>
+            </td>
                 </tr>
 
                 <tr id="editar-producto-{{ p.Id_producto }}" style="display:none;">
@@ -205,24 +201,16 @@
                     <td>{{ s.Descripción }}</td>
 
                     <td class="acciones">
-
                         <button type="button" class="btn-editar"
-                                onclick="toggleEditarSabor('{{ s.Id_sabor }}')">
-                            Editar
-                        </button>
-
-                        <form method="POST"
-                            action="{{ url_for('eliminar_sabor', id_sabor=s.Id_sabor) }}"
-                            style="display:inline;">
-
-                            <button type="submit" class="btn-eliminar"
-                                    onclick="return confirm('¿Eliminar este sabor?')">
-                                Eliminar
-                            </button>
-
-                        </form>
-
-                    </td>
+                        onclick="toggleEditarSabor('{{ s.Id_sabor }}')">
+                        Editar
+                    </button>
+                    
+                    <button type="button" class="btn-eliminar"
+                    onclick="abrirModalEliminar(`{{ url_for('eliminar_sabor', id_sabor=s.Id_sabor) }}`, `{{ s.Nombre_sabor }}`)">
+                    Eliminar
+                </button>
+            </td>
                 </tr>
 
                 <tr id="editar-sabor-{{ s.Id_sabor }}" style="display:none;">
@@ -322,24 +310,16 @@
                     <td>{{ t.stock }}</td>
 
                     <td class="acciones">
-
                         <button type="button" class="btn-editar"
-                                onclick="toggleEditarTopping('{{ t.Id_toppings }}')">
-                            Editar
+                         onclick="toggleEditarTopping('{{ t.Id_toppings }}')">
+                         Editar
                         </button>
-
-                        <form method="POST"
-                            action="{{ url_for('eliminar_topping', id_topping=t.Id_toppings) }}"
-                            style="display:inline;">
-
-                            <button type="submit" class="btn-eliminar"
-                                    onclick="return confirm('¿Eliminar este topping?')">
-                                Eliminar
-                            </button>
-
-                        </form>
-
-                    </td>
+                        
+                        <button type="button" class="btn-eliminar"
+                        onclick="abrirModalEliminar(`{{ url_for('eliminar_topping', id_topping=t.Id_toppings) }}`, `{{ t.Nombre_toppings }}`)">
+                        Eliminar
+                    </button>
+                </td>
 
                 </tr>
 
@@ -461,8 +441,36 @@ function toggleEditarTopping(id){
         fila.style.display = "none";
     }
 }
+/*función para abrir el modal de confirmación de eliminación*/
+function abrirModalEliminar(urlAccion, nombreElemento) {
+    // 1. Le pasamos la ruta de Flask al formulario del modal
+    document.getElementById('form-eliminar-modal').action = urlAccion;
+    
+    // 2. Cambiamos el texto para mostrar qué estamos borrando
+    document.getElementById('modal-mensaje').textContent = `¿Estás seguro de que deseas eliminar "${nombreElemento}"?`;
+    
+    // 3. Mostramos el modal en pantalla
+    document.getElementById('modal-eliminar').style.display = 'flex';
+}
+
+function cerrarModalEliminar() {
+    // Oculta el modal si le dan a cancelar
+    document.getElementById('modal-eliminar').style.display = 'none';
+}
 
 </script>
-
+<div id="modal-eliminar" class="modal-personalizado" style="display: none;">
+    <div class="modal-contenido">
+        <h3>Confirmar eliminación</h3>
+        <p id="modal-mensaje">¿Estás seguro de que deseas eliminar este elemento?</p>
+        <div class="modal-acciones">
+            <form id="form-eliminar-modal" method="POST" action="">
+                <button type="submit" class="btn-confirmar-modal">Aceptar</button>
+            </form>
+            <button type="button" class="btn-cancelar-modal" onclick="cerrarModalEliminar()">Cancelar</button>
+        </div>
+    </div>
+</div>
+</div>
 </body>
 </html>

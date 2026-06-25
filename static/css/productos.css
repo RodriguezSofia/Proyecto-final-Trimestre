@@ -133,6 +133,107 @@ button[type="submit"]:hover {
     background-color: var(--menta-sabores);
 }
 
+/*=======moldal de eliminar========*/
+
+/* Fondo oscuro translúcido que cubre toda la pantalla */
+.modal-personalizado {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.6); /* Sombra difuminada */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999; /* Asegura que aparezca por encima de las tablas y el header */
+}
+
+/* Caja blanca del contenedor del modal */
+.modal-contenido {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 420px;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(255, 255, 255, 0.3);
+    font-family: 'Poppins', sans-serif; /* Usa la misma fuente de tu proyecto */
+    animation: aparecerModal 0.3s ease;
+}
+
+/* Animación suave de aparición */
+@keyframes aparecerModal {
+    from { transform: translateY(-20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.modal-contenido h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: #2c3e50;
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.modal-contenido p {
+    color: #555;
+    font-size: 15px;
+    line-height: 1.5;
+    margin-bottom: 25px;
+}
+
+/* Contenedor de botones */
+.modal-acciones {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-top: 5px;
+}
+
+/* Estilo base para los botones internos del modal */
+.btn-confirmar-modal, .btn-cancelar-modal {
+    width: 130px; /* Les damos exactamente el mismo ancho fijo */
+    height: 42px; /* Les damos exactamente la misma altura fija */
+    border: none;
+    border-radius: 10px; /* Bordes redondeados idénticos */
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 15px;
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+/* Botón Aceptar (Peligro / Eliminar) */
+.btn-confirmar-modal {
+    background-color: #e74c3c; 
+    color: #ffffff !important;
+}
+
+.btn-confirmar-modal:hover {
+    background-color: #c0392b;
+    transform: scale(1.02);
+}
+
+/* Botón Cancelar */
+.btn-cancelar-modal {
+    background-color: #e0e0e0;
+    color: #333;
+}
+
+.btn-cancelar-modal:hover {
+    background-color: #d4d4d4;
+    transform: scale(1.02);
+}
+ .btn-eliminar{
+    transform: translateY(-2px);
+    color: white !important;
+}
+
 /* ================= TABLA CIAN ================= */
 table {
     width: 100%;
