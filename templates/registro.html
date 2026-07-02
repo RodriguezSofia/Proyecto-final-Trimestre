@@ -17,7 +17,7 @@
         <h1>Registro</h1>
         
         <div class="input-box">
-            <input type="text" id="nombre" placeholder="Nombre completo" required>
+            <input type="text" id="nombre" placeholder="Nombre completo" oninput="validarNombre(this)" required>
             <i class="fas fa-user"></i>
         </div>
         
@@ -43,7 +43,7 @@
         </div>
 
         <div class="input-box">
-            <input type="text" id="telefono" placeholder="Teléfono * (para contactarte)" required>
+            <input type="text" id="telefono" placeholder="Teléfono * (para contactarte)" oninput="validarTelefono(this)" required>
             <i class="fas fa-phone"></i>
         </div>
 
@@ -59,6 +59,22 @@
     </div>
 
 <script>
+        // ========================================================
+        // NUEVA LÓGICA: Filtros en tiempo real para Nombre y Teléfono
+        // ========================================================
+        function validarNombre(input) {
+            // Elimina cualquier cosa que NO sea letra (con acentos/eñes) o espacio
+            input.value = input.value.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ ]/g, '');
+        }
+
+        function validarTelefono(input) {
+            // Elimina cualquier cosa que NO sea un número del 0 al 9
+            input.value = input.value.replace(/[^0-9]/g, '');
+        }
+
+        // ========================================================
+        // Lógica existente de tu formulario
+        // ========================================================
         const inputContrasena = document.getElementById('contrasena');
         const inputConfirmar = document.getElementById('confirmar-contrasena');
         const errorValidacion = document.getElementById('error-validacion');
@@ -86,7 +102,6 @@
             const telefono = document.getElementById('telefono').value.trim();
             const Id_ciudad = document.getElementById('ciudad').value.trim();
 
-            // Configuración estética reutilizable
             const alertConfig = {
                 customClass: {
                     popup: 'swal-heladeria-popup',
@@ -95,10 +110,9 @@
                     confirmButton: 'swal-heladeria-confirm-btn',
                     icon: 'swal-heladeria-icon'
                 },
-                buttonsStyling: false // Obliga a usar nuestro CSS
+                buttonsStyling: false 
             };
 
-            // 1. Validar campos vacíos
             if (!nombre || !correo || !contrasena || !confirmarContrasena || !direccion || !telefono || !Id_ciudad) {
                 Swal.fire({
                     ...alertConfig,
@@ -109,7 +123,6 @@
                 return;
             }
 
-            // 2. Validar contraseñas
             if (contrasena !== confirmarContrasena) {
                 errorValidacion.style.display = 'block';
                 Swal.fire({
@@ -133,7 +146,6 @@
                 Id_ciudad: Id_ciudad
             };
 
-            // 3. Indicador de carga estilizado
             Swal.fire({
                 ...alertConfig,
                 title: 'Preparando tu cuenta...',
@@ -177,22 +189,18 @@
             });
         }
 
-        // ========================================================
-        // NUEVA LÓGICA: Mostrar/Ocultar para los dos ojos del registro
-        // ========================================================
         document.querySelectorAll('.toggle-password').forEach(ojo => {
             ojo.addEventListener('click', function () {
-                // Busca el input que está justo al lado de este ojo
                 const input = this.previousElementSibling;
                 
                 if (input.type === 'password') {
                     input.type = 'text';
                     this.classList.remove('bi-eye-fill');
-                    this.classList.add('bi-eye-slash-fill'); // Cambia a ojo tachado
+                    this.classList.add('bi-eye-slash-fill'); 
                 } else {
                     input.type = 'password';
                     this.classList.remove('bi-eye-slash-fill');
-                    this.classList.add('bi-eye-fill'); // Vuelve a ojo abierto
+                    this.classList.add('bi-eye-fill'); 
                 }
             });
         });
